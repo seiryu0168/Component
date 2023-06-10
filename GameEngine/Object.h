@@ -57,13 +57,27 @@ public:
 	void AddCollider(Collider* collider);
 	void DelCollider(const Object& obj);
 
+
+	void KillMe() { killFlag_ = true; }
+	bool IsActive() { return activeFlag_; }
+	bool IsUpdate() { return isUpdate_; }
+	std::string GetObjectName() { return objectName_; }
 	Object* GetParent();
 	Object* GetRootObject();
-	std::string GetTag() { return objectTag_; }
+	Object* FindObject(std::string name);
+	Object* FindObjectAtTag(std::string tagName);
+
+	Object* FindChild(std::string name);
+	Object* FindChildAtTag(std::string tagName);
+
+	Object* GetScene();
+	std::list<Object*>* GetChildList() { return &childList_; }
 
 	void KillAllChildren();
 	void KillObjectSub(Object* pTarget);
 	void PushBackChild(Object* pTarget);
+
+
 	template <class T>
 	T* AddComponent(Object* atcObj)
 	{
@@ -103,4 +117,16 @@ public:
 		return returnList;
 	}
 	//void DeleteComponent(Component* comp);
+
+	template<class T>
+	T* Instantiate(Object* parent)
+	{
+		T* p;
+		p = new T(parent);
+		if (parent != nullptr)
+		{
+			parent->PushBackChild(p);
+		}
+		return p;
+	}
 };

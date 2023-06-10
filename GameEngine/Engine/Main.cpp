@@ -155,7 +155,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 				pRootJob->UpdateSub();
 				Camera::Update();
 #ifdef _DEBUG
-				DebugUI::Debug(pRootJob->FindChild("SceneManager"));
+				DebugUI::Debug((GameObject*)pRootJob->FindChild("SceneManager"));
 				DebugUI::Log();
 				ImGui::Render();
 #endif 

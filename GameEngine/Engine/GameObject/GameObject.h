@@ -8,6 +8,7 @@
 #include"../Collider/SphereCollider.h"
 #include"../Collider/OBBCollider.h"
 #include"../../TransformComponent.h"
+#include"../../DrawComponent.h"
 #include<vector>
 #include"Transform.h"
 
@@ -16,92 +17,92 @@ class GameObject : public Object
 	friend class Collider;
 	friend class Component;
 protected:
-	std::list<GameObject*> childList_;	//子リスト
-	std::list<Collider*> colliderList_; //コライダーリスト
+	//std::list<GameObject*> childList_;	//子リスト
+	//std::list<Collider*> colliderList_; //コライダーリスト
 	//Transform	transform_;				//オブジェクトの情報
-	GameObject* pParent_;				//親オブジェクトの情報
-	std::string	objectName_;			//名前
-	int objectID_;						//オブジェクト固有の番号
-	std::string objectTag_;				//オブジェクトに任意でつけられる識別用の名前
-	bool killFlag_;						//キルするかどうか
-	bool activeFlag_;					//オブジェクトがアクティブ(Update呼ばれる)かどうか
-	bool isUpdate_;
-	bool startFlag_;					//一回もアクティブになってない場合false
+	//Object* pParent_;				//親オブジェクトの情報
+	//std::string	objectName_;			//名前
+	//int objectID_;						//オブジェクト固有の番号
+	//std::string objectTag_;				//オブジェクトに任意でつけられる識別用の名前
+	//bool killFlag_;						//キルするかどうか
+	//bool activeFlag_;					//オブジェクトがアクティブ(Update呼ばれる)かどうか
+	//bool isUpdate_;
+	//bool startFlag_;					//一回もアクティブになってない場合false
 	bool drawFlag_;						//描画するかどうか
 	TransformComponent transform_;
 	std::list<Component*> componentList_;
 
 public:
 	GameObject();
-	GameObject(GameObject* parent, const std::string& name);
+	GameObject(Object* parent, const std::string& name);
 	virtual ~GameObject() {};
 
 	virtual void Draw() {};
 	virtual void SecondDraw() {};
 	virtual void ThirdDraw() {};
 
-	void UpdateSub();
-	void FixedUpdateSub();
+	//void UpdateSub();
+	//void FixedUpdateSub();
 	void DrawSub();
 	void SecondDrawSub();
 	void ThirdDrawSub();
-	void ReleaseSub();
+	//void ReleaseSub();
 
-	template <class T>
-	T* AddComponent(GameObject* atcObj)
-	{
-		T* p;
-		p = new T(atcObj);
-		componentList_.push_back(p);
-		return p;
-	}
-	template<class T>
-	T* GetComponent(int num=0) 
-	{
-		int compnum = 0;
-		for (auto&& i : componentList_)
-		{
-			if (typeid(T) == typeid(*i))
-			{
-				if(compnum == num)
-				return (T*)i;
+	//template <class T>
+	//T* AddComponent(GameObject* atcObj)
+	//{
+	//	T* p;
+	//	p = new T(atcObj);
+	//	componentList_.push_back(p);
+	//	return p;
+	//}
+	//template<class T>
+	//T* GetComponent(int num=0) 
+	//{
+	//	int compnum = 0;
+	//	for (auto&& i : componentList_)
+	//	{
+	//		if (typeid(T) == typeid(*i))
+	//		{
+	//			if(compnum == num)
+	//			return (T*)i;
 
-				compnum++;
-			}
-		}
-		return nullptr;
-	}
+	//			compnum++;
+	//		}
+	//	}
+	//	return nullptr;
+	//}
 
-	template<class T>
-	std::list<Component*> GetComponentList()
-	{
-		std::list<Component*> returnList;
-		for (auto&& i : componentList_)
-		{
-			if (typeid(T) == typeid(*i))
-			{
-				returnList.push_back(*i);
-			}
-		}
-		return returnList;
-	}
-	//void DeleteComponent(Component* comp);
+	//template<class T>
+	//std::list<Component*> GetComponentList()
+	//{
+	//	std::list<Component*> returnList;
+	//	for (auto&& i : componentList_)
+	//	{
+	//		if (typeid(T) == typeid(*i))
+	//		{
+	//			returnList.push_back(*i);
+	//		}
+	//	}
+	//	return returnList;
+	//}
+	////void DeleteComponent(Component* comp);
 
-	template<class T>
-	T* Instantiate(GameObject* parent)
-	{
-		T* p;
-		p = new T(parent);
-		if (parent != nullptr)
-		{
-			parent->PushBackChild(p);
-		}
-		return p;
-	}
+	//template<class T>
+	//T* Instantiate(GameObject* parent)
+	//{
+	//	T* p;
+	//	p = new T(parent);
+	//	if (parent != nullptr)
+	//	{
+	//		parent->PushBackChild(p);
+	//	}
+	//	return p;
+	//}
 
-	void KillMe() { killFlag_ = true; }
-	bool IsActive() { return activeFlag_; }
-	bool IsUpdate() { return isUpdate_; }
+	//void KillMe() { killFlag_ = true; }
+	//bool IsActive() { return activeFlag_; }
+	//bool IsUpdate() { return isUpdate_; }
 	bool IsDraw() { return drawFlag_; }
 	void SetDrawFlag(bool flag) { drawFlag_ = flag; }
 	
@@ -114,9 +115,9 @@ public:
 
 
 
-			void KillAllChildren();
-			void KillObjectSub(GameObject* pTarget);
-			void PushBackChild(GameObject* pTarget);
+			//void KillAllChildren();
+			//void KillObjectSub(GameObject* pTarget);
+			//void PushBackChild(GameObject* pTarget);
 
 	///////////////////////////各セッターゲッター//////////////////////////////////////
 			void SetPositionX(float x) { transform_.position_.x = x; }
@@ -146,15 +147,15 @@ public:
 			XMFLOAT3  GetPosition();
 			XMFLOAT3  GetRotate();
 			XMFLOAT3  GetScale();
-			std::list<GameObject*>* GetChildList() { return &childList_; }
-			std::string GetObjectName() { return objectName_; }
-			int GetObjectID() { return objectID_; }
+			//std::list<GameObject*>* GetChildList() { return &childList_; }
+			//std::string GetObjectName() { return objectName_; }
+			//int GetObjectID() { return objectID_; }
 
 			//指定した座標に回転させる行列を作る関数
 			XMMATRIX LookAtMatrix(XMFLOAT3 target, XMVECTOR frontVec, XMVECTOR upVec = XMVectorSet(0, 1, 0, 0));
 
 	//親オブジェクト取得
-	GameObject* GetParent();
+	/*GameObject* GetParent();
 	GameObject* GetRootJob();
 	GameObject* FindObject(std::string name);
 	GameObject* FindObjectAtTag(std::string tagName);
@@ -162,12 +163,12 @@ public:
 	GameObject* FindChild(std::string name);
 	GameObject* FindChildAtTag(std::string tagName);
 	
-	GameObject* GetScene();
+	GameObject* GetScene();*/
 	XMMATRIX    GetWorldMatrix();
 
 
 
 	//ワールド座標取得
-	XMFLOAT3    GetWorldPosition() { return TransformComponent::Float3Add(GetParent()->transform_.position_, transform_.position_); }
+	XMFLOAT3    GetWorldPosition() { return TransformComponent::Float3Add(((GameObject*)GetParent())->transform_.position_, transform_.position_); }
 
 };

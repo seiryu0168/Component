@@ -161,6 +161,7 @@
   <ItemGroup>
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="ComponentManager.cpp" />
+    <ClCompile Include="DrawComponent.cpp" />
     <ClCompile Include="Easing.cpp" />
     <ClCompile Include="DebugUI.cpp" />
     <ClCompile Include="Engine\Collider\BoxCollider.cpp" />
@@ -207,6 +208,7 @@
   <ItemGroup>
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentManager.h" />
+    <ClInclude Include="DrawComponent.h" />
     <ClInclude Include="Easing.h" />
     <ClInclude Include="DebugUI.h" />
     <ClInclude Include="Engine\Collider\BoxCollider.h" />

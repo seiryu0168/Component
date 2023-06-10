@@ -1,7 +1,8 @@
 #include "TestObject.h"
 #include"Engine/ResourceManager/Model.h"
 #include"TransformComponent.h"
-TestObject::TestObject(GameObject* poarent)
+TestObject::TestObject(Object* parent)
+	:GameObject(parent,"TestObject")
 {
 	AddComponent<TransformComponent>(this);
 }
@@ -18,12 +19,12 @@ void TestObject::Initialize()
 
 void TestObject::Update()
 {
-	GetComponent<TransformComponent>()->position_.z += 0.3f;
+	transform_.position_.x += 0.3f;
 }
 
 void TestObject::Draw()
 {
-	ModelManager::SetTransform(hModel_, *GetComponent<TransformComponent>());
+	ModelManager::SetTransform(hModel_, transform_);
 	ModelManager::Draw(hModel_);
 }
 

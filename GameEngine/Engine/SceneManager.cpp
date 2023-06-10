@@ -6,7 +6,7 @@
 #include"ResourceManager/Audio.h"
 
 
-SceneManager::SceneManager(GameObject* parent) 
+SceneManager::SceneManager(Object* parent) 
 	: GameObject(parent, "SceneManager"),
 	currentSceneID_(SCENE_ID::SCENE_ID_MAIN),
 	nextSceneID_(SCENE_ID::SCENE_ID_MAIN),
@@ -24,7 +24,7 @@ void SceneManager::Initialize()
 
 void SceneManager::Update()
 {
-	if (/*currentSceneID_ != nextSceneID_*/isSceneChange_&&countDown_ == 0)
+	if (isSceneChange_&&countDown_ == 0)
 	{
 		KillAllChildren();
 		ModelManager::AllDeleteModelNum();

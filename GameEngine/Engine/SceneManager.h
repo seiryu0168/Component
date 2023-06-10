@@ -13,7 +13,7 @@ class SceneManager : public GameObject
 	bool isSceneChange_;
 	UINT countDown_;
 public:
-	SceneManager(GameObject* parent);
+	SceneManager(Object* parent);
 
 	void Initialize() override;
 	void Update() override;

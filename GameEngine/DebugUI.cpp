@@ -133,7 +133,8 @@ void DebugUI::ObjectCount(GameObject* object)
 		//Ä‹A‚ÅŽ©•ª‚ÌŽq‚Ìî•ñ‚ð•\Ž¦
 		for (auto itr = object->GetChildList()->begin(); itr != object->GetChildList()->end(); itr++)
 		{
-			ObjectCount(*itr);
+			if (typeid(itr) == typeid(GameObject*))
+			ObjectCount((GameObject*)*itr);
 		}
 		ImGui::TreePop();
 	}

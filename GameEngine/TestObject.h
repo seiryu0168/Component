@@ -5,7 +5,7 @@ class TestObject : public GameObject
 private:
 	int hModel_;
 public:
-	TestObject(GameObject* poarent);
+	TestObject(Object* parent);
 	~TestObject();
 
 	void Initialize() override;

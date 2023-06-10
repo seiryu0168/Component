@@ -2,7 +2,15 @@
 #include"Engine\SAFE_DELETE_RELEASE.h"
 
 int objectcount = 0;
-Object::Object(Object* parent, std::string name)
+Object::Object(Object* parent, const std::string name)
+	:pParent_(parent),
+	objectName_(name),
+	objectTag_(""),
+	killFlag_(0),
+	activeFlag_(true),
+	isUpdate_(true),
+	startFlag_(false),
+	objectID_(-1)
 {
 }
 
@@ -39,25 +47,25 @@ void Object::UpdateSub()
 		(*itr)->UpdateSub();
 	}
 	////////“–‚½‚è”»’è///////////
-	for (auto itr = childList_.begin(); itr != childList_.end();)
-	{
-		if (activeFlag_)
-		{
+	//for (auto itr = childList_.begin(); itr != childList_.end();)
+	//{
+	//	if (activeFlag_)
+	//	{
 
-			if ((*itr)->killFlag_ == true)
-			{
-				(*itr)->BeforeDeath();
-				(*itr)->ReleaseSub();
-				delete* itr;
-				itr = childList_.erase(itr);
-			}
-			/*else
-			{
-				(*itr)->Collision(GetParent());
-				itr++;
-			}*/
-		}
-	}
+	//		if ((*itr)->killFlag_ == true)
+	//		{
+	//			(*itr)->BeforeDeath();
+	//			(*itr)->ReleaseSub();
+	//			delete* itr;
+	//			itr = childList_.erase(itr);
+	//		}
+	//		/*else
+	//		{
+	//			(*itr)->Collision(GetParent());
+	//			itr++;
+	//		}*/
+	//	}
+	//}
 }
 
 void Object::FixedUpdateSub()
@@ -128,9 +136,62 @@ Object* Object::GetParent()
 
 Object* Object::GetRootObject()
 {
-	if (pParent_->GetParent() == nullptr)
+	if (this->GetParent() == nullptr)
 		return this;
-	return GetParent()->GetRootObject();
+	else
+		return GetParent()->GetRootObject();
+}
+
+Object* Object::FindObject(std::string name)
+{
+	return GetRootObject()->FindChild(name);
+}
+
+Object* Object::FindObjectAtTag(std::string tagName)
+{
+	return GetRootObject()->FindChildAtTag(tagName);
+}
+
+Object* Object::FindChild(std::string name)
+{
+	if (childList_.empty())
+		return nullptr;
+
+	for (Object* obj : childList_)
+	{
+		if (obj->objectName_ == name)
+			return obj;
+
+		Object* objChild = obj->FindChild(name);
+		if (objChild != nullptr)
+			return objChild;
+
+	}
+	return nullptr;
+}
+
+Object* Object::FindChildAtTag(std::string tagName)
+{
+	if (childList_.empty())
+		return nullptr;
+
+	for (Object* obj : childList_)
+	{
+		if (obj->objectTag_== tagName)
+			return obj;
+
+		Object* objChild = obj->FindChildAtTag(tagName);
+		if (objChild != nullptr)
+			return objChild;
+
+	}
+	return nullptr;
+}
+
+Object* Object::GetScene()
+{
+	auto itr = GetRootObject()->GetChildList()->begin();
+	return (*(*itr)->GetChildList()->begin());
 }
 
 void Object::KillAllChildren()

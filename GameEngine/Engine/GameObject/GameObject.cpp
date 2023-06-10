@@ -4,104 +4,94 @@ GameObject::GameObject() : GameObject(nullptr,"")
 {
 
 }
-GameObject::GameObject(GameObject* parent, const std::string& name)
-	: pParent_(parent),
-	objectName_(name),
-	objectTag_(""),
-	killFlag_(0),
-	activeFlag_(true),
-	isUpdate_(true),
-	startFlag_(false),
-	drawFlag_(true),
-	objectID_(-1)
+GameObject::GameObject(Object* parent, const std::string& name)
+	:Object(parent,name),
+	drawFlag_(true)
 {
 	if(parent)
 	{
-		transform_.pParent_ = &parent->transform_;
-	}
+		transform_.pParent_ = &((GameObject*)parent)->transform_;
 
-
-}
-
-void GameObject::UpdateSub()
-{
-	/////////アップデート/////////
-	if (startFlag_ == false&&activeFlag_)
-	{
-		GameObject* p = GetRootJob();
-		this->Initialize();
-		this->startFlag_ = true;
-	}
-	else if(startFlag_&&
-			activeFlag_&&
-			isUpdate_)
-	Update();
-
-
-
-	for (auto itr = childList_.begin(); itr != childList_.end(); itr++)
-	{
-		(*itr)->UpdateSub();
-	}
-	////////当たり判定///////////
-	for (auto itr = childList_.begin(); itr != childList_.end();)
-	{
-		if (activeFlag_)
-		{
-
-			if ((*itr)->killFlag_ == true)
-			{
-				(*itr)->BeforeDeath();
-				(*itr)->ReleaseSub();
-				delete* itr;
-				itr = childList_.erase(itr);
-			}
-			else
-			{
-				(*itr)->Collision(GetParent());
-				itr++;
-			}
-		}
 	}
 }
 
-void GameObject::FixedUpdateSub()
-{
-	FixedUpdate();
-	for(auto itr = childList_.begin();itr!=childList_.end();itr++)
-	{
-		(*itr)->FixedUpdateSub();
-	}
+//void GameObject::UpdateSub()
+//{
+//	/////////アップデート/////////
+//	if (startFlag_ == false&&activeFlag_)
+//	{
+//		GameObject* p = GetRootJob();
+//		this->Initialize();
+//		this->startFlag_ = true;
+//	}
+//	else if(startFlag_&&
+//			activeFlag_&&
+//			isUpdate_)
+//	Update();
+//
+//
+//
+//	for (auto itr = childList_.begin(); itr != childList_.end(); itr++)
+//	{
+//		(*itr)->UpdateSub();
+//	}
+//	////////当たり判定///////////
+//	for (auto itr = childList_.begin(); itr != childList_.end();)
+//	{
+//		if (activeFlag_)
+//		{
+//
+//			if ((*itr)->killFlag_ == true)
+//			{
+//				(*itr)->BeforeDeath();
+//				(*itr)->ReleaseSub();
+//				delete* itr;
+//				itr = childList_.erase(itr);
+//			}
+//			else
+//			{
+//				(*itr)->Collision(GetParent());
+//				itr++;
+//			}
+//		}
+//	}
+//}
 
-	for (auto itr = childList_.begin(); itr != childList_.end();)
-	{
-		if ((*itr)->killFlag_ == true)
-		{
-			(*itr)->ReleaseSub();
-			delete* itr;
-			itr = childList_.erase(itr);
-		}
-		else
-		{
-			(*itr)->Collision(GetParent());
-			itr++;
-		}
-	}
-}
+//void GameObject::FixedUpdateSub()
+//{
+//	FixedUpdate();
+//	for(auto itr = childList_.begin();itr!=childList_.end();itr++)
+//	{
+//		(*itr)->FixedUpdateSub();
+//	}
+//
+//	for (auto itr = childList_.begin(); itr != childList_.end();)
+//	{
+//		if ((*itr)->killFlag_ == true)
+//		{
+//			(*itr)->ReleaseSub();
+//			delete* itr;
+//			itr = childList_.erase(itr);
+//		}
+//		else
+//		{
+//			(*itr)->Collision(GetParent());
+//			itr++;
+//		}
+//	}
+//}
 
 void GameObject::DrawSub()
 {
 	if (drawFlag_ && startFlag_)
 	{
-		/*for (int i = 0; i < componentList_.size(); i++)
-		{
-			componentList_[i]->Update(true);
-		}*/
+
 		Draw();
 	}
-	for (auto i = childList_.begin(); i != childList_.end(); i++)
+	for (auto itr=childList_.begin();itr!=childList_.end();itr++)
 	{
-		(*i)->DrawSub();
+		if(typeid(itr)==typeid(GameObject*))
+		((GameObject*)(*itr))->DrawSub();
 	}
 
 }
@@ -113,9 +103,10 @@ void GameObject::SecondDrawSub()
 		SecondDraw();
 	}
 
-	for (auto i = childList_.begin(); i != childList_.end(); i++)
+	for (auto itr = childList_.begin(); itr != childList_.end(); itr++)
 	{
-		(*i)->SecondDrawSub();
+		if (typeid(itr) == typeid(GameObject*))
+			((GameObject*)(*itr))->SecondDrawSub();
 	}
 }
 
@@ -126,26 +117,27 @@ void GameObject::ThirdDrawSub()
 		ThirdDraw();
 	}
 
-	for (auto i = childList_.begin(); i != childList_.end(); i++)
+	for (auto itr = childList_.begin(); itr != childList_.end(); itr++)
 	{
-		(*i)->ThirdDrawSub();
+		if (typeid(itr) == typeid(GameObject*))
+			((GameObject*)(*itr))->ThirdDrawSub();
 	}
 }
 
-void GameObject::ReleaseSub()
-{
-	for (auto i = colliderList_.begin(); i != colliderList_.end(); i++)
-	{
-		SAFE_DELETE(*i);
-	}
-	for (auto i = childList_.begin(); i != childList_.end(); i++)
-	{
-		(*i)->ReleaseSub();
-		SAFE_DELETE(*i);
-	}
-
-	Release();
-}
+//void GameObject::ReleaseSub()
+//{
+//	for (auto i = colliderList_.begin(); i != colliderList_.end(); i++)
+//	{
+//		SAFE_DELETE(*i);
+//	}
+//	for (auto i = childList_.begin(); i != childList_.end(); i++)
+//	{
+//		(*i)->ReleaseSub();
+//		SAFE_DELETE(*i);
+//	}
+//
+//	Release();
+//}
 
 //void GameObject::AddComponent(Component* comp)
 //{
@@ -197,7 +189,11 @@ void GameObject::Collision(GameObject* pTarget)
 
 	for (auto itr = pTarget->childList_.begin(); itr != pTarget->childList_.end(); itr++)
 	{
-		Collision(*itr);
+		if (typeid(itr) == typeid(GameObject*))
+		{
+
+		Collision((GameObject*)*itr);
+		}
 	}
 }
 
@@ -225,127 +221,127 @@ void GameObject::DelCollider(const GameObject& obj)
 	}
 }
 
-void GameObject::KillAllChildren()
-{
-	//リストに何も無ければ終わり
-	if (childList_.empty())
-	{
-		return;
-	}
-	//リストにある子どもを全員消す
-	for (auto itr = this->childList_.begin(); itr != this->childList_.end();)
-	{
-		KillObjectSub(*itr);
-		delete* itr;
-		itr = this->childList_.erase(itr);
-	}
-}
+//void GameObject::KillAllChildren()
+//{
+//	//リストに何も無ければ終わり
+//	if (childList_.empty())
+//	{
+//		return;
+//	}
+//	//リストにある子どもを全員消す
+//	for (auto itr = this->childList_.begin(); itr != this->childList_.end();)
+//	{
+//		KillObjectSub(*itr);
+//		delete* itr;
+//		itr = this->childList_.erase(itr);
+//	}
+//}
 
-void GameObject::KillObjectSub(GameObject* pTarget)
-{
-	if (!pTarget->childList_.empty())
-	{
-		for (auto itr = pTarget->childList_.begin(); itr != pTarget->childList_.end();)
-		{
-			KillObjectSub(*itr);
-			SAFE_DELETE(*itr);
-			itr = pTarget->childList_.erase(itr);
-		}
-		pTarget->childList_.clear();
-	}
-	pTarget->Release();
-}
-void GameObject::PushBackChild(GameObject* pTarget)
-{
-	assert(pTarget != nullptr);
-	pTarget->pParent_ = this;
-	//pTarget->objectID_ = objectcount++;
-	childList_.push_back(pTarget);
-}
+//void GameObject::KillObjectSub(GameObject* pTarget)
+//{
+//	if (!pTarget->childList_.empty())
+//	{
+//		for (auto itr = pTarget->childList_.begin(); itr != pTarget->childList_.end();)
+//		{
+//			KillObjectSub(*itr);
+//			SAFE_DELETE(*itr);
+//			itr = pTarget->childList_.erase(itr);
+//		}
+//		pTarget->childList_.clear();
+//	}
+//	pTarget->Release();
+//}
+//void GameObject::PushBackChild(GameObject* pTarget)
+//{
+//	assert(pTarget != nullptr);
+//	pTarget->pParent_ = this;
+//	//pTarget->objectID_ = objectcount++;
+//	childList_.push_back(pTarget);
+//}
 
 //親を取得
-GameObject* GameObject::GetParent()
-{
-	return pParent_;
-}
+//GameObject* GameObject::GetParent()
+//{
+//	return pParent_;
+//}
 
-GameObject* GameObject::GetRootJob()
-{
-	if (this->GetParent() == nullptr)
-	{
-		return this;
-	}
-	else return GetParent()->GetRootJob();
-}
+//GameObject* GameObject::GetRootJob()
+//{
+//	if (this->GetParent() == nullptr)
+//	{
+//		return this;
+//	}
+//	else return GetParent()->GetRootJob();
+//}
 
-GameObject* GameObject::FindObject(std::string name)
-{
-	GameObject* obj= GetRootJob()->FindChild(name);
-	return obj;
-}
+//GameObject* GameObject::FindObject(std::string name)
+//{
+//	GameObject* obj= GetRootJob()->FindChild(name);
+//	return obj;
+//}
 
-GameObject* GameObject::FindObjectAtTag(std::string tagName)
-{
-	GameObject* obj = GetRootJob()->FindChildAtTag(tagName);
-	return obj;
-}
+//GameObject* GameObject::FindObjectAtTag(std::string tagName)
+//{
+//	GameObject* obj = GetRootJob()->FindChildAtTag(tagName);
+//	return obj;
+//}
 
-GameObject* GameObject::FindChild(std::string name)
-{
-	//子がいなかったらnullptr返す
-	if (this->childList_.empty())
-	{
-		return nullptr;
-	}
+//GameObject* GameObject::FindChild(std::string name)
+//{
+//	//子がいなかったらnullptr返す
+//	if (this->childList_.empty())
+//	{
+//		return nullptr;
+//	}
+//
+//	//子の中から探す
+//	for (auto itr = this->childList_.begin(); itr != this->childList_.end(); itr++)
+//	{
+//		//名前が一致したら返す
+//		if (name == (*itr)->objectName_)
+//		{
+//			return *itr;
+//		}
+//
+//		//孫のオブジェクトも探す
+//		GameObject* obj = (*itr)->FindChild(name);
+//		if (obj != nullptr)
+//		{
+//			return obj;
+//		}
+//	}	
+//	//見つからなかった時
+//	return nullptr;
+//}
 
-	//子の中から探す
-	for (auto itr = this->childList_.begin(); itr != this->childList_.end(); itr++)
-	{
-		//名前が一致したら返す
-		if (name == (*itr)->objectName_)
-		{
-			return *itr;
-		}
+//GameObject* GameObject::FindChildAtTag(std::string tagName)
+//{
+//	if (this->childList_.empty())
+//	{
+//		return nullptr;
+//	}
+//	//同じタグがあったら返す
+//	for (auto i : this->childList_)
+//	{
+//		if (i->GetTag() == tagName)
+//		{
+//			return i;
+//		}
+//		//孫も調べる
+//		GameObject* obj = i->FindChildAtTag(tagName);
+//		if (obj != nullptr)
+//			return obj;
+//	}
+//
+//	//見つからなかった時
+//	return nullptr;
+//}
 
-		//孫のオブジェクトも探す
-		GameObject* obj = (*itr)->FindChild(name);
-		if (obj != nullptr)
-		{
-			return obj;
-		}
-	}	
-	//見つからなかった時
-	return nullptr;
-}
-
-GameObject* GameObject::FindChildAtTag(std::string tagName)
-{
-	if (this->childList_.empty())
-	{
-		return nullptr;
-	}
-	//同じタグがあったら返す
-	for (auto i : this->childList_)
-	{
-		if (i->GetTag() == tagName)
-		{
-			return i;
-		}
-		//孫も調べる
-		GameObject* obj = i->FindChildAtTag(tagName);
-		if (obj != nullptr)
-			return obj;
-	}
-
-	//見つからなかった時
-	return nullptr;
-}
-
-GameObject* GameObject::GetScene()
-{
-	auto itr = GetRootJob()->GetChildList()->begin();
-	return (*(*itr)->GetChildList()->begin());
-}
+//GameObject* GameObject::GetScene()
+//{
+//	auto itr = GetRootJob()->GetChildList()->begin();
+//	return (*(*itr)->GetChildList()->begin());
+//}
 
 void GameObject::SetActive(bool status)
 {

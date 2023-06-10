@@ -4,7 +4,7 @@ class MainScene : public GameObject
 {
 	GameObject* pControlObject_;
 public:
-	MainScene(GameObject* parent);
+	MainScene(Object* parent);
 	~MainScene();
 	void Initialize() override;
 	void Update() override;
