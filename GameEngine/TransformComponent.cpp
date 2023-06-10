@@ -1,6 +1,6 @@
 #include "TransformComponent.h"
 
-TransformComponent::TransformComponent(GameObject* atcObj)
+TransformComponent::TransformComponent(Object* atcObj)
 	:Component(atcObj)
 {
 	matTranslate_ = XMMatrixIdentity();

@@ -3,22 +3,22 @@
 #include<typeinfo>
 #include<memory>
 #include<list>
+#include"../../Object.h"
 #include"../Collider/BoxCollider.h"
 #include"../Collider/SphereCollider.h"
 #include"../Collider/OBBCollider.h"
-#include"../../Component.h"
+#include"../../TransformComponent.h"
 #include<vector>
 #include"Transform.h"
 
-class GameObject
+class GameObject : public Object
 {
 	friend class Collider;
 	friend class Component;
 protected:
-	//std::vector<Component*> componentList_;
 	std::list<GameObject*> childList_;	//子リスト
 	std::list<Collider*> colliderList_; //コライダーリスト
-	Transform	transform_;				//オブジェクトの情報
+	//Transform	transform_;				//オブジェクトの情報
 	GameObject* pParent_;				//親オブジェクトの情報
 	std::string	objectName_;			//名前
 	int objectID_;						//オブジェクト固有の番号
@@ -28,6 +28,7 @@ protected:
 	bool isUpdate_;
 	bool startFlag_;					//一回もアクティブになってない場合false
 	bool drawFlag_;						//描画するかどうか
+	TransformComponent transform_;
 	std::list<Component*> componentList_;
 
 public:
@@ -35,14 +36,9 @@ public:
 	GameObject(GameObject* parent, const std::string& name);
 	virtual ~GameObject() {};
 
-	virtual void Initialize() = 0;
-	virtual void Update() {};
-	virtual void FixedUpdate() {};
-	virtual void BeforeDeath() {};
 	virtual void Draw() {};
 	virtual void SecondDraw() {};
 	virtual void ThirdDraw() {};
-	virtual void Release() = 0;
 
 	void UpdateSub();
 	void FixedUpdateSub();
@@ -145,7 +141,7 @@ public:
 			void SetParent(GameObject* parent);
 			std::string GetTag() { return objectTag_; }
 
-			Transform GetTransform();
+			TransformComponent GetTransform();
 			//TransformComponent* GetTransformComponent();
 			XMFLOAT3  GetPosition();
 			XMFLOAT3  GetRotate();
@@ -172,6 +168,6 @@ public:
 
 
 	//ワールド座標取得
-	XMFLOAT3    GetWorldPosition() { return Transform::Float3Add(GetParent()->transform_.position_, transform_.position_); }
+	XMFLOAT3    GetWorldPosition() { return TransformComponent::Float3Add(GetParent()->transform_.position_, transform_.position_); }
 
 };

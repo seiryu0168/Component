@@ -29,13 +29,13 @@ void DebugUI::Initialize(HWND hWnd, ID3D11Device* pDevice, ID3D11DeviceContext* 
 void DebugUI::Debug(GameObject* object)
 {
 	ImGui::Begin("Debug");
-	ObjectCount(*(object->GetChildList()->begin()));
-	std::string count = std::to_string(objectCount_);
+	//ObjectCount(*(object->GetChildList()->begin()));
+	//std::string count = std::to_string(objectCount_);
 	PrintProcessMemory();
 	
-	ImGui::Text(count.c_str());
-	ImGui::Text(object->GetObjectName().c_str());
-	objectCount_ = 0;
+	//ImGui::Text(count.c_str());
+	//ImGui::Text(object->GetObjectName().c_str());
+	//objectCount_ = 0;
 	ImGui::End();
 	
 }

@@ -17,7 +17,7 @@ public:
 		
 	TransformComponent* pParent_;//e‚Ìî•ñ
 	
-	TransformComponent(GameObject* atcObj);
+	TransformComponent(Object* atcObj);
 	TransformComponent();
 	~TransformComponent();
 

@@ -18,6 +18,7 @@ void TestObject::Initialize()
 
 void TestObject::Update()
 {
+	GetComponent<TransformComponent>()->position_.z += 0.3f;
 }
 
 void TestObject::Draw()

@@ -1,12 +1,14 @@
 #pragma once
-#include"Engine/GameObject/GameObject.h"
+
+class Object;
 class Component
 {
 private:
 	Component* parent_;
-	GameObject* attacheObject_;
+	int componentID_;
+	Object* attacheObject_;
 public:
-	Component(GameObject* atcObj, Component* parent = nullptr);
+	Component(Object* atcObj, Component* parent = nullptr);
 	Component();
 
 	virtual ~Component() {};

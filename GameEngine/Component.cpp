@@ -1,12 +1,14 @@
 #include "Component.h"
-
-Component::Component(GameObject* atcObj, Component* parent)
+#include"Object.h"
+Component::Component(Object* atcObj, Component* parent)
 	:attacheObject_(atcObj),
 	parent_(parent)
 {
 }
 
 Component::Component()
+	:attacheObject_(nullptr),
+	parent_(nullptr)
 {
 }
 

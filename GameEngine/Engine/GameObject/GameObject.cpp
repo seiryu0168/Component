@@ -1,6 +1,5 @@
-#include "GameObject.h"
+#include "GameObject.h"	
 #include"../SAFE_DELETE_RELEASE.h"
-int objectcount = 0;
 GameObject::GameObject() : GameObject(nullptr,"")
 {
 
@@ -19,7 +18,6 @@ GameObject::GameObject(GameObject* parent, const std::string& name)
 	if(parent)
 	{
 		transform_.pParent_ = &parent->transform_;
-
 	}
 
 
@@ -261,7 +259,7 @@ void GameObject::PushBackChild(GameObject* pTarget)
 {
 	assert(pTarget != nullptr);
 	pTarget->pParent_ = this;
-	pTarget->objectID_ = objectcount++;
+	//pTarget->objectID_ = objectcount++;
 	childList_.push_back(pTarget);
 }
 
@@ -360,7 +358,7 @@ void GameObject::SetParent(GameObject* parent)
 	GetParent()->PushBackChild(pParent_);
 }
 
-Transform GameObject::GetTransform()
+TransformComponent GameObject::GetTransform()
 {
 	return this->transform_;
 }

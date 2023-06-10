@@ -133,6 +133,10 @@ void ModelManager::SetTransform(int modelNum, Transform transform)
 }
 void ModelManager::SetTransform(int modelNum, TransformComponent transformComp)
 {
+	if (modelNum >= 0 && modelData_[modelNum] != nullptr)
+	{
+		modelData_[modelNum]->transform_ = transformComp;
+	}
 }
 void ModelManager::Draw(int modelNum)
 {
