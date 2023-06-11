@@ -1,5 +1,6 @@
 #include "MainScene.h"
 #include"TestObject.h"
+#include"DrawComponent.h"
 MainScene::MainScene(Object* parent)
 	:GameObject(parent,"MainScene")
 {

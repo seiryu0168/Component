@@ -24,11 +24,6 @@ void RootJob::Update()
 {
 }
 
-void RootJob::Draw()
-{
-
-}
-
 void RootJob::Release()
 {
 }

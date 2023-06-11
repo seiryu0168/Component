@@ -203,6 +203,7 @@
     <ClCompile Include="MainScene.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="TestObject.cpp" />
+    <ClCompile Include="TestObjectChild.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -254,6 +255,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="EngineTime.h" />
     <ClInclude Include="TestObject.h" />
+    <ClInclude Include="TestObjectChild.h" />
     <ClInclude Include="TransformComponent.h" />
   </ItemGroup>
   <ItemGroup>

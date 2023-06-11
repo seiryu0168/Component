@@ -4,6 +4,8 @@ class Object;
 class Component
 {
 private:
+
+protected:
 	Component* parent_;
 	int componentID_;
 	Object* attacheObject_;
@@ -14,7 +16,7 @@ public:
 	virtual ~Component() {};
 	void SetParent(Component* parent);
 	Component* GetParent();
-	virtual void Draw() {};
+	//virtual void Draw() {};
 	virtual void Start() {};
 	virtual void Update() {};
 };

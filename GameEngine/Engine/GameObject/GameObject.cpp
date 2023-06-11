@@ -81,48 +81,46 @@ GameObject::GameObject(Object* parent, const std::string& name)
 //	}
 //}
 
-void GameObject::DrawSub()
-{
-	if (drawFlag_ && startFlag_)
-	{
-
-		Draw();
-	}
-	for (auto itr=childList_.begin();itr!=childList_.end();itr++)
-	{
-		if(typeid(itr)==typeid(GameObject*))
-		((GameObject*)(*itr))->DrawSub();
-	}
-
-}
-
-void GameObject::SecondDrawSub()
-{
-	if (drawFlag_ && startFlag_)
-	{
-		SecondDraw();
-	}
-
-	for (auto itr = childList_.begin(); itr != childList_.end(); itr++)
-	{
-		if (typeid(itr) == typeid(GameObject*))
-			((GameObject*)(*itr))->SecondDrawSub();
-	}
-}
-
-void GameObject::ThirdDrawSub()
-{
-	if (drawFlag_&&startFlag_)
-	{
-		ThirdDraw();
-	}
-
-	for (auto itr = childList_.begin(); itr != childList_.end(); itr++)
-	{
-		if (typeid(itr) == typeid(GameObject*))
-			((GameObject*)(*itr))->ThirdDrawSub();
-	}
-}
+//void GameObject::DrawSub()
+//{
+//	if (drawFlag_ && startFlag_)
+//	{
+//		Draw();
+//	}
+//	for (auto itr=childList_.begin();itr!=childList_.end();itr++)
+//	{
+//		//if(typeid(itr)==typeid(GameObject*))
+//		((GameObject*)(*itr))->DrawSub();
+//	}
+//}
+//
+//void GameObject::SecondDrawSub()
+//{
+//	if (drawFlag_ && startFlag_)
+//	{
+//		SecondDraw();
+//	}
+//
+//	for (auto itr = childList_.begin(); itr != childList_.end(); itr++)
+//	{
+//		if (typeid(itr) == typeid(GameObject*))
+//			((GameObject*)(*itr))->SecondDrawSub();
+//	}
+//}
+//
+//void GameObject::ThirdDrawSub()
+//{
+//	if (drawFlag_&&startFlag_)
+//	{
+//		ThirdDraw();
+//	}
+//
+//	for (auto itr = childList_.begin(); itr != childList_.end(); itr++)
+//	{
+//		if (typeid(itr) == typeid(GameObject*))
+//			((GameObject*)(*itr))->ThirdDrawSub();
+//	}
+//}
 
 //void GameObject::ReleaseSub()
 //{

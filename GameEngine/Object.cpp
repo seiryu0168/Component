@@ -9,6 +9,7 @@ Object::Object(Object* parent, const std::string name)
 	killFlag_(0),
 	activeFlag_(true),
 	isUpdate_(true),
+	drawFlag_(true),
 	startFlag_(false),
 	objectID_(-1)
 {
@@ -68,6 +69,14 @@ void Object::UpdateSub()
 	//}
 }
 
+void Object::ComponentUpdate()
+{
+	for (Component* comp : componentList_)
+	{
+		comp->Update();
+	}
+}
+
 void Object::FixedUpdateSub()
 {
 	FixedUpdate();
@@ -89,6 +98,44 @@ void Object::FixedUpdateSub()
 			(*itr)->Collision(GetParent());
 			itr++;
 		}*/
+	}
+}
+void Object::DrawSub()
+{
+	if (drawFlag_ && startFlag_)
+	{
+		Draw();
+	}
+	for (auto itr=childList_.begin();itr!=childList_.end();itr++)
+	{
+		(*itr)->DrawSub();
+	}
+}
+
+void Object::SecondDrawSub()
+{
+	if (drawFlag_ && startFlag_)
+	{
+		SecondDraw();
+	}
+
+	for (auto itr = childList_.begin(); itr != childList_.end(); itr++)
+	{
+		
+			(*itr)->SecondDrawSub();
+	}
+}
+
+void Object::ThirdDrawSub()
+{
+	if (drawFlag_&&startFlag_)
+	{
+		ThirdDraw();
+	}
+
+	for (auto itr = childList_.begin(); itr != childList_.end(); itr++)
+	{
+			(*itr)->ThirdDrawSub();
 	}
 }
 void Object::ReleaseSub()

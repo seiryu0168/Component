@@ -27,7 +27,7 @@ protected:
 	//bool killFlag_;						//キルするかどうか
 	//bool activeFlag_;					//オブジェクトがアクティブ(Update呼ばれる)かどうか
 	//bool isUpdate_;
-	//bool startFlag_;					//一回もアクティブになってない場合false
+	//bool startFlag_;					//一回もアクティブに	なってない場合false
 	bool drawFlag_;						//描画するかどうか
 	TransformComponent transform_;
 	std::list<Component*> componentList_;
@@ -37,15 +37,15 @@ public:
 	GameObject(Object* parent, const std::string& name);
 	virtual ~GameObject() {};
 
-	virtual void Draw() {};
-	virtual void SecondDraw() {};
-	virtual void ThirdDraw() {};
+	//virtual void Draw() {};
+	//virtual void SecondDraw() {};
+	//virtual void ThirdDraw() {};
 
 	//void UpdateSub();
 	//void FixedUpdateSub();
-	void DrawSub();
-	void SecondDrawSub();
-	void ThirdDrawSub();
+	//void DrawSub();
+	//void SecondDrawSub();
+	//void ThirdDrawSub();
 	//void ReleaseSub();
 
 	//template <class T>

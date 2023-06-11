@@ -35,6 +35,7 @@ protected:
 	bool killFlag_;						//キルするかどうか
 	bool activeFlag_;					//オブジェクトがアクティブ(Update呼ばれる)かどうか
 	bool isUpdate_;
+	bool drawFlag_;						//描画するかどうか
 	bool startFlag_;					//一回もアクティブになってない場合false
 public:
 	Object(Object* parent,std::string name);
@@ -45,11 +46,18 @@ public:
 	virtual void Initialize() = 0;
 	virtual void Update() {};
 	virtual void FixedUpdate() {};
+	virtual void Draw() {};
+	virtual void SecondDraw() {};
+	virtual void ThirdDraw() {};
 	virtual void BeforeDeath() {};
 	virtual void Release() = 0;
 
 	void UpdateSub();
+	void ComponentUpdate();
 	void FixedUpdateSub();
+	void DrawSub();
+	void SecondDrawSub();
+	void ThirdDrawSub();
 	void ReleaseSub();
 
 	virtual void OnCollision(Object* pTarget) {};
@@ -60,6 +68,7 @@ public:
 
 	void KillMe() { killFlag_ = true; }
 	bool IsActive() { return activeFlag_; }
+	bool IsStart() { return startFlag_; }
 	bool IsUpdate() { return isUpdate_; }
 	std::string GetObjectName() { return objectName_; }
 	Object* GetParent();

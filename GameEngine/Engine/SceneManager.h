@@ -17,7 +17,6 @@ public:
 
 	void Initialize() override;
 	void Update() override;
-	void Draw() override;
 	void Release() override;
 
 	void ChangeScene(SCENE_ID sceneID, UINT count = 0);

@@ -44,11 +44,6 @@ void SceneManager::Update()
 	countDown_--;
 }
 
-void SceneManager::Draw()
-{
-
-}
-
 void SceneManager::Release()
 {
 
