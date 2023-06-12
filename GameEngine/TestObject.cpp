@@ -1,10 +1,11 @@
 #include "TestObject.h"
 #include"Engine/ResourceManager/Model.h"
 #include"TestObjectChild.h"
-//#include"TransformComponent.h"
 
 TestObject::TestObject(Object* parent)
-	:GameObject(parent,"TestObject")
+	:GameObject(parent,"TestObject"),
+	hModel_(-1),
+	time_(0)
 {
 }
 
@@ -22,7 +23,9 @@ void TestObject::Initialize()
 
 void TestObject::Update()
 {
-	transform_.position_.x += 0.3f;
+	time_++;
+	transform_.position_.x = sinf(XMConvertToRadians(time_));
+	transform_.position_.z = cosf(XMConvertToRadians(time_));
 }
 
 void TestObject::Draw()

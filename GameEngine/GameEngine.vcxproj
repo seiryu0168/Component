@@ -201,6 +201,8 @@
     <ClCompile Include="InterSceneData.cpp" />
     <ClCompile Include="EngineTime.cpp" />
     <ClCompile Include="MainScene.cpp" />
+    <ClCompile Include="Material.cpp" />
+    <ClCompile Include="ModelComponent.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="TestObject.cpp" />
     <ClCompile Include="TestObjectChild.cpp" />
@@ -251,6 +253,8 @@
     <ClInclude Include="ImGui\imstb_truetype.h" />
     <ClInclude Include="InterSceneData.h" />
     <ClInclude Include="MainScene.h" />
+    <ClInclude Include="Material.h" />
+    <ClInclude Include="ModelComponent.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="EngineTime.h" />

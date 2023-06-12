@@ -10,7 +10,8 @@ GameObject::GameObject(Object* parent, const std::string& name)
 {
 	if(parent)
 	{
-		transform_.pParent_ = &((GameObject*)parent)->transform_;
+		transform_ = AddComponent<TransformComponent>(this);
+		//transform_.pParent_ = &((GameObject*)parent)->transform_;
 
 	}
 }

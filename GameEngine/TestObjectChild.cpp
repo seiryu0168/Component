@@ -1,7 +1,9 @@
 #include "TestObjectChild.h"
 #include"Engine/ResourceManager/Model.h"
 TestObjectChild::TestObjectChild(Object* parent)
-	:GameObject(parent,"TestObjectChild")
+	:GameObject(parent,"TestObjectChild"),
+	hModel_(-1),
+	time_(0)
 {
 }
 
@@ -17,7 +19,9 @@ void TestObjectChild::Initialize()
 
 void TestObjectChild::Update()
 {
-	transform_.position_.x -= 0.3f;
+	time_++;
+	transform_.position_.x = sinf(XMConvertToRadians(time_)*2);
+	transform_.position_.z = cosf(XMConvertToRadians(time_)*2);
 }
 
 void TestObjectChild::Draw()

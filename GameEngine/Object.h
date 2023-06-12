@@ -2,7 +2,7 @@
 #include"Engine\Collider\BoxCollider.h"
 #include"Engine\Collider/SphereCollider.h"
 #include"Engine\Collider/OBBCollider.h"
-#include"../../Component.h"
+#include"Component.h"
 #include<string>
 #include<list>
 
@@ -67,6 +67,7 @@ public:
 
 
 	void KillMe() { killFlag_ = true; }
+	void SetTag(std::string tagName) { objectTag_ = tagName; }
 	bool IsActive() { return activeFlag_; }
 	bool IsStart() { return startFlag_; }
 	bool IsUpdate() { return isUpdate_; }

@@ -24,7 +24,7 @@ FbxParts::FbxParts()
 
 	indexCount_ = nullptr;
 	pBoneArray_ = nullptr;
-	pMaterialList_ = nullptr;
+	//pMaterialList_ = nullptr;
 	pSkinInfo_ = nullptr;
 	pVertices_ = nullptr;
 	pWeightArray_ = nullptr;
@@ -49,11 +49,11 @@ FbxParts::~FbxParts()
 	{
 		SAFE_DELETE_ARRAY(ppIndex_[i]);
 		SAFE_RELEASE(ppIndexBuffer_[i]);
-		SAFE_RELEASE_DELETE(pMaterialList_[i].pTexture);
-		SAFE_RELEASE_DELETE(pMaterialList_[i].pNormalMap);
+		//SAFE_RELEASE_DELETE(pMaterialList_[i].pTexture);
+		//SAFE_RELEASE_DELETE(pMaterialList_[i].pNormalMap);
 	}
 	SAFE_DELETE_ARRAY(ppIndex_);
-	SAFE_DELETE_ARRAY(pMaterialList_);
+	//SAFE_DELETE_ARRAY(pMaterialList_);
 	SAFE_RELEASE(pVertexBuffer_);
 	SAFE_DELETE_ARRAY(ppIndexBuffer_);
 	SAFE_RELEASE(pConstantBuffer_);
@@ -108,12 +108,12 @@ void FbxParts::Draw(TransformComponent& transform,XMFLOAT4 lineColor)
 		cb.lightDirection = XMFLOAT4(0, 1, 0, 0);
 		cb.cameraPosition = XMFLOAT4(Camera::GetPosition().x, Camera::GetPosition().y, Camera::GetPosition().z, 0);
 
-		cb.isTexture = pMaterialList_[i].pTexture != nullptr;
-		cb.isNormal = pMaterialList_[i].pNormalMap != nullptr;
-		cb.diffuseColor = pMaterialList_[i].diffuse;
-		cb.ambient = pMaterialList_[i].ambient;
-		cb.speculer = pMaterialList_[i].speculer;
-		cb.shininess = pMaterialList_[i].shininess;
+		cb.isTexture = materialList_[i].GetTexture() != nullptr;
+		cb.isNormal = materialList_[i].GetNormalMap() != nullptr;
+		cb.diffuseColor = materialList_[i].GetDiffuse();
+		cb.ambient = materialList_[i].GetAmbient();
+		cb.speculer = materialList_[i].GetSpeculer();
+		cb.shininess = materialList_[i].GetShininess();
 		cb.customColor = lineColor;
 
 		D3D11_MAPPED_SUBRESOURCE pdata;
@@ -121,15 +121,15 @@ void FbxParts::Draw(TransformComponent& transform,XMFLOAT4 lineColor)
 		memcpy_s(pdata.pData, pdata.RowPitch, (void*)(&cb), sizeof(cb));			      //データを値を送る
 		if (cb.isTexture)
 		{
-			ID3D11SamplerState* pSampler = pMaterialList_[i].pTexture->GetSampler();
+			ID3D11SamplerState* pSampler = ((Texture*)materialList_[i].GetTexture())->GetSampler();
 			Direct3D::pContext->PSSetSamplers(0, 1, &pSampler);
-			ID3D11ShaderResourceView* pSRV1 = pMaterialList_[i].pTexture->GetSRV();
+			ID3D11ShaderResourceView* pSRV1 = ((Texture*)materialList_[i].GetTexture())->GetSRV();
 
 			Direct3D::pContext->PSSetShaderResources(0, 1, &pSRV1);
 		}
 		if (cb.isNormal)
 		{
-			ID3D11ShaderResourceView* pNormalSRV = pMaterialList_[i].pNormalMap->GetSRV();
+			ID3D11ShaderResourceView* pNormalSRV = ((Texture*)materialList_[i].GetNormalMap())->GetSRV();
 			Direct3D::pContext->PSSetShaderResources(2, 1, &pNormalSRV);
 		}
 		Direct3D::pContext->Unmap(pConstantBuffer_, 0);//再開
@@ -543,7 +543,7 @@ HRESULT FbxParts::InitSkelton(FbxMesh* pMesh)
 
 void FbxParts::InitMaterial(fbxsdk::FbxNode* pNode)
 {
-	pMaterialList_ = new MATERIAL[materialCount_];
+	materialList_ = new Material[materialCount_];
 
 	for (int i = 0; i < materialCount_; i++)
 	{
@@ -563,18 +563,16 @@ void FbxParts::InitMaterial(fbxsdk::FbxNode* pNode)
 		diffuse = pPhong->Diffuse;
 		ambient = pPhong->Ambient;
 		//diffuseとambientを入れる
-		pMaterialList_[i].diffuse = XMFLOAT4((float)diffuse[0], (float)diffuse[1], (float)diffuse[2], 1.0f);
-		pMaterialList_[i].ambient = XMFLOAT4((float)ambient[0], (float)ambient[1], (float)ambient[2], 1.0f);
-		pMaterialList_[i].speculer = XMFLOAT4(0, 0, 0, 0);
-		pMaterialList_[i].shininess = 0;
-
+		materialList_[i].SetDiffuse(XMFLOAT4((float)diffuse[0], (float)diffuse[1], (float)diffuse[2], 1.0f));
+		materialList_[i].SetAmbient(XMFLOAT4((float)ambient[0], (float)ambient[1], (float)ambient[2], 1.0f));
+		
 		//PhongのクラスなのかLambertのクラスなのかを判別(Lambertだとスペキュラーの値を扱えない)
 		if (pPhong->GetClassId().Is(FbxSurfacePhong::ClassId))
 		{
 			speculer = pPhong->Specular;
-			pMaterialList_[i].speculer = XMFLOAT4((float)speculer[0], (float)speculer[1], (float)speculer[2], 1.0f);
+			materialList_[i].SetSpeculer(XMFLOAT4((float)speculer[0], (float)speculer[1], (float)speculer[2], 1.0f));
 			//blenderだと1-粗さの値x100にあたる
-			pMaterialList_[i].shininess = (float)pPhong->Shininess;
+			materialList_[i].SetShininess((float)pPhong->Shininess);
 		}
 
 		//テクスチャの枚数
@@ -598,26 +596,26 @@ void FbxParts::InitMaterial(fbxsdk::FbxNode* pNode)
 			std::wstring fName = wtext;
 			fName = L"../Image\\" + fName;
 			//ファイルからテクスチャ作成
-			pMaterialList_[i].pTexture = new Texture;
-			pMaterialList_[i].pTexture->Load(fName.c_str());
+			Texture*pTex=new Texture;
+			pTex->Load(fName.c_str());
+			materialList_[i].SetTexture(pTex);
 		}
 
 		//テクスチャ無し
 		else
 		{
-			pMaterialList_[i].pTexture = nullptr;
 			//マテリアルの色
 			FbxSurfaceLambert* pMaterial = (FbxSurfaceLambert*)pNode->GetMaterial(i);
 			FbxDouble3  diffuse = pMaterial->Diffuse;
-			pMaterialList_[i].diffuse = XMFLOAT4((float)diffuse[0], (float)diffuse[1], (float)diffuse[2], 1.0f);
+			materialList_[i].SetDiffuse(XMFLOAT4((float)diffuse[0], (float)diffuse[1], (float)diffuse[2], 1.0f));
 		}
 
 		/////////////////////////////////ノーマルマップ//////////////////////////
+		Texture* pNormal = new Texture();
 		{
 			FbxProperty IPropaty = pMaterial->FindProperty(FbxSurfaceMaterial::sBump);
 			int normalMapCount = IPropaty.GetSrcObjectCount<FbxFileTexture>();
 
-			pMaterialList_[i].pNormalMap = new Texture;
 			if (normalMapCount != 0)
 			{
 				FbxFileTexture* textureInfo = IPropaty.GetSrcObject<FbxFileTexture>(0);
@@ -635,11 +633,13 @@ void FbxParts::InitMaterial(fbxsdk::FbxNode* pNode)
 				size_t ret;
 				mbstowcs_s(&ret, wtext, name, strlen(name));
 
-				pMaterialList_[i].pNormalMap->Load(wtext);
+				pNormal->Load(wtext);
+				materialList_[i].SetNormalMap(pNormal);
 			}
 			else
 			{
-				pMaterialList_[i].pNormalMap->Load(L"../Image\\DefaultNormalMap.jpg");
+				pNormal->Load(L"../Image\\DefaultNormalMap.jpg");
+				materialList_[i].SetNormalMap(pNormal);
 			}
 		}
 	}

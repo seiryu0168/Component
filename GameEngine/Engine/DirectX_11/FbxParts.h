@@ -3,6 +3,7 @@
 #include<fbxsdk.h>
 #include<d3d11.h>
 #include"Texture.h"
+#include"../../Material.h"
 #include"../GameObject/Transform.h"
 #include"../../TransformComponent.h"
 #include"Fbx.h"
@@ -80,7 +81,9 @@ private:
 	BONE*		 pBoneArray_;	 //各ボーンの情報
 	WEIGHT*		 pWeightArray_;	 //ウェイトの情報
 	
-	MATERIAL* pMaterialList_;//マテリアルリスト
+	Material* materialList_;
+
+	//MATERIAL* pMaterialList_;//マテリアルリスト
 	int*	  indexCount_;
 
 	int**	ppIndex_;

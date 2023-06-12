@@ -32,7 +32,6 @@ class Collider
 	ColliderType type_;		//コライダータイプ
 	XMFLOAT3     center_;		//原点
 	XMFLOAT3     size_;			//大きさ
-	Transform    transform_;
 	bool		 isKill_;
 
 
