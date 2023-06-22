@@ -16,7 +16,7 @@ TestObject::~TestObject()
 void TestObject::Initialize()
 {
 	GameObject* p = Instantiate<TestObjectChild>(this);
-	p->SetPosition({ 0,2,0 });
+	//p->SetPosition({ 0,2,0 });
 	hModel_ = ModelManager::Load("Assets\\Model\\AAA.fbx");
 	assert(hModel_ >= 0);
 }
@@ -24,13 +24,13 @@ void TestObject::Initialize()
 void TestObject::Update()
 {
 	time_++;
-	transform_.position_.x = sinf(XMConvertToRadians(time_));
-	transform_.position_.z = cosf(XMConvertToRadians(time_));
+	transform_->position_.x = sinf(XMConvertToRadians(time_));
+	transform_->position_.z = cosf(XMConvertToRadians(time_));
 }
 
 void TestObject::Draw()
 {
-	ModelManager::SetTransform(hModel_, transform_);
+	ModelManager::SetTransform(hModel_, *transform_);
 	ModelManager::Draw(hModel_);
 }
 

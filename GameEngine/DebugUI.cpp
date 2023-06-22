@@ -115,15 +115,15 @@ void DebugUI::ObjectCount(GameObject* object)
 	if (ImGui::TreeNode(object->GetObjectName().c_str()))
 	{
 		//座標、回転、サイズの情報を表示
-		float pos[3] = { object->GetPosition().x,object->GetPosition().y ,object->GetPosition().z };
-		ImGui::DragFloat3("position", pos);
-		object->SetPosition({ pos[0], pos[1], pos[2] });
-		float rotate[3] = { object->GetRotate().x,object->GetRotate().y ,object->GetRotate().z };
-		ImGui::DragFloat3("rotation", rotate);
-		object->SetRotate({ rotate[0],rotate[1],rotate[2] });
-		float scale[3] = { object->GetScale().x,object->GetScale().y ,object->GetScale().z };
-		ImGui::DragFloat3("scale", scale);
-		object->SetScale({ scale[0],scale[1],scale[2] });
+		//float pos[3] = { object->GetPosition().x,object->GetPosition().y ,object->GetPosition().z };
+		//ImGui::DragFloat3("position", pos);
+		//object->SetPosition({ pos[0], pos[1], pos[2] });
+		//float rotate[3] = { object->GetRotate().x,object->GetRotate().y ,object->GetRotate().z };
+		//ImGui::DragFloat3("rotation", rotate);
+		//object->SetRotate({ rotate[0],rotate[1],rotate[2] });
+		//float scale[3] = { object->GetScale().x,object->GetScale().y ,object->GetScale().z };
+		//ImGui::DragFloat3("scale", scale);
+		//object->SetScale({ scale[0],scale[1],scale[2] });
 
 
 
@@ -150,15 +150,15 @@ void DebugUI::CountSub(GameObject* object)
 	if (ImGui::TreeNode(object->GetObjectName().c_str()))
 	{
 
-		float pos[3] = { object->GetPosition().x,object->GetPosition().y ,object->GetPosition().z };
-		ImGui::DragFloat3("position", pos);
-		object->SetPosition({ pos[0], pos[1], pos[2] });
-		float rotate[3] = { object->GetRotate().x,object->GetRotate().y ,object->GetRotate().z };
-		ImGui::DragFloat3("rotation", rotate);
-		object->SetRotate({ rotate[0],rotate[1],rotate[2] });
-		float scale[3] = { object->GetScale().x,object->GetScale().y ,object->GetScale().z };
-		ImGui::DragFloat3("scale", scale);
-		object->SetScale({ scale[0],scale[1],scale[2] });
+		//float pos[3] = { object->GetPosition().x,object->GetPosition().y ,object->GetPosition().z };
+		//ImGui::DragFloat3("position", pos);
+		//object->SetPosition({ pos[0], pos[1], pos[2] });
+		//float rotate[3] = { object->GetRotate().x,object->GetRotate().y ,object->GetRotate().z };
+		//ImGui::DragFloat3("rotation", rotate);
+		//object->SetRotate({ rotate[0],rotate[1],rotate[2] });
+		//float scale[3] = { object->GetScale().x,object->GetScale().y ,object->GetScale().z };
+		//ImGui::DragFloat3("scale", scale);
+		//object->SetScale({ scale[0],scale[1],scale[2] });
 		ImGui::TreePop();
 	}
 

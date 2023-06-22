@@ -353,29 +353,29 @@ void GameObject::SetParent(GameObject* parent)
 	GetParent()->PushBackChild(pParent_);
 }
 
-TransformComponent GameObject::GetTransform()
+TransformComponent* GameObject::GetTransform()
 {
 	return this->transform_;
 }
 
 XMFLOAT3  GameObject::GetPosition()
 {
-	return this->transform_.position_;
+	return this->transform_->position_;
 }
 XMFLOAT3  GameObject::GetRotate()
 {
-	return this->transform_.rotate_;
+	return this->transform_->rotate_;
 }
 XMFLOAT3  GameObject::GetScale()
 {
-	return this->transform_.scale_;
+	return this->transform_->scale_;
 }
 
 XMMATRIX GameObject::LookAtMatrix(XMFLOAT3 target, XMVECTOR frontVec, XMVECTOR upVector)
 {
 	frontVec = XMVector3Normalize(frontVec);
 
-	XMVECTOR Z = XMLoadFloat3(&target) - XMLoadFloat3(&this->transform_.position_); //自分から目標へのベクトル　=　Z軸
+	XMVECTOR Z = XMLoadFloat3(&target) - XMLoadFloat3(&this->transform_->position_); //自分から目標へのベクトル　=　Z軸
 	Z = XMVector3Normalize(Z);
 
 	float angleX=0;
@@ -398,5 +398,5 @@ XMMATRIX GameObject::LookAtMatrix(XMFLOAT3 target, XMVECTOR frontVec, XMVECTOR u
 //親の影響込みの最終的な行列
 XMMATRIX GameObject::GetWorldMatrix()
 {
-	return transform_.GetWorldMatrix();
+	return transform_->GetWorldMatrix();
 }

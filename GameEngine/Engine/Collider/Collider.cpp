@@ -84,8 +84,8 @@ bool Collider::IsHitSphere_Sphere(SphereCollider* sphereA, SphereCollider* spher
 
 bool Collider::IsHitOBB_OBB(OBBCollider* obbA, OBBCollider* obbB)
 {
-	XMFLOAT3 obbAPos = obbA->pColObject_->GetTransform().position_;
-	XMFLOAT3 obbBPos = obbB->pColObject_->GetTransform().position_;
+	XMFLOAT3 obbAPos = obbA->pColObject_->GetTransform()->position_;
+	XMFLOAT3 obbBPos = obbB->pColObject_->GetTransform()->position_;
 	
 	XMVECTOR betweenCenterPoint = XMLoadFloat3(&obbBPos) - XMLoadFloat3(&obbAPos);
 
@@ -241,8 +241,8 @@ bool Collider::IsHitOBB_OBB(OBBCollider* obbA, OBBCollider* obbB)
 
 bool Collider::IsHitOBB_Sphere(OBBCollider* obb, SphereCollider* sphere)
 {
-	XMFLOAT3 obbPos = obb->pColObject_->GetTransform().position_;
-	XMFLOAT3 spherePos = sphere->pColObject_->GetTransform().position_;
+	XMFLOAT3 obbPos = obb->pColObject_->GetTransform()->position_;
+	XMFLOAT3 spherePos = sphere->pColObject_->GetTransform()->position_;
 
 	XMVECTOR betweenCenterPoint = XMLoadFloat3(&spherePos) - XMLoadFloat3(&obbPos);
 

@@ -20,13 +20,13 @@ void TestObjectChild::Initialize()
 void TestObjectChild::Update()
 {
 	time_++;
-	transform_.position_.x = sinf(XMConvertToRadians(time_)*2);
-	transform_.position_.z = cosf(XMConvertToRadians(time_)*2);
+	transform_->position_.x = sinf(XMConvertToRadians(time_)*2);
+	transform_->position_.z = cosf(XMConvertToRadians(time_)*2);
 }
 
 void TestObjectChild::Draw()
 {
-	ModelManager::SetTransform(hModel_, transform_);
+	ModelManager::SetTransform(hModel_, *transform_);
 	ModelManager::Draw(hModel_);
 }
 
