@@ -1,6 +1,7 @@
 #include "TestObject.h"
 #include"Engine/ResourceManager/Model.h"
 #include"TestObjectChild.h"
+#include"EntityManager.h"
 
 TestObject::TestObject(Object* parent)
 	:GameObject(parent,"TestObject"),
