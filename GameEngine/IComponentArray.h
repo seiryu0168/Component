@@ -4,8 +4,8 @@
 #include<array>
 using Entity = unsigned int;
 const Entity MAX_ENTITIES = 5000;
-using Component = unsigned int;
-const Component MAX_COMPONENTS = 32;
+using ComponentType = unsigned int;
+const ComponentType MAX_COMPONENTS = 32;
 using Signature = std::bitset<MAX_COMPONENTS>;
 
 class IComponentArray

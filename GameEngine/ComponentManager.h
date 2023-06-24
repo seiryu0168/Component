@@ -1,56 +1,52 @@
 #pragma once
-#include"Component.h"
-#include"Engine\GameObject\GameObject.h"
-//#include"Engine/GameObject/Transform.h"
+#include<unordered_map>
+#include<memory>
+#include"ComponentArray.h"
+using Entity = unsigned int;
+const Entity MAX_ENTITIES = 5000;
+using ComponentType = unsigned int;
+const ComponentType MAX_COMPONENTS = 32;
+
 class ComponentManager
 {
 private:
-	std::string tag_;
-	std::list<Component*> componentList_;
+	std::unordered_map<const char*, ComponentType> componentTypes{};
+	std::unordered_map<const char*, std::shared_ptr<IComponentArray>> componentArrays{};
+	ComponentType nextComponentType{};
+
+	template <typename T>
+	std::shared_ptr<ComponentArray<T>> GetComponentArray()
+	{
+		const char* typeName = typeid(T).name();
+		assert(componentTypes.find(typeName) != componentTypes.end()&&"Component not registered before use");
+		return std::static_pointer_cast<ComponentArray<T>>(componentArrays[typeName]);
+	}
+
 public:
-	Transform Transform_;
-	GameObject* object_;
-	ComponentManager(GameObject* target);
-	ComponentManager();
-	~ComponentManager();
-	template<class T>
-	T* AddComponent()
+	template <typename T>
+	void RegisterComponent()
 	{
-		T* comp;
-		comp = new T(object_);
-		componentList_.push_back(comp);
+		const chat* typeName = typeid(T).name();
+		assert(componenTypes.find(typeName) == componentTypes.end() && "Registaring component type more once");
+		componentTypes.insert({ typeName,nextComponentType });
+		componentArrays.insert({ typeName, std::make_shared<ComponentArray<T>>()});
+		++nextComponentType;
 	}
 
-	//コンポーネント取得
-	template<class T>
-	T* GetComponent(int num = 0)
+	template <typename T>
+	ComponentType GetComponent()
 	{
-		int compnum = 0;
-		for (auto&& i : componentList_)
-		{
-			if (typeid(T) == typeid(*i))
-			{
-				if (compnum == num)
-					return (T*)i;
+		const char* typeName = typeid(T).name();
+		assert(componentTypes.find(typeName) != componentTypes.end()&&"Component not registered before use");
 
-				compnum++;
-			}
-		}
-		return nullptr;
+		return componentTypes[typeName];
 	}
 
-	template<class T>
-	std::list<T*> GetComponentList()
+	template <typename T>
+	void AddComponent(Entity entity,T component)
 	{
-		std::list<T*> returnList;
-		for (auto&& i : componentList_)
-		{
-			if (typeid(T) == typeid(*i))
-			{
-				returnList.push_back(*i);
-			}
-		}
-		return returnList;
+		GetComponentArray<T>()->InsertData(entity, component);
 	}
+
 };
 
