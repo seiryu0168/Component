@@ -56,10 +56,12 @@ public:
 	T& GetData(Entity entity)
 	{
 		assert(entityToIndexMap.find(entity) != entityToIndexMap_.end() && "Retrieving non-existent component");
+		//指定されたエンティティを返す
 		return componentArray_[entityToIndexMap_[entity]];
 	}
 	void EntityDestroyed(Entity entity) override
 	{
+		//指定したエンティティを消す
 		if (entityToIndexMap_.find(entity) != entityToIndexMap_.end())
 			RemoveData(entity);
 	}
