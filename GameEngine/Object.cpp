@@ -16,11 +16,11 @@ Object::Object(Object* parent, const std::string name)
 	time_(0)
 {
 	
-	Coordinator::RegisterComponent<Gravity>();
-	Coordinator::RegisterComponent<TransformData>();
-	Coordinator::RegisterComponent<RigidBody>();
+	//Coordinator::RegisterComponent<Gravity>();
+	//Coordinator::RegisterComponent<TransformData>();
+	//Coordinator::RegisterComponent<RigidBody>();
 
-	physicsSystem_ = Coordinator::RegisterSystem<PhysicsSystem>();
+	/*physicsSystem_ = Coordinator::RegisterSystem<PhysicsSystem>();
 	
 
 	Signature signature;
@@ -28,16 +28,16 @@ Object::Object(Object* parent, const std::string name)
 	signature.set(Coordinator::GetComponentType<RigidBody>());
 	signature.set(Coordinator::GetComponentType<TransformData>());
 
-	Coordinator::SetSystemSignature<PhysicsSystem>(signature);
+	Coordinator::SetSystemSignature<PhysicsSystem>(signature);*/
 
 	Entity entity = Coordinator::CreateEntity();
 	entityList_.push_back(entity);
 	Gravity g;
-	g.force_ = XMVectorSet(0, 0.4f, 0, 0);
+	g.force_ = XMVectorSet(0, -0.4f, 0, 0);
 	Coordinator::AddComponent(entity, g);
 	RigidBody rb;
 	rb.acceleration_ = XMVectorZero();
-	rb.acceleration_ = XMVectorZero();
+	rb.vector_ = XMVectorZero();
 	Coordinator::AddComponent(entity, rb);
 
 	TransformData transform;
@@ -45,6 +45,8 @@ Object::Object(Object* parent, const std::string name)
 	transform.rotation_ = XMVectorZero();
 	transform.scale_ = {0,0,0};
 	Coordinator::AddComponent(entity, transform);
+
+	physicsSystem_ = Coordinator::GetSystem<PhysicsSystem>();
 }
 
 Object::Object(Object* parent)
@@ -74,7 +76,7 @@ void Object::UpdateSub()
 		isUpdate_)
 		Update();
 
-	//physicsSystem_->Update(time_ / 60.0f);
+	physicsSystem_->Update(time_ / 3600.0f);
 	
 
 	for (auto itr = childList_.begin(); itr != childList_.end(); itr++)

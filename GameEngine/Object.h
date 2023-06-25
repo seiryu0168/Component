@@ -43,7 +43,7 @@ protected:
 	bool isUpdate_;
 	bool drawFlag_;						//描画するかどうか
 	bool startFlag_;					//一回もアクティブになってない場合false
-	std::shared_ptr<PhysicsSystem> physicsSystem_;
+	PhysicsSystem* physicsSystem_;
 public:
 	Object(Object* parent,std::string name);
 	Object(Object* parent);

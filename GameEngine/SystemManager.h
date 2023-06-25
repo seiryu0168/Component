@@ -19,17 +19,14 @@ private:
 	std::unordered_map<const char*, std::shared_ptr<System>> systems_{};
 
 public:
+	void EntityDestroyed(Entity entity);
+	void EntitySignatureChanged(Entity entity, Signature entitySignature);
+
 	template <typename T>
 	std::shared_ptr<T> RegisterSistem()
 	{
 		const char* typeName = typeid(T).name();
-		//システムが今まで追加したのと同じもの
-		/*if (systems_.find(typeName) != systems_.end())
-		{
-			auto systm = systems_.find(typeName);
-
-			return systm;
-		}*/
+		//システムが今まで追加したのと同じものがある場合警告
 		assert(systems_.find(typeName) == systems_.end() && "Registering system more than once");
 		//システムのポインタを作成し、外部で使うために返す
 		auto system = std::make_shared<T>();
@@ -46,7 +43,14 @@ public:
 		signatures_.insert({ typeName,signature });
 	}
 
-	void EntityDestroyed(Entity entity);
-	void EntitySignatureChanged(Entity entity, Signature entitySignature);
+	template <typename T>
+	System* GetSystem()
+	{
+
+		const char* typeName = typeid(T).name();
+		if (signatures_.find(typeName) == signatures_.end())
+			return nullptr;
+		return systems_.find(typeName)->second.get();
+	}
 };
 

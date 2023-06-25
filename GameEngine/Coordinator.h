@@ -74,5 +74,11 @@ namespace Coordinator
 		systemManager_->SetSignature<T>(signature);
 	}
 
+	template <typename T>
+	T* GetSystem()
+	{
+		return (T*)systemManager_->GetSystem<T>();
+	}
+
  };
 
