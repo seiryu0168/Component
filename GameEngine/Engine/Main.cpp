@@ -15,6 +15,7 @@
 #include"../ImGui/imgui_impl_dx11.h"
 #include"../ImGui/imgui_impl_win32.h"
 #include"ResourceManager/Audio.h"
+#include"../Coordinator.h"
 #ifdef _DEBUG
 #define _CRTDBG_MAP_ALLOC
 #include<memory>
@@ -105,7 +106,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	ModelManager::Initialize();
 	Camera::Initialize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	Audio::Initialize();
-
+	Coordinator::Init();
 	pRootJob = new RootJob;
 	
 	//メッセージループ

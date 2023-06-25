@@ -2,12 +2,13 @@
 #include<unordered_map>
 #include<memory>
 #include<bitset>
+#include"ECS.h"
 #include"System.h"
-using Entity = unsigned int;
-const Entity MAX_ENTITIES = 5000;
-using ComponentType = unsigned int;
-const ComponentType MAX_COMPONENTS = 32;
-using Signature = std::bitset<MAX_COMPONENTS>;
+//using Entity = unsigned int;
+//const Entity MAX_ENTITIES = 5000;
+//using ComponentType = unsigned int;
+//const ComponentType MAX_COMPONENTS = 32;
+//using Signature = std::bitset<MAX_COMPONENTS>;
 
 class SystemManager
 {
@@ -22,6 +23,13 @@ public:
 	std::shared_ptr<T> RegisterSistem()
 	{
 		const char* typeName = typeid(T).name();
+		//システムが今まで追加したのと同じもの
+		/*if (systems_.find(typeName) != systems_.end())
+		{
+			auto systm = systems_.find(typeName);
+
+			return systm;
+		}*/
 		assert(systems_.find(typeName) == systems_.end() && "Registering system more than once");
 		//システムのポインタを作成し、外部で使うために返す
 		auto system = std::make_shared<T>();

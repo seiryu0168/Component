@@ -163,23 +163,23 @@ void GameObject::Collision(GameObject* pTarget)
 	{
 		return;
 	}
-	//複数コライダー持ってるかもしれないから二重ループ
-	for (auto i = this->colliderList_.begin(); i != this->colliderList_.end(); i++)
-	{
+	////複数コライダー持ってるかもしれないから二重ループ
+	//for (auto i = this->colliderList_.begin(); i != this->colliderList_.end(); i++)
+	//{
 
-		for (auto j = pTarget->colliderList_.begin(); j != pTarget->colliderList_.end();j++)
-		{
-			if ((*i)->IsHit(*j))
-			{
-				this->OnCollision(pTarget);
-				if (this->colliderList_.empty())
-					break;
-			}
-		}
+	//	for (auto j = pTarget->colliderList_.begin(); j != pTarget->colliderList_.end();j++)
+	//	{
+	//		if ((*i)->IsHit(*j))
+	//		{
+	//			this->OnCollision(pTarget);
+	//			if (this->colliderList_.empty())
+	//				break;
+	//		}
+	//	}
 
-		if (this->colliderList_.empty())
-			break;
-	}
+	//	if (this->colliderList_.empty())
+	//		break;
+	//}
 
 	if (pTarget->childList_.empty())
 	{
@@ -201,23 +201,23 @@ void GameObject::Collision(GameObject* pTarget)
 void GameObject::AddCollider(Collider* collider)
 {
 	collider->SetGemaObject(this);
-	colliderList_.push_back(collider);
+	//colliderList_.push_back(collider);
 }
 
 void GameObject::DelCollider(const GameObject& obj)
 {
-	for (auto itr = colliderList_.begin(); itr != colliderList_.end();)
-	{
-		if ((*itr)->GetpColObject() == &obj)
-		{
-			itr = colliderList_.erase(itr);
-		}
-		if (itr == colliderList_.end())
-		{
-			break;
-		}
-		itr ++;
-	}
+	//for (auto itr = colliderList_.begin(); itr != colliderList_.end();)
+	//{
+	//	if ((*itr)->GetpColObject() == &obj)
+	//	{
+	//		itr = colliderList_.erase(itr);
+	//	}
+	//	if (itr == colliderList_.end())
+	//	{
+	//		break;
+	//	}
+	//	itr ++;
+	//}
 }
 
 //void GameObject::KillAllChildren()

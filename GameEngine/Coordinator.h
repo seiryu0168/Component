@@ -3,22 +3,22 @@
 #include"EntityManager.h"
 #include"SystemManager.h"
 #include<unordered_map>
-#include<memory>
-#include<bitset>
+//#include<memory>
+//#include<bitset>
+#include"ECS.h"
 #include"System.h"
-using Entity = unsigned int;
-const Entity MAX_ENTITIES = 5000;
-using ComponentType = unsigned int;
-const ComponentType MAX_COMPONENTS = 32;
-using Signature = std::bitset<MAX_COMPONENTS>;
+//using Entity = unsigned int;
+//const Entity MAX_ENTITIES = 5000;
+//using ComponentType = unsigned int;
+//const ComponentType MAX_COMPONENTS = 32;
+//using Signature = std::bitset<MAX_COMPONENTS>;
 
-class Coordinator
+namespace Coordinator
 {
-private:
-	std::unique_ptr<ComponentManager> componentManager_;
-	std::unique_ptr<EntityManager> entityManager_;
-	std::unique_ptr<SystemManager> systemManager_;
-public:
+	extern std::unique_ptr<ComponentManager> componentManager_;
+	extern std::unique_ptr<EntityManager> entityManager_;
+	extern std::unique_ptr<SystemManager> systemManager_;
+	//èâä˙âª
 	void Init();
 	Entity CreateEntity();
 	void DestroyEntity(Entity entity);
@@ -53,7 +53,7 @@ public:
 	}
 
 	template <typename T>
-	T&GetComponent(Entity entity)
+	T& GetComponent(Entity entity)
 	{
 		return componentManager_->GetComponent<T>(entity);
 	}
@@ -71,7 +71,7 @@ public:
 	template <typename T>
 	void SetSystemSignature(Signature signature)
 	{
-		systemManager_->SetSignature<T>)(signature);
+		systemManager_->SetSignature<T>(signature);
 	}
 
  };

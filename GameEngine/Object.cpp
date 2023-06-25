@@ -1,4 +1,5 @@
 #include "Object.h"
+#include"PhysicsSystem.h"
 #include"Engine\SAFE_DELETE_RELEASE.h"
 
 int objectcount = 0;
@@ -11,8 +12,39 @@ Object::Object(Object* parent, const std::string name)
 	isUpdate_(true),
 	drawFlag_(true),
 	startFlag_(false),
-	objectID_(-1)
+	objectID_(-1),
+	time_(0)
 {
+	
+	Coordinator::RegisterComponent<Gravity>();
+	Coordinator::RegisterComponent<TransformData>();
+	Coordinator::RegisterComponent<RigidBody>();
+
+	physicsSystem_ = Coordinator::RegisterSystem<PhysicsSystem>();
+	
+
+	Signature signature;
+	signature.set(Coordinator::GetComponentType<Gravity>());
+	signature.set(Coordinator::GetComponentType<RigidBody>());
+	signature.set(Coordinator::GetComponentType<TransformData>());
+
+	Coordinator::SetSystemSignature<PhysicsSystem>(signature);
+
+	Entity entity = Coordinator::CreateEntity();
+	entityList_.push_back(entity);
+	Gravity g;
+	g.force_ = XMVectorSet(0, 0.4f, 0, 0);
+	Coordinator::AddComponent(entity, g);
+	RigidBody rb;
+	rb.acceleration_ = XMVectorZero();
+	rb.acceleration_ = XMVectorZero();
+	Coordinator::AddComponent(entity, rb);
+
+	TransformData transform;
+	transform.position_ = XMVectorZero();
+	transform.rotation_ = XMVectorZero();
+	transform.scale_ = {0,0,0};
+	Coordinator::AddComponent(entity, transform);
 }
 
 Object::Object(Object* parent)
@@ -29,6 +61,7 @@ Object::~Object()
 
 void Object::UpdateSub()
 {
+	time_++;
 	/////////アップデート/////////
 	if (startFlag_ == false && activeFlag_)
 	{
@@ -41,7 +74,8 @@ void Object::UpdateSub()
 		isUpdate_)
 		Update();
 
-
+	//physicsSystem_->Update(time_ / 60.0f);
+	
 
 	for (auto itr = childList_.begin(); itr != childList_.end(); itr++)
 	{
@@ -140,10 +174,10 @@ void Object::ThirdDrawSub()
 }
 void Object::ReleaseSub()
 {
-	for (auto i = colliderList_.begin(); i != colliderList_.end(); i++)
-	{
-		SAFE_DELETE(*i);
-	}
+	//for (auto i = colliderList_.begin(); i != colliderList_.end(); i++)
+	//{
+	//	SAFE_DELETE(*i);
+	//}
 	for (auto i = childList_.begin(); i != childList_.end(); i++)
 	{
 		(*i)->ReleaseSub();

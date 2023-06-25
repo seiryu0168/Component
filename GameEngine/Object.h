@@ -1,7 +1,8 @@
 #pragma once
-#include"Engine\Collider\BoxCollider.h"
-#include"Engine\Collider/SphereCollider.h"
-#include"Engine\Collider/OBBCollider.h"
+//#include"Engine\Collider\BoxCollider.h"
+//#include"Engine\Collider/SphereCollider.h"
+//#include"Engine\Collider/OBBCollider.h"
+#include"Coordinator.h"
 #include"Component.h"
 #include<string>
 #include<list>
@@ -18,15 +19,20 @@
 //#define new DEBUG_NEW
 //#endif // _DEBUG
 
+class PhysicsSystem;
 class Object
 {
 	friend class Collider;
 	friend class Component;
+
 private:
+	float time_;
 protected:
+
 	std::list<Object*> childList_;
 	std::list<Component*> componentList_;
-	std::list<Collider*> colliderList_; //コライダーリスト	
+	//std::list<Collider*> colliderList_; //コライダーリスト	
+	std::vector<Entity> entityList_;
 	Object* pParent_;
 	Object* pScene_;
 	std::string	objectName_;			//名前
@@ -37,6 +43,7 @@ protected:
 	bool isUpdate_;
 	bool drawFlag_;						//描画するかどうか
 	bool startFlag_;					//一回もアクティブになってない場合false
+	std::shared_ptr<PhysicsSystem> physicsSystem_;
 public:
 	Object(Object* parent,std::string name);
 	Object(Object* parent);
@@ -61,9 +68,9 @@ public:
 	void ReleaseSub();
 
 	virtual void OnCollision(Object* pTarget) {};
-	void Collision(Object* pTarget);
-	void AddCollider(Collider* collider);
-	void DelCollider(const Object& obj);
+	//void Collision(Object* pTarget);
+	//void AddCollider(Collider* collider);
+	//void DelCollider(const Object& obj);
 
 
 	void KillMe() { killFlag_ = true; }

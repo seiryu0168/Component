@@ -26,7 +26,7 @@ public:
 		entityToIndexMap_[entity] = newIndex;
 		indexToEntityMap_[newIndex] = entity;
 		componentArray_[newIndex] = component;
-		++size;
+		++size_;
 	}
 	void RemoveData(Entity entity)
 	{
@@ -55,7 +55,7 @@ public:
 	}
 	T& GetData(Entity entity)
 	{
-		assert(entityToIndexMap.find(entity) != entityToIndexMap_.end() && "Retrieving non-existent component");
+		assert(entityToIndexMap_.find(entity) != entityToIndexMap_.end() && "Retrieving non-existent component");
 		//指定されたエンティティを返す
 		return componentArray_[entityToIndexMap_[entity]];
 	}

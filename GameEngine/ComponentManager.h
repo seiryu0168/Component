@@ -2,10 +2,7 @@
 #include<unordered_map>
 #include<memory>
 #include"ComponentArray.h"
-using Entity = unsigned int;
-const Entity MAX_ENTITIES = 5000;
-using ComponentType = unsigned int;
-const ComponentType MAX_COMPONENTS = 32;
+#include"ECS.h"
 
 class ComponentManager
 {
@@ -30,8 +27,11 @@ public:
 	template <typename T>
 	void RegisterComponent()
 	{
-		const chat* typeName = typeid(T).name();
-		assert(componenTypes.find(typeName) == componentTypes_.end() && "Registaring component type more once");
+		const char* typeName = typeid(T).name();
+		//同じコンポーネントタイプがある場合、登録しない
+		if (componentTypes_.find(typeName) != componentTypes_.end())
+			return;
+		assert(componentTypes_.find(typeName) == componentTypes_.end() && "Registaring component type more once");
 		componentTypes_.insert({ typeName,nextComponentType_ });
 		componentArrays_.insert({ typeName, std::make_shared<ComponentArray<T>>()});
 		++nextComponentType_;
@@ -44,14 +44,6 @@ public:
 		assert(componentTypes_.find(typeName) != componentTypes_.end() && "Component not registered before use");
 		return componentTypes_[typeName];
 	
-	}
-	template <typename T>
-	ComponentType GetComponent()
-	{
-		const char* typeName = typeid(T).name();
-		assert(componentTypes_.find(typeName) != componentTypes_.end()&&"Component not registered before use");
-
-		return componentTypes_[typeName];
 	}
 
 	template <typename T>
