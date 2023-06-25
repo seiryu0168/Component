@@ -38,6 +38,14 @@ public:
 	}
 
 	template <typename T>
+	ComponentType GetComponentType()
+	{
+		const char* typeName = typeid(T).name();
+		assert(componentTypes_.find(typeName) != componentTypes_.end() && "Component not registered before use");
+		return componentTypes_[typeName];
+	
+	}
+	template <typename T>
 	ComponentType GetComponent()
 	{
 		const char* typeName = typeid(T).name();
