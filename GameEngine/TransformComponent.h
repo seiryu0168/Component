@@ -1,5 +1,6 @@
 #pragma once
 #include"Component.h"
+#include<memory>
 #include"Engine/DirectX_11/Math.h"
 class TransformComponent : public Component
 {
@@ -15,7 +16,7 @@ public:
 	XMFLOAT3 scale_;	//拡大率
 	XMVECTOR baseVec_;	//基準となるベクトル
 		
-	TransformComponent* pParent_;//親の情報
+	std::shared_ptr<TransformComponent> pParent_;//親の情報
 	
 	TransformComponent(Object* atcObj);
 	TransformComponent();
@@ -53,7 +54,7 @@ public:
 	void SetScaleZ(float z) { scale_.z = z; }
 	void SetScale(XMFLOAT3 scale) { scale_ = scale; }
 
-	void SetParentTransformComponent(TransformComponent* parent);
+	void SetParentTransformComponent(std::shared_ptr<TransformComponent> parent);
 
 	static XMFLOAT3 Float3Add(XMFLOAT3 add1, XMFLOAT3 add2)
 	{

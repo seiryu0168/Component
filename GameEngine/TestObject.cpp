@@ -9,6 +9,22 @@ TestObject::TestObject(Object* parent)
 	hModel_(-1),
 	time_(0)
 {
+
+	Entity entity = Coordinator::CreateEntity();
+	entityList_.push_back(entity);
+	Gravity g;
+	g.force_ = XMVectorSet(0, -0.4f, 0, 0);
+	Coordinator::AddComponent(entity, g);
+	RigidBody rb;
+	rb.acceleration_ = XMVectorZero();
+	rb.vector_ = XMVectorZero();
+	Coordinator::AddComponent(entity, rb);
+
+	TransformData transform;
+	transform.position_ = XMVectorZero();
+	transform.rotation_ = XMVectorZero();
+	transform.scale_ = { 0,0,0 };
+	Coordinator::AddComponent(entity, transform);
 }
 
 TestObject::~TestObject()

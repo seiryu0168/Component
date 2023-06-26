@@ -15,7 +15,7 @@ float	 farClipping;		//ファークリッピング
 //初期化
 void Camera::Initialize(float width,float height)
 {
-	position_ = XMVectorSet(0, 3, -10, 0);	//カメラの位置
+	position_ = XMVectorSet(0, 10, -40, 0);	//カメラの位置
 	target_ = XMVectorSet(0, 0, 0, 0);	//カメラの焦点
 	upVector_ = XMVectorSet(0, 1, 0, 0);
 	angleOfView = XM_PIDIV4;

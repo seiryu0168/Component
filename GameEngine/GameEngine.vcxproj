@@ -160,13 +160,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Component.cpp" />
-    <ClCompile Include="ComponentArray.cpp" />
-    <ClCompile Include="ComponentManager.cpp" />
     <ClCompile Include="Coordinator.cpp" />
     <ClCompile Include="DrawComponent.cpp" />
     <ClCompile Include="Easing.cpp" />
     <ClCompile Include="DebugUI.cpp" />
-    <ClCompile Include="ECS.cpp" />
     <ClCompile Include="Engine\Collider\BoxCollider.cpp" />
     <ClCompile Include="Engine\Collider\Collider.cpp" />
     <ClCompile Include="Engine\Collider\OBBCollider.cpp" />
@@ -196,7 +193,6 @@
     <ClCompile Include="Engine\ResourceManager\TextureManager.cpp" />
     <ClCompile Include="Engine\SceneManager.cpp" />
     <ClCompile Include="EntityManager.cpp" />
-    <ClCompile Include="IComponentArray.cpp" />
     <ClCompile Include="ImGui\imgui.cpp" />
     <ClCompile Include="ImGui\imgui_draw.cpp" />
     <ClCompile Include="ImGui\imgui_impl_dx11.cpp" />
@@ -210,11 +206,11 @@
     <ClCompile Include="ModelComponent.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="PhysicsSystem.cpp" />
-    <ClCompile Include="System.cpp" />
     <ClCompile Include="SystemManager.cpp" />
     <ClCompile Include="TestObject.cpp" />
     <ClCompile Include="TestObjectChild.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
+    <ClCompile Include="TransformSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Component.h" />
@@ -277,6 +273,7 @@
     <ClInclude Include="TestObject.h" />
     <ClInclude Include="TestObjectChild.h" />
     <ClInclude Include="TransformComponent.h" />
+    <ClInclude Include="TransformSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="BillBoard.hlsl">

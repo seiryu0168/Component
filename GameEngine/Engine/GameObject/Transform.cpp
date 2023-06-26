@@ -6,8 +6,8 @@ Transform::Transform()
 	matTranslate_=XMMatrixIdentity();
 	matRotate_=XMMatrixIdentity();
 	matScale_=XMMatrixIdentity();
-	position_ = XMFLOAT3(0.0f, 0.0f, 0.0f);
-	rotate_ = XMFLOAT3(0.0f, 0.0f, 0.0f);
+	position_ = XMVectorSet(0.0f, 0.0f, 0.0f,0.0f);
+	rotate_ = XMVectorSet(0.0f, 0.0f, 0.0f, 0.0f);
 	scale_ = XMFLOAT3(1.0f, 1.0f, 1.0f);
 	baseVec_ = XMVectorSet(0, 0, 0, 0);
 	pParent_ = nullptr;
@@ -23,15 +23,30 @@ Transform::~Transform()
 void Transform::Calclation()
 {
 	//à⁄ìÆçsóÒ
-	matTranslate_ = XMMatrixTranslation(position_.x, position_.y, position_.z);
+	XMFLOAT3 position = StoreFloat3(position_);
+	matTranslate_ = XMMatrixTranslation(position.x, position.y, position.z);
 	
 	//âÒì]çsóÒ
-	matRotate_ = XMMatrixRotationX(XMConvertToRadians(rotate_.x))
+	matRotate_ = XMMatrixRotationQuaternion(rotate_);
+		XMMatrixRotationX(XMConvertToRadians(rotate_.x))
 		* XMMatrixRotationY(XMConvertToRadians(rotate_.y))
 		* XMMatrixRotationZ(XMConvertToRadians(rotate_.z));
 	
 	//ägëÂçsóÒ
 	matScale_ = XMMatrixScaling(scale_.x, scale_.y, scale_.z);
+}
+
+void Transform::RotateAxis(XMVECTOR axis, float angle)
+{
+
+	rotate_ = XMQuaternionRotationNormal(axis, angle);
+}
+
+void Transform::RotateEular(XMFLOAT3 rotation)
+{
+	rotate_ = XMQuaternionRotationRollPitchYaw(XMConvertToRadians(rotation.x),
+											   XMConvertToRadians(rotation.y),
+											   XMConvertToRadians(rotation.z));
 }
 
 //ãtçsóÒÇÃåvéZ

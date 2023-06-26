@@ -108,7 +108,7 @@ XMMATRIX TransformComponent::GetWorldScaleMatrix()
 	return matScale_;
 }
 
-void TransformComponent::SetParentTransformComponent(TransformComponent* parent)
+void TransformComponent::SetParentTransformComponent(std::shared_ptr<TransformComponent> parent)
 {
 	pParent_ = parent;
 }
