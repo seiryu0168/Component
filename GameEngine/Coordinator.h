@@ -13,11 +13,13 @@
 //const ComponentType MAX_COMPONENTS = 32;
 //using Signature = std::bitset<MAX_COMPONENTS>;
 
-namespace Coordinator
+class Coordinator
 {
-	extern std::unique_ptr<ComponentManager> componentManager_;
-	extern std::unique_ptr<EntityManager> entityManager_;
-	extern std::unique_ptr<SystemManager> systemManager_;
+private:
+	std::unique_ptr<ComponentManager> componentManager_;
+	std::unique_ptr<EntityManager> entityManager_;
+	std::unique_ptr<SystemManager> systemManager_;
+public:
 	//‰Šú‰»
 	void Init();
 	Entity CreateEntity();

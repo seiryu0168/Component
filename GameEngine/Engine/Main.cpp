@@ -16,6 +16,7 @@
 #include"../ImGui/imgui_impl_win32.h"
 #include"ResourceManager/Audio.h"
 #include"../PhysicsSystem.h"
+#include"../TransformSystem.h"
 #include"../Coordinator.h"
 #ifdef _DEBUG
 #define _CRTDBG_MAP_ALLOC
@@ -110,15 +111,21 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	Coordinator::Init();
 
 	Coordinator::RegisterSystem<PhysicsSystem>();
+	Coordinator::RegisterSystem<TransformSystem>();
+	Coordinator::RegisterComponent<Transform>();
 	Coordinator::RegisterComponent<Gravity>();
 	Coordinator::RegisterComponent<TransformData>();
 	Coordinator::RegisterComponent<RigidBody>();
-	Signature signature;
-	signature.set(Coordinator::GetComponentType<Gravity>());
-	signature.set(Coordinator::GetComponentType<RigidBody>());
-	signature.set(Coordinator::GetComponentType<TransformData>());
+	Signature phy_signature;
+	phy_signature.set(Coordinator::GetComponentType<Gravity>());
+	phy_signature.set(Coordinator::GetComponentType<RigidBody>());
+	phy_signature.set(Coordinator::GetComponentType<TransformData>());
 
-	Coordinator::SetSystemSignature<PhysicsSystem>(signature);
+	Signature trans_signature;
+	trans_signature.set(Coordinator::GetComponentType<Transform>());
+
+
+	Coordinator::SetSystemSignature<PhysicsSystem>(trans_signature);
 	pRootJob = new RootJob;
 	
 	//メッセージループ

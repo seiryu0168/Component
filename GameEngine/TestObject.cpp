@@ -19,6 +19,7 @@ TestObject::TestObject(Object* parent)
 	rb.acceleration_ = XMVectorZero();
 	rb.vector_ = XMVectorZero();
 	Coordinator::AddComponent(entity, rb);
+	Transform transformer;
 
 	TransformData transform;
 	transform.position_ = XMVectorZero();

@@ -5,7 +5,6 @@
 
 class TransformSystem : public System
 {
-	void Update();
-	void Calc();
+
 };
 

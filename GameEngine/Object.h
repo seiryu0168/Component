@@ -88,6 +88,11 @@ public:
 	Object* FindChildAtTag(std::string tagName);
 
 	Object* GetScene();
+	template<typename T>
+	T GetComponent()
+	{
+		Coordinator::GetComponent<T>()
+	}
 	std::list<Object*>* GetChildList() { return &childList_; }
 
 	void KillAllChildren();
@@ -95,44 +100,44 @@ public:
 	void PushBackChild(Object* pTarget);
 
 
-	template <class T>
-	T* AddComponent(Object* atcObj)
-	{
-		T* p;
-		p = new T(atcObj);
-		componentList_.push_back(p);
-		return p;
-	}
-	template<class T>
-	T* GetComponent(int num = 0)
-	{
-		int compnum = 0;
-		for (auto&& i : componentList_)
-		{
-			if (typeid(T) == typeid(*i))
-			{
-				if (compnum == num)
-					return (T*)i;
-
-				compnum++;
-			}
-		}
-		return nullptr;
-	}
-
-	template<class T>
-	std::list<Component*> GetComponentList()
-	{
-		std::list<Component*> returnList;
-		for (auto&& i : componentList_)
-		{
-			if (typeid(T) == typeid(*i))
-			{
-				returnList.push_back(*i);
-			}
-		}
-		return returnList;
-	}
+	//template <class T>
+	//T* AddComponent(Object* atcObj)
+	//{
+	//	T* p;
+	//	p = new T(atcObj);
+	//	componentList_.push_back(p);
+	//	return p;
+	//}
+	//template<class T>
+	//T* GetComponent(int num = 0)
+	//{
+	//	int compnum = 0;
+	//	for (auto&& i : componentList_)
+	//	{
+	//		if (typeid(T) == typeid(*i))
+	//		{
+	//			if (compnum == num)
+	//				return (T*)i;
+	//
+	//			compnum++;
+	//		}
+	//	}
+	//	return nullptr;
+	//}
+	//
+	//template<class T>
+	//std::list<Component*> GetComponentList()
+	//{
+	//	std::list<Component*> returnList;
+	//	for (auto&& i : componentList_)
+	//	{
+	//		if (typeid(T) == typeid(*i))
+	//		{
+	//			returnList.push_back(*i);
+	//		}
+	//	}
+	//	return returnList;
+	//}
 	//void DeleteComponent(Component* comp);
 
 	template<class T>

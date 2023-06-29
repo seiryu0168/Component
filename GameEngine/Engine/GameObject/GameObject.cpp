@@ -8,6 +8,10 @@ GameObject::GameObject(Object* parent, const std::string& name)
 	:Object(parent,name),
 	drawFlag_(true)
 {
+	Entity transformEntity = Coordinator::CreateEntity();
+	Transform transform;
+	transform.pParent_=parent.Get
+	Coordinator::AddComponent<Transform>(transformEntity, transform);
 	if(parent)
 	{
 		transform_ = AddComponent<TransformComponent>(this);

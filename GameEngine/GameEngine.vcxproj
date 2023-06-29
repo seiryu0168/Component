@@ -161,6 +161,7 @@
   <ItemGroup>
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Coordinator.cpp" />
+    <ClCompile Include="CoordinatorManager.cpp" />
     <ClCompile Include="DrawComponent.cpp" />
     <ClCompile Include="Easing.cpp" />
     <ClCompile Include="DebugUI.cpp" />
@@ -217,6 +218,7 @@
     <ClInclude Include="ComponentArray.h" />
     <ClInclude Include="ComponentManager.h" />
     <ClInclude Include="Coordinator.h" />
+    <ClInclude Include="CoordinatorManager.h" />
     <ClInclude Include="DrawComponent.h" />
     <ClInclude Include="Easing.h" />
     <ClInclude Include="DebugUI.h" />
