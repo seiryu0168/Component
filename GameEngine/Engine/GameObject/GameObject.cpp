@@ -10,12 +10,12 @@ GameObject::GameObject(Object* parent, const std::string& name)
 {
 	Entity transformEntity = Coordinator::CreateEntity();
 	Transform transform;
-	transform.pParent_=parent.Get
-	Coordinator::AddComponent<Transform>(transformEntity, transform);
+	//transform.pParent_=parent.Get
+	//Coordinator::AddComponent<Transform>(transformEntity, transform);
 	if(parent)
 	{
 		transform_ = AddComponent<TransformComponent>(this);
-		//transform_.pParent_ = &((GameObject*)parent)->transform_;
+		transform_.pParent_ = &((GameObject*)parent)->transform_;
 
 	}
 }

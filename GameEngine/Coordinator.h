@@ -13,13 +13,12 @@
 //const ComponentType MAX_COMPONENTS = 32;
 //using Signature = std::bitset<MAX_COMPONENTS>;
 
-class Coordinator
+namespace Coordinator
 {
-private:
-	std::unique_ptr<ComponentManager> componentManager_;
-	std::unique_ptr<EntityManager> entityManager_;
-	std::unique_ptr<SystemManager> systemManager_;
-public:
+	extern std::unique_ptr<ComponentManager> componentManager_;
+	extern std::unique_ptr<EntityManager> entityManager_;
+	extern std::unique_ptr<SystemManager> systemManager_;
+
 	//‰Šú‰»
 	void Init();
 	Entity CreateEntity();
@@ -28,7 +27,6 @@ public:
 	void RegisterComponent()
 	{
 		componentManager_->RegisterComponent<T>();
-
 	}
 
 	template <typename T>
@@ -45,7 +43,7 @@ public:
 
 	template <typename T>
 	void RemoveComponent(Entity entity)
-	{
+	{	
 		componentManager_->RemoveComponent<T>(entity);
 		auto signature = entityManager_->GetSignature(entity);
 		signature.set(componentManager_->GetComponentType<T>(), false);

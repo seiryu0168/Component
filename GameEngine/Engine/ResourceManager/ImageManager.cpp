@@ -132,7 +132,7 @@ void ImageManager::SetImagePos(int imgHandle, XMFLOAT3 pos)
 	pos.z = 0;
 	pos.x = pos.x / Direct3D::GetScreenWidth();
 	pos.y = pos.y / Direct3D::GetScreenHeight();
-	imageList_[imgHandle]->transform_.position_ = pos;
+	imageList_[imgHandle]->transform_.position_ = XMLoadFloat3(&pos);
 }
 
 void ImageManager::ChangeColor(int imgHandle, XMFLOAT4 color)

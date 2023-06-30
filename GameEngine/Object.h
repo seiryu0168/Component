@@ -32,7 +32,8 @@ protected:
 	std::list<Object*> childList_;
 	std::list<Component*> componentList_;
 	//std::list<Collider*> colliderList_; //コライダーリスト	
-	std::vector<Entity> entityList_;
+	std::unordered_map<std::string, std::vector<Entity>> entityList_;
+	//std::vector<Entity> entityList_;
 	Object* pParent_;
 	Object* pScene_;
 	std::string	objectName_;			//名前
@@ -88,16 +89,47 @@ public:
 	Object* FindChildAtTag(std::string tagName);
 
 	Object* GetScene();
-	template<typename T>
-	T GetComponent()
-	{
-		Coordinator::GetComponent<T>()
-	}
 	std::list<Object*>* GetChildList() { return &childList_; }
 
 	void KillAllChildren();
 	void KillObjectSub(Object* pTarget);
 	void PushBackChild(Object* pTarget);
+
+	template <typename T>
+	void AddComponent(T component)
+	{
+		std::string typeName = typeid(T).name();
+			Entity entity = Coordinator::CreateEntity();
+			//今まで入れたことがないコンポーネントだったら
+			//配列を作ってエンティティを格納
+			if (entityList_.find(typeName) == entityList_.end())
+			{
+				std::vector<Entity> entities;
+				entities.push_back(entity);
+				entityList_.insert({ typeName,entities });
+			}
+			else
+				entityList_.find(typeName)->second.push_back(entity);
+
+			Coordinator::AddComponent<T>(entity,component);
+	}
+
+	template <typename T>
+	void RemoveComponent(int componentNum=0)
+	{
+		std::string typeName = typeid(T).name();
+		//コンポーネント番号が配列内にあるなら
+		if(componentNum< entityList_.find(typeName)->second.size())
+		Coordinator::RemoveComponent<T>(entityList_.find(typeName)->second[componentNum]);
+	}
+
+	//template <typename T>
+	//T& GetComponent(int componentNum=0)
+	//{
+	//	std::string typeName = typeid(T).name();
+	//	if (entityList_.find(typeName)->second.size())
+	//		return Coordinator::GetComponent<T>(entityList_.find(typeName)->second[componentNum]);
+	//}
 
 
 	//template <class T>

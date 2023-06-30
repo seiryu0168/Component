@@ -125,7 +125,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	trans_signature.set(Coordinator::GetComponentType<Transform>());
 
 
-	Coordinator::SetSystemSignature<PhysicsSystem>(trans_signature);
+	Coordinator::SetSystemSignature<PhysicsSystem>(phy_signature);
+	Coordinator::SetSystemSignature<Transform>(trans_signature);
 	pRootJob = new RootJob;
 	
 	//メッセージループ

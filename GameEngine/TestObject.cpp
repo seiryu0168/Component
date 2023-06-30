@@ -11,21 +11,22 @@ TestObject::TestObject(Object* parent)
 {
 
 	Entity entity = Coordinator::CreateEntity();
-	entityList_.push_back(entity);
+	
 	Gravity g;
 	g.force_ = XMVectorSet(0, -0.4f, 0, 0);
-	Coordinator::AddComponent(entity, g);
+	AddComponent(g);
 	RigidBody rb;
 	rb.acceleration_ = XMVectorZero();
 	rb.vector_ = XMVectorZero();
-	Coordinator::AddComponent(entity, rb);
-	Transform transformer;
+	AddComponent(rb);
 
 	TransformData transform;
 	transform.position_ = XMVectorZero();
 	transform.rotation_ = XMVectorZero();
 	transform.scale_ = { 0,0,0 };
-	Coordinator::AddComponent(entity, transform);
+	AddComponent(transform);
+	Transform transformer;
+	AddComponent(transformer);
 }
 
 TestObject::~TestObject()
@@ -42,11 +43,11 @@ void TestObject::Initialize()
 
 void TestObject::Update()
 {
-	for (Entity entity : entityList_)
-	{
-		transform_->position_ = StoreFloat3(Coordinator::GetComponent<TransformData>(entity).position_);
-
-	}
+		//transform_->position_ = StoreFloat3(GetComponent<TransformData>().position_);
+	//for (Entity entity : entityList_.find(typeid(TransformData).name())->second)
+	//{
+	//
+	//}
 	time_++;
 	transform_->position_.x = sinf(XMConvertToRadians(time_));
 	transform_->position_.z = cosf(XMConvertToRadians(time_));
