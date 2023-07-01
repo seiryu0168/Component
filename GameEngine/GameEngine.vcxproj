@@ -159,6 +159,7 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ColliderSystem.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Coordinator.cpp" />
     <ClCompile Include="CoordinatorManager.cpp" />
@@ -210,10 +211,13 @@
     <ClCompile Include="SystemManager.cpp" />
     <ClCompile Include="TestObject.cpp" />
     <ClCompile Include="TestObjectChild.cpp" />
+    <ClCompile Include="Test_BoxCollider_ECSver.cpp" />
+    <ClCompile Include="Test_Collider_ECSver.cpp" />
     <ClCompile Include="TransformComponent.cpp" />
     <ClCompile Include="TransformSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ColliderSystem.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentArray.h" />
     <ClInclude Include="ComponentManager.h" />
@@ -274,6 +278,8 @@
     <ClInclude Include="SystemManager.h" />
     <ClInclude Include="TestObject.h" />
     <ClInclude Include="TestObjectChild.h" />
+    <ClInclude Include="Test_BoxCollider_ECSver.h" />
+    <ClInclude Include="Test_Collider_ECSver.h" />
     <ClInclude Include="TransformComponent.h" />
     <ClInclude Include="TransformSystem.h" />
   </ItemGroup>

@@ -25,7 +25,7 @@ class Collider
 
 	friend class BoxCollider;
 	friend class SphereCollider;
-	friend class OBBCollider;
+	friend class OBBCollider;	
 	friend class PolygonCollider;
 
 	GameObject*  pColObject_;	//当たり判定を付けるオブジェクト
