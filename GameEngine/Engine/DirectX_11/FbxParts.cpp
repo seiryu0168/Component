@@ -92,7 +92,7 @@ HRESULT FbxParts::Init(FbxNode* pNode)
 	return S_OK;
 }
 
-void FbxParts::Draw(TransformComponent& transform,XMFLOAT4 lineColor)
+void FbxParts::Draw(Transform& transform,XMFLOAT4 lineColor)
 {
 	transform.Calclation();
 	float factor[4] = { D3D11_BLEND_ZERO,D3D11_BLEND_ZERO, D3D11_BLEND_ZERO, D3D11_BLEND_ZERO };
@@ -161,7 +161,7 @@ void FbxParts::Draw(TransformComponent& transform,XMFLOAT4 lineColor)
 	}
 }
 
-void FbxParts::DrawSkinAnime(TransformComponent& transform, FbxTime time, XMFLOAT4 lineColor)
+void FbxParts::DrawSkinAnime(Transform& transform, FbxTime time, XMFLOAT4 lineColor)
 {
 	for (int i = 0; i < boneNum_; i++)
 	{
@@ -719,7 +719,7 @@ bool FbxParts::GetBonePosition(std::string boneName, XMFLOAT3* position)
 	return false;
 }
 
-void FbxParts::RayCast(RayCastData& rayData, TransformComponent& transform)
+void FbxParts::RayCast(RayCastData& rayData, Transform& transform)
 {
 
 	for (int material = 0; material < materialCount_; material++)

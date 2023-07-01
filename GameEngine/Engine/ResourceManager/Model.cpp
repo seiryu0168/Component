@@ -19,7 +19,7 @@ namespace ModelManager
 	struct ModelData
 	{
 		Fbx* pfbx_;
-		TransformComponent transform_;
+		Transform transform_;
 		std::string fileName_;
 
 		//アニメーションのフレーム
@@ -128,14 +128,14 @@ void ModelManager::SetTransform(int modelNum, Transform transform)
 {
 	if (modelNum >= 0&&modelData_[modelNum] != nullptr)
 	{
-		//modelData_[modelNum]->transform_ = transform;
+		modelData_[modelNum]->transform_ = transform;
 	}
 }
 void ModelManager::SetTransform(int modelNum, TransformComponent transformComp)
 {
 	if (modelNum >= 0 && modelData_[modelNum] != nullptr)
 	{
-		modelData_[modelNum]->transform_ = transformComp;
+		//modelData_[modelNum]->transform_ = transformComp;
 	}
 }
 void ModelManager::Draw(int modelNum)

@@ -8,16 +8,13 @@ GameObject::GameObject(Object* parent, const std::string& name)
 	:Object(parent,name),
 	drawFlag_(true)
 {
-	Entity transformEntity = Coordinator::CreateEntity();
-	Transform transform;
-	//transform.pParent_=parent.Get
-	//Coordinator::AddComponent<Transform>(transformEntity, transform);
-	if(parent)
-	{
-		transform_ = AddComponent<TransformComponent>(this);
-		transform_.pParent_ = &((GameObject*)parent)->transform_;
-
-	}
+	//Entity transformEntity = Coordinator::CreateEntity();
+	Transform* transform=new Transform;
+	AddComponent<Transform>(*transform);
+	if (parent != nullptr)
+		transform->pParent_ = ((GameObject*)parent)->GetTransform();
+	
+	transform_ = transform;
 }
 
 //void GameObject::UpdateSub()
@@ -357,29 +354,29 @@ void GameObject::SetParent(GameObject* parent)
 	GetParent()->PushBackChild(pParent_);
 }
 
-TransformComponent* GameObject::GetTransform()
+Transform* GameObject::GetTransform()
 {
 	return this->transform_;
 }
 
-XMFLOAT3  GameObject::GetPosition()
-{
-	return this->transform_->position_;
-}
-XMFLOAT3  GameObject::GetRotate()
-{
-	return this->transform_->rotate_;
-}
-XMFLOAT3  GameObject::GetScale()
-{
-	return this->transform_->scale_;
-}
+//XMFLOAT3  GameObject::GetPosition()
+//{
+//	return this->transform_->position_;
+//}
+//XMFLOAT3  GameObject::GetRotate()
+//{
+//	return this->transform_->rotate_;
+//}
+//XMFLOAT3  GameObject::GetScale()
+//{
+//	return this->transform_->scale_;
+//}
 
 XMMATRIX GameObject::LookAtMatrix(XMFLOAT3 target, XMVECTOR frontVec, XMVECTOR upVector)
 {
 	frontVec = XMVector3Normalize(frontVec);
 
-	XMVECTOR Z = XMLoadFloat3(&target) - XMLoadFloat3(&this->transform_->position_); //自分から目標へのベクトル　=　Z軸
+	XMVECTOR Z = XMLoadFloat3(&target) - this->transform_->position_; //自分から目標へのベクトル　=　Z軸
 	Z = XMVector3Normalize(Z);
 
 	float angleX=0;

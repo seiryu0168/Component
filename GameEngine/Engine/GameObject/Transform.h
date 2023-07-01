@@ -15,10 +15,11 @@ public:
 
 	XMVECTOR baseVec_;	//基準となるベクトル
 
-	std::shared_ptr<Transform> pParent_;//親の情報
+	Transform* pParent_;//親の情報
 
 	//コンストラクタ
 	Transform();
+	Transform(Transform* parent);
 
 	//デストラクタ
 	~Transform();
@@ -43,9 +44,9 @@ public:
 	XMMATRIX GetWorldRotateMatrix();
 	XMMATRIX GetWorldScaleMatrix();
 
-	static XMFLOAT3 Float3Add(XMFLOAT3 add1, XMFLOAT3 add2)
+	static XMFLOAT3 Float3Add(XMVECTOR add1, XMVECTOR add2)
 	{
-		return XMFLOAT3(add1.x + add2.x, add1.y + add2.y, add1.z + add2.z);
+		return StoreFloat3(add1 + add2);
 	}
 };
 

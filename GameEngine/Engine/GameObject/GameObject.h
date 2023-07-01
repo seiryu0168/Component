@@ -19,8 +19,8 @@ class GameObject : public Object
 protected:
 
 	bool drawFlag_;						//•`‰æ‚·‚é‚©‚Ç‚¤‚©
-	TransformComponent* transform_;
-	std::list<Component*> componentList_;
+	Transform* transform_;
+	//std::list<Component*> componentList_;
 
 public:
 	GameObject();
@@ -47,7 +47,7 @@ public:
 	void SetParent(GameObject* parent);
 	std::string GetTag() { return objectTag_; }
 
-	TransformComponent* GetTransform();
+	Transform* GetTransform();
 	XMFLOAT3  GetPosition();
 	XMFLOAT3  GetRotate();
 	XMFLOAT3  GetScale();
@@ -57,6 +57,6 @@ public:
 	XMMATRIX    GetWorldMatrix();
 
 	//ƒ[ƒ‹ƒhÀ•WŽæ“¾
-	XMFLOAT3    GetWorldPosition() { return TransformComponent::Float3Add(((GameObject*)GetParent())->transform_->position_, transform_->position_); }
+	XMFLOAT3    GetWorldPosition() { return Transform::Float3Add(((GameObject*)GetParent())->transform_->position_, transform_->position_); }
 
 };

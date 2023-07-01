@@ -123,13 +123,13 @@ public:
 		Coordinator::RemoveComponent<T>(entityList_.find(typeName)->second[componentNum]);
 	}
 
-	//template <typename T>
-	//T& GetComponent(int componentNum=0)
-	//{
-	//	std::string typeName = typeid(T).name();
-	//	if (entityList_.find(typeName)->second.size())
-	//		return Coordinator::GetComponent<T>(entityList_.find(typeName)->second[componentNum]);
-	//}
+	template <typename T>
+	T& GetComponent(int componentNum=0)
+	{
+		std::string typeName = typeid(T).name();
+		if (entityList_.find(typeName)->second.size())
+			return Coordinator::GetComponent<T>(entityList_.find(typeName)->second[componentNum]);
+	}
 
 
 	//template <class T>

@@ -21,8 +21,9 @@ void TestObjectChild::Initialize()
 
 void TestObjectChild::Update()
 {
-	//transform_->position_.x = sinf(XMConvertToRadians(time_)*2);
-	//transform_->position_.z = cosf(XMConvertToRadians(time_)*2);
+	time_++;
+	transform_->position_ = XMVectorSet(0,sinf(XMConvertToRadians(time_)*2),0,0)*4.0f;
+	
 }
 
 void TestObjectChild::Draw()

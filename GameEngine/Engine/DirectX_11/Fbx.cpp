@@ -364,7 +364,7 @@ HRESULT Fbx::CheckNode(FbxNode* pNode, std::vector<FbxParts*>* pPartsList)
 //	}
 //}
 
-void Fbx::Draw(TransformComponent& transform, SHADER_TYPE shaderType,int frame)
+void Fbx::Draw(Transform& transform, SHADER_TYPE shaderType,int frame)
 {
 	Direct3D::SetShader(shaderType);
 	Direct3D::SetBlendMode(BLEND_MODE::BLEND_DEFAULT);
@@ -384,7 +384,7 @@ void Fbx::Draw(TransformComponent& transform, SHADER_TYPE shaderType,int frame)
 	}
 }
 
-void Fbx::DrawOutLine(TransformComponent& transform, int frame, XMFLOAT4 lineColor)
+void Fbx::DrawOutLine(Transform& transform, int frame, XMFLOAT4 lineColor)
 {
 	Direct3D::SetBlendMode(BLEND_MODE::BLEND_DEFAULT);
 	Direct3D::SetShader(SHADER_TYPE::SHADER_OUTLINE);
@@ -421,7 +421,7 @@ void Fbx::DrawOutLine(TransformComponent& transform, int frame, XMFLOAT4 lineCol
 	}
 }
 
-void Fbx::DrawToon(TransformComponent& transform, bool isOutLine, int frame)
+void Fbx::DrawToon(Transform& transform, bool isOutLine, int frame)
 {
 	Direct3D::SetBlendMode(BLEND_MODE::BLEND_DEFAULT);
 	if (isOutLine)
@@ -460,7 +460,7 @@ void Fbx::DrawToon(TransformComponent& transform, bool isOutLine, int frame)
 	}
 }
 
-void Fbx::RayCast(RayCastData& ray, TransformComponent& transform)
+void Fbx::RayCast(RayCastData& ray, Transform& transform)
 {
 	for (int i = 0; i < parts_.size(); i++)
 	{

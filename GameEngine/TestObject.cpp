@@ -25,8 +25,8 @@ TestObject::TestObject(Object* parent)
 	transform.rotation_ = XMVectorZero();
 	transform.scale_ = { 0,0,0 };
 	AddComponent(transform);
-	Transform transformer;
-	AddComponent(transformer);
+	//Transform transformer;
+	//AddComponent(transformer);
 }
 
 TestObject::~TestObject()
@@ -36,21 +36,14 @@ TestObject::~TestObject()
 void TestObject::Initialize()
 {
 	GameObject* p = Instantiate<TestObjectChild>(this);
-	//p->SetPosition({ 0,2,0 });
 	hModel_ = ModelManager::Load("Assets\\Model\\AAA.fbx");
 	assert(hModel_ >= 0);
 }
 
 void TestObject::Update()
 {
-		//transform_->position_ = StoreFloat3(GetComponent<TransformData>().position_);
-	//for (Entity entity : entityList_.find(typeid(TransformData).name())->second)
-	//{
-	//
-	//}
 	time_++;
-	transform_->position_.x = sinf(XMConvertToRadians(time_));
-	transform_->position_.z = cosf(XMConvertToRadians(time_));
+	transform_->position_ = XMVectorSet(0, 0, sin(time_ / 60.0f), 0) * 5.0f;
 }
 
 void TestObject::Draw()

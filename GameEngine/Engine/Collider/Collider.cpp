@@ -24,8 +24,8 @@ bool Collider::IsHitBox_Box(BoxCollider* boxB, BoxCollider* boxA)
 	//Ž©•ª‚ÌÀ•W
 	//‘ŠŽè‚ÌÀ•W
 
-	XMFLOAT3 boxPos1 = Transform::Float3Add(boxA->pColObject_->GetWorldPosition(), boxA->center_);
-	XMFLOAT3 boxPos2 = Transform::Float3Add(boxB->pColObject_->GetWorldPosition(), boxB->center_);
+	XMFLOAT3 boxPos1 = StoreFloat3(boxA->pColObject_->GetComponent<Transform>().position_+XMLoadFloat3(&boxA->center_));
+	XMFLOAT3 boxPos2 = StoreFloat3(boxB->pColObject_->GetComponent<Transform>().position_ + XMLoadFloat3(&boxB->center_));
 
 	if ((boxPos1.x + boxA->size_.x/ 2) > (boxPos2.x - boxB->size_.x / 2) &&
 		(boxPos1.x - boxA->size_.x / 2) < (boxPos2.x + boxB->size_.x / 2) &&
@@ -43,8 +43,8 @@ bool Collider::IsHitBox_Box(BoxCollider* boxB, BoxCollider* boxA)
 
 bool Collider::IsHitBox_Sphere(BoxCollider* box, SphereCollider* sphere)
 {
-	XMFLOAT3 boxPos = Transform::Float3Add(box->pColObject_->GetWorldPosition(), box->center_);
-	XMFLOAT3 spherePos= Transform::Float3Add(sphere->pColObject_->GetWorldPosition(), sphere->center_);
+	XMFLOAT3 boxPos =StoreFloat3(box->pColObject_->GetComponent<Transform>().position_ + XMLoadFloat3(&box->center_));
+	XMFLOAT3 spherePos= StoreFloat3(sphere->pColObject_->GetComponent<Transform>().position_+ XMLoadFloat3(&sphere->center_));
 
 	if (spherePos.x > boxPos.x - box->size_.x/2 - sphere->size_.x &&
 		spherePos.x < boxPos.x + box->size_.x/2 + sphere->size_.x &&
@@ -84,8 +84,8 @@ bool Collider::IsHitSphere_Sphere(SphereCollider* sphereA, SphereCollider* spher
 
 bool Collider::IsHitOBB_OBB(OBBCollider* obbA, OBBCollider* obbB)
 {
-	XMFLOAT3 obbAPos = obbA->pColObject_->GetTransform()->position_;
-	XMFLOAT3 obbBPos = obbB->pColObject_->GetTransform()->position_;
+	XMFLOAT3 obbAPos = StoreFloat3(obbA->pColObject_->GetComponent<Transform>().position_);
+	XMFLOAT3 obbBPos = StoreFloat3(obbB->pColObject_->GetComponent<Transform>().position_);
 	
 	XMVECTOR betweenCenterPoint = XMLoadFloat3(&obbBPos) - XMLoadFloat3(&obbAPos);
 
@@ -241,8 +241,8 @@ bool Collider::IsHitOBB_OBB(OBBCollider* obbA, OBBCollider* obbB)
 
 bool Collider::IsHitOBB_Sphere(OBBCollider* obb, SphereCollider* sphere)
 {
-	XMFLOAT3 obbPos = obb->pColObject_->GetTransform()->position_;
-	XMFLOAT3 spherePos = sphere->pColObject_->GetTransform()->position_;
+	XMFLOAT3 obbPos = StoreFloat3(obb->pColObject_->GetComponent<Transform>().position_);
+	XMFLOAT3 spherePos = StoreFloat3(sphere->pColObject_->GetComponent<Transform>().position_);
 
 	XMVECTOR betweenCenterPoint = XMLoadFloat3(&spherePos) - XMLoadFloat3(&obbPos);
 

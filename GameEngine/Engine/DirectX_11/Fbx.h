@@ -76,11 +76,11 @@ public:
 	Fbx();
 	~Fbx();
 	HRESULT Load(std::string fileName);
-	void RayCast(RayCastData& ray, TransformComponent& transform);
+	void RayCast(RayCastData& ray, Transform& transform);
 	XMFLOAT3 GetBonePosition(std::string boneName);
 	std::string GetModelName();
-	void    Draw(TransformComponent& transform, SHADER_TYPE shaderType,int frame);
-	void	DrawOutLine(TransformComponent& transform, int frame, XMFLOAT4 lineColor = {0,0,0,1});
-	void	DrawToon(TransformComponent& transform, bool isOutLine, int frame);
+	void    Draw(Transform& transform, SHADER_TYPE shaderType,int frame);
+	void	DrawOutLine(Transform& transform, int frame, XMFLOAT4 lineColor = {0,0,0,1});
+	void	DrawToon(Transform& transform, bool isOutLine, int frame);
 	void    Release();
 };

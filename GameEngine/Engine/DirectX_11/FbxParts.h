@@ -101,11 +101,11 @@ public:
 	~FbxParts();
 
 	HRESULT Init(FbxNode* pNode);
-	void Draw(TransformComponent& transform, XMFLOAT4 lineColor = { 0,0,0,1 });
-	void DrawSkinAnime(TransformComponent& transform, FbxTime time, XMFLOAT4 lineColor = { 0,0,0,0 });
+	void Draw(Transform& transform, XMFLOAT4 lineColor = { 0,0,0,1 });
+	void DrawSkinAnime(Transform& transform, FbxTime time, XMFLOAT4 lineColor = { 0,0,0,0 });
 	//void DrawMeshAnime(Transform& transform, FbxTime time, FbxScene* scene);
 	FbxSkin* GetSkinInfo() { return pSkinInfo_; }
 	bool GetBonePosition(std::string boneName, XMFLOAT3* position);
-	void RayCast(RayCastData& rayData, TransformComponent& transform);
+	void RayCast(RayCastData& rayData, Transform& transform);
 };
 
