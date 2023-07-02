@@ -65,6 +65,4 @@ public:
 		if (entityToIndexMap_.find(entity) != entityToIndexMap_.end())
 			RemoveData(entity);
 	}
-
-
 };

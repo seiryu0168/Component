@@ -2,15 +2,19 @@
 
 Test_BoxCollider_ECSver::Test_BoxCollider_ECSver(XMFLOAT3 basePos, XMFLOAT3 size)
 {
-    center_ = basePos;
-    size_ = size;
-        
+    //center_ = basePos;
+    //size_ = size;
+    //colliderType_ = COLLIDERTYPE::TYPE_BOX;
 }
 
-bool Test_BoxCollider_ECSver::IsHit(Test_Collider_ECSver* target)
+Test_BoxCollider_ECSver::~Test_BoxCollider_ECSver()
 {
-    if (target->colliderType_ == COLLIDERTYPE::TYPE_BOX)
-        return IsHitBox_Box((Test_BoxCollider_ECSver*)target, this);
-    
-    return false;
 }
+
+//bool Test_BoxCollider_ECSver::IsHit(Test_Collider_ECSver* target)
+//{
+//    if (target->colliderType_ == COLLIDERTYPE::TYPE_BOX)
+//        return IsHitBox_Box((Test_BoxCollider_ECSver*)target, this);
+//    
+//    return false;
+//}

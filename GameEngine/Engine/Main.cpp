@@ -17,6 +17,7 @@
 #include"ResourceManager/Audio.h"
 #include"../PhysicsSystem.h"
 #include"../TransformSystem.h"
+#include"../ColliderSystem.h"
 #include"../Coordinator.h"
 #ifdef _DEBUG
 #define _CRTDBG_MAP_ALLOC
@@ -112,6 +113,9 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
 	Coordinator::RegisterSystem<PhysicsSystem>();
 	Coordinator::RegisterSystem<TransformSystem>();
+	Coordinator::RegisterSystem<ColliderSystem>();
+
+	Coordinator::RegisterComponent<Test_Collider_ECSver>();
 	Coordinator::RegisterComponent<Transform>();
 	Coordinator::RegisterComponent<Gravity>();
 	Coordinator::RegisterComponent<TransformData>();
@@ -123,10 +127,13 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
 	Signature trans_signature;
 	trans_signature.set(Coordinator::GetComponentType<Transform>());
-
+	Signature coll_signature;
+	coll_signature.set(Coordinator::GetComponentType<Test_Collider_ECSver>());
 
 	Coordinator::SetSystemSignature<PhysicsSystem>(phy_signature);
-	Coordinator::SetSystemSignature<Transform>(trans_signature);
+	Coordinator::SetSystemSignature<TransformSystem>(trans_signature);
+	Coordinator::SetSystemSignature<ColliderSystem>(coll_signature);
+
 	pRootJob = new RootJob;
 	
 	//メッセージループ

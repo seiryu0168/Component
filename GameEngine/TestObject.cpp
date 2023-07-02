@@ -3,30 +3,30 @@
 #include"PhysicsSystem.h"
 #include"TestObjectChild.h"
 #include"EntityManager.h"
+#include"Test_Collider_ECSver.h"
 
 TestObject::TestObject(Object* parent)
 	:GameObject(parent,"TestObject"),
 	hModel_(-1),
 	time_(0)
 {
-
-	Entity entity = Coordinator::CreateEntity();
 	
 	Gravity g;
 	g.force_ = XMVectorSet(0, -0.4f, 0, 0);
-	AddComponent(g);
+	AddComponent<Gravity>(g);
 	RigidBody rb;
 	rb.acceleration_ = XMVectorZero();
 	rb.vector_ = XMVectorZero();
-	AddComponent(rb);
+	AddComponent<RigidBody>(rb);
 
 	TransformData transform;
 	transform.position_ = XMVectorZero();
 	transform.rotation_ = XMVectorZero();
 	transform.scale_ = { 0,0,0 };
-	AddComponent(transform);
-	//Transform transformer;
-	//AddComponent(transformer);
+	AddComponent<TransformData>(transform);
+	
+	Test_Collider_ECSver boxCollider({ 0,0,0 }, { 1,1,1 });
+	AddComponent<Test_Collider_ECSver>(boxCollider);
 }
 
 TestObject::~TestObject()
@@ -35,7 +35,7 @@ TestObject::~TestObject()
 
 void TestObject::Initialize()
 {
-	GameObject* p = Instantiate<TestObjectChild>(this);
+	//GameObject* p = Instantiate<TestObjectChild>(this);
 	hModel_ = ModelManager::Load("Assets\\Model\\AAA.fbx");
 	assert(hModel_ >= 0);
 }
