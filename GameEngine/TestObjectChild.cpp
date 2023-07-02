@@ -17,6 +17,7 @@ TestObjectChild::~TestObjectChild()
 void TestObjectChild::Initialize()
 {
 	Test_Collider_ECSver	boxCollider({ 0,0,0 }, { 1,1,1 });
+	boxCollider.SetAttachObject(this);
 	AddComponent<Test_Collider_ECSver>(boxCollider);
 	hModel_ = ModelManager::Load("Assets\\Model\\AAA.fbx");
 	assert(hModel_ >= 0);
@@ -24,8 +25,8 @@ void TestObjectChild::Initialize()
 
 void TestObjectChild::Update()
 {
-	time_++;
-	transform_->position_ = XMVectorSet(0,sinf(XMConvertToRadians(time_)*2),0,0)*4.0f;
+	//time_++;
+	//transform_->position_ = XMVectorSet(0,sinf(XMConvertToRadians(time_)*2),0,0)*4.0f;
 	
 }
 

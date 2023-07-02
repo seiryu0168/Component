@@ -14,7 +14,7 @@ GameObject::GameObject(Object* parent, const std::string& name)
 	if (parent != nullptr)
 		transform->pParent_ = ((GameObject*)parent)->GetTransform();
 	
-	transform_ = transform;
+	transform_ = &GetComponent<Transform>();
 }
 
 //void GameObject::UpdateSub()

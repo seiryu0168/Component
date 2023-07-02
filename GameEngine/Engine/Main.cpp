@@ -192,7 +192,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
 				pRootJob->ComponentUpdate();
 				//D2D::BeginDraw();
-				
+				Coordinator::SystemsUpdate();
 				pRootJob->DrawSub();
 				
 				pRootJob->SecondDrawSub();

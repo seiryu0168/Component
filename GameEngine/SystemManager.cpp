@@ -31,3 +31,11 @@ void SystemManager::EntitySignatureChanged(Entity entity, Signature entitySignat
 		}
 	}	
 }
+
+void SystemManager::AllSystemUpdate()
+{
+	for (auto& system : systems_)
+	{
+		system.second->Update();
+	}
+}

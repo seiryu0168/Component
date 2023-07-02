@@ -49,7 +49,6 @@ Object::~Object()
 
 void Object::UpdateSub()
 {
-	time_++;
 	/////////アップデート/////////
 	if (startFlag_ == false && activeFlag_)
 	{
@@ -62,7 +61,6 @@ void Object::UpdateSub()
 		isUpdate_)
 		Update();
 
-	physicsSystem_->Update(time_ / 3600.0f);
 	
 
 	for (auto itr = childList_.begin(); itr != childList_.end(); itr++)

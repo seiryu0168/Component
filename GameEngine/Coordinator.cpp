@@ -27,4 +27,9 @@ namespace Coordinator
 		componentManager_->EntityDestroyed(entity);
 		systemManager_->EntityDestroyed(entity);
 	}
+
+	void SystemsUpdate()
+	{
+		systemManager_->AllSystemUpdate();
+	}
 }

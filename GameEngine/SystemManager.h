@@ -21,6 +21,7 @@ private:
 public:
 	void EntityDestroyed(Entity entity);
 	void EntitySignatureChanged(Entity entity, Signature entitySignature);
+	void AllSystemUpdate();
 
 	template <typename T>
 	std::shared_ptr<T> RegisterSistem()

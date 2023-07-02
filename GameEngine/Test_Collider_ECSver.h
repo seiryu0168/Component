@@ -44,7 +44,7 @@ public:
 	//virtual bool IsHit(Test_Collider_ECSver* target) = 0;
 	GameObject* GetAttachObject() { return attachObject_; }
 	COLLIDERTYPE GetType() { return colliderType_; }
-
+	void SetAttachObject(GameObject* object) { attachObject_ = object; }
 	const XMFLOAT3& GetCenter() { return center_; }
 	const XMFLOAT3& GetSize() { return size_; }
 

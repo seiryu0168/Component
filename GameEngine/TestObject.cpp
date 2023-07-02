@@ -26,6 +26,7 @@ TestObject::TestObject(Object* parent)
 	AddComponent<TransformData>(transform);
 	
 	Test_Collider_ECSver boxCollider({ 0,0,0 }, { 1,1,1 });
+	boxCollider.SetAttachObject(this);
 	AddComponent<Test_Collider_ECSver>(boxCollider);
 }
 
