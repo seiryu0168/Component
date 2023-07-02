@@ -2,7 +2,14 @@
 #include"Coordinator.h"
 
 
-void PhysicsSystem::Update(float dt)
+void PhysicsSystem::Update()
+{
+	time_++;
+	PhysicsUpdate((float)time_ / 60.0f);
+	
+}
+
+void PhysicsSystem::PhysicsUpdate(float deltaTime)
 {
 	for (auto const& entity : entities_)
 	{
@@ -10,8 +17,8 @@ void PhysicsSystem::Update(float dt)
 		auto& transform = Coordinator::GetComponent<TransformData>(entity);
 		auto& gravity = Coordinator::GetComponent<Gravity>(entity);
 
-		transform.position_ += rigidBody.vector_ * dt;
-		rigidBody.vector_ += gravity.force_ * dt;
+		transform.position_ += rigidBody.vector_ * deltaTime;
+		rigidBody.vector_ += gravity.force_ * deltaTime;
 
 	}
 }

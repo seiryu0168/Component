@@ -5,7 +5,7 @@
 #include"Test_BoxCollider_ECSver.h"
 class ColliderSystem : public System
 {
-	void Update();
+	void Update() override;
 	void CheckCollision(Test_Collider_ECSver* firstTarget, Test_Collider_ECSver* secondTarget);
 	bool IsHitBox_Box(Test_Collider_ECSver* firstTarget, Test_Collider_ECSver* secondTarget);
 };

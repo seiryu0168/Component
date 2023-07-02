@@ -55,3 +55,8 @@ void TestObject::Draw()
 void TestObject::Release()
 {
 }
+
+void TestObject::OnCollision(Object* target)
+{
+	int a = 0;
+}

@@ -6,5 +6,6 @@ class System
 {
 public:
 	std::set<Entity> entities_;
+	virtual void Update() {};
 };
 

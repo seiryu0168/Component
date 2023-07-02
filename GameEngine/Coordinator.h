@@ -23,6 +23,8 @@ namespace Coordinator
 	void Init();
 	Entity CreateEntity();
 	void DestroyEntity(Entity entity);
+	void AllSystemUpdate();
+
 	template <typename T>
 	void RegisterComponent()
 	{
@@ -79,6 +81,8 @@ namespace Coordinator
 	{
 		return (T*)systemManager_->GetSystem<T>();
 	}
+
+
 
  };
 

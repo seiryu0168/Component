@@ -21,7 +21,9 @@ struct TransformData
 };
 class PhysicsSystem : public System
 {
+	int time_;
 public:
-	void Update(float dt);
+	void Update() override;
+	void PhysicsUpdate(float deltaTime);
 };
 
