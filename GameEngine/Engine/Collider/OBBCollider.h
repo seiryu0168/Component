@@ -15,7 +15,7 @@ class OBBCollider : public Collider
 	XMVECTOR OBB_Z;
 public:
 	OBBCollider(XMFLOAT3 size, bool isRotate = true, bool isScale = true);
-	bool IsHit(Collider* target) override;
+	//bool IsHit(Collider* target) override;
 
 	//オブジェクトA,Bの距離を計算
 	XMVECTOR calcDistance(XMFLOAT3 posA, XMFLOAT3 posB);

@@ -1,41 +1,41 @@
 #include "ColliderSystem.h"
-
+#include"Engine/GameObject/GameObject.h"
 void ColliderSystem::Update()
 {
 	for (auto const& firstEntity : entities_)
 	{
-		auto& firstCollision = Coordinator::GetComponent<Test_Collider_ECSver>(firstEntity);
+		auto& firstCollision = Coordinator::GetComponent<BoxCollider>(firstEntity);
 		for (auto const& secondEntity : entities_)
 		{
 			if (firstEntity == secondEntity)
 			{
 				continue;
 			}
-			auto& secondCollision = Coordinator::GetComponent<Test_Collider_ECSver>(secondEntity);
+			auto& secondCollision = Coordinator::GetComponent<BoxCollider>(secondEntity);
 			
 			CheckCollision(&firstCollision,&secondCollision);
 		}
 	}
 }
 
-void ColliderSystem::CheckCollision(Test_Collider_ECSver* firstTarget, Test_Collider_ECSver* secondTarget)
+void ColliderSystem::CheckCollision(Collider* firstTarget, Collider* secondTarget)
 {
 	bool isCollision = false;
 	switch (firstTarget->GetType())
 	{
-	case COLLIDERTYPE::TYPE_BOX:
+	case ColliderType::BOX_COLLIDER:
 		switch (secondTarget->GetType())
 		{
-		case COLLIDERTYPE::TYPE_BOX:
-			isCollision = IsHitBox_Box(firstTarget, secondTarget);
+		case ColliderType::BOX_COLLIDER:
+			isCollision = IsHitBox_Box((BoxCollider*)firstTarget, (BoxCollider*)secondTarget);
 			break;
-		case COLLIDERTYPE::TYPE_SPHERE:
+		case ColliderType::SPHERE_COLLIDER:
 			break;
 		default:
 			break;
 		}
 		break;
-	case COLLIDERTYPE::TYPE_SPHERE:
+	case ColliderType::SPHERE_COLLIDER:
 		break;
 	default:
 		break;
@@ -46,17 +46,17 @@ void ColliderSystem::CheckCollision(Test_Collider_ECSver* firstTarget, Test_Coll
 
 }
 
-bool ColliderSystem::IsHitBox_Box(Test_Collider_ECSver* firstTarget, Test_Collider_ECSver* secondTarget)
+bool ColliderSystem::IsHitBox_Box(BoxCollider* firstTarget, BoxCollider* secondTarget)
 {
 	XMFLOAT3 boxPos1 = StoreFloat3(firstTarget->GetAttachObject()->GetComponent<Transform>().position_ + XMLoadFloat3(&firstTarget->GetCenter()));
 	XMFLOAT3 boxPos2 = StoreFloat3(secondTarget->GetAttachObject()->GetComponent<Transform>().position_ + XMLoadFloat3(&secondTarget->GetCenter()));
 
-	if ((boxPos1.x + firstTarget->GetSize().x / 2) > (boxPos2.x - secondTarget->GetSize().x / 2) &&
-		(boxPos1.x - firstTarget->GetSize().x / 2) < (boxPos2.x + secondTarget->GetSize().x / 2) &&
-		(boxPos1.y + firstTarget->GetSize().y / 2) > (boxPos2.y - secondTarget->GetSize().y / 2) &&
-		(boxPos1.y - firstTarget->GetSize().y / 2) < (boxPos2.y + secondTarget->GetSize().y / 2) &&
-		(boxPos1.z + firstTarget->GetSize().z / 2) > (boxPos2.z - secondTarget->GetSize().z / 2) &&
-		(boxPos1.z - firstTarget->GetSize().z / 2) < (boxPos2.z + secondTarget->GetSize().z / 2))
+	if ((boxPos1.x + firstTarget->GetSize().x) > (boxPos2.x - secondTarget->GetSize().x) &&
+		(boxPos1.x - firstTarget->GetSize().x) < (boxPos2.x + secondTarget->GetSize().x) &&
+		(boxPos1.y + firstTarget->GetSize().y) > (boxPos2.y - secondTarget->GetSize().y) &&
+		(boxPos1.y - firstTarget->GetSize().y) < (boxPos2.y + secondTarget->GetSize().y) &&
+		(boxPos1.z + firstTarget->GetSize().z) > (boxPos2.z - secondTarget->GetSize().z) &&
+		(boxPos1.z - firstTarget->GetSize().z) < (boxPos2.z + secondTarget->GetSize().z))
 	{
 		return true;
 	}

@@ -27,7 +27,6 @@ private:
 	friend class Test_BoxCollider_ECSver;
 	Entity colliderEntity_;
 	XMFLOAT3     center_;		//Œ´“_
-	XMFLOAT3     size_;			//‘å‚«‚³
 	COLLIDERTYPE colliderType_;
 	bool		 isKill_;
 	bool prevHit_;
@@ -36,17 +35,15 @@ private:
 public:
 
 	Test_Collider_ECSver();
-	Test_Collider_ECSver(XMFLOAT3 basePos, XMFLOAT3 size);
 	//Test_Collider_ECSver(HitBox boxCollider);
 	//Test_Collider_ECSver(HitSphere sphereCollider);
-	~Test_Collider_ECSver();
+	virtual ~Test_Collider_ECSver() {};
 
-	//virtual bool IsHit(Test_Collider_ECSver* target) = 0;
-	GameObject* GetAttachObject() { return attachObject_; }
-	COLLIDERTYPE GetType() { return colliderType_; }
 	void SetAttachObject(GameObject* object) { attachObject_ = object; }
+	GameObject* GetAttachObject() { return attachObject_; }
+	void SetColliderType(COLLIDERTYPE type);
+	COLLIDERTYPE GetType() { return colliderType_; }
 	const XMFLOAT3& GetCenter() { return center_; }
-	const XMFLOAT3& GetSize() { return size_; }
 
 	//bool IsHitBox_Box(Test_BoxCollider_ECSver* boxA, Test_BoxCollider_ECSver* boxB);
 };

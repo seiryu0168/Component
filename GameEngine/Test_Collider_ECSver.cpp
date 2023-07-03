@@ -3,18 +3,18 @@
 Test_Collider_ECSver::Test_Collider_ECSver()
 {
 }
-Test_Collider_ECSver::Test_Collider_ECSver(XMFLOAT3 basePos, XMFLOAT3 size)
-{
-	
-	
-	colliderType_ = COLLIDERTYPE::TYPE_BOX;
-	center_ = basePos;
-	size_ = size;
-}
-
-Test_Collider_ECSver::~Test_Collider_ECSver()
-{
-}
+//Test_Collider_ECSver::Test_Collider_ECSver(XMFLOAT3 basePos, XMFLOAT3 size)
+//{
+//	
+//	
+//	colliderType_ = COLLIDERTYPE::TYPE_BOX;
+//	center_ = basePos;
+//	size_ = size;
+//}
+//
+//Test_Collider_ECSver::~Test_Collider_ECSver()
+//{
+//}
 
 //Test_Collider_ECSver::Test_Collider_ECSver(HitBox boxCollider)
 //{

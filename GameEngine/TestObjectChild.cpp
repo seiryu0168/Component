@@ -1,7 +1,7 @@
 #include "TestObjectChild.h"
 #include"PhysicsSystem.h"
 #include"Engine/ResourceManager/Model.h"
-#include"Test_Collider_ECSver.h"
+#include"Engine/Collider/BoxCollider.h"
 TestObjectChild::TestObjectChild(Object* parent)
 	:GameObject(parent,"TestObjectChild"),
 	hModel_(-1),
@@ -16,9 +16,9 @@ TestObjectChild::~TestObjectChild()
 
 void TestObjectChild::Initialize()
 {
-	Test_Collider_ECSver	boxCollider({ 0,0,0 }, { 1,1,1 });
+	BoxCollider boxCollider({ 0,0,0 }, { 1,1,1 });
 	boxCollider.SetAttachObject(this);
-	AddComponent<Test_Collider_ECSver>(boxCollider);
+	AddComponent<BoxCollider>(boxCollider);
 	hModel_ = ModelManager::Load("Assets\\Model\\AAA.fbx");
 	assert(hModel_ >= 0);
 }

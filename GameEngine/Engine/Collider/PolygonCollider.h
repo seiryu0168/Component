@@ -7,5 +7,5 @@ class PolygonCollider : public Collider
 	int hModel_;
 public:
 	PolygonCollider(XMFLOAT3 pos,int hModel);
-	bool IsHit(Collider* target) override;
+	//bool IsHit(Collider* target) override;
 };

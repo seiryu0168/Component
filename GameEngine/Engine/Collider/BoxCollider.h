@@ -5,17 +5,15 @@
 class BoxCollider : public Collider
 {
 	//Colliderクラスにアクセスできるようにする
-	friend class Collider;
+	//friend class Collider;
 
-	XMVECTOR scaleX_;
-	XMVECTOR scaleY_;
-	XMVECTOR scaleZ_;
-
+private:
+	XMFLOAT3     size_;			//大きさ
 public:
-	//箱型の判定範囲
-	//basePos
-	BoxCollider(XMFLOAT3 basePos, XMFLOAT3 size);
 
-	//衝突判定
-	bool IsHit(Collider* target) override;
+	BoxCollider();
+	BoxCollider(XMFLOAT3 basePos, XMFLOAT3 size);
+	~BoxCollider();
+	void SetSize(XMFLOAT3 size) { size_ = size; }
+	XMFLOAT3 GetSize() { return size_; }
 };

@@ -3,7 +3,7 @@
 #include"PhysicsSystem.h"
 #include"TestObjectChild.h"
 #include"EntityManager.h"
-#include"Test_Collider_ECSver.h"
+#include"Engine/Collider/BoxCollider.h"
 
 TestObject::TestObject(Object* parent)
 	:GameObject(parent,"TestObject"),
@@ -25,9 +25,9 @@ TestObject::TestObject(Object* parent)
 	transform.scale_ = { 0,0,0 };
 	AddComponent<TransformData>(transform);
 	
-	Test_Collider_ECSver boxCollider({ 0,0,0 }, { 1,1,1 });
+	BoxCollider boxCollider({ 0,0,0 }, { 1,1,1 });
 	boxCollider.SetAttachObject(this);
-	AddComponent<Test_Collider_ECSver>(boxCollider);
+	AddComponent<BoxCollider>(boxCollider);
 }
 
 TestObject::~TestObject()
@@ -44,7 +44,7 @@ void TestObject::Initialize()
 void TestObject::Update()
 {
 	time_++;
-	transform_->position_ = XMVectorSet(0, 0, sin(time_ / 60.0f), 0) * 5.0f;
+	transform_->position_ = XMVectorSet(sin(time_ / 60.0f), 0, 0, 0) * 5.0f;
 }
 
 void TestObject::Draw()

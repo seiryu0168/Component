@@ -201,7 +201,7 @@ void GameObject::Collision(GameObject* pTarget)
 //collider->pColObject‚ÉƒZƒbƒg‚·‚é“z
 void GameObject::AddCollider(Collider* collider)
 {
-	collider->SetGemaObject(this);
+	//collider->SetGemaObject(this);
 	//colliderList_.push_back(collider);
 }
 

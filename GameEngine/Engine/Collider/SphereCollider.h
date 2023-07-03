@@ -17,6 +17,6 @@ public:
 	/// </summary>
 	/// <param name="target">当たったコライダーのポインタ</param>
 	/// <returns></returns>
-	bool IsHit(Collider* target) override;
+	//bool IsHit(Collider* target) override;
 };
 

@@ -1,5 +1,10 @@
 #include "Test_BoxCollider_ECSver.h"
 
+Test_BoxCollider_ECSver::Test_BoxCollider_ECSver()
+    :Test_Collider_ECSver()
+{
+}
+
 Test_BoxCollider_ECSver::Test_BoxCollider_ECSver(XMFLOAT3 basePos, XMFLOAT3 size)
 {
     //center_ = basePos;
