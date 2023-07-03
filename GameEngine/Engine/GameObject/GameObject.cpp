@@ -199,27 +199,27 @@ void GameObject::Collision(GameObject* pTarget)
 
 //コライダーを追加
 //collider->pColObjectにセットする奴
-void GameObject::AddCollider(Collider* collider)
-{
-	//collider->SetGemaObject(this);
-	//colliderList_.push_back(collider);
-}
+//void GameObject::AddCollider(Collider* collider)
+//{
+//	//collider->SetGemaObject(this);
+//	//colliderList_.push_back(collider);
+//}
 
-void GameObject::DelCollider(const GameObject& obj)
-{
-	//for (auto itr = colliderList_.begin(); itr != colliderList_.end();)
-	//{
-	//	if ((*itr)->GetpColObject() == &obj)
-	//	{
-	//		itr = colliderList_.erase(itr);
-	//	}
-	//	if (itr == colliderList_.end())
-	//	{
-	//		break;
-	//	}
-	//	itr ++;
-	//}
-}
+//void GameObject::DelCollider(const GameObject& obj)
+//{
+//	//for (auto itr = colliderList_.begin(); itr != colliderList_.end();)
+//	//{
+//	//	if ((*itr)->GetpColObject() == &obj)
+//	//	{
+//	//		itr = colliderList_.erase(itr);
+//	//	}
+//	//	if (itr == colliderList_.end())
+//	//	{
+//	//		break;
+//	//	}
+//	//	itr ++;
+//	//}
+//}
 
 //void GameObject::KillAllChildren()
 //{

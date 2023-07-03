@@ -14,8 +14,8 @@
 
 class GameObject : public Object
 {
-	friend class Collider;
-	friend class Component;
+	//friend class Collider;
+	//friend class Component;
 protected:
 
 	bool drawFlag_;						//描画するかどうか
@@ -36,8 +36,8 @@ public:
 	virtual void OnCollisionStay(GameObject* pTarget) {};
 	void Collision(GameObject* pTarget);
 	void CheckLillCollider(GameObject*);
-	void AddCollider(Collider* collider);
-	void DelCollider(const GameObject& obj);
+	//void AddCollider(Collider* collider);
+	//void DelCollider(const GameObject& obj);
 
 ///////////////////////////各セッターゲッター//////////////////////////////////////
 	void SetTag(std::string tagName) { objectTag_ = tagName; }

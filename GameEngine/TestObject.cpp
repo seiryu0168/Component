@@ -25,9 +25,11 @@ TestObject::TestObject(Object* parent)
 	transform.scale_ = { 0,0,0 };
 	AddComponent<TransformData>(transform);
 	
-	BoxCollider boxCollider({ 0,0,0 }, { 1,1,1 });
-	boxCollider.SetAttachObject(this);
-	AddComponent<BoxCollider>(boxCollider);
+	Collider coll({0,0,0});
+	HitBox box({ 1,1,1 });
+	coll.SetCollider<HitBox>(box);
+	coll.SetAttachObject(this);
+	AddComponent<Collider>(coll);
 }
 
 TestObject::~TestObject()

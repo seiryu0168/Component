@@ -22,8 +22,8 @@
 class PhysicsSystem;
 class Object
 {
-	friend class Collider;
-	friend class Component;
+	//friend class Collider;
+	//friend class Component;
 
 private:
 	float time_;

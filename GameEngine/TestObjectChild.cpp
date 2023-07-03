@@ -16,9 +16,11 @@ TestObjectChild::~TestObjectChild()
 
 void TestObjectChild::Initialize()
 {
-	BoxCollider boxCollider({ 0,0,0 }, { 1,1,1 });
-	boxCollider.SetAttachObject(this);
-	AddComponent<BoxCollider>(boxCollider);
+	Collider coll({ 0,0,0 });
+	coll.SetAttachObject(this);
+	HitBox box({ 1,1,1 });
+	coll.SetCollider<HitBox>(box);
+	AddComponent<Collider>(coll);
 	hModel_ = ModelManager::Load("Assets\\Model\\AAA.fbx");
 	assert(hModel_ >= 0);
 }

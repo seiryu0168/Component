@@ -2,10 +2,22 @@
 #include<d3d11.h>
 #include<DirectXMath.h>
 #include"../GameObject/Transform.h"
+#include"../../Coordinator.h"
 using namespace DirectX;
 
 //ëOï˚êÈåæ
 class GameObject;
+
+struct HitBox
+{
+	XMFLOAT3 size_;
+};
+
+struct HitSphere
+{
+	float radius_;
+};
+
 
 enum class ColliderType
 {
@@ -17,6 +29,7 @@ enum class ColliderType
 };
 
 //ìñÇΩÇËîªíË
+
 class Collider
 {
 
@@ -28,6 +41,7 @@ class Collider
 private:
 	//friend class Test_BoxCollider_ECSver;
 	XMFLOAT3     center_;		//å¥ì_
+	Entity	colliderEntity_;
 	ColliderType colliderType_;
 	bool		 isKill_;
 	bool prevHit_;
@@ -36,17 +50,39 @@ private:
 public:
 
 	Collider();
-	virtual ~Collider() {};
+	Collider(XMFLOAT3 centerPos);
+	~Collider();
 
 	void SetAttachObject(GameObject* object) { attachObject_ = object; }
 	GameObject* GetAttachObject() { return attachObject_; }
-	void SetColliderType(ColliderType type) { colliderType_ = type; }
 	ColliderType GetType() { return colliderType_; }
 	void SetCenter(const XMFLOAT3& pos) { center_ = pos; }
 	const XMFLOAT3& GetCenter() { return center_; }
 
 	void KillCollider() { isKill_ = true; }
 	bool IsKill() { return isKill_; }
+
+	template<typename T>
+	void SetCollider(T colliderShape)
+	{
+		std::string typeName = typeid(T).name();
+		SetCollisionType(typeName);
+		colliderEntity_ = Coordinator::CreateEntity();
+		Coordinator::AddComponent<T>(colliderEntity_,colliderShape);
+	}
+	template <typename T>
+	T& GetCollider()
+	{
+
+		return Coordinator::GetComponent<T>(colliderEntity_);
+	}
+	template<typename T>
+	T& GetCollisionShape()
+	{
+		return Coordinator::GetComponent<T>(colliderEntity_);
+	}
+	void SetCollisionType(std::string name);
+
 	////è’ìÀîÕàÕ
 	//
 	///// <summary>

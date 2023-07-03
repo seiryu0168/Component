@@ -16,6 +16,23 @@ Collider::Collider()
 {
 }
 
+Collider::Collider(XMFLOAT3 centerPos)
+{
+	center_ = centerPos;
+}
+
+Collider::~Collider()
+{
+}
+
+void Collider::SetCollisionType(std::string name)
+{
+	if (name == "struct HitBox")
+		colliderType_ = ColliderType::BOX_COLLIDER;
+	else if (name == "struct HitSphere")
+		colliderType_ = ColliderType::SPHERE_COLLIDER;
+}
+
 
 
 

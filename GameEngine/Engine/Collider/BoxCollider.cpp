@@ -9,7 +9,6 @@ BoxCollider::BoxCollider(XMFLOAT3 basePos, XMFLOAT3 size)
 {
 	SetCenter(basePos);
 	size_ = size;
-	SetColliderType(ColliderType::BOX_COLLIDER);
 }
 
 BoxCollider::~BoxCollider()
