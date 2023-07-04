@@ -2,6 +2,13 @@
 #include"Coordinator.h"
 
 
+PhysicsSystem::PhysicsSystem()
+{
+	Coordinator::RegisterComponent<Gravity>();
+	Coordinator::RegisterComponent<TransformData>();
+	Coordinator::RegisterComponent<RigidBody>();
+}
+
 void PhysicsSystem::Update()
 {
 	time_++;

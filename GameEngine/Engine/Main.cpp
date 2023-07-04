@@ -118,9 +118,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	Coordinator::RegisterComponent<Collider>();
 	//Coordinator::RegisterComponent<BoxCollider>();
 	Coordinator::RegisterComponent<Transform>();
-	Coordinator::RegisterComponent<Gravity>();
-	Coordinator::RegisterComponent<TransformData>();
-	Coordinator::RegisterComponent<RigidBody>();
+	
 	Signature phy_signature;
 	phy_signature.set(Coordinator::GetComponentType<Gravity>());
 	phy_signature.set(Coordinator::GetComponentType<RigidBody>());

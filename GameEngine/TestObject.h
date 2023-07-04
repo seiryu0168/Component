@@ -5,6 +5,7 @@ class TestObject : public GameObject
 private:
 	int hModel_;
 	int time_;
+	XMVECTOR vPos_;
 public:
 	TestObject(Object* parent);
 	~TestObject();

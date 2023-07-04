@@ -23,6 +23,7 @@ class PhysicsSystem : public System
 {
 	int time_;
 public:
+	PhysicsSystem();
 	void Update() override;
 	void PhysicsUpdate(float deltaTime);
 };

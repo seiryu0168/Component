@@ -58,7 +58,8 @@ public:
 	ColliderType GetType() { return colliderType_; }
 	void SetCenter(const XMFLOAT3& pos) { center_ = pos; }
 	const XMFLOAT3& GetCenter() { return center_; }
-
+	void HitEnable(bool isHit) { nowHit_ = isHit; }
+	bool IsHit() { return nowHit_; }
 	void KillCollider() { isKill_ = true; }
 	bool IsKill() { return isKill_; }
 

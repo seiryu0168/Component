@@ -8,7 +8,8 @@
 TestObject::TestObject(Object* parent)
 	:GameObject(parent,"TestObject"),
 	hModel_(-1),
-	time_(0)
+	time_(0),
+	vPos_(XMVectorSet(0,0,2.1f,0))
 {
 	
 	Gravity g;
@@ -26,8 +27,8 @@ TestObject::TestObject(Object* parent)
 	AddComponent<TransformData>(transform);
 	
 	Collider coll({0,0,0});
-	HitBox box({ 1,1,1 });
-	coll.SetCollider<HitBox>(box);
+	HitSphere sphere(1.0f);
+	coll.SetCollider<HitSphere>(sphere);
 	coll.SetAttachObject(this);
 	AddComponent<Collider>(coll);
 }
@@ -46,7 +47,8 @@ void TestObject::Initialize()
 void TestObject::Update()
 {
 	time_++;
-	transform_->position_ = XMVectorSet(sin(time_ / 60.0f), 0, 0, 0) * 5.0f;
+	vPos_ = XMVector3Rotate(vPos_, XMQuaternionRotationAxis(XMVectorSet(0, 1.0f, 0, 0), XMConvertToRadians(1)));
+	transform_->position_ = vPos_;
 }
 
 void TestObject::Draw()
