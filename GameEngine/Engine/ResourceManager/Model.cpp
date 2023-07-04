@@ -45,7 +45,6 @@ namespace ModelManager
 		}
 	};
 	std::vector<Fbx*> fbxModelList;
-	//std::vector<ModelComponent*> modelComponentList;
 
 	Texture* pNormalMap_;
 	std::vector<ModelData*> modelData_;
