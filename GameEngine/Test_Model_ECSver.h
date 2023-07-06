@@ -9,8 +9,10 @@
 class Test_Model_ECSver
 {
 private:
-	//Fbx* mesh_;
 	int hModel_;
+	SHADER_TYPE type;
+	int animationFrame_;
+	std::shared_ptr<Fbx> fbx_;
 	std::vector<Entity> materialList_;
 	Entity meshEntity_;
 	GameObject* attachObject_;

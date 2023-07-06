@@ -4,6 +4,7 @@
 #include"TestObjectChild.h"
 #include"EntityManager.h"
 #include"Engine/Collider/BoxCollider.h"
+#include"AssimpLoader.h"
 
 TestObject::TestObject(Object* parent)
 	:GameObject(parent,"TestObject"),
@@ -39,6 +40,10 @@ TestObject::~TestObject()
 
 void TestObject::Initialize()
 {
+	AssimpLoader loader;
+	std::vector<Mesh> meshes;
+	ImportSetting set("Assets\\Model\\AAA.fbx", meshes, false, false);
+	loader.Load(set);
 	//GameObject* p = Instantiate<TestObjectChild>(this);
 	hModel_ = ModelManager::Load("Assets\\Model\\AAA.fbx");
 	assert(hModel_ >= 0);
