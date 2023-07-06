@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="D:\seiryu\program\ComponentTest\Assimp_selfbuild\CMakeFiles\2ce1c82ba9a88a49dd897ee5d73a2472\uninstall.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\seiryu\program\CMake\assimp-master\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="D:\seiryu\program\ComponentTest\Assimp_selfbuild\CMakeFiles\uninstall" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{A2FE390F-8B28-3650-BC7D-DBFF455A019A}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

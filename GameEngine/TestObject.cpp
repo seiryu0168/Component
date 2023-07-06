@@ -5,6 +5,7 @@
 #include"EntityManager.h"
 #include"Engine/Collider/BoxCollider.h"
 #include"AssimpLoader.h"
+#include"Mesh.h"
 
 TestObject::TestObject(Object* parent)
 	:GameObject(parent,"TestObject"),
@@ -40,11 +41,15 @@ TestObject::~TestObject()
 
 void TestObject::Initialize()
 {
-	//AssimpLoader loader;
-	//std::vector<Mesh> meshes;
-	//ImportSetting set("Assets\\Model\\AAA.fbx", meshes, false, false);
-	//loader.Load(set);
-	//GameObject* p = Instantiate<TestObjectChild>(this);
+	AssimpLoader loader;
+	Mesh mesh;
+	mesh.vertices.push_back( VERTEX(XMVectorZero(), XMVectorZero(), XMVectorZero(), XMVectorZero()));
+	mesh.indices.push_back(1);
+	mesh.diffuseMap="";
+	std::vector<Mesh> meshes;
+	meshes.push_back(mesh);
+	ImportSetting set("Assets\\Model\\AAA.fbx", meshes, false, false);
+	loader.Load(set);
 	hModel_ = ModelManager::Load("Assets\\Model\\AAA.fbx");
 	assert(hModel_ >= 0);
 }

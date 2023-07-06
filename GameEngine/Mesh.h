@@ -16,6 +16,5 @@ struct Mesh
 	std::vector<VERTEX> vertices;
 	std::vector<UINT32> indices;
 	std::string diffuseMap;
-	
 };
 

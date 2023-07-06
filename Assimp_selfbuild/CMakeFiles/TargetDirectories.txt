@@ -1,0 +1,13 @@
+D:/seiryu/program/ComponentTest/Assimp_selfbuild/CMakeFiles/uninstall.dir
+D:/seiryu/program/ComponentTest/Assimp_selfbuild/CMakeFiles/UpdateAssimpLibsDebugSymbolsAndDLLs.dir
+D:/seiryu/program/ComponentTest/Assimp_selfbuild/CMakeFiles/INSTALL.dir
+D:/seiryu/program/ComponentTest/Assimp_selfbuild/CMakeFiles/ALL_BUILD.dir
+D:/seiryu/program/ComponentTest/Assimp_selfbuild/CMakeFiles/ZERO_CHECK.dir
+D:/seiryu/program/ComponentTest/Assimp_selfbuild/contrib/zlib/CMakeFiles/zlibstatic.dir
+D:/seiryu/program/ComponentTest/Assimp_selfbuild/contrib/zlib/CMakeFiles/INSTALL.dir
+D:/seiryu/program/ComponentTest/Assimp_selfbuild/contrib/zlib/CMakeFiles/ALL_BUILD.dir
+D:/seiryu/program/ComponentTest/Assimp_selfbuild/code/CMakeFiles/assimp.dir
+D:/seiryu/program/ComponentTest/Assimp_selfbuild/code/CMakeFiles/INSTALL.dir
+D:/seiryu/program/ComponentTest/Assimp_selfbuild/test/CMakeFiles/unit.dir
+D:/seiryu/program/ComponentTest/Assimp_selfbuild/test/CMakeFiles/INSTALL.dir
+D:/seiryu/program/ComponentTest/Assimp_selfbuild/test/headercheck/CMakeFiles/INSTALL.dir
