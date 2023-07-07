@@ -79,7 +79,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>D:\seiryu\program\ComponentTest\Assimp_selfbuild\include;C:\Program Files\Autodesk\FBX\FBX SDK\2020.0.1\include;C:\Program Files\Autodesk\FBX\FBX SDK\2020.2\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\seiryu\program\ComponentTest\Assimp_selfbuild\lib\Release;C:\Program Files\Autodesk\FBX\FBX SDK\2020.0.1\lib\vs2017\x64\debug;C:\Program Files\Autodesk\FBX\FBX SDK\2020.2\lib\vs2019\x64\debug;$(LibraryPath)</LibraryPath>
+    <LibraryPath>D:\seiryu\program\ComponentTest\Assimp_selfbuild\lib\Debug;C:\Program Files\Autodesk\FBX\FBX SDK\2020.0.1\lib\vs2017\x64\debug;C:\Program Files\Autodesk\FBX\FBX SDK\2020.2\lib\vs2019\x64\debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -122,10 +122,12 @@
       <ConformanceMode>true</ConformanceMode>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <FxCompile>
       <EntryPointName>VS</EntryPointName>
@@ -150,6 +152,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>false</GenerateDebugInformation>
+      <AdditionalDependencies>../build/Assimp/lib/x64/assimp-vc143-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>../build/Assimp/lib/x64/assimp-vc143-mt.lib</AdditionalLibraryDirectories>
     </Link>
     <FxCompile>
       <EntryPointName>VS</EntryPointName>

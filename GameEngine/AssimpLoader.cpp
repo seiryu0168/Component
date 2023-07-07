@@ -1,9 +1,10 @@
 #include "AssimpLoader.h"
 #include <assimp/Importer.hpp>
-#include<assimp/scene.h>
 #include<assimp/postprocess.h>
+#include<assimp/scene.h>
 #include"Mesh.h"
 #include<filesystem>
+//#pragma comment(lib,"assimp-vc143-mt.lib")
 namespace fs = std::filesystem;
 
 std::wstring GetDirectoryPath(const std::wstring& originalPath)
@@ -39,7 +40,7 @@ bool AssimpLoader::Load(ImportSetting setting)
 	auto path = setting.fileName;
 	
 	//原因は分からないが、引数無しのコンストラクタを明示しておかないとダメらしい
-	Assimp::Importer importer();
+	Assimp::Importer importer;
 	int flag=0;
 	flag |= aiProcess_Triangulate;
 	flag |= aiProcess_PreTransformVertices;
@@ -49,13 +50,13 @@ bool AssimpLoader::Load(ImportSetting setting)
 	flag |= aiProcess_RemoveRedundantMaterials;
 	flag |= aiProcess_OptimizeMeshes;
 
-	//auto scene = importer.ReadFile(setting.fileName,flag);
-	//
-	//if (scene == nullptr)
-	//	return false;
-	//
-	//meshes.clear();
-	//meshes.resize(scene->mNumMeshes);
+	auto scene = importer.ReadFile(setting.fileName,flag);
+	
+	if (scene == nullptr)
+		return false;
+	
+	meshes.clear();
+	meshes.resize(scene->mNumMeshes);
 	//for (size_t i = 0; i < meshes.size(); ++i)
 	//{
 	//	const auto pMesh = scene->mMeshes[i];
