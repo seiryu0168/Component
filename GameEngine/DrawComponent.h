@@ -2,23 +2,23 @@
 #include"Component.h"
 #include<list>
 #include"Engine/GameObject/GameObject.h"
-class DrawComponent : public Component
+#include"Test_Model_ECSver.h"
+#include"Coordinator.h"
+class DrawComponent
 {
-	bool drawFlag_;
-	std::list<DrawComponent*> drawComponentList_;
-	
+	Entity drawEntity_;
+	GameObject* attachObject_;
 public:
-	DrawComponent(Object* atcObj);
-	~DrawComponent();
-	void Start() override;
-	void Update() override;
-	void AddDrawList(DrawComponent* comp);
-	void DD();
-	void(*Draw)();
-	void(*SecondDraw)();
-	void(*ThirdDraw)();
-	void DrawSub();
-	void SecondDrawSub();
-	void ThirdDrawSub();
+	DrawComponent();
+	DrawComponent(GameObject* object);
+	template<typename T>
+	void SetDrawObject(T drawObject)
+	{
+		drawEntity_ = Coordinator::CreateEntity();
+		Coordinator::AddComponent<T>(drawEntity_, drawObject);
+	}	
+
+	void SetAttachObject(GameObject* object);
+	void Draw();
 
 };

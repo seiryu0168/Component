@@ -14,26 +14,6 @@ TestObject::TestObject(Object* parent)
 	time_(0),
 	vPos_(XMVectorSet(0,0,2.1f,0))
 {
-	
-	Gravity g;
-	g.force_ = XMVectorSet(0, -0.4f, 0, 0);
-	AddComponent<Gravity>(g);
-	RigidBody rb;
-	rb.acceleration_ = XMVectorZero();
-	rb.vector_ = XMVectorZero();
-	AddComponent<RigidBody>(rb);
-
-	TransformData transform;
-	transform.position_ = XMVectorZero();
-	transform.rotation_ = XMVectorZero();
-	transform.scale_ = { 0,0,0 };
-	AddComponent<TransformData>(transform);
-	
-	Collider coll({0,0,0});
-	HitSphere sphere(1.0f);
-	coll.SetCollider<HitSphere>(sphere);
-	coll.SetAttachObject(this);
-	AddComponent<Collider>(coll);
 
 	
 }
@@ -44,11 +24,15 @@ TestObject::~TestObject()
 
 void TestObject::Initialize()
 {
+	Collider coll({0,0,0});
+	HitSphere sphere(1.0f);
+	coll.SetCollider<HitSphere>(sphere);
+	coll.SetAttachObject(this);
+	AddComponent<Collider>(coll);
+
 	Test_Model_ECSver model(this);
 	model.Load("Assets\\Model\\AAA.fbx");
 	AddComponent<Test_Model_ECSver>(model);
-	//hModel_ = ModelManager::Load("Assets\\Model\\AAA.fbx");
-	//assert(hModel_ >= 0);
 }
 
 void TestObject::Update()
@@ -60,8 +44,8 @@ void TestObject::Update()
 
 void TestObject::Draw()
 {
-	ModelManager::SetTransform(hModel_, *transform_);
-	ModelManager::Draw(hModel_);
+	//ModelManager::SetTransform(hModel_, *transform_);
+	//ModelManager::Draw(hModel_);
 }
 
 void TestObject::Release()

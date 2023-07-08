@@ -7,8 +7,6 @@ ColliderSystem::ColliderSystem()
 	Signature collSignature;
 	collSignature.set(Coordinator::GetComponentType<HitBox>());
 	collSignature.set(Coordinator::GetComponentType<HitSphere>());
-
-	//Coordinator::SetSystemSignature<ColliderSystem>(collSignature);
 }
 
 void ColliderSystem::Update()

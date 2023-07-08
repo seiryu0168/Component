@@ -14,7 +14,7 @@ MainScene::~MainScene()
 void MainScene::Initialize()
 {
 	Instantiate<TestObject>(this);
-	Instantiate<TestObjectChild>(this);
+	//Instantiate<TestObjectChild>(this);
 
 }
 
