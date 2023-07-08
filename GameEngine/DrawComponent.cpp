@@ -1,5 +1,5 @@
 #include "DrawComponent.h"
-
+#include"Test_Model_ECSver.h"
 DrawComponent::DrawComponent()
 {
 	

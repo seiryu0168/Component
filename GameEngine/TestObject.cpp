@@ -6,6 +6,7 @@
 #include"Engine/Collider/BoxCollider.h"
 #include"Test_Model_ECSver.h"
 #include"AssimpLoader.h"
+#include"DrawComponent.h"
 #include"Mesh.h"
 
 TestObject::TestObject(Object* parent)
@@ -14,7 +15,7 @@ TestObject::TestObject(Object* parent)
 	time_(0),
 	vPos_(XMVectorSet(0,0,2.1f,0))
 {
-
+	//DrawComponent<Test_Model_ECSver>()
 	
 }
 
@@ -24,6 +25,12 @@ TestObject::~TestObject()
 
 void TestObject::Initialize()
 {
+	//AssimpLoader loader;
+	//std::vector<Mesh> mesh;
+	//Mesh m;
+	//mesh.push_back(m);
+	//ImportSetting set("",mesh, true,true);
+	//loader.Load(set);
 	Collider coll({0,0,0});
 	HitSphere sphere(1.0f);
 	coll.SetCollider<HitSphere>(sphere);

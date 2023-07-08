@@ -3,6 +3,7 @@
 ModelSystem::ModelSystem()
 {
 	Coordinator::RegisterComponent<Test_Model_ECSver>();
+	Coordinator::RegisterComponent<DrawComponent>();
 }
 
 void ModelSystem::Update()
