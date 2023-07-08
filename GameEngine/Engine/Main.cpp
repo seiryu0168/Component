@@ -18,6 +18,7 @@
 #include"../PhysicsSystem.h"
 #include"../TransformSystem.h"
 #include"../ColliderSystem.h"
+#include"../ModelSystem.h"
 #include"../Coordinator.h"
 #ifdef _DEBUG
 #define _CRTDBG_MAP_ALLOC
@@ -114,8 +115,9 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	Coordinator::RegisterSystem<PhysicsSystem>();
 	Coordinator::RegisterSystem<TransformSystem>();
 	Coordinator::RegisterSystem<ColliderSystem>();
-
+	Coordinator::RegisterSystem<ModelSystem>();
 	Coordinator::RegisterComponent<Collider>();
+
 	//Coordinator::RegisterComponent<BoxCollider>();
 	Coordinator::RegisterComponent<Transform>();
 	
@@ -128,11 +130,14 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	trans_signature.set(Coordinator::GetComponentType<Transform>());
 	Signature coll_signature;
 	coll_signature.set(Coordinator::GetComponentType<Collider>());
+	Signature model_signature;
+	model_signature.set(Coordinator::GetComponentType<Test_Model_ECSver>());
 	//coll_signature.set(Coordinator::GetComponentType<BoxCollider>());
 
 	Coordinator::SetSystemSignature<PhysicsSystem>(phy_signature);
 	Coordinator::SetSystemSignature<TransformSystem>(trans_signature);
 	Coordinator::SetSystemSignature<ColliderSystem>(coll_signature);
+	Coordinator::SetSystemSignature<ModelSystem>(model_signature);
 
 	pRootJob = new RootJob;
 	

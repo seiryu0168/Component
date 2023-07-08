@@ -4,6 +4,7 @@
 #include"TestObjectChild.h"
 #include"EntityManager.h"
 #include"Engine/Collider/BoxCollider.h"
+#include"Test_Model_ECSver.h"
 #include"AssimpLoader.h"
 #include"Mesh.h"
 
@@ -33,6 +34,8 @@ TestObject::TestObject(Object* parent)
 	coll.SetCollider<HitSphere>(sphere);
 	coll.SetAttachObject(this);
 	AddComponent<Collider>(coll);
+
+	
 }
 
 TestObject::~TestObject()
@@ -41,17 +44,11 @@ TestObject::~TestObject()
 
 void TestObject::Initialize()
 {
-	AssimpLoader loader;
-	Mesh mesh;
-	mesh.vertices.push_back( VERTEX(XMVectorZero(), XMVectorZero(), XMVectorZero(), XMVectorZero()));
-	mesh.indices.push_back(1);
-	mesh.diffuseMap="";
-	std::vector<Mesh> meshes;
-	meshes.push_back(mesh);
-	ImportSetting set("Assets\\Model\\AAA.fbx", meshes, false, false);
-	loader.Load(set);
-	hModel_ = ModelManager::Load("Assets\\Model\\AAA.fbx");
-	assert(hModel_ >= 0);
+	Test_Model_ECSver model(this);
+	model.Load("Assets\\Model\\AAA.fbx");
+	AddComponent<Test_Model_ECSver>(model);
+	//hModel_ = ModelManager::Load("Assets\\Model\\AAA.fbx");
+	//assert(hModel_ >= 0);
 }
 
 void TestObject::Update()

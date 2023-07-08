@@ -214,6 +214,7 @@
     <ClCompile Include="MeshSystem.cpp" />
     <ClCompile Include="ModelComponent.cpp" />
     <ClCompile Include="ModelManager_ECSver.cpp" />
+    <ClCompile Include="ModelSystem.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="PhysicsSystem.cpp" />
     <ClCompile Include="SystemManager.cpp" />
@@ -283,6 +284,7 @@
     <ClInclude Include="MeshSystem.h" />
     <ClInclude Include="ModelComponent.h" />
     <ClInclude Include="ModelManager_ECSver.h" />
+    <ClInclude Include="ModelSystem.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="PhysicsSystem.h" />
     <ClInclude Include="resource.h" />
