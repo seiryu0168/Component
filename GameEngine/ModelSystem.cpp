@@ -3,13 +3,13 @@
 ModelSystem::ModelSystem()
 {
 	Coordinator::RegisterComponent<Test_Model_ECSver>();
-	Coordinator::RegisterComponent<DrawComponent>();
+	Coordinator::RegisterComponent<Text>();
 }
 
 void ModelSystem::Update()
 {
 	for (Entity entity : entities_)
 	{
-		Coordinator::GetComponent<Test_Model_ECSver>(entity).Draw();
+		Coordinator::GetComponent<DrawComponent>(entity).Draw();
 	}
 }

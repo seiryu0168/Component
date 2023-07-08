@@ -117,6 +117,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	Coordinator::RegisterSystem<ColliderSystem>();
 	Coordinator::RegisterSystem<ModelSystem>();
 	Coordinator::RegisterComponent<Collider>();
+	Coordinator::RegisterComponent<DrawComponent>();
 
 	//Coordinator::RegisterComponent<BoxCollider>();
 	Coordinator::RegisterComponent<Transform>();
@@ -131,7 +132,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	Signature coll_signature;
 	coll_signature.set(Coordinator::GetComponentType<Collider>());
 	Signature model_signature;
-	model_signature.set(Coordinator::GetComponentType<Test_Model_ECSver>());
+	//model_signature.set(Coordinator::GetComponentType<Test_Model_ECSver>());
+	model_signature.set(Coordinator::GetComponentType<DrawComponent>());
 	//coll_signature.set(Coordinator::GetComponentType<BoxCollider>());
 
 	Coordinator::SetSystemSignature<PhysicsSystem>(phy_signature);

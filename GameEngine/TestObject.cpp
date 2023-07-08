@@ -25,21 +25,23 @@ TestObject::~TestObject()
 
 void TestObject::Initialize()
 {
-	AssimpLoader loader;
-	std::vector<Mesh> mesh;
-	Mesh m;
-	mesh.push_back(m);
-	ImportSetting set("",mesh, true,true);
-	loader.Load(set);
+	//AssimpLoader loader;
+	//std::vector<Mesh> mesh;
+	//Mesh m;
+	//mesh.push_back(m);
+	//ImportSetting set("",mesh, true,true);
+	//loader.Load(set);
 	Collider coll({0,0,0});
 	HitSphere sphere(1.0f);
 	coll.SetCollider<HitSphere>(sphere);
 	coll.SetAttachObject(this);
 	AddComponent<Collider>(coll);
 
+	DrawComponent dObj;
 	Test_Model_ECSver model(this);
 	model.Load("Assets\\Model\\AAA.fbx");
-	AddComponent<Test_Model_ECSver>(model);
+	dObj.SetDrawObject<Test_Model_ECSver>(model);
+	AddComponent<DrawComponent>(dObj);
 }
 
 void TestObject::Update()
