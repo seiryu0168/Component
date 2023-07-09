@@ -53,6 +53,14 @@ public:
 		//有効なエンティティを一つ減らす
 		--size_;
 	}
+	void Clear() override
+	{
+		T dummy;
+		componentArray_.fill(dummy);
+		entityToIndexMap_.clear();
+		indexToEntityMap_.clear();
+		size_ = 0;	
+	}
 	T& GetData(Entity entity)
 	{
 		assert(entityToIndexMap_.find(entity) != entityToIndexMap_.end() && "Retrieving non-existent component");

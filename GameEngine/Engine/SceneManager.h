@@ -3,7 +3,7 @@
 enum class SCENE_ID
 {
 	SCENE_ID_MAIN = 0,
-
+	SCENE_ID_SUB,
 };
 
 class SceneManager : public GameObject
@@ -24,6 +24,7 @@ public:
 	SCENE_ID GetCurrentSceneID() { return currentSceneID_; }
 	SCENE_ID GetNextSceneID() { return nextSceneID_; }
 	bool IsSceneChange() { return isSceneChange_; }
+	void ECSInitialize();
 	GameObject* CurrentScene();
 };
 

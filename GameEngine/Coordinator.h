@@ -23,6 +23,7 @@ namespace Coordinator
 	void Init();
 	Entity CreateEntity();
 	void DestroyEntity(Entity entity);
+	void AllRemove();
 	void SystemsUpdate();
 
 	template <typename T>

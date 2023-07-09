@@ -5,6 +5,7 @@ namespace Coordinator
 	std::unique_ptr<EntityManager> entityManager_;
 	std::unique_ptr<SystemManager> systemManager_;
 
+
 	void Coordinator::Init()
 	{
 		//各マネージャーのポインタ作成
@@ -26,6 +27,15 @@ namespace Coordinator
 		//エンティティが破壊されたので各マネージャー経由でコンポーネントとシステムに通知
 		componentManager_->EntityDestroyed(entity);
 		systemManager_->EntityDestroyed(entity);
+	
+	}
+
+	void AllRemove()
+	{
+		entityManager_->Initialize();
+		componentManager_->AllRemoveComponent();
+		systemManager_->Clear();
+
 	}
 
 	void SystemsUpdate()

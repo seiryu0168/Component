@@ -5,6 +5,7 @@
 #include"EntityManager.h"
 #include"Engine/Collider/BoxCollider.h"
 #include"Test_Model_ECSver.h"
+#include"Engine/ResourceManager/Text.h"
 #include"AssimpLoader.h"
 #include"DrawComponent.h"
 #include"Mesh.h"
@@ -36,6 +37,14 @@ void TestObject::Initialize()
 	coll.SetCollider<HitSphere>(sphere);
 	coll.SetAttachObject(this);
 	AddComponent<Collider>(coll);
+
+
+	DrawComponent textObj;
+	Text txt;
+	txt.Load("asdfg", "Sitka Text", { 0,0,100,100 }, LEFT_TOP);
+	txt.SetPosition({ 0,0 });
+	textObj.SetDrawObject<Text>(txt);
+	AddComponent<DrawComponent>(textObj);
 
 	DrawComponent dObj;
 	Test_Model_ECSver model(this);

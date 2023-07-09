@@ -58,6 +58,7 @@ public:
 	{
 		GetComponentArray<T>()->RmoveData(entity);
 	}
+	void AllRemoveComponent();
 
 	template <typename T>
 	T& GetComponent(Entity entity)

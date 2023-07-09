@@ -173,6 +173,7 @@
     <ClCompile Include="AssimpLoader.cpp" />
     <ClCompile Include="ColliderSystem.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="ComponentManager.cpp" />
     <ClCompile Include="Coordinator.cpp" />
     <ClCompile Include="CoordinatorManager.cpp" />
     <ClCompile Include="DrawComponent.cpp" />
@@ -224,6 +225,7 @@
     <ClCompile Include="ModelSystem.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="PhysicsSystem.cpp" />
+    <ClCompile Include="SubScene.cpp" />
     <ClCompile Include="SystemManager.cpp" />
     <ClCompile Include="TestObject.cpp" />
     <ClCompile Include="TestObjectChild.cpp" />
@@ -294,6 +296,7 @@
     <ClInclude Include="PhysicsSystem.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="EngineTime.h" />
+    <ClInclude Include="SubScene.h" />
     <ClInclude Include="System.h" />
     <ClInclude Include="SystemManager.h" />
     <ClInclude Include="TestObject.h" />

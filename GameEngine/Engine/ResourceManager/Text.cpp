@@ -16,7 +16,7 @@ Text::Text()
 }
 Text::~Text()
 {
-	Release();	
+	//Release();
 }
 
 int Text::GetTextSize()
