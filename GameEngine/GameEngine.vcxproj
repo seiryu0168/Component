@@ -224,7 +224,10 @@
     <ClCompile Include="ModelManager_ECSver.cpp" />
     <ClCompile Include="ModelSystem.cpp" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="ObjectSetter.cpp" />
     <ClCompile Include="PhysicsSystem.cpp" />
+    <ClCompile Include="RootObject.cpp" />
+    <ClCompile Include="SceneBase.cpp" />
     <ClCompile Include="SubScene.cpp" />
     <ClCompile Include="SystemManager.cpp" />
     <ClCompile Include="TestObject.cpp" />
@@ -293,9 +296,12 @@
     <ClInclude Include="ModelManager_ECSver.h" />
     <ClInclude Include="ModelSystem.h" />
     <ClInclude Include="Object.h" />
+    <ClInclude Include="ObjectSetter.h" />
     <ClInclude Include="PhysicsSystem.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="EngineTime.h" />
+    <ClInclude Include="RootObject.h" />
+    <ClInclude Include="SceneBase.h" />
     <ClInclude Include="SubScene.h" />
     <ClInclude Include="System.h" />
     <ClInclude Include="SystemManager.h" />

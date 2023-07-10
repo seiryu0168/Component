@@ -29,10 +29,6 @@ Object::Object(Object* parent, const std::string name)
 	signature.set(Coordinator::GetComponentType<TransformData>());
 
 	Coordinator::SetSystemSignature<PhysicsSystem>(signature);*/
-
-	
-
-	physicsSystem_ = Coordinator::GetSystem<PhysicsSystem>();
 }
 
 Object::Object(Object* parent)
@@ -67,26 +63,6 @@ void Object::UpdateSub()
 	{
 		(*itr)->UpdateSub();
 	}
-	////////“–‚½‚è”»’è///////////
-	//for (auto itr = childList_.begin(); itr != childList_.end();)
-	//{
-	//	if (activeFlag_)
-	//	{
-
-	//		if ((*itr)->killFlag_ == true)
-	//		{
-	//			(*itr)->BeforeDeath();
-	//			(*itr)->ReleaseSub();
-	//			delete* itr;
-	//			itr = childList_.erase(itr);
-	//		}
-	//		/*else
-	//		{
-	//			(*itr)->Collision(GetParent());
-	//			itr++;
-	//		}*/
-	//	}
-	//}
 }
 
 void Object::ComponentUpdate()

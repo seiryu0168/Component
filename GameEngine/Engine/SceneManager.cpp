@@ -10,7 +10,6 @@
 #include"../ColliderSystem.h"
 #include"../ModelSystem.h"
 #include"../Coordinator.h"
-#include"../Coordinator.h"
 
 
 SceneManager::SceneManager(Object* parent) 
