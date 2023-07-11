@@ -60,7 +60,7 @@ void SceneManager::Release()
 
 }
 void SceneManager::ChangeScene(SCENE_ID sceneID,UINT count)
-{
+{	
 	nextSceneID_ = sceneID;
 	countDown_ = count;
 	isSceneChange_ = true;

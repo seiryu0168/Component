@@ -15,6 +15,7 @@
 #include"../ImGui/imgui_impl_dx11.h"
 #include"../ImGui/imgui_impl_win32.h"
 #include"ResourceManager/Audio.h"
+#include"../newSceneManager.h"
 
 #ifdef _DEBUG
 #define _CRTDBG_MAP_ALLOC
@@ -109,8 +110,10 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	Coordinator::Init();
 
 	
-	pRootJob = new RootJob;
+	//pRootJob = new RootJob;
 	
+	newSceneManager manager;
+	manager.Initialize();
 	//メッセージループ
 	MSG msg;
 	ZeroMemory(&msg, sizeof(msg));
@@ -155,26 +158,27 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
 				lastUpdateTime = nowTime;
 				countFps++;
-				pRootJob->UpdateSub();
+				manager.Update();
+				//pRootJob->UpdateSub();
 				Camera::Update();
 #ifdef _DEBUG
-				DebugUI::Debug((GameObject*)pRootJob->FindChild("SceneManager"));
-				DebugUI::Log();
+				//DebugUI::Debug((GameObject*)pRootJob->FindChild("SceneManager"));
+				//DebugUI::Log();
 				ImGui::Render();
 #endif 
 				//描画処理
 				Direct3D::BeginDraw();
 
-				pRootJob->ComponentUpdate();
+				//pRootJob->ComponentUpdate();
 				//D2D::BeginDraw();
 				Coordinator::SystemsUpdate();
-				pRootJob->DrawSub();
+				//pRootJob->DrawSub();
 				
-				pRootJob->SecondDrawSub();
+				//pRootJob->SecondDrawSub();
 
 				//D2D::EndDraw();
 				ImageManager::DrawUI();
-				pRootJob->ThirdDrawSub();
+				//pRootJob->ThirdDrawSub();
 #ifdef _DEBUG	
 				ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 #endif
@@ -186,7 +190,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	Audio::Releace();
 	DebugUI::CleanUp();
 	ImageManager::AllRelease();
-	pRootJob->ReleaseSub();
+	//pRootJob->ReleaseSub();
 	SAFE_DELETE(pRootJob);
 	Input::Release();
 	D2D::Release();

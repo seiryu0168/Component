@@ -1,5 +1,6 @@
 #include "ObjectSetter.h"
 #include"RootObject.h"
+#include"TestObject.h"
 ObjectSetter::ObjectSetter()
 {
 
@@ -10,6 +11,10 @@ ObjectSetter::ObjectSetter(Object* sceneObject)
 	sceneObject_ = sceneObject;
 }
 
+ObjectSetter::~ObjectSetter()
+{
+}
+
 bool ObjectSetter::DataLoad(std::string fileName)
 {
 	return false;
@@ -17,4 +22,5 @@ bool ObjectSetter::DataLoad(std::string fileName)
 
 void ObjectSetter::SetObject()
 {
+	sceneObject_->Instantiate<TestObject>(sceneObject_);
 }
