@@ -9,6 +9,8 @@
 
 SceneBase::SceneBase()
 {
+
+	setter_ = ObjectSetter(rootObject_);
 }
 
 void SceneBase::SceneInitialize()
@@ -39,4 +41,19 @@ void SceneBase::SceneInitialize()
 	Coordinator::SetSystemSignature<ColliderSystem>(coll_signature);
 	Coordinator::SetSystemSignature<ModelSystem>(model_signature);
 
+}
+
+void SceneBase::ObjectSet()
+{
+	setter_.SetObject();
+}
+
+void SceneBase::SetFile(std::string name)
+{
+	fileName_ = name;
+}
+
+void SceneBase::Update()
+{
+	rootObject_->UpdateSub();
 }

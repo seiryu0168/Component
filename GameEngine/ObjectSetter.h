@@ -6,8 +6,10 @@ class ObjectSetter
 {
 private:
 	json jsonFile_;
+	Object* sceneObject_;
 public:
 	ObjectSetter();
+	ObjectSetter(Object* sceneObject);
 	~ObjectSetter();
 	/// <summary>
 	/// jsonƒtƒ@ƒCƒ‹“Ç‚İ‚Ş

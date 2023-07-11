@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject/GameObject.h"
+#include"../SceneBase.h"
 enum class SCENE_ID
 {
 	SCENE_ID_MAIN = 0,
