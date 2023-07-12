@@ -1,10 +1,10 @@
 #pragma once
 #include"Coordinator.h"
-#include"Object.h"
+#include"RootObject.h"
 #include"ObjectSetter.h"
 class SceneBase
 {
-	Object* rootObject_;
+	RootObject* rootObject_;
 	std::string sceneName_;
 	std::string fileName_;
 	ObjectSetter setter_;

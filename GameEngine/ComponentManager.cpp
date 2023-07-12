@@ -7,4 +7,6 @@ void ComponentManager::AllRemoveComponent()
 		(*itr).second->Clear();
 	}
 	componentArrays_.clear();
+	componentTypes_.clear();
+	nextComponentType_ = 0;
 }

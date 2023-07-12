@@ -24,3 +24,8 @@ void ObjectSetter::SetObject()
 {
 	sceneObject_->Instantiate<TestObject>(sceneObject_);
 }
+
+void ObjectSetter::DeleteObject()
+{
+	//SAFE_DELETE(sceneObject_);
+}

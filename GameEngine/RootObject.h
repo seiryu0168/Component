@@ -7,6 +7,7 @@ public:
 	RootObject();
 	~RootObject();
 	void Initialize() override;
+	void SetTransform();
 	void Release() override;
 };
 

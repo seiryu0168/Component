@@ -3,27 +3,21 @@
 #include<string>
 #include<utility>
 #include"SceneBase.h"
-class newSceneManager
+enum class SCENE_ID
 {
-private:
-	int prevScene_;
-	int currentScene_;
-	int nextScene_;
-	bool isSceneChange_;
-	UINT changeCount_;
-	std::string sceneFile_;
-	std::vector<SceneBase> sceneList_;
-	//std::pair<std::string, SceneBase> scene;
+	SCENE_ID_MAIN = 0,
+	SCENE_ID_SUB,
+	SCENE_MAX,
+};
 
-public:
-	newSceneManager();
-	newSceneManager(std::string name);
-	~newSceneManager();
+namespace newSceneManager
+{
 	void Initialize();
+	void Initialize(std::string name);
 	void Update();
 	void AddScene(std::string objectFileName);
 	void CreateScene(std::string sceneName);
-	void ChangeScene(int next, int countDown);
+	void ChangeScene(SCENE_ID next, int countDown = 0);
 	void ECSInitialize();
 
 };

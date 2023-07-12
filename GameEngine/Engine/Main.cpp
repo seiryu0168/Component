@@ -112,8 +112,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	
 	//pRootJob = new RootJob;
 	
-	newSceneManager manager;
-	manager.Initialize();
+	newSceneManager::Initialize();
 	//メッセージループ
 	MSG msg;
 	ZeroMemory(&msg, sizeof(msg));
@@ -158,11 +157,11 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
 				lastUpdateTime = nowTime;
 				countFps++;
-				manager.Update();
+				newSceneManager::Update();
 				//pRootJob->UpdateSub();
 				Camera::Update();
 #ifdef _DEBUG
-				//DebugUI::Debug((GameObject*)pRootJob->FindChild("SceneManager"));
+				DebugUI::Debug(/*(GameObject*)pRootJob->FindChild("SceneManager")*/);
 				//DebugUI::Log();
 				ImGui::Render();
 #endif 

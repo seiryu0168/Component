@@ -8,6 +8,8 @@
 #include"Engine/ResourceManager/Text.h"
 #include"AssimpLoader.h"
 #include"DrawComponent.h"
+#include"newSceneManager.h"
+#include"Engine/DirectX_11/Input.h"
 #include"Mesh.h"
 
 TestObject::TestObject(Object* parent)
@@ -58,6 +60,10 @@ void TestObject::Update()
 	time_++;
 	vPos_ = XMVector3Rotate(vPos_, XMQuaternionRotationAxis(XMVectorSet(0, 1.0f, 0, 0), XMConvertToRadians(1)));
 	transform_->position_ = vPos_;
+	if (Input::IsKeyDown(DIK_A))
+	{
+		newSceneManager::ChangeScene(SCENE_ID::SCENE_ID_SUB);
+	}
 }
 
 void TestObject::Draw()

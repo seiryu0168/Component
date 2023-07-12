@@ -19,7 +19,7 @@ namespace DebugUI
 	/// ƒtƒŒ[ƒ€‚ÌÅ‰‚É
 	/// </summary>
 	void StartImGui();
-	void Debug(GameObject* object);
+	void Debug(/*GameObject* object*/);
 	void DebugLog(GameObject* object, std::string message);
 	void Log();
 	void CleanUp();

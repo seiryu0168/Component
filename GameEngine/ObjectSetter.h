@@ -18,6 +18,7 @@ public:
 	/// <returns>¬Œ÷‚µ‚½ê‡true,¸”s‚µ‚½‚çfalse</returns>
 	bool DataLoad(std::string fileName);
 	void SetObject();
+	void DeleteObject();
 
 
 

@@ -5,6 +5,7 @@ ColliderSystem::ColliderSystem()
 	Coordinator::RegisterComponent<HitBox>();
 	Coordinator::RegisterComponent<HitSphere>();
 	Signature collSignature;
+	auto type = Coordinator::GetComponentType<HitBox>();
 	collSignature.set(Coordinator::GetComponentType<HitBox>());
 	collSignature.set(Coordinator::GetComponentType<HitSphere>());
 }
