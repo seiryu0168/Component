@@ -29,6 +29,11 @@ void DrawComponent::SetDrawType(std::string name)
 		type_ = DrawType::TYPE_TEXT;
 		return;
 	}
+	if (name == "class Particle")
+	{
+		type_ = DrawType::TYPE_PARTICLE;
+		return;
+	}
 }
 
 void DrawComponent::SetAttachObject(GameObject* object)
@@ -46,6 +51,7 @@ void DrawComponent::Draw()
 		Coordinator::GetComponent<Test_Model_ECSver>(drawEntity_).Draw();
 		break;
 	case DrawType::TYPE_PARTICLE:
+		Coordinator::GetComponent<Particle>(drawEntity_).Draw();
 		break;
 	case DrawType::TYPE_TEXT:
 		Coordinator::GetComponent<Text>(drawEntity_).Draw();

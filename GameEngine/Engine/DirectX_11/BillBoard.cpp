@@ -18,7 +18,7 @@ HRESULT BillBoard::Load(std::string fileName)
 {
 	HRESULT hr;
 
-	VERTEX vertices[] = {
+	BILLBORD_VERTEX vertices[] = {
 							{XMFLOAT3(-0.5,0.5,0),	XMFLOAT3(0,0,0)},//左上
 							{XMFLOAT3(0.5,0.5,0),	XMFLOAT3(1,0,0)},//右上
 							{XMFLOAT3(0.5,-0.5,0),	XMFLOAT3(1,1,0)},//右下
@@ -115,7 +115,7 @@ void BillBoard::Draw(XMMATRIX matW, XMFLOAT4 col)
 	Direct3D::pContext->Unmap(pConstantBuffer_, 0);//再開
 	
 	//頂点バッファ
-	UINT stride = sizeof(VERTEX);
+	UINT stride = sizeof(BILLBORD_VERTEX);
 	UINT offset = 0;
 	Direct3D::pContext->IASetVertexBuffers(0, 1, &pVertexBuffer_, &stride, &offset);
 

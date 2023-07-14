@@ -53,6 +53,25 @@ void TestObject::Initialize()
 	model.Load("Assets\\Model\\AAA.fbx");
 	dObj.SetDrawObject<Test_Model_ECSver>(model);
 	AddComponent<DrawComponent>(dObj);
+	DrawComponent particle;
+	Particle pa(this);
+	EmitterData data;
+	data.acceleration = 0.03f;
+	data.delay = 30;
+	data.position = { 0,0,0 };
+	data.positionErr = { 10,10,10 };
+	data.gravity = -0.001f;
+	data.firstSpeed = 0;
+	data.lifTime = 100;
+	data.number = 10;
+	data.scale = { 1.0f,1.0f };
+	data.size = { 1,1 };
+	data.sizeErr = { 0,0 };
+	data.textureFileName = "Assets\\Image\\Effect01.png";
+	pa.SetData(data);
+	particle.SetDrawObject<Particle>(pa);
+	AddComponent<DrawComponent>(particle);
+
 }
 
 void TestObject::Update()

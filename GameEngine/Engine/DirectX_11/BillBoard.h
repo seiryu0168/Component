@@ -8,7 +8,7 @@ struct CONSTANT_BUFFER
 	XMFLOAT4 color;
 };
 
-struct VERTEX
+struct BILLBORD_VERTEX
 {
 	XMFLOAT3 position;
 	XMFLOAT3 uv;

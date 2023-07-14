@@ -39,7 +39,7 @@ struct EmitterData
         }
 
 };
-class Particle : public GameObject
+class Particle// : public GameObject
 {
 private:
     //エミッターのデータ
@@ -56,8 +56,9 @@ private:
     //パーティクルの変化するデータ
     struct Data
     {
-        XMFLOAT3 position;  //位置
+        XMVECTOR position;  //位置
         XMFLOAT2 scale;     //サイズ
+        XMFLOAT3 rotate;
         XMFLOAT4 color;     //色
     };
 
@@ -74,18 +75,19 @@ private:
 
     std::list<Emitter*>      emitterList_;
     std::list<ParticleData*> particleList_;
-
+    GameObject* attacheObject_;
 public:
-    Particle(GameObject* parent);
+    Particle();
+    Particle(GameObject* object);
 
     //デストラクタ
     ~Particle();
 
     //初期化
-    void Initialize() override;
+    void Initialize();
 
     //更新
-    void Update() override;
+    void Update();
 
     //パーティクルのアップデート
     void UpdateParticle();
@@ -98,13 +100,12 @@ public:
     
     //エミッター消去
     void KillEmitter(int hEmitter);
-
-    void FixedUpdate() override;
+    void SetData(EmitterData data);
 
     //描画
-    void Draw() override;
+    void Draw();
 
     //開放
-    void Release() override;
+    void Release();
 };
 

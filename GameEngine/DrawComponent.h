@@ -3,6 +3,7 @@
 #include<list>
 #include"Engine/GameObject/GameObject.h"
 #include"Engine/ResourceManager/Text.h"
+#include"Engine/DirectX_11/Particle.h"
 #include"Test_Model_ECSver.h"
 #include"Coordinator.h"
 
