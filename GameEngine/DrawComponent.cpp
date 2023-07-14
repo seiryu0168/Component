@@ -1,73 +1,56 @@
 #include "DrawComponent.h"
-
-DrawComponent::DrawComponent(Object* atcObj)
-	:Component(atcObj)
+#include"Test_Model_ECSver.h"
+#include"Engine/ResourceManager/Text.h"
+DrawComponent::DrawComponent()
 {
-	Draw = nullptr;
-	SecondDraw = nullptr;
-	ThirdDraw = nullptr;
+	
 }
 
-DrawComponent::~DrawComponent()
+DrawComponent::DrawComponent(GameObject* object)
 {
+	attachObject_ = object;
 }
 
-void DrawComponent::Start()
+auto DrawComponent::GetDrawObjdect(std::string name)
 {
+	if (name == "class Test_Model_ECSver")
+		return Coordinator::GetComponent<Test_Model_ECSver>(drawEntity_);
 }
 
-void DrawComponent::Update()
+void DrawComponent::SetDrawType(std::string name)
 {
-	DrawSub();
-	SecondDrawSub();
-	ThirdDrawSub();
-}
-
-void DrawComponent::AddDrawList(DrawComponent* comp)
-{
-
-	drawComponentList_.push_back(comp);
-}
-
-void DrawComponent::DD()
-{
-}
-
-void DrawComponent::DrawSub()
-{
-	if (attacheObject_->IsActive() && attacheObject_->IsStart())
+	if (name == "class Test_Model_ECSver")
 	{
-		if (Draw != nullptr)
-			Draw();
+		type_ = DrawType::TYPE_MODEL;
+		return;
 	}
-	for (auto drw : drawComponentList_)
+	if (name == "class Text")
 	{
-		drw->DrawSub();
+		type_ = DrawType::TYPE_TEXT;
+		return;
 	}
 }
 
-void DrawComponent::SecondDrawSub()
+void DrawComponent::SetAttachObject(GameObject* object)
 {
-	if (attacheObject_->IsActive() && attacheObject_->IsStart())
-	{
-		if (SecondDraw != nullptr)
-			SecondDraw();
-	}
-	for (auto drw : drawComponentList_)
-	{
-		drw->SecondDrawSub();
-	}
+	attachObject_ = object;
 }
 
-void DrawComponent::ThirdDrawSub()
+void DrawComponent::Draw()
 {
-	if (attacheObject_->IsActive() && attacheObject_->IsStart())
+
+	//GetDrawObjdect(typeName_).Draw();
+	switch (type_)
 	{
-		if (ThirdDraw != nullptr)
-			ThirdDraw();
-	}
-	for (auto drw : drawComponentList_)
-	{
-		drw->ThirdDrawSub();
+	case DrawType::TYPE_MODEL:
+		Coordinator::GetComponent<Test_Model_ECSver>(drawEntity_).Draw();
+		break;
+	case DrawType::TYPE_PARTICLE:
+		break;
+	case DrawType::TYPE_TEXT:
+		Coordinator::GetComponent<Text>(drawEntity_).Draw();
+		break;
+	default:
+		break;
 	}
 }

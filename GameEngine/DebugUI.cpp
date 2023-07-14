@@ -26,7 +26,7 @@ void DebugUI::Initialize(HWND hWnd, ID3D11Device* pDevice, ID3D11DeviceContext* 
 	ImGui_ImplDX11_Init(pDevice,pContext);
 }
 
-void DebugUI::Debug(GameObject* object)
+void DebugUI::Debug(/*GameObject* object*/)
 {
 	ImGui::Begin("Debug");
 	//ObjectCount(*(object->GetChildList()->begin()));

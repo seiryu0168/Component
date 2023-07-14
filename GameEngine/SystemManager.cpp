@@ -39,3 +39,9 @@ void SystemManager::AllSystemUpdate()
 		system.second->Update();
 	}
 }
+
+void SystemManager::Clear()
+{
+	signatures_.clear();
+	systems_.clear();
+}

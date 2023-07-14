@@ -19,10 +19,10 @@ bool Test_Model_ECSver::Load(std::string fileName)
 
 void Test_Model_ECSver::RayCast(RayCastData& rayData)
 {
-	fbx_->RayCast(rayData, attachObject_->GetComponent<Transform>());
+	fbx_->RayCast(rayData, *attachObject_->GetTransform());
 }
 
 void Test_Model_ECSver::Draw()
 {
-	fbx_->Draw(attachObject_->GetComponent<Transform>(), type, animationFrame_);
+	fbx_->Draw(*attachObject_->GetTransform(), type, animationFrame_);
 }

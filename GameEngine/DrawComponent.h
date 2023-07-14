@@ -2,23 +2,41 @@
 #include"Component.h"
 #include<list>
 #include"Engine/GameObject/GameObject.h"
-class DrawComponent : public Component
+#include"Engine/ResourceManager/Text.h"
+#include"Test_Model_ECSver.h"
+#include"Coordinator.h"
+
+enum class DrawType
 {
-	bool drawFlag_;
-	std::list<DrawComponent*> drawComponentList_;
-	
+	TYPE_MODEL=0,
+	TYPE_PARTICLE,
+	TYPE_TEXT,
+
+};
+class DrawComponent
+{
+	DrawType type_;
+	Entity drawEntity_;
+
+	std::string typeName_;
+	const char* type;
+	GameObject* attachObject_;
 public:
-	DrawComponent(Object* atcObj);
-	~DrawComponent();
-	void Start() override;
-	void Update() override;
-	void AddDrawList(DrawComponent* comp);
-	void DD();
-	void(*Draw)();
-	void(*SecondDraw)();
-	void(*ThirdDraw)();
-	void DrawSub();
-	void SecondDrawSub();
-	void ThirdDrawSub();
+	DrawComponent();
+	DrawComponent(GameObject* object);
+	template<typename T>
+	void SetDrawObject(T drawObject)
+	{
+		typeName_ = typeid(T).name();
+		std::string name= typeid(T).name();
+		SetDrawType(name);
+		drawEntity_ = Coordinator::CreateEntity();
+		Coordinator::AddComponent<T>(drawEntity_, drawObject);
+	}	
+
+	auto GetDrawObjdect(std::string name);
+	void SetDrawType(std::string name);
+	void SetAttachObject(GameObject* object);
+	void Draw();
 
 };

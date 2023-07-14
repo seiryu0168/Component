@@ -15,10 +15,8 @@
 #include"../ImGui/imgui_impl_dx11.h"
 #include"../ImGui/imgui_impl_win32.h"
 #include"ResourceManager/Audio.h"
-#include"../PhysicsSystem.h"
-#include"../TransformSystem.h"
-#include"../ColliderSystem.h"
-#include"../Coordinator.h"
+#include"../newSceneManager.h"
+
 #ifdef _DEBUG
 #define _CRTDBG_MAP_ALLOC
 #include<memory>
@@ -111,31 +109,10 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	Audio::Initialize();
 	Coordinator::Init();
 
-	Coordinator::RegisterSystem<PhysicsSystem>();
-	Coordinator::RegisterSystem<TransformSystem>();
-	Coordinator::RegisterSystem<ColliderSystem>();
-
-	Coordinator::RegisterComponent<Collider>();
-	//Coordinator::RegisterComponent<BoxCollider>();
-	Coordinator::RegisterComponent<Transform>();
 	
-	Signature phy_signature;
-	phy_signature.set(Coordinator::GetComponentType<Gravity>());
-	phy_signature.set(Coordinator::GetComponentType<RigidBody>());
-	phy_signature.set(Coordinator::GetComponentType<TransformData>());
-
-	Signature trans_signature;
-	trans_signature.set(Coordinator::GetComponentType<Transform>());
-	Signature coll_signature;
-	coll_signature.set(Coordinator::GetComponentType<Collider>());
-	//coll_signature.set(Coordinator::GetComponentType<BoxCollider>());
-
-	Coordinator::SetSystemSignature<PhysicsSystem>(phy_signature);
-	Coordinator::SetSystemSignature<TransformSystem>(trans_signature);
-	Coordinator::SetSystemSignature<ColliderSystem>(coll_signature);
-
-	pRootJob = new RootJob;
+	//pRootJob = new RootJob;
 	
+	newSceneManager::Initialize();
 	//メッセージループ
 	MSG msg;
 	ZeroMemory(&msg, sizeof(msg));
@@ -180,26 +157,27 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
 				lastUpdateTime = nowTime;
 				countFps++;
-				pRootJob->UpdateSub();
+				newSceneManager::Update();
+				//pRootJob->UpdateSub();
 				Camera::Update();
 #ifdef _DEBUG
-				DebugUI::Debug((GameObject*)pRootJob->FindChild("SceneManager"));
-				DebugUI::Log();
+				DebugUI::Debug(/*(GameObject*)pRootJob->FindChild("SceneManager")*/);
+				//DebugUI::Log();
 				ImGui::Render();
 #endif 
 				//描画処理
 				Direct3D::BeginDraw();
 
-				pRootJob->ComponentUpdate();
+				//pRootJob->ComponentUpdate();
 				//D2D::BeginDraw();
 				Coordinator::SystemsUpdate();
-				pRootJob->DrawSub();
+				//pRootJob->DrawSub();
 				
-				pRootJob->SecondDrawSub();
+				//pRootJob->SecondDrawSub();
 
 				//D2D::EndDraw();
 				ImageManager::DrawUI();
-				pRootJob->ThirdDrawSub();
+				//pRootJob->ThirdDrawSub();
 #ifdef _DEBUG	
 				ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 #endif
@@ -211,7 +189,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	Audio::Releace();
 	DebugUI::CleanUp();
 	ImageManager::AllRelease();
-	pRootJob->ReleaseSub();
+	//pRootJob->ReleaseSub();
 	SAFE_DELETE(pRootJob);
 	Input::Release();
 	D2D::Release();

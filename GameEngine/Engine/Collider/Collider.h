@@ -43,7 +43,7 @@ private:
 	XMFLOAT3     center_;		//Œ´“_
 	Entity	colliderEntity_;
 	ColliderType colliderType_;
-	bool		 isKill_;
+	bool isKill_;
 	bool prevHit_;
 	bool nowHit_;
 	GameObject* attachObject_;
@@ -51,6 +51,15 @@ public:
 
 	Collider();
 	Collider(XMFLOAT3 centerPos);
+	template<typename T>
+	Collider(XMFLOAT3 centerPos, T colliderShape)
+	{
+		center_ = centerPos;
+		std::string typeName = typeid(T).name();
+		SetCollisionType(typeName);
+		colliderEntity_ = Coordinator::CreateEntity();
+		Coordinator::AddComponent<T>(colliderEntity_, colliderShape);
+	}
 	~Collider();
 
 	void SetAttachObject(GameObject* object) { attachObject_ = object; }
@@ -71,6 +80,7 @@ public:
 		colliderEntity_ = Coordinator::CreateEntity();
 		Coordinator::AddComponent<T>(colliderEntity_,colliderShape);
 	}
+
 	template <typename T>
 	T& GetCollider()
 	{

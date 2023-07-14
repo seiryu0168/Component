@@ -1,8 +1,10 @@
 #pragma once
 #include<DirectXMath.h>
+#define NOMINMAX
 #include<d3d11.h>
 #include<string>
 #include<vector>
+
 struct Mesh;
 struct Vetex;
 struct aiMesh;

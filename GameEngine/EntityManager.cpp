@@ -2,11 +2,7 @@
 #include<assert.h>
 EntityManager::EntityManager()
 {
-	//キューを使用可能なID(エンティティ)で初期化
-	for (Entity entity = 0; entity < MAX_ENTITIES; ++entity)
-	{
-		availableEntites_.push(entity);
-	}
+	Initialize();
 }
 
 EntityManager::~EntityManager()
@@ -50,4 +46,19 @@ Signature EntityManager::GetSignature(Entity entity)
 	assert(entity < MAX_ENTITIES && "Entity out of range");
 	
 	return signatures_[entity];
+}
+
+void EntityManager::Initialize()
+{
+	while (availableEntites_.empty()==false)
+	{
+		availableEntites_.pop();
+	}
+	//キューを使用可能なID(エンティティ)で初期化
+	for (Entity entity = 0; entity < MAX_ENTITIES; ++entity)
+	{
+		availableEntites_.push(entity);
+	}
+	signatures_.fill(0);
+	livingEntityCount_ = 0;
 }

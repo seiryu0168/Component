@@ -131,47 +131,6 @@ public:
 			return Coordinator::GetComponent<T>(entityList_.find(typeName)->second[componentNum]);
 	}
 
-
-	//template <class T>
-	//T* AddComponent(Object* atcObj)
-	//{
-	//	T* p;
-	//	p = new T(atcObj);
-	//	componentList_.push_back(p);
-	//	return p;
-	//}
-	//template<class T>
-	//T* GetComponent(int num = 0)
-	//{
-	//	int compnum = 0;
-	//	for (auto&& i : componentList_)
-	//	{
-	//		if (typeid(T) == typeid(*i))
-	//		{
-	//			if (compnum == num)
-	//				return (T*)i;
-	//
-	//			compnum++;
-	//		}
-	//	}
-	//	return nullptr;
-	//}
-	//
-	//template<class T>
-	//std::list<Component*> GetComponentList()
-	//{
-	//	std::list<Component*> returnList;
-	//	for (auto&& i : componentList_)
-	//	{
-	//		if (typeid(T) == typeid(*i))
-	//		{
-	//			returnList.push_back(*i);
-	//		}
-	//	}
-	//	return returnList;
-	//}
-	//void DeleteComponent(Component* comp);
-
 	template<class T>
 	T* Instantiate(Object* parent)
 	{

@@ -1,7 +1,7 @@
 #pragma once
 #include"System.h"
 #include"Coordinator.h"
-#include"Engine/Collider/BoxCollider.h"
+#include"Engine/Collider/Collider.h"
 class ColliderSystem : public System
 {
 public:

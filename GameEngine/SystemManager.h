@@ -4,11 +4,6 @@
 #include<bitset>
 #include"ECS.h"
 #include"System.h"
-//using Entity = unsigned int;
-//const Entity MAX_ENTITIES = 5000;
-//using ComponentType = unsigned int;
-//const ComponentType MAX_COMPONENTS = 32;
-//using Signature = std::bitset<MAX_COMPONENTS>;
 
 class SystemManager
 {
@@ -22,6 +17,8 @@ public:
 	void EntityDestroyed(Entity entity);
 	void EntitySignatureChanged(Entity entity, Signature entitySignature);
 	void AllSystemUpdate();
+	void Clear();
+
 
 	template <typename T>
 	std::shared_ptr<T> RegisterSistem()

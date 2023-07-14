@@ -2,6 +2,7 @@
 #include"PhysicsSystem.h"
 #include"Engine/ResourceManager/Model.h"
 #include"Engine/Collider/BoxCollider.h"
+#include"Test_Model_ECSver.h"
 TestObjectChild::TestObjectChild(Object* parent)
 	:GameObject(parent,"TestObjectChild"),
 	hModel_(-1),
@@ -21,8 +22,12 @@ void TestObjectChild::Initialize()
 	HitBox box({ 1,1,1 });
 	coll.SetCollider<HitBox>(box);
 	AddComponent<Collider>(coll);
-	hModel_ = ModelManager::Load("Assets\\Model\\AAA.fbx");
-	assert(hModel_ >= 0);
+
+	Test_Model_ECSver model(this);
+	model.Load("Assets\\Model\\AAA.fbx");
+	AddComponent<Test_Model_ECSver>(model);
+	//hModel_ = ModelManager::Load("Assets\\Model\\AAA.fbx");
+	//assert(hModel_ >= 0);
 }
 
 void TestObjectChild::Update()
@@ -34,8 +39,8 @@ void TestObjectChild::Update()
 
 void TestObjectChild::Draw()
 {
-	ModelManager::SetTransform(hModel_, *transform_);
-	ModelManager::Draw(hModel_);
+	//ModelManager::SetTransform(hModel_, *transform_);
+	//ModelManager::Draw(hModel_);
 }
 
 void TestObjectChild::Release()
