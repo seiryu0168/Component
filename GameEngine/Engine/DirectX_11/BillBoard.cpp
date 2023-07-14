@@ -77,7 +77,7 @@ HRESULT BillBoard::Load(std::string fileName)
 	initData.SysMemPitch = 0;
 	initData.SysMemSlicePitch = 0;
 
-	hr = Direct3D::pDevice->CreateBuffer(&bd_vertex, &initData, &pIndexBuffer_);
+	hr = Direct3D::pDevice->CreateBuffer(&bd_index, &initData, &pIndexBuffer_);
 	if (FALSE(hr))
 	{
 		MessageBox(nullptr, L"ビルボードインデックスバッファの作成に失敗", L"エラー", MB_OK);
