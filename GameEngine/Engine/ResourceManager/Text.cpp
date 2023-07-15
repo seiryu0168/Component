@@ -90,6 +90,7 @@ int Text::Load(const std::string& text, const std::string& fontName, TEXT_RECT r
 
 void Text::Draw()
 {
+	Direct3D::SetDepthBufferWriteEnable(false);
 	D2D::GetRenderTarget()->BeginDraw();
 	D2D::GetRenderTarget()->DrawTextLayout(transform2D, pLayout_, pColorBrush_);
 	//D2D::GetRenderTarget()->DrawText(pText_, textLength_, pTextFormat_,
@@ -98,6 +99,7 @@ void Text::Draw()
 	//								  transform2D.x + layoutRect_.right,
 	//								  transform2D.y + layoutRect_.bottom }, pColorBrush_);
 	D2D::GetRenderTarget()->EndDraw();
+	Direct3D::SetDepthBufferWriteEnable(true);
 }
 void Text::SetColor(XMFLOAT4 color)
 {

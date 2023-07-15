@@ -20,6 +20,9 @@ namespace newSceneManager
 	std::string sceneFile_;
 	std::vector<SceneBase> sceneList_;
 
+	std::shared_ptr<ColliderSystem> pColliderSystem_;
+	std::shared_ptr<ModelSystem> pDraw3DSystem_;
+	std::shared_ptr<Draw2DSystem> pDraw2DSystem_;
 	void Initialize()
 	{
 		prevScene_ = SCENE_ID::SCENE_ID_MAIN;
@@ -62,11 +65,18 @@ namespace newSceneManager
 			currentScene_ = nextScene_;
 			isSceneChange_ = false;
 		}
+		pColliderSystem_.get()->Update();
 		sceneList_[static_cast<int>(currentScene_)].Update();
 
 		if(changeCount_!=0)
 		changeCount_--;
 		changeCount_ = max(0, changeCount_);
+	}
+
+	void Draw()
+	{
+		pDraw3DSystem_.get()->Update();
+		pDraw2DSystem_.get()->Update();
 	}
 
 	void AddScene(std::string objectFileName)
@@ -91,9 +101,9 @@ namespace newSceneManager
 	{
 		Coordinator::RegisterSystem<PhysicsSystem>();
 		Coordinator::RegisterSystem<TransformSystem>();
-		Coordinator::RegisterSystem<ColliderSystem>();
-		Coordinator::RegisterSystem<ModelSystem>();
-		Coordinator::RegisterSystem<Draw2DSystem>();
+		pColliderSystem_ = Coordinator::RegisterSystem<ColliderSystem>();
+		pDraw3DSystem_ = Coordinator::RegisterSystem<ModelSystem>();
+		pDraw2DSystem_ = Coordinator::RegisterSystem<Draw2DSystem>();
 		Coordinator::RegisterComponent<Collider>();
 		Coordinator::RegisterComponent<DrawComponent>();
 		Coordinator::RegisterComponent<Draw2DComponent>();

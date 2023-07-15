@@ -35,7 +35,7 @@ void TestObject::Initialize()
 	//mesh.push_back(m);
 	//ImportSetting set("",mesh, true,true);
 	//loader.Load(set);
-	Collider coll({0,0,0});
+	Collider coll({ 0,0,0 });
 	HitSphere sphere(1.0f);
 	coll.SetCollider<HitSphere>(sphere);
 	coll.SetAttachObject(this);
@@ -46,6 +46,7 @@ void TestObject::Initialize()
 	Text txt;
 	txt.Load("asdfg", "Sitka Text", { 0,0,100,100 }, LEFT_TOP);
 	txt.SetPosition({ 0,0 });
+	txt.SetColor({ 0, 0, 0, 1});
 	textObj.SetDrawObject<Text>(txt);
 	AddComponent<Draw2DComponent>(textObj);
 
@@ -55,24 +56,24 @@ void TestObject::Initialize()
 	dObj.SetDrawObject<Test_Model_ECSver>(model);
 	AddComponent<DrawComponent>(dObj);
 	 
-	//DrawComponent particle;
-	//Particle pa(this);
-	//EmitterData data;
-	//data.acceleration = 0.03f;
-	//data.delay = 30;
-	//data.position = { 0,0,0 };
-	//data.positionErr = { 10,10,10 };
-	//data.gravity = -0.001f;
-	//data.firstSpeed = 0;
-	//data.lifTime = 100;
-	//data.number = 10;
-	//data.scale = { 1.0f,1.0f };
-	//data.size = { 1,1 };
-	//data.sizeErr = { 0,0 };
-	//data.textureFileName = "Assets\\Image\\Effect01.png";
-	//pa.SetData(data);
-	//particle.SetDrawObject<Particle>(pa);
-	//AddComponent<DrawComponent>(particle);
+	DrawComponent particle;
+	Particle pa(this);
+	EmitterData data;
+	data.acceleration = 0.03f;
+	data.delay = 30;
+	data.position = { 0,0,0 };
+	data.positionErr = { 10,10,10 };
+	data.gravity = -0.001f;
+	data.firstSpeed = 0;
+	data.lifTime = 100;
+	data.number = 10;
+	data.scale = { 1.0f,1.0f };
+	data.size = { 1,1 };
+	data.sizeErr = { 0,0 };
+	data.textureFileName = "Assets\\Image\\Effect01.png";
+	pa.SetData(data);
+	particle.SetDrawObject<Particle>(pa);
+	AddComponent<DrawComponent>(particle);
 
 }
 

@@ -5,7 +5,6 @@ namespace Coordinator
 	std::unique_ptr<EntityManager> entityManager_;
 	std::unique_ptr<SystemManager> systemManager_;
 
-
 	void Coordinator::Init()
 	{
 		//各マネージャーのポインタ作成

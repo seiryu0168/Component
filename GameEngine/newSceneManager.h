@@ -15,6 +15,7 @@ namespace newSceneManager
 	void Initialize();
 	void Initialize(std::string name);
 	void Update();
+	void Draw();
 	void AddScene(std::string objectFileName);
 	void CreateScene(std::string sceneName);
 	void ChangeScene(SCENE_ID next, int countDown = 0);
