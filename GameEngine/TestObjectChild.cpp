@@ -23,11 +23,11 @@ void TestObjectChild::Initialize()
 	//coll.SetCollider<HitBox>(box);
 	//AddComponent<Collider>(coll);
 
-	DrawComponent dObj;
-	Test_Model_ECSver model(this);
-	model.Load("Assets\\Model\\AAA.fbx");
-	dObj.SetDrawObject<Test_Model_ECSver>(model);
-	AddComponent<DrawComponent>(dObj);
+	//DrawComponent dObj;
+	//Test_Model_ECSver model(this);
+	//model.Load("Assets\\Model\\AAA.fbx");
+	//dObj.SetDrawObject<Test_Model_ECSver>(model);
+	//AddComponent<DrawComponent>(dObj);
 	//hModel_ = ModelManager::Load("Assets\\Model\\AAA.fbx");
 	//assert(hModel_ >= 0);
 }

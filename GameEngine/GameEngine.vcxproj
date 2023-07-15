@@ -178,6 +178,8 @@
     <ClCompile Include="CoordinatorManager.cpp" />
     <ClCompile Include="Draw2DComponent.cpp" />
     <ClCompile Include="Draw2DSystem.cpp" />
+    <ClCompile Include="Draw3DComponent.cpp" />
+    <ClCompile Include="Draw3DSystem.cpp" />
     <ClCompile Include="DrawComponent.cpp" />
     <ClCompile Include="Easing.cpp" />
     <ClCompile Include="DebugUI.cpp" />
@@ -250,6 +252,8 @@
     <ClInclude Include="CoordinatorManager.h" />
     <ClInclude Include="Draw2DComponent.h" />
     <ClInclude Include="Draw2DSystem.h" />
+    <ClInclude Include="Draw3DComponent.h" />
+    <ClInclude Include="Draw3DSystem.h" />
     <ClInclude Include="DrawComponent.h" />
     <ClInclude Include="Easing.h" />
     <ClInclude Include="DebugUI.h" />
