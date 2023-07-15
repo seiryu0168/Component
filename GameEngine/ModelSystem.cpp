@@ -4,7 +4,7 @@ ModelSystem::ModelSystem()
 {
 	Coordinator::RegisterComponent<Test_Model_ECSver>();
 	Coordinator::RegisterComponent<Particle>();
-	Coordinator::RegisterComponent<Text>();
+	//Coordinator::RegisterComponent<Text>();
 }
 
 void ModelSystem::Update()

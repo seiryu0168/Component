@@ -7,6 +7,7 @@
 #include"TransformSystem.h"
 #include"ColliderSystem.h"
 #include"ModelSystem.h"
+#include"Draw2DSystem.h"
 #include"Coordinator.h"
 
 namespace newSceneManager
@@ -92,9 +93,10 @@ namespace newSceneManager
 		Coordinator::RegisterSystem<TransformSystem>();
 		Coordinator::RegisterSystem<ColliderSystem>();
 		Coordinator::RegisterSystem<ModelSystem>();
+		Coordinator::RegisterSystem<Draw2DSystem>();
 		Coordinator::RegisterComponent<Collider>();
 		Coordinator::RegisterComponent<DrawComponent>();
-
+		Coordinator::RegisterComponent<Draw2DComponent>();
 		Coordinator::RegisterComponent<Transform>();
 
 		Signature phy_signature;
@@ -108,11 +110,13 @@ namespace newSceneManager
 		coll_signature.set(Coordinator::GetComponentType<Collider>());
 		Signature model_signature;
 		model_signature.set(Coordinator::GetComponentType<DrawComponent>());
-
+		Signature d2_signature;
+		d2_signature.set(Coordinator::GetComponentType<Draw2DComponent>());
 		Coordinator::SetSystemSignature<PhysicsSystem>(phy_signature);
 		Coordinator::SetSystemSignature<TransformSystem>(trans_signature);
 		Coordinator::SetSystemSignature<ColliderSystem>(coll_signature);
 		Coordinator::SetSystemSignature<ModelSystem>(model_signature);
+		Coordinator::SetSystemSignature<Draw2DSystem>(d2_signature);
 	}
 
 }

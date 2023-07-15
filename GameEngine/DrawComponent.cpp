@@ -1,6 +1,4 @@
 #include "DrawComponent.h"
-#include"Test_Model_ECSver.h"
-#include"Engine/ResourceManager/Text.h"
 DrawComponent::DrawComponent()
 {
 	
@@ -43,8 +41,6 @@ void DrawComponent::SetAttachObject(GameObject* object)
 
 void DrawComponent::Draw()
 {
-
-	//GetDrawObjdect(typeName_).Draw();
 	switch (type_)
 	{
 	case DrawType::TYPE_MODEL:

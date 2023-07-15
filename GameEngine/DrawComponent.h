@@ -1,6 +1,7 @@
 #pragma once
 #include"Component.h"
 #include<list>
+#include<typeindex>
 #include"Engine/GameObject/GameObject.h"
 #include"Engine/ResourceManager/Text.h"
 #include"Engine/DirectX_11/Particle.h"
@@ -18,9 +19,7 @@ class DrawComponent
 {
 	DrawType type_;
 	Entity drawEntity_;
-
 	std::string typeName_;
-	const char* type;
 	GameObject* attachObject_;
 public:
 	DrawComponent();
@@ -33,7 +32,7 @@ public:
 		SetDrawType(name);
 		drawEntity_ = Coordinator::CreateEntity();
 		Coordinator::AddComponent<T>(drawEntity_, drawObject);
-	}	
+	}
 
 	auto GetDrawObjdect(std::string name);
 	void SetDrawType(std::string name);

@@ -17,15 +17,17 @@ TestObjectChild::~TestObjectChild()
 
 void TestObjectChild::Initialize()
 {
-	Collider coll({ 0,0,0 });
-	coll.SetAttachObject(this);
-	HitBox box({ 1,1,1 });
-	coll.SetCollider<HitBox>(box);
-	AddComponent<Collider>(coll);
+	//Collider coll({ 0,0,0 });
+	//coll.SetAttachObject(this);
+	//HitBox box({ 1,1,1 });
+	//coll.SetCollider<HitBox>(box);
+	//AddComponent<Collider>(coll);
 
+	DrawComponent dObj;
 	Test_Model_ECSver model(this);
 	model.Load("Assets\\Model\\AAA.fbx");
-	AddComponent<Test_Model_ECSver>(model);
+	dObj.SetDrawObject<Test_Model_ECSver>(model);
+	AddComponent<DrawComponent>(dObj);
 	//hModel_ = ModelManager::Load("Assets\\Model\\AAA.fbx");
 	//assert(hModel_ >= 0);
 }
