@@ -18,14 +18,14 @@ void PhysicsSystem::Update()
 
 void PhysicsSystem::PhysicsUpdate(float deltaTime)
 {
-	for (auto const& entity : entities_)
-	{
-		auto& rigidBody = Coordinator::GetComponent<RigidBody>(entity);
-		auto& transform = Coordinator::GetComponent<TransformData>(entity);
-		auto& gravity = Coordinator::GetComponent<Gravity>(entity);
-
-		transform.position_ += rigidBody.vector_ * deltaTime;
-		rigidBody.vector_ += gravity.force_ * deltaTime;
-
-	}
+	//for (auto const& entity : entities_)
+	//{
+	//	auto& rigidBody = Coordinator::GetComponent<RigidBody>(entity);
+	//	auto& transform = Coordinator::GetComponent<TransformData>(entity);
+	//	auto& gravity = Coordinator::GetComponent<Gravity>(entity);
+	//
+	//	transform.position_ += rigidBody.vector_ * deltaTime;
+	//	rigidBody.vector_ += gravity.force_ * deltaTime;
+	//
+	//}
 }

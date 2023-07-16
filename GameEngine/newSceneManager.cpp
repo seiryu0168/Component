@@ -7,6 +7,7 @@
 #include"TransformSystem.h"
 #include"ColliderSystem.h"
 #include"ModelSystem.h"
+#include"Draw3DSystem.h"
 #include"Draw2DSystem.h"
 #include"Coordinator.h"
 
@@ -21,7 +22,7 @@ namespace newSceneManager
 	std::vector<SceneBase> sceneList_;
 
 	std::shared_ptr<ColliderSystem> pColliderSystem_;
-	std::shared_ptr<ModelSystem> pDraw3DSystem_;
+	std::shared_ptr<Draw3DSystem> pDraw3DSystem_;
 	std::shared_ptr<Draw2DSystem> pDraw2DSystem_;
 	void Initialize()
 	{
@@ -102,10 +103,12 @@ namespace newSceneManager
 		Coordinator::RegisterSystem<PhysicsSystem>();
 		Coordinator::RegisterSystem<TransformSystem>();
 		pColliderSystem_ = Coordinator::RegisterSystem<ColliderSystem>();
-		pDraw3DSystem_ = Coordinator::RegisterSystem<ModelSystem>();
+		pDraw3DSystem_ = Coordinator::RegisterSystem<Draw3DSystem>();
 		pDraw2DSystem_ = Coordinator::RegisterSystem<Draw2DSystem>();
 		Coordinator::RegisterComponent<Collider>();
-		Coordinator::RegisterComponent<DrawComponent>();
+		//Coordinator::RegisterComponent<DrawComponent>();
+		Coordinator::RegisterComponent<Draw3DComponent>();
+		
 		Coordinator::RegisterComponent<Draw2DComponent>();
 		Coordinator::RegisterComponent<Transform>();
 
@@ -118,14 +121,18 @@ namespace newSceneManager
 		trans_signature.set(Coordinator::GetComponentType<Transform>());
 		Signature coll_signature;
 		coll_signature.set(Coordinator::GetComponentType<Collider>());
-		Signature model_signature;
-		model_signature.set(Coordinator::GetComponentType<DrawComponent>());
+		//Signature model_signature;
+		//model_signature.set(Coordinator::GetComponentType<DrawComponent>());
+		Signature d3_signature;
+		d3_signature.set(Coordinator::GetComponentType<Draw3DComponent>());
 		Signature d2_signature;
 		d2_signature.set(Coordinator::GetComponentType<Draw2DComponent>());
 		Coordinator::SetSystemSignature<PhysicsSystem>(phy_signature);
 		Coordinator::SetSystemSignature<TransformSystem>(trans_signature);
 		Coordinator::SetSystemSignature<ColliderSystem>(coll_signature);
-		Coordinator::SetSystemSignature<ModelSystem>(model_signature);
+		//Coordinator::SetSystemSignature<ModelSystem>(model_signature);
+		Coordinator::SetSystemSignature<Draw3DSystem>(d3_signature);
+
 		Coordinator::SetSystemSignature<Draw2DSystem>(d2_signature);
 	}
 

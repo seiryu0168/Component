@@ -1,8 +1,10 @@
 #pragma once
-class Draw3DComponent
+#include"DrawComponent.h"
+class Draw3DComponent : public DrawComponent
 {
+
 public:
 	Draw3DComponent();
-	virtual void Draw() {};
+	//virtual void Draw() {};
 };
 

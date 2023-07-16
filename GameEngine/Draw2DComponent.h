@@ -22,6 +22,6 @@ public:
 	//auto GetDrawObjdect(std::string name);
 	//void SetDrawType(std::string name);
 	//void SetAttachObject(GameObject* object);
-	//void Draw();
+	//virtual void Draw() {};
 };
 

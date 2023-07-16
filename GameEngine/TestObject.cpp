@@ -8,7 +8,7 @@
 #include"Engine/ResourceManager/Text.h"
 #include"Draw2DComponent.h"
 #include"AssimpLoader.h"
-#include"DrawComponent.h"
+#include"Draw3DComponent.h"
 #include"newSceneManager.h"
 #include"Engine/DirectX_11/Input.h"
 #include"Mesh.h"
@@ -35,11 +35,11 @@ void TestObject::Initialize()
 	//mesh.push_back(m);
 	//ImportSetting set("",mesh, true,true);
 	//loader.Load(set);
-	Collider coll({ 0,0,0 });
-	HitSphere sphere(1.0f);
-	coll.SetCollider<HitSphere>(sphere);
-	coll.SetAttachObject(this);
-	AddComponent<Collider>(coll);
+	//Collider coll({ 0,0,0 });
+	//HitSphere sphere(1.0f);
+	//coll.SetCollider<HitSphere>(sphere);
+	//coll.SetAttachObject(this);
+	//AddComponent<Collider>(coll);
 
 
 	Draw2DComponent textObj;
@@ -50,20 +50,20 @@ void TestObject::Initialize()
 	textObj.SetDrawObject<Text>(txt);
 	AddComponent<Draw2DComponent>(textObj);
 
-	DrawComponent dObj;
+	Draw3DComponent dObj;
 	Test_Model_ECSver model(this);
 	model.Load("Assets\\Model\\AAA.fbx");
 	dObj.SetDrawObject<Test_Model_ECSver>(model);
-	AddComponent<DrawComponent>(dObj);
+	AddComponent<Draw3DComponent>(dObj);
 	 
-	DrawComponent particle;
+	Draw3DComponent particle;
 	Particle pa(this);
 	EmitterData data;
-	data.acceleration = 0.03f;
+	data.acceleration = 0.13f;
 	data.delay = 30;
 	data.position = { 0,0,0 };
 	data.positionErr = { 10,10,10 };
-	data.gravity = -0.001f;
+	data.gravity = -0.01f;
 	data.firstSpeed = 0;
 	data.lifTime = 100;
 	data.number = 10;
@@ -73,7 +73,7 @@ void TestObject::Initialize()
 	data.textureFileName = "Assets\\Image\\Effect01.png";
 	pa.SetData(data);
 	particle.SetDrawObject<Particle>(pa);
-	AddComponent<DrawComponent>(particle);
+	AddComponent<Draw3DComponent>(particle);
 
 }
 

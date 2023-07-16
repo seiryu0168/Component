@@ -11,6 +11,17 @@ Test_Model_ECSver::Test_Model_ECSver(GameObject* object)
 {
 }
 
+Test_Model_ECSver::Test_Model_ECSver(const Test_Model_ECSver& object)
+{
+	hModel_ = object.hModel_;
+	type = object.type;
+	animationFrame_ = object.animationFrame_;
+	fbx_ = object.fbx_;
+	materialList_ = object.materialList_;
+	meshEntity_ = object.meshEntity_;
+	attachObject_ = object.attachObject_;
+}
+
 bool Test_Model_ECSver::Load(std::string fileName)
 {
 	fbx_=ModelManager_ECSver::Load(fileName);

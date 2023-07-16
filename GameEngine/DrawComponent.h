@@ -1,7 +1,6 @@
 #pragma once
 #include"Component.h"
 #include<list>
-#include<typeindex>
 #include"Engine/GameObject/GameObject.h"
 #include"Engine/ResourceManager/Text.h"
 #include"Engine/DirectX_11/Particle.h"
@@ -24,6 +23,7 @@ class DrawComponent
 public:
 	DrawComponent();
 	DrawComponent(GameObject* object);
+	virtual ~DrawComponent() {};
 	template<typename T>
 	void SetDrawObject(T drawObject)
 	{
