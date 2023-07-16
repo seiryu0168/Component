@@ -9,12 +9,6 @@ DrawComponent::DrawComponent(GameObject* object)
 	attachObject_ = object;
 }
 
-auto DrawComponent::GetDrawObjdect(std::string name)
-{
-	if (name == "class Test_Model_ECSver")
-		return Coordinator::GetComponent<Test_Model_ECSver>(drawEntity_);
-}
-
 void DrawComponent::SetDrawType(std::string name)
 {
 	if (name == "class Test_Model_ECSver")
@@ -25,6 +19,11 @@ void DrawComponent::SetDrawType(std::string name)
 	if (name == "class Text")
 	{
 		type_ = DrawType::TYPE_TEXT;
+		return;
+	}
+	if (name == "class LineParticle")
+	{
+		type_ = DrawType::TYPE_LINEPARTICLE;
 		return;
 	}
 	if (name == "class Particle")
@@ -48,6 +47,9 @@ void DrawComponent::Draw()
 		break;
 	case DrawType::TYPE_PARTICLE:
 		Coordinator::GetComponent<Particle>(drawEntity_).Draw();
+		break;
+	case DrawType::TYPE_LINEPARTICLE:
+		Coordinator::GetComponent<LineParticle>(drawEntity_).Draw();
 		break;
 	case DrawType::TYPE_TEXT:
 		Coordinator::GetComponent<Text>(drawEntity_).Draw();

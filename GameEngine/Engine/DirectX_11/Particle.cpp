@@ -126,11 +126,13 @@ void Particle::UpdateEmitter()
 					deltaY = (float)((*emitterCount)->data.dirErr.y == 0 ? 0 : rand() % (int)((*emitterCount)->data.dirErr.y * 201) - ((*emitterCount)->data.dirErr.y * 100)) / 100.0f;
 					deltaZ = (float)((*emitterCount)->data.dirErr.z == 0 ? 0 : rand() % (int)((*emitterCount)->data.dirErr.z * 201) - ((*emitterCount)->data.dirErr.z * 100)) / 100.0f;
 
-					XMMATRIX matX = XMMatrixRotationX(XMConvertToRadians(deltaX));
-					XMMATRIX matY = XMMatrixRotationY(XMConvertToRadians(deltaY));
-					XMMATRIX matZ = XMMatrixRotationZ(XMConvertToRadians(deltaZ));
-
-					vecDir = XMVector3TransformCoord(vecDir, matX * matY * matZ);
+					//ピッチ、ヨー、ロールをクォータニオンで表現
+					XMVECTOR dirQuaternion = XMQuaternionRotationRollPitchYaw(XMConvertToRadians(deltaX),
+																			  XMConvertToRadians(deltaY),
+																			  XMConvertToRadians(deltaZ));
+					//クォータニオンで誤差分回転
+					vecDir = XMVector3Rotate(vecDir, dirQuaternion);
+						//XMVector3TransformCoord(vecDir, matX * matY * matZ);
 
 					float spd = (float)((*emitterCount)->data.speedErr == 0 ? 0 : (int)((*emitterCount)->data.speedErr * 201) - ((*emitterCount)->data.speedErr * 100)) / 100.0f+1.0f;
 		

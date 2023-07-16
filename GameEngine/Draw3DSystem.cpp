@@ -5,6 +5,7 @@ Draw3DSystem::Draw3DSystem()
 {
 	Coordinator::RegisterComponent<Test_Model_ECSver>();
 	Coordinator::RegisterComponent<Particle>();
+	Coordinator::RegisterComponent<LineParticle>();
 }
 
 void Draw3DSystem::Update()

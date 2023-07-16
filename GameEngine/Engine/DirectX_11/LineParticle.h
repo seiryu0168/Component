@@ -2,9 +2,24 @@
 #include"Direct3D.h"
 #include"Texture.h"
 #include"DirectXMath.h"
-#include"../GameObject/Transform.h"
+#include"../GameObject/GameObject.h"
 #include<list>
 
+struct LineData
+{
+	float width;
+	float endWidth;
+	int   length;
+	std::string textureName;
+	LineData()
+	{
+		width = 0.5f;
+		endWidth = 0.0f;
+		length = 10;
+		textureName = "Effect01.png";
+	}
+
+};
 class LineParticle
 {
 	enum class LineMode
@@ -29,7 +44,7 @@ private:
 
 	float WIDTH_;//ラインパーティクルの幅
 	UINT LENGTH_;//ラインパーティクルのポジションを記憶する量
-	float tipWidth_;
+	float endWidth_;
 	XMFLOAT4 color_;
 	//int* index_;
 
@@ -40,9 +55,10 @@ private:
 	Texture* pTexture_;
 	std::vector<int> indexList;
 	std::list<XMFLOAT3> positionList_;
+	GameObject* attachObject_;
 public:
 	LineParticle();
-	LineParticle(float width,int length,float tipWidth);
+	LineParticle(GameObject* object);
 	/// <summary>
 	/// ラインの位置保存
 	/// 位置をポジションリストに追加
@@ -71,18 +87,23 @@ public:
 	/// インデックス生成
 	/// </summary>
 	void SetIndex();
+
+	void Update();
 	/// <summary>
 	/// 描画
 	/// </summary>
 	/// <param name="transform">呼び出し元のtransform</param>
-	void Draw(Transform* transform);
+	void Draw();
 	/// <summary>
 	/// ラインパーティクルの各パラメータ設定
 	/// </summary>
 	/// <param name="width">横幅</param>
 	/// <param name="length">ポジションの保存数</param>
 	/// <param name="tipWidth">終端の幅</param>
-	void SetLineParameter(float width, int length,float tipWidth=0);
+	void SetLineParameter(LineData data);
+	void SetWidth(float width);
+	void SetEndWidth(float endWidth);
+	void SetLength(float length);
 	/// <summary>
 	/// ポジションリストの削除
 	/// </summary>

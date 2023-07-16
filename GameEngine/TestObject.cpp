@@ -17,7 +17,7 @@ TestObject::TestObject(Object* parent)
 	:GameObject(parent,"TestObject"),
 	hModel_(-1),
 	time_(0),
-	vPos_(XMVectorSet(0,0,2.1f,0))
+	vPos_(XMVectorSet(0,0,10.1f,0))
 {
 	//DrawComponent<Test_Model_ECSver>()
 	
@@ -56,24 +56,37 @@ void TestObject::Initialize()
 	dObj.SetDrawObject<Test_Model_ECSver>(model);
 	AddComponent<Draw3DComponent>(dObj);
 	 
-	Draw3DComponent particle;
-	Particle pa(this);
-	EmitterData data;
-	data.acceleration = 0.13f;
-	data.delay = 30;
-	data.position = { 0,0,0 };
-	data.positionErr = { 10,10,10 };
-	data.gravity = -0.01f;
-	data.firstSpeed = 0;
-	data.lifTime = 100;
-	data.number = 10;
-	data.scale = { 1.0f,1.0f };
-	data.size = { 1,1 };
-	data.sizeErr = { 0,0 };
-	data.textureFileName = "Assets\\Image\\Effect01.png";
-	pa.SetData(data);
-	particle.SetDrawObject<Particle>(pa);
-	AddComponent<Draw3DComponent>(particle);
+	//Draw3DComponent particle;
+	//Particle pa(this);
+	//EmitterData data;
+	//data.acceleration = 0.3f;
+	//data.delay = 30;
+	//data.position = { 0,0,0 };
+	//data.positionErr = { 10,10,10 };
+	//data.dir = { 1,0,0 };
+	////data.dirErr = { 0,0,0 };
+	//data.gravity = -0.01f;
+	//data.firstSpeed = 0.001f;
+	//data.lifTime = 100;
+	//data.number = 10;
+	//data.scale = { 1.0f,1.0f };
+	//data.size = { 1,1 };
+	//data.sizeErr = { 0,0 };
+	//data.textureFileName = "Assets\\Image\\Effect01.png";
+	//pa.SetData(data);
+	//particle.SetDrawObject<Particle>(pa);
+	//AddComponent<Draw3DComponent>(particle);
+
+	Draw3DComponent lineObj;
+	LineParticle line(this);
+	LineData lineData;
+	lineData.width = 1.0f;
+	lineData.endWidth = 0.5f;
+	lineData.length = 100;
+	lineData.textureName = "Assets\\Image\\Effect01.png";
+	line.SetLineParameter(lineData);
+	lineObj.SetDrawObject<LineParticle>(line);
+	AddComponent<Draw3DComponent>(lineObj);
 
 }
 

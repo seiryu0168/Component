@@ -1,12 +1,13 @@
 #include "LineParticle.h"
 #include"Direct3D.h"
 #include"DirectXMath.h"
+#include"../ResourceManager/TextureManager.h"
 #include"../GameObject/Camera.h"
 #include<vector>
 LineParticle::LineParticle()
 	:WIDTH_(0.5),
 	LENGTH_(2),
-	tipWidth_(0),
+	endWidth_(0),
 	color_(1,1,1,1),
 	pVertexBuffer_(nullptr),
 	pIndexBuffer_(nullptr),
@@ -15,18 +16,20 @@ LineParticle::LineParticle()
 {
 	
 }
-LineParticle::LineParticle(float width, int length, float tipWidth)
-	:WIDTH_(width),
-	LENGTH_(length),
-	tipWidth_(tipWidth),
+LineParticle::LineParticle(GameObject* object)
+	:attachObject_(object),
+	WIDTH_(0.5),
+	LENGTH_(2),
+	endWidth_(0),
 	color_({1,1,1,1}),
 	pVertexBuffer_(nullptr),
 	pIndexBuffer_(nullptr),
 	pConstantBuffer_(nullptr),
 	pTexture_(nullptr)
 {
+	
 	assert(LENGTH_ >= 1);
-	tipWidth_ = max(tipWidth_, 0);
+	endWidth_ = max(endWidth_, 0);
 }
 
 //åªç›à íuÇãLâØ : pos
@@ -200,10 +203,10 @@ HRESULT LineParticle::CreateMeshPlate(std::list<XMFLOAT3>* pList)
 
 			XMFLOAT3 pos;
 			XMStoreFloat3(&pos, vPos + vArm);
-			VERTEX vertex1 = { pos,XMFLOAT3((float)i / LENGTH_ + tipWidth_,0,0) };
+			VERTEX vertex1 = { pos,XMFLOAT3((float)i / LENGTH_ + endWidth_,0,0) };
 
 			XMStoreFloat3(&pos, vPos - vArm);
-			VERTEX vertex2 = { pos,XMFLOAT3((float)i / LENGTH_ + tipWidth_,1,0) };
+			VERTEX vertex2 = { pos,XMFLOAT3((float)i / LENGTH_ + endWidth_,1,0) };
 
 			int s = sizeof(VERTEX);
 
@@ -327,8 +330,14 @@ void LineParticle::SetIndex()
 	//return S_OK;
 }
 
-void LineParticle::Draw(Transform* transform)
+void LineParticle::Update()
 {
+	AddPosition(StoreFloat3(attachObject_->GetTransform()->position_));
+}
+
+void LineParticle::Draw()
+{
+	Update();
 	HRESULT hr;
 	Direct3D::SetShader(SHADER_TYPE::SHADER_EFF);
 	CONSTANT_BUFFER cb;
@@ -373,12 +382,15 @@ void LineParticle::Draw(Transform* transform)
 	Direct3D::pContext->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 }
 
-void LineParticle::SetLineParameter(float width, int length, float tipWidth)
+void LineParticle::SetLineParameter(LineData data)
 {
-	WIDTH_ = width;
-	LENGTH_ = length;
-	tipWidth_ = tipWidth;
-	tipWidth_ = max(tipWidth_, 0);
+	
+	WIDTH_ = data.width;
+	LENGTH_ = data.length;
+	endWidth_ = data.endWidth;
+	//pTexture_ = TextureManager::GetTexture(texNum);
+	endWidth_ = max(endWidth_, 0);
+	Load(data.textureName);
 	
 }
 

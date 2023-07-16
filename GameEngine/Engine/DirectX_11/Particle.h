@@ -29,7 +29,9 @@ struct EmitterData
         {
             textureFileName = "";
             position = positionErr = dir = dirErr = { 0,0,0 };
-            firstSpeed = 0.0f;
+            size = scale = { 0,0 };
+            sizeErr = { 1,1 };
+            firstSpeed = speedErr = 0.0f;
             acceleration = 1.0f;
             gravity = 0.0f;
             color = { 1,1,1,1 };
