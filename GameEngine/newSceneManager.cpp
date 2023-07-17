@@ -7,6 +7,7 @@
 #include"TransformSystem.h"
 #include"ColliderSystem.h"
 #include"ModelSystem.h"
+#include"ParticleSystem.h"
 #include"Draw3DSystem.h"
 #include"Draw2DSystem.h"
 #include"Coordinator.h"
@@ -24,6 +25,9 @@ namespace newSceneManager
 	std::shared_ptr<ColliderSystem> pColliderSystem_;
 	std::shared_ptr<Draw3DSystem> pDraw3DSystem_;
 	std::shared_ptr<Draw2DSystem> pDraw2DSystem_;
+	std::shared_ptr<ModelSystem> pModelSyatem_;
+	std::shared_ptr<ParticleSystem> pParticleSystem_;
+	std::shared_ptr<Text> pTextSystem_;
 	void Initialize()
 	{
 		prevScene_ = SCENE_ID::SCENE_ID_MAIN;
@@ -76,8 +80,9 @@ namespace newSceneManager
 
 	void Draw()
 	{
-		pDraw3DSystem_.get()->Update();
-		pDraw2DSystem_.get()->Update();
+		pModelSyatem_.get()->Update();
+		pParticleSystem_.get()->Update();
+		//pDraw2DSystem_.get()->Update();
 	}
 
 	void AddScene(std::string objectFileName)
@@ -102,11 +107,14 @@ namespace newSceneManager
 	{
 		Coordinator::RegisterSystem<PhysicsSystem>();
 		Coordinator::RegisterSystem<TransformSystem>();
+		pModelSyatem_ = Coordinator::RegisterSystem<ModelSystem>();
+		pParticleSystem_ = Coordinator::RegisterSystem<ParticleSystem>();
 		pColliderSystem_ = Coordinator::RegisterSystem<ColliderSystem>();
-		pDraw3DSystem_ = Coordinator::RegisterSystem<Draw3DSystem>();
-		pDraw2DSystem_ = Coordinator::RegisterSystem<Draw2DSystem>();
+		//pDraw3DSystem_ = Coordinator::RegisterSystem<Draw3DSystem>();
+		//pDraw2DSystem_ = Coordinator::RegisterSystem<Draw2DSystem>();
+		Coordinator::RegisterComponent<Particle>();
 		Coordinator::RegisterComponent<Collider>();
-		//Coordinator::RegisterComponent<DrawComponent>();
+		Coordinator::RegisterComponent<Test_Model_ECSver>();
 		Coordinator::RegisterComponent<Draw3DComponent>();
 		
 		Coordinator::RegisterComponent<Draw2DComponent>();
@@ -121,19 +129,23 @@ namespace newSceneManager
 		trans_signature.set(Coordinator::GetComponentType<Transform>());
 		Signature coll_signature;
 		coll_signature.set(Coordinator::GetComponentType<Collider>());
-		//Signature model_signature;
-		//model_signature.set(Coordinator::GetComponentType<DrawComponent>());
-		Signature d3_signature;
-		d3_signature.set(Coordinator::GetComponentType<Draw3DComponent>());
-		Signature d2_signature;
-		d2_signature.set(Coordinator::GetComponentType<Draw2DComponent>());
+		Signature particle_Signature;
+		particle_Signature.set(Coordinator::GetComponentType<Particle>());
+		Signature model_signature;
+		model_signature.set(Coordinator::GetComponentType<Test_Model_ECSver>());
+		
+		//Signature d3_signature;
+		//d3_signature.set(Coordinator::GetComponentType<Draw3DComponent>());
+		//Signature d2_signature;
+		//d2_signature.set(Coordinator::GetComponentType<Draw2DComponent>());
 		Coordinator::SetSystemSignature<PhysicsSystem>(phy_signature);
 		Coordinator::SetSystemSignature<TransformSystem>(trans_signature);
 		Coordinator::SetSystemSignature<ColliderSystem>(coll_signature);
-		//Coordinator::SetSystemSignature<ModelSystem>(model_signature);
-		Coordinator::SetSystemSignature<Draw3DSystem>(d3_signature);
-
-		Coordinator::SetSystemSignature<Draw2DSystem>(d2_signature);
+		Coordinator::SetSystemSignature<ParticleSystem>(particle_Signature);
+		Coordinator::SetSystemSignature<ModelSystem>(model_signature);
+		//Coordinator::SetSystemSignature<Draw3DSystem>(d3_signature);
+		//
+		//Coordinator::SetSystemSignature<Draw2DSystem>(d2_signature);
 	}
 
 }

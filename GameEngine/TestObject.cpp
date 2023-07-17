@@ -6,9 +6,9 @@
 #include"Engine/Collider/BoxCollider.h"
 #include"Test_Model_ECSver.h"
 #include"Engine/ResourceManager/Text.h"
-#include"Draw2DComponent.h"
+//#include"Draw2DComponent.h"
 #include"AssimpLoader.h"
-#include"Draw3DComponent.h"
+//#include"Draw3DComponent.h"
 #include"newSceneManager.h"
 #include"Engine/DirectX_11/Input.h"
 #include"Mesh.h"
@@ -40,53 +40,56 @@ void TestObject::Initialize()
 	//coll.SetCollider<HitSphere>(sphere);
 	//coll.SetAttachObject(this);
 	//AddComponent<Collider>(coll);
-
-
-	Draw2DComponent textObj;
-	Text txt;
-	txt.Load("asdfg", "Sitka Text", { 0,0,100,100 }, LEFT_TOP);
-	txt.SetPosition({ 0,0 });
-	txt.SetColor({ 0, 0, 0, 1});
-	textObj.SetDrawObject<Text>(txt);
-	AddComponent<Draw2DComponent>(textObj);
-
-	Draw3DComponent dObj;
-	Test_Model_ECSver model(this);
-	model.Load("Assets\\Model\\AAA.fbx");
-	dObj.SetDrawObject<Test_Model_ECSver>(model);
-	AddComponent<Draw3DComponent>(dObj);
+	//Instantiate<TestObjectChild>(this);
+	//
+	//Draw2DComponent textObj;
+	//Text txt;
+	//txt.Load("asdfg", "Sitka Text", { 0,0,100,100 }, LEFT_TOP);
+	//txt.SetPosition({ 0,0 });
+	//txt.SetColor({ 0, 0, 0, 1});
+	//textObj.SetDrawObject<Text>(txt);
+	//AddComponent<Draw2DComponent>(textObj);
+	//
+	//Draw3DComponent dObj;
+	//Test_Model_ECSver model(this);
+	//model.Load("Assets\\Model\\AAA.fbx");
+	//dObj.SetDrawObject<Test_Model_ECSver>(model);
+	//AddComponent<Draw3DComponent>(dObj);
 	 
 	//Draw3DComponent particle;
-	//Particle pa(this);
-	//EmitterData data;
-	//data.acceleration = 0.3f;
-	//data.delay = 30;
-	//data.position = { 0,0,0 };
-	//data.positionErr = { 10,10,10 };
-	//data.dir = { 1,0,0 };
-	////data.dirErr = { 0,0,0 };
-	//data.gravity = -0.01f;
-	//data.firstSpeed = 0.001f;
-	//data.lifTime = 100;
-	//data.number = 10;
-	//data.scale = { 1.0f,1.0f };
-	//data.size = { 1,1 };
-	//data.sizeErr = { 0,0 };
-	//data.textureFileName = "Assets\\Image\\Effect01.png";
-	//pa.SetData(data);
+	Particle particle(this);
+	EmitterData data;
+	data.acceleration = 0.3f;
+	data.delay = 30;
+	data.position = { 0,0,0 };
+	data.positionErr = { 10,10,10 };
+	data.dir = { 1,0,0 };
+	//data.dirErr = { 0,0,0 };
+	data.gravity = -0.01f;
+	data.firstSpeed = 0.001f;
+	data.lifTime = 100;
+	data.number = 10;
+	data.scale = { 1.0f,1.0f };
+	data.size = { 1,1 };
+	data.sizeErr = { 0,0 };
+	data.textureFileName = "Assets\\Image\\Effect01.png";
+	particle.SetData(data);
 	//particle.SetDrawObject<Particle>(pa);
-	//AddComponent<Draw3DComponent>(particle);
-
-	Draw3DComponent lineObj;
-	LineParticle line(this);
-	LineData lineData;
-	lineData.width = 1.0f;
-	lineData.endWidth = 0.5f;
-	lineData.length = 100;
-	lineData.textureName = "Assets\\Image\\Effect01.png";
-	line.SetLineParameter(lineData);
-	lineObj.SetDrawObject<LineParticle>(line);
-	AddComponent<Draw3DComponent>(lineObj);
+	AddComponent<Particle>(particle);
+	
+	Test_Model_ECSver model(this);
+	model.Load("Assets\\Model\\AAA.fbx");
+	AddComponent<Test_Model_ECSver>(model);
+	//Draw3DComponent lineObj;
+	//LineParticle line(this);
+	//LineData lineData;
+	//lineData.width = 1.0f;
+	//lineData.endWidth = 0.5f;
+	//lineData.length = 100;
+	//lineData.textureName = "Assets\\Image\\Effect01.png";
+	//line.SetLineParameter(lineData);
+	//lineObj.SetDrawObject<LineParticle>(line);
+	//AddComponent<Draw3DComponent>(lineObj);
 
 }
 

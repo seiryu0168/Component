@@ -9,11 +9,11 @@ GameObject::GameObject(Object* parent, const std::string& name)
 	drawFlag_(true)
 {
 	//Entity transformEntity = Coordinator::CreateEntity();
-	Transform* transform=new Transform;
+	Transform transform;// = new Transform;
 	if (parent != nullptr)
-		transform->pParent_ = &((GameObject*)parent)->GetComponent<Transform>();
+		transform.pParent_ = &((GameObject*)parent)->GetComponent<Transform>();
 	
-	AddComponent<Transform>(*transform);
+	AddComponent<Transform>(transform);
 	transform_ = &GetComponent<Transform>();
 }
 

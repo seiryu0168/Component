@@ -3,6 +3,7 @@
 #include"Engine/ResourceManager/Model.h"
 #include"Engine/Collider/BoxCollider.h"
 #include"Test_Model_ECSver.h"
+#include"Draw3DComponent.h"
 TestObjectChild::TestObjectChild(Object* parent)
 	:GameObject(parent,"TestObjectChild"),
 	hModel_(-1),
@@ -22,6 +23,11 @@ void TestObjectChild::Initialize()
 	//HitBox box({ 1,1,1 });
 	//coll.SetCollider<HitBox>(box);
 	//AddComponent<Collider>(coll);
+	Draw3DComponent dObj;
+	Test_Model_ECSver model(this);
+	model.Load("Assets\\Model\\AAA.fbx");
+	dObj.SetDrawObject<Test_Model_ECSver>(model);
+	AddComponent<Draw3DComponent>(dObj);
 
 	//DrawComponent dObj;
 	//Test_Model_ECSver model(this);
@@ -34,8 +40,8 @@ void TestObjectChild::Initialize()
 
 void TestObjectChild::Update()
 {
-	//time_++;
-	//transform_->position_ = XMVectorSet(0,sinf(XMConvertToRadians(time_)*2),0,0)*4.0f;
+	time_++;
+	transform_->position_ = XMVectorSet(0,sinf(XMConvertToRadians(time_)*2),0,0)*4.0f;
 	
 }
 

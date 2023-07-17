@@ -235,7 +235,7 @@ void Particle::Draw()
 
 		//ˆÚ“®s—ñ
 		XMFLOAT3 pos = StoreFloat3((*i)->nowData.position);
-		XMMATRIX matTrans = XMMatrixTranslation(pos.x, pos.y, pos.z);
+		XMMATRIX matTrans = attacheObject_->GetTransform()->GetWorldMatrix()*XMMatrixTranslation(pos.x, pos.y, pos.z);
 		
 		//Šg‘ås—ñ
 		XMMATRIX matScale = XMMatrixScaling((*i)->nowData.scale.x, (*i)->nowData.scale.y, 1.0f);

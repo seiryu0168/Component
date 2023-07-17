@@ -11,6 +11,6 @@ void ModelSystem::Update()
 {
 	for (Entity entity : entities_)
 	{
-		Coordinator::GetComponent<DrawComponent>(entity).Draw();
+		Coordinator::GetComponent<Test_Model_ECSver>(entity).Draw();
 	}
 }
