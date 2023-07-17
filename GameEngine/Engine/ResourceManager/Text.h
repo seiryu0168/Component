@@ -10,8 +10,8 @@ class Text
 	struct FontData
 	{
 		float fontSize_;
-		wchar_t* pFontName_;		//フォント名
-		wchar_t* pLocale_;			//ロケール
+		std::wstring pFontName_;		//フォント名
+		std::wstring pLocale_;			//ロケール
 		DWRITE_FONT_WEIGHT	fontWaight_;		//フォントの太さ
 		DWRITE_FONT_STYLE   fontStyle_;			//フォントスタイル
 		DWRITE_FONT_STRETCH fontStretch_;
@@ -19,8 +19,8 @@ class Text
 		FontData()
 		{
 			fontSize_ = 72.0f;
-			pFontName_ = nullptr;
-			pLocale_ = nullptr;
+			//pFontName_ = L"";//nullptr;
+			//pLocale_ = nullptr;
 			fontWaight_ = DWRITE_FONT_WEIGHT_REGULAR;
 			fontStyle_ = DWRITE_FONT_STYLE_NORMAL;
 			fontStretch_ = DWRITE_FONT_STRETCH_NORMAL;
@@ -41,6 +41,7 @@ public:
 	Text();
 	~Text();
 	int Load(const std::string& text, const std::string& fontName, TEXT_RECT rect, STARTING_TYPE type);
+	void Initialize();
 	void Draw();
 	void SetAlinmentType(STARTING_TYPE type);
 	HRESULT SetFont(const FontData& data);

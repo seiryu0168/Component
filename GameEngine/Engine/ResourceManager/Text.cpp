@@ -7,11 +7,14 @@ Text::Text()
 {
 	textLength_	   = 0;
 	transform2D = { 0,0 };
+	layoutRect_ = { 0,0,100,100 };
+
 	pText_		   = nullptr;
 	pColorBrush_   = nullptr;
 	pWriteFactory_ = nullptr;
 	pTextFormat_   = nullptr;
 	pLayout_	   = nullptr;
+	Initialize();
 
 }
 Text::~Text()
@@ -36,9 +39,8 @@ int Text::Load(const std::string& text, const std::string& fontName, TEXT_RECT r
 	//フォント名用の配列用意
 	size_t ret;
 	FontData data;
-	//pFontName_ = new wchar_t[fontName.length() + 1];
 	data.pFontName_ = new wchar_t[fontName.length() + 1];
-	int a=mbstowcs_s(&ret, data.pFontName_, fontName.length() + 1, fontName.c_str(), fontName.length());
+	int a=mbstowcs_s(&ret, (wchar_t*)data.pFontName_.c_str(), fontName.length() + 1, fontName.c_str(), fontName.length());
 	size_t textSize;
 
 	//描画するテキスト用の配列を用意する
@@ -86,6 +88,43 @@ int Text::Load(const std::string& text, const std::string& fontName, TEXT_RECT r
 	}
 
 	return 0;
+}
+
+void Text::Initialize()
+{
+	//フォント名用の配列用意
+	size_t ret;
+	FontData data;
+	std::wstring fontName= L"Sitka Text";
+	std::wstring text = L"sumple";
+	size_t textSize;
+	data.pFontName_ = fontName;
+
+	//描画するテキスト用の配列を用意する
+	textLength_ = text.length() + 1;
+	pText_ = (wchar_t*)text.c_str();
+
+	//現在のロケール取得
+	std::string locale = setlocale(LC_CTYPE, NULL);
+
+	data.pLocale_ = (wchar_t*)L"en-us";
+
+	HRESULT hr = DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED, __uuidof(IDWriteFactory), reinterpret_cast<IUnknown**>(&pWriteFactory_));
+	assert(FAILED(hr) == false);
+	//テキストフォーマットにフォントを設定
+	hr = SetFont(data);
+	assert(FAILED(hr) == false);
+	//アライメント設定
+	SetAlinmentType(LEFT_TOP);
+	//描画のためのブラシ作成
+	hr = D2D::GetRenderTarget()->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White), &pColorBrush_);
+	assert(FAILED(hr) == false);
+	//テキスト表示の領域設定
+	layoutRect_ = {0,0,500,100};
+
+	//テキストレイアウト作成
+	hr = pWriteFactory_->CreateTextLayout(pText_, textLength_, pTextFormat_, (layoutRect_.right - layoutRect_.left), (layoutRect_.bottom - layoutRect_.top), &pLayout_);
+	assert(FAILED(hr) == false);
 }
 
 void Text::Draw()
@@ -166,16 +205,16 @@ HRESULT Text::SetTextSize(float size)
 	data.fontSize_ = size;
 	
 	data.pFontName_ = new wchar_t[fontNameSize];
-	hr = pTextFormat_->GetFontFamilyName(data.pFontName_, fontNameSize);
+	hr = pTextFormat_->GetFontFamilyName((WCHAR*)data.pFontName_.c_str(), fontNameSize);
 	if (FAILED(hr))
 		return hr;
 	data.pLocale_ = new wchar_t[localeSize];
-	hr = pTextFormat_->GetLocaleName(data.pLocale_, localeSize);
+	hr = pTextFormat_->GetLocaleName((WCHAR*)data.pLocale_.c_str(), localeSize);
 	if (FAILED(hr))
 		return hr;
 	//書式設定
 	SAFE_RELEASE(pTextFormat_);
-	hr = pWriteFactory_->CreateTextFormat(data.pFontName_, data.pCollection_, data.fontWaight_, data.fontStyle_, data.fontStretch_, data.fontSize_, data.pLocale_, &pTextFormat_);
+	hr = pWriteFactory_->CreateTextFormat((WCHAR*)data.pFontName_.c_str(), data.pCollection_, data.fontWaight_, data.fontStyle_, data.fontStretch_, data.fontSize_, data.pLocale_.c_str(), &pTextFormat_);
 	if (FAILED(hr))
 		return hr;
 	SAFE_RELEASE(pLayout_);
@@ -185,7 +224,7 @@ HRESULT Text::SetTextSize(float size)
 
 HRESULT Text::SetFont(const FontData& data)
 {
-	HRESULT hr= pWriteFactory_->CreateTextFormat(data.pFontName_, data.pCollection_, data.fontWaight_/*DWRITE_FONT_WEIGHT_REGULAR*/, data.fontStyle_/*DWRITE_FONT_STYLE_NORMAL*/, data.fontStretch_/*DWRITE_FONT_STRETCH_NORMAL*/, data.fontSize_, data.pLocale_, &pTextFormat_);
+	HRESULT hr= pWriteFactory_->CreateTextFormat(data.pFontName_.c_str(), data.pCollection_, data.fontWaight_/*DWRITE_FONT_WEIGHT_REGULAR*/, data.fontStyle_/*DWRITE_FONT_STYLE_NORMAL*/, data.fontStretch_/*DWRITE_FONT_STRETCH_NORMAL*/, data.fontSize_, data.pLocale_.c_str(), &pTextFormat_);
 	assert(hr==S_OK);
 	return hr;
 }

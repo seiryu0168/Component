@@ -64,7 +64,7 @@ void TestObject::Initialize()
 	data.position = { 0,0,0 };
 	data.positionErr = { 10,10,10 };
 	data.dir = { 1,0,0 };
-	//data.dirErr = { 0,0,0 };
+	data.dirErr = { 0,0,0 };
 	data.gravity = -0.01f;
 	data.firstSpeed = 0.001f;
 	data.lifTime = 100;
@@ -80,16 +80,9 @@ void TestObject::Initialize()
 	Test_Model_ECSver model(this);
 	model.Load("Assets\\Model\\AAA.fbx");
 	AddComponent<Test_Model_ECSver>(model);
-	//Draw3DComponent lineObj;
-	//LineParticle line(this);
-	//LineData lineData;
-	//lineData.width = 1.0f;
-	//lineData.endWidth = 0.5f;
-	//lineData.length = 100;
-	//lineData.textureName = "Assets\\Image\\Effect01.png";
-	//line.SetLineParameter(lineData);
-	//lineObj.SetDrawObject<LineParticle>(line);
-	//AddComponent<Draw3DComponent>(lineObj);
+
+	Text text;
+	AddComponent<Text>(text);
 
 }
 

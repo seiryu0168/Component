@@ -2,7 +2,7 @@
 #include"Coordinator.h"
 Draw2DSystem::Draw2DSystem()
 {
-	Coordinator::RegisterComponent<Text>();
+	//Coordinator::RegisterComponent<Text>();
 }
 
 void Draw2DSystem::Update()
