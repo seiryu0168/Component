@@ -213,6 +213,7 @@
     <ClCompile Include="Engine\SceneManager.cpp" />
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="Image.cpp" />
+    <ClCompile Include="ImageManager_ECSver.cpp" />
     <ClCompile Include="ImageSystem.cpp" />
     <ClCompile Include="ImGui\imgui.cpp" />
     <ClCompile Include="ImGui\imgui_draw.cpp" />
@@ -294,6 +295,7 @@
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="IComponentArray.h" />
     <ClInclude Include="Image.h" />
+    <ClInclude Include="ImageManager_ECSver.h" />
     <ClInclude Include="ImageSystem.h" />
     <ClInclude Include="ImGui\imconfig.h" />
     <ClInclude Include="ImGui\imgui.h" />

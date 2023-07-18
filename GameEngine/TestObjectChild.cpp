@@ -18,24 +18,13 @@ TestObjectChild::~TestObjectChild()
 
 void TestObjectChild::Initialize()
 {
-	//Collider coll({ 0,0,0 });
-	//coll.SetAttachObject(this);
-	//HitBox box({ 1,1,1 });
-	//coll.SetCollider<HitBox>(box);
-	//AddComponent<Collider>(coll);
-	//Draw3DComponent dObj;
-	//Test_Model_ECSver model(this);
-	//model.Load("Assets\\Model\\AAA.fbx");
-	//dObj.SetDrawObject<Test_Model_ECSver>(model);
-	//AddComponent<Draw3DComponent>(dObj);
-
-	//DrawComponent dObj;
-	//Test_Model_ECSver model(this);
-	//model.Load("Assets\\Model\\AAA.fbx");
-	//dObj.SetDrawObject<Test_Model_ECSver>(model);
-	//AddComponent<DrawComponent>(dObj);
-	//hModel_ = ModelManager::Load("Assets\\Model\\AAA.fbx");
-	//assert(hModel_ >= 0);
+	//Text text;
+	//text.SetText("ASDFGHJKL");
+	//AddComponent<Text>(text);
+	//Text text2;
+	//text2.SetColor({ 0,1,1,1 });
+	//text2.SetFontWeight(DWRITE_FONT_WEIGHT_BOLD, 0,50);
+	//AddComponent<Text>(text2);
 }
 
 void TestObjectChild::Update()

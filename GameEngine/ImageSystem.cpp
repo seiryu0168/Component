@@ -8,6 +8,6 @@ void ImageSystem::Update()
 {
 	for (Entity entity : entities_)
 	{
-		Coordinator::GetComponent<>
+		Coordinator::GetComponent<Image>(entity).Draw();
 	}
 }

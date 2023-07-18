@@ -6,9 +6,8 @@
 #include"Engine/Collider/BoxCollider.h"
 #include"Test_Model_ECSver.h"
 #include"Engine/ResourceManager/Text.h"
-//#include"Draw2DComponent.h"
 #include"AssimpLoader.h"
-//#include"Draw3DComponent.h"
+#include"ImageSystem.h"
 #include"newSceneManager.h"
 #include"Engine/DirectX_11/Input.h"
 #include"Mesh.h"
@@ -57,32 +56,43 @@ void TestObject::Initialize()
 	//AddComponent<Draw3DComponent>(dObj);
 	 
 	//Draw3DComponent particle;
-	Particle particle(this);
-	EmitterData data;
-	data.acceleration = 0.3f;
-	data.delay = 30;
-	data.position = { 0,0,0 };
-	data.positionErr = { 10,10,10 };
-	data.dir = { 1,0,0 };
-	data.dirErr = { 0,0,0 };
-	data.gravity = -0.01f;
-	data.firstSpeed = 0.001f;
-	data.lifTime = 100;
-	data.number = 10;
-	data.scale = { 1.0f,1.0f };
-	data.size = { 1,1 };
-	data.sizeErr = { 0,0 };
-	data.textureFileName = "Assets\\Image\\Effect01.png";
-	particle.SetData(data);
-	//particle.SetDrawObject<Particle>(pa);
-	AddComponent<Particle>(particle);
+	//Particle particle(this);
+	//EmitterData data;
+	//data.acceleration = 0.3f;
+	//data.delay = 30;
+	//data.position = { 0,0,0 };
+	//data.positionErr = { 10,10,10 };
+	//data.dir = { 1,0,0 };
+	//data.dirErr = { 0,0,0 };
+	//data.gravity = -0.01f;
+	//data.firstSpeed = 0.001f;
+	//data.lifTime = 100;
+	//data.number = 10;
+	//data.scale = { 1.0f,1.0f };
+	//data.size = { 1,1 };
+	//data.sizeErr = { 0,0 };
+	//data.textureFileName = "Assets\\Image\\Effect01.png";
+	//particle.SetData(data);
+	////particle.SetDrawObject<Particle>(pa);
+	//AddComponent<Particle>(particle);
 	
-	Test_Model_ECSver model(this);
-	model.Load("Assets\\Model\\AAA.fbx");
-	AddComponent<Test_Model_ECSver>(model);
+	//Test_Model_ECSver model(this);
+	//model.Load("Assets\\Model\\AAA.fbx");
+	//AddComponent<Test_Model_ECSver>(model);
 
 	Text text;
 	AddComponent<Text>(text);
+	Text text2;
+	text2.SetText("destroy");
+	text2.SetColor({ 1,0,0,1 });
+	//text2.SetPosition({ 0,0 });
+	AddComponent<Text>(text2);
+
+	Image image;
+	image.Load("Assets\\Image\\BrickTexture.jpg");
+	XMFLOAT3 pos = { -1.0f,0.001f,0 };
+	image.SetPosition(pos);
+	AddComponent<Image>(image);
 
 }
 

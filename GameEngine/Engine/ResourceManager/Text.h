@@ -30,8 +30,8 @@ class Text
 private:
 	size_t				  textLength_;		//テキストの長さ
 	D2D1_RECT_F			  layoutRect_;		//レイアウトレクト
-	wchar_t*			  pText_;			//テキスト
-	wchar_t*			  pFontName_;
+	std::wstring		  pText_;			//テキスト
+	std::wstring		  pFontName_;
 	ID2D1SolidColorBrush* pColorBrush_;		//ブラシ	
 	IDWriteFactory*		  pWriteFactory_;	//文字描画のファクトリ
 	IDWriteTextFormat*	  pTextFormat_;     //テキストフォーマット
@@ -39,6 +39,7 @@ private:
 public:
 	TEXT_POSITION				  transform2D;		//座標
 	Text();
+	Text(std::string text);
 	~Text();
 	int Load(const std::string& text, const std::string& fontName, TEXT_RECT rect, STARTING_TYPE type);
 	void Initialize();

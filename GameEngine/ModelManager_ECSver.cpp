@@ -19,17 +19,4 @@ namespace ModelManager_ECSver
 		models_.insert({ fileName,pFbx });
 		return pFbx;
 	}
-
-	//void ModelManager_ECSver::SetTransform(int modelNum, Transform transform)
-	//{
-	//}
-	//
-	//void ModelManager_ECSver::Draw(int modelNum)
-	//{
-	//}
-	//
-	//void ModelManager_ECSver::RayCast(int modelNum, RayCastData& ray)
-	//{
-	//}
-
 }

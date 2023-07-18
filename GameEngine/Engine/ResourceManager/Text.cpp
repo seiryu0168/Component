@@ -9,7 +9,7 @@ Text::Text()
 	transform2D = { 0,0 };
 	layoutRect_ = { 0,0,100,100 };
 
-	pText_		   = nullptr;
+	pText_		   = L"";
 	pColorBrush_   = nullptr;
 	pWriteFactory_ = nullptr;
 	pTextFormat_   = nullptr;
@@ -55,7 +55,7 @@ int Text::Load(const std::string& text, const std::string& fontName, TEXT_RECT r
 	//ロケールを日本語に変更
 	setlocale(LC_CTYPE, "ja-jp");
 	//描画するテキストをstringからwstringに変換
-	mbstowcs_s(&textSize, pText_, textLength_, text.c_str(), text.length());
+	mbstowcs_s(&textSize, (wchar_t*)pText_.c_str(), textLength_, text.c_str(), text.length());
 	//ロケールを元に戻す
 	setlocale(LC_CTYPE, locale.c_str());
 	//変換した文字数
@@ -81,7 +81,7 @@ int Text::Load(const std::string& text, const std::string& fontName, TEXT_RECT r
 	layoutRect_ = rect;
 	
 	//テキストレイアウト作成
-	hr=pWriteFactory_->CreateTextLayout(pText_, textLength_, pTextFormat_, (layoutRect_.right - layoutRect_.left), (layoutRect_.bottom - layoutRect_.top), &pLayout_);
+	hr=pWriteFactory_->CreateTextLayout(pText_.c_str(), textLength_, pTextFormat_, (layoutRect_.right - layoutRect_.left), (layoutRect_.bottom - layoutRect_.top), &pLayout_);
 	if (FAILED(hr))
 	{
 		return hr;
@@ -96,13 +96,14 @@ void Text::Initialize()
 	size_t ret;
 	FontData data;
 	std::wstring fontName= L"Sitka Text";
-	std::wstring text = L"sumple";
+	std::wstring&& text = L"sumple";
 	size_t textSize;
 	data.pFontName_ = fontName;
 
 	//描画するテキスト用の配列を用意する
 	textLength_ = text.length() + 1;
-	pText_ = (wchar_t*)text.c_str();
+
+	pText_ = text;
 
 	//現在のロケール取得
 	std::string locale = setlocale(LC_CTYPE, NULL);
@@ -123,7 +124,7 @@ void Text::Initialize()
 	layoutRect_ = {0,0,500,100};
 
 	//テキストレイアウト作成
-	hr = pWriteFactory_->CreateTextLayout(pText_, textLength_, pTextFormat_, (layoutRect_.right - layoutRect_.left), (layoutRect_.bottom - layoutRect_.top), &pLayout_);
+	hr = pWriteFactory_->CreateTextLayout(pText_.c_str(), textLength_, pTextFormat_, (layoutRect_.right - layoutRect_.left), (layoutRect_.bottom - layoutRect_.top), &pLayout_);
 	assert(FAILED(hr) == false);
 }
 
@@ -166,16 +167,17 @@ HRESULT Text::SetText(std::string text)
 {
 	size_t textSize;
 	textLength_ = text.length() + 1;
-	SAFE_DELETE(pText_);
-	pText_ = new wchar_t[textLength_];
+	//wchar_t* txt = nullptr;
+	//SAFE_DELETE(pText_);
+	//txt = new wchar_t[textLength_];
 
 	std::string locale = setlocale(LC_CTYPE, NULL);
 	setlocale(LC_CTYPE, "ja-jp");
-	mbstowcs_s(&textSize, pText_, textLength_, text.c_str(), text.length());
+	mbstowcs_s(&textSize, (wchar_t*)pText_.c_str(), textLength_, text.c_str(), text.length());
 	setlocale(LC_CTYPE, locale.c_str());
 	textLength_ = textSize;
 	SAFE_RELEASE(pLayout_);
-	return pWriteFactory_->CreateTextLayout(pText_, textLength_, pTextFormat_, (layoutRect_.right - layoutRect_.left), (layoutRect_.bottom - layoutRect_.top), &pLayout_);
+	return pWriteFactory_->CreateTextLayout(pText_.c_str(), textLength_, pTextFormat_, (layoutRect_.right - layoutRect_.left), (layoutRect_.bottom - layoutRect_.top), &pLayout_);
 }
 
 HRESULT Text::SetFontWeight(DWRITE_FONT_WEIGHT weightType, UINT32 startPos, UINT32 length)
@@ -218,7 +220,7 @@ HRESULT Text::SetTextSize(float size)
 	if (FAILED(hr))
 		return hr;
 	SAFE_RELEASE(pLayout_);
-	hr = pWriteFactory_->CreateTextLayout(pText_, textLength_, pTextFormat_, (layoutRect_.right - layoutRect_.left), (layoutRect_.bottom - layoutRect_.top), &pLayout_);
+	hr = pWriteFactory_->CreateTextLayout(pText_.c_str(), textLength_, pTextFormat_, (layoutRect_.right - layoutRect_.left), (layoutRect_.bottom - layoutRect_.top), &pLayout_);
 		return hr;
 }
 
