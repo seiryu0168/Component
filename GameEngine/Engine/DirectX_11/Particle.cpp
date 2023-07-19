@@ -100,7 +100,7 @@ void Particle::UpdateEmitter()
 			{
 				for (int particleNum = 0; particleNum < (*emitterCount)->data.number; particleNum++)
 				{
-					ParticleData* pParticle = new ParticleData;
+					ParticleData* pParticle = new ParticleData();
 					
 					//‰ŠúˆÊ’u
 					pParticle->nowData.position = XMLoadFloat3(&(*emitterCount)->data.position);
@@ -183,7 +183,7 @@ int Particle::ParticleStart(EmitterData data)
 	pEmitter->pBillBoard = new BillBoard;
 	pEmitter->pBillBoard->Load(data.textureFileName);
 	emitterList_.push_back(pEmitter);
-	handle = emitterList_.size() - 1;
+	handle = (int)emitterList_.size() - 1;
 	pEmitter->hParticle = handle;
 	return handle;
 	//return handle;
@@ -217,7 +217,7 @@ void Particle::SetData(EmitterData data)
 	pEmitter->pBillBoard = new BillBoard;
 	pEmitter->pBillBoard->Load(data.textureFileName);
 	emitterList_.push_back(pEmitter);
-	handle = emitterList_.size() - 1;
+	handle = (int)emitterList_.size() - 1;
 	pEmitter->hParticle = handle;
 	//return handle;
 }

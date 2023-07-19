@@ -1,6 +1,7 @@
 #include "Easing.h"
 #include<iostream>
 #include"Engine/SAFE_DELETE_RELEASE.h"
+#include <numbers>
 
 void Clamp(float& number, float min=0.0f, float max=1.0f);
 float Easing::EaseLinear(float time)
@@ -11,17 +12,17 @@ float Easing::EaseLinear(float time)
 float Easing::EaseInSine(float time)
 {
 	Clamp(time);
-	return (1.0f - std::cos((time*M_PI)/2.0f));
+	return (1.0f - std::cos((time*std::numbers::pi_v<float>)/2.0f));
 }
 float Easing::EaseOutSine(float time)
 {
 	Clamp(time);
-	return (1.0f - std::sin((time * M_PI) / 2.0f));
+	return (1.0f - std::sin((time * std::numbers::pi_v<float>) / 2.0f));
 }
 float Easing::EaseInOutSine(float time)
 {
 	Clamp(time);
-	return (-(std::cosf(M_PI * time) - 1.0f) / 2.0f);
+	return (-(std::cosf(std::numbers::pi_v<float> * time) - 1.0f) / 2.0f);
 
 }
 
@@ -40,7 +41,7 @@ float Easing::EaseOutQuad(float time)
 float Easing::EaseINOutQuad(float time)
 {
 	Clamp(time);
-	return (time < 0.5f ? 2 * time * time : 1 - std::pow((-2 * time + 2), 2) / 2);
+	return (time < 0.5f ? 2 * time * time : 1 - std::powf((-2 * time + 2), 2) / 2);
 }
 
 float Easing::EaseInCubic(float time)

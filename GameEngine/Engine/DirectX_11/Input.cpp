@@ -1,5 +1,11 @@
 #include "Input.h"
 
+namespace
+{
+	constexpr float TILT_MAX = 32768.0f;
+	constexpr float TRIGGER_MAX = 255.0f;
+}
+
 namespace Input
 {
 

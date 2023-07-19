@@ -8,6 +8,7 @@
 #include"ColliderSystem.h"
 #include"ModelSystem.h"
 #include"ParticleSystem.h"
+#include"LineParticleSystem.h"
 #include"TextSystem.h"
 #include"ImageSystem.h"
 #include"Draw3DSystem.h"
@@ -29,6 +30,7 @@ namespace newSceneManager
 	//std::shared_ptr<Draw2DSystem> pDraw2DSystem_;
 	std::shared_ptr<ModelSystem> pModelSyatem_;
 	std::shared_ptr<ParticleSystem> pParticleSystem_;
+	std::shared_ptr<LineParticleSystem> pLineParticleSystem_;
 	std::shared_ptr<TextSystem> pTextSystem_;
 	std::shared_ptr<ImageSystem> pImageSystem_;
 	void Initialize()
@@ -85,6 +87,7 @@ namespace newSceneManager
 	{
 		pModelSyatem_->Update();
 		pParticleSystem_->Update();
+		pLineParticleSystem_->Update();
 		pImageSystem_->Update();
 		pTextSystem_->Update();
 		
@@ -115,11 +118,13 @@ namespace newSceneManager
 		pTextSystem_ = Coordinator::RegisterSystem<TextSystem>();
 		pModelSyatem_ = Coordinator::RegisterSystem<ModelSystem>();
 		pParticleSystem_ = Coordinator::RegisterSystem<ParticleSystem>();
+		pLineParticleSystem_ = Coordinator::RegisterSystem<LineParticleSystem>();
 		pColliderSystem_ = Coordinator::RegisterSystem<ColliderSystem>();
 		pImageSystem_ = Coordinator::RegisterSystem<ImageSystem>();
 		Coordinator::RegisterComponent<Text>();
 		Coordinator::RegisterComponent<Collider>();
 		Coordinator::RegisterComponent<Particle>();
+		Coordinator::RegisterComponent<LineParticle>();
 		Coordinator::RegisterComponent<Transform>();
 		Coordinator::RegisterComponent<Test_Model_ECSver>();
 		Coordinator::RegisterComponent<Image>();
@@ -136,6 +141,8 @@ namespace newSceneManager
 		text_signature.set(Coordinator::GetComponentType<Text>());
 		Signature particle_signature;
 		particle_signature.set(Coordinator::GetComponentType<Particle>());
+		Signature lineParticle_signature;
+		lineParticle_signature.set(Coordinator::GetComponentType<LineParticle>());
 		Signature model_signature;
 		model_signature.set(Coordinator::GetComponentType<Test_Model_ECSver>());
 		Signature image_signature;
@@ -145,6 +152,8 @@ namespace newSceneManager
 		Coordinator::SetSystemSignature<TransformSystem>(trans_signature);
 		Coordinator::SetSystemSignature<ColliderSystem>(coll_signature);
 		Coordinator::SetSystemSignature<ParticleSystem>(particle_signature);
+		Coordinator::SetSystemSignature<LineParticleSystem>(lineParticle_signature);
+		
 		Coordinator::SetSystemSignature<ModelSystem>(model_signature);
 		Coordinator::SetSystemSignature<TextSystem>(text_signature);
 		Coordinator::SetSystemSignature<ImageSystem>(image_signature);

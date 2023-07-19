@@ -1,12 +1,12 @@
 #include "DrawComponent.h"
-DrawComponent::DrawComponent()
+DrawComponent::DrawComponent() : DrawComponent(nullptr)
 {
 	
 }
 
-DrawComponent::DrawComponent(GameObject* object)
+DrawComponent::DrawComponent(GameObject* object) : drawEntity_(0), attachObject_(object), type_()
 {
-	attachObject_ = object;
+	//attachObject_ = object;
 }
 
 void DrawComponent::SetDrawType(std::string name)

@@ -56,25 +56,25 @@ void TestObject::Initialize()
 	//AddComponent<Draw3DComponent>(dObj);
 	 
 	//Draw3DComponent particle;
-	//Particle particle(this);
-	//EmitterData data;
-	//data.acceleration = 0.3f;
-	//data.delay = 30;
-	//data.position = { 0,0,0 };
-	//data.positionErr = { 10,10,10 };
-	//data.dir = { 1,0,0 };
-	//data.dirErr = { 0,0,0 };
-	//data.gravity = -0.01f;
-	//data.firstSpeed = 0.001f;
-	//data.lifTime = 100;
-	//data.number = 10;
-	//data.scale = { 1.0f,1.0f };
-	//data.size = { 1,1 };
-	//data.sizeErr = { 0,0 };
-	//data.textureFileName = "Assets\\Image\\Effect01.png";
-	//particle.SetData(data);
-	////particle.SetDrawObject<Particle>(pa);
-	//AddComponent<Particle>(particle);
+	Particle particle(this);
+	EmitterData data;
+	data.acceleration = 0.3f;
+	data.delay = 30;
+	data.position = { 0,0,0 };
+	data.positionErr = { 10,10,10 };
+	data.dir = { 1,0,0 };
+	data.dirErr = { 0,0,0 };
+	data.gravity = -0.01f;
+	data.firstSpeed = 0.001f;
+	data.lifTime = 100;
+	data.number = 10;
+	data.scale = { 1.0f,1.0f };
+	data.size = { 1,1 };
+	data.sizeErr = { 0,0 };
+	data.textureFileName = "Assets\\Image\\Effect01.png";
+	particle.SetData(data);
+	//particle.SetDrawObject<Particle>(pa);
+	AddComponent<Particle>(particle);
 	
 	//Test_Model_ECSver model(this);
 	//model.Load("Assets\\Model\\AAA.fbx");
@@ -87,7 +87,17 @@ void TestObject::Initialize()
 	text2.SetColor({ 1,0,0,1 });
 	//text2.SetPosition({ 0,0 });
 	AddComponent<Text>(text2);
-
+	/*LineParticle line(this);
+	LineData data;
+	data.length = 100;
+	data.textureName = "Assets\\Image\\Effect01.png";
+	data.width = 0.5f;
+	data.endWidth = 0.0f;
+	line.SetLineParameter(data);*/
+	//AddComponent<LineParticle>(line);
+	
+	
+	
 	Image image;
 	image.Load("Assets\\Image\\BrickTexture.jpg");
 	XMFLOAT3 pos = { -1.0f,0.001f,0 };

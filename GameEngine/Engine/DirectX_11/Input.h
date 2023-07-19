@@ -1,6 +1,4 @@
 #pragma once
-#define TILT_MAX 32768.0f
-#define TRIGGER_MAX 255.0f
 #include <dInput.h>
 #include"Direct3D.h"
 #include"XInput.h"

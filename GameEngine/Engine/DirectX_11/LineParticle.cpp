@@ -66,7 +66,8 @@ HRESULT LineParticle::CreateMeshPype(std::list<XMFLOAT3>* pList)
 
 	//頂点データ作成
 	XMVECTOR upVec = XMVectorSet(0, 1, 0, 0);
-	VERTEX* vertices = new VERTEX[pList->size()* 4];
+	std::vector<VERTEX> vertices;
+	vertices.reserve(pList->size() * 4);
 	
 		int index = 0;
 		auto itr = pList->begin();
@@ -75,8 +76,7 @@ HRESULT LineParticle::CreateMeshPype(std::list<XMFLOAT3>* pList)
 			//記憶している位置取得
 			XMVECTOR vPos = XMLoadFloat3(&(*itr));
 
-			itr++;
-			if (itr == pList->end())
+			if (++itr == pList->end())
 			{
 				break;
 			}
@@ -87,7 +87,7 @@ HRESULT LineParticle::CreateMeshPype(std::list<XMFLOAT3>* pList)
 			if (XMVectorGetX(XMVector3Length(vLine)) >= 0.01f)
 			{
 				//パーティクルの腕を回すクオータニオン
-				XMVECTOR armRotate = XMQuaternionRotationAxis(vLine, (float)(M_PI / 2.0f));
+				XMVECTOR armRotate = XMQuaternionRotationAxis(vLine, (float)(std::numbers::pi_v<float> / 2.0f));
 				
 				//パーティクルの腕を作る
 				XMVECTOR vArm = XMVector3Cross(vLine, vCamPos);
@@ -112,32 +112,24 @@ HRESULT LineParticle::CreateMeshPype(std::list<XMFLOAT3>* pList)
 				XMStoreFloat3(&pos, vPos + -vArm2);
 				VERTEX vertex3 = { pos,XMFLOAT3((float)j / LENGTH_,1,0) };
 				
-				vertices[index] = vertex0;
-				index++;
-				vertices[index] = vertex1;
-				index++;
-				vertices[index] = vertex2;
-				index++;
-				vertices[index] = vertex3;
-				index++;
+				vertices.push_back(vertex0);
+				vertices.push_back(vertex1);
+				vertices.push_back(vertex2);
+				vertices.push_back(vertex3);
 			} 
 			else
 			{
 				XMFLOAT3 dumPos;
 				XMStoreFloat3(&dumPos, vPos);
 				VERTEX dummy = { dumPos,{0,0,0} };
-				vertices[index] = dummy;
-				index++;
-				vertices[index] = dummy;
-				index++;
-				vertices[index] = dummy;
-				index++;
-				vertices[index] = dummy;
-				index++;
+				vertices.push_back(dummy);
+				vertices.push_back(dummy);
+				vertices.push_back(dummy);
+				vertices.push_back(dummy);
 			}
 		}
 
-		for (int i = 0; i < sizeof(*vertices) / sizeof(VERTEX); i++)
+		for (int i = 0; i < vertices.size() / sizeof(VERTEX); i++)
 		{
 			if (abs(vertices[i].position.x) <= 0.1f&& abs(vertices[i].position.y) <= 1.1f&& abs(vertices[i].position.z) <= 0.1f)
 			{
@@ -146,7 +138,7 @@ HRESULT LineParticle::CreateMeshPype(std::list<XMFLOAT3>* pList)
 		}
 
 	D3D11_BUFFER_DESC bd_vertex;
-	bd_vertex.ByteWidth = sizeof(VERTEX) * pList->size()*4;
+	bd_vertex.ByteWidth = sizeof(VERTEX) * (UINT)pList->size()*4;
 	bd_vertex.Usage = D3D11_USAGE_DEFAULT;
 	bd_vertex.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 	bd_vertex.CPUAccessFlags = 0;
@@ -154,7 +146,7 @@ HRESULT LineParticle::CreateMeshPype(std::list<XMFLOAT3>* pList)
 	bd_vertex.StructureByteStride = 0;
 
 	D3D11_SUBRESOURCE_DATA data_vertex;
-	data_vertex.pSysMem = vertices;
+	data_vertex.pSysMem = vertices.data();
 
 	HRESULT hr = Direct3D::pDevice->CreateBuffer(&bd_vertex, &data_vertex, &pVertexBuffer_);
 	if (FAILED(hr))
@@ -168,7 +160,6 @@ HRESULT LineParticle::CreateMeshPype(std::list<XMFLOAT3>* pList)
 		MessageBox(nullptr, L"ラインパーティクルのポジション更新失敗", L"エラー", MB_OK);
 		return hr;
 	}
-	SAFE_DELETE_ARRAY(vertices);
 
 	return hr;
 }
@@ -178,19 +169,18 @@ HRESULT LineParticle::CreateMeshPlate(std::list<XMFLOAT3>* pList)
 	//カメラの位置取得(ベクトルで)
 	XMFLOAT3 camPos = Camera::GetPosition();
 	XMVECTOR vCamPos = XMLoadFloat3(&camPos);
-	int index = 0;
-
 
 	auto itr = pList->begin();
 	//頂点データ作成
-	VERTEX* vertices = new VERTEX[pList->size() * 2];
+	std::vector<VERTEX> vertices;
+	vertices.reserve(pList->size() * 2);
+
 	for (UINT i = 0; i < LENGTH_+2; i++)
 	{
 		//記憶している位置取得
 		XMVECTOR vPos = XMLoadFloat3(&(*itr));
 
-		itr++;
-		if (itr == pList->end())
+		if (++itr == pList->end())
 		{
 			break;
 		}
@@ -208,14 +198,8 @@ HRESULT LineParticle::CreateMeshPlate(std::list<XMFLOAT3>* pList)
 			XMStoreFloat3(&pos, vPos - vArm);
 			VERTEX vertex2 = { pos,XMFLOAT3((float)i / LENGTH_ + endWidth_,1,0) };
 
-			int s = sizeof(VERTEX);
-
-			vertices[index] = vertex1;
-			index++;
-			vertices[index] = vertex2;
-			index++;
-
-
+			vertices.push_back(vertex1);
+			vertices.push_back(vertex2);
 	}
 	//頂点バッファ用意
 	D3D11_BUFFER_DESC bd_vertex;
@@ -227,7 +211,7 @@ HRESULT LineParticle::CreateMeshPlate(std::list<XMFLOAT3>* pList)
 	bd_vertex.StructureByteStride = 0;
 
 	D3D11_SUBRESOURCE_DATA data_vertex;
-	data_vertex.pSysMem = vertices;
+	data_vertex.pSysMem = &vertices;
 	HRESULT hr = Direct3D::pDevice->CreateBuffer(&bd_vertex, &data_vertex, &pVertexBuffer_);//たまに例外のスローが起こる。原因不明
 	if (FAILED(hr))
 	{
@@ -241,7 +225,6 @@ HRESULT LineParticle::CreateMeshPlate(std::list<XMFLOAT3>* pList)
 		MessageBox(nullptr, L"ラインパーティクルのポジション更新失敗", L"エラー", MB_OK);
 		return hr;
 	}
-	delete[] vertices;
 
 	return hr;
 }

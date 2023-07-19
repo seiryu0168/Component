@@ -40,7 +40,7 @@ HRESULT BillBoard::Load(std::string fileName)
 	data_vertex.pSysMem = vertices;
 
 	hr=Direct3D::pDevice->CreateBuffer(&bd_vertex, &data_vertex, &pVertexBuffer_);
-	if (FALSE(hr))
+	if (FAILED(hr))
 	{
 		MessageBox(nullptr, L"ビルボード頂点バッファの作成に失敗", L"エラー", MB_OK);
 		return hr;
@@ -57,7 +57,7 @@ HRESULT BillBoard::Load(std::string fileName)
 	cb.StructureByteStride = 0;
 
 	hr=Direct3D::pDevice->CreateBuffer(&cb, nullptr, &pConstantBuffer_);
-	if (FALSE(hr))
+	if (FAILED(hr))
 	{
 		MessageBox(nullptr, L"ビルボードコンスタントバッファの作成に失敗", L"エラー", MB_OK);
 		return hr;
@@ -78,7 +78,7 @@ HRESULT BillBoard::Load(std::string fileName)
 	initData.SysMemSlicePitch = 0;
 
 	hr = Direct3D::pDevice->CreateBuffer(&bd_index, &initData, &pIndexBuffer_);
-	if (FALSE(hr))
+	if (FAILED(hr))
 	{
 		MessageBox(nullptr, L"ビルボードインデックスバッファの作成に失敗", L"エラー", MB_OK);
 		return hr;

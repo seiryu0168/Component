@@ -92,7 +92,6 @@ public:
 	/// <summary>
 	/// 描画
 	/// </summary>
-	/// <param name="transform">呼び出し元のtransform</param>
 	void Draw();
 	/// <summary>
 	/// ラインパーティクルの各パラメータ設定

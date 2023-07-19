@@ -1,7 +1,7 @@
 #pragma once
 #include<DirectXMath.h>
 #include<algorithm>
-//#include"Fbx.h"
+#include<numbers>
 using namespace DirectX;
 
 namespace Math
