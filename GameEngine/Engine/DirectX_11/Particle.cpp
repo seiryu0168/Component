@@ -37,7 +37,7 @@ void Particle::UpdateParticle()
 		if ((*particleCount)->life == 0)
 		{
 			(*particleCount)->pEmitter->particleCount--;
-			SAFE_DELETE(*particleCount);
+			//SAFE_DELETE(*particleCount);
 			particleCount = particleList_.erase(particleCount);
 		}
 
@@ -100,7 +100,7 @@ void Particle::UpdateEmitter()
 			{
 				for (int particleNum = 0; particleNum < (*emitterCount)->data.number; particleNum++)
 				{
-					ParticleData* pParticle = new ParticleData();
+					std::unique_ptr<ParticleData> pParticle = std::make_unique<ParticleData>();
 					
 					//初期位置
 					pParticle->nowData.position = XMLoadFloat3(&(*emitterCount)->data.position);
@@ -148,11 +148,11 @@ void Particle::UpdateEmitter()
 					pParticle->acceleration = (*emitterCount)->data.acceleration;	//パーティクルの加速度
 					
 					pParticle->pEmitter = *emitterCount;
+					++pParticle->pEmitter->particleCount;
 
 					//作成したパーティクルをリストに入れる
-					particleList_.push_back(pParticle);
+					particleList_.push_back(std::move(pParticle));
 
-					pParticle->pEmitter->particleCount++;
 				}
 			}
 
@@ -250,7 +250,7 @@ void Particle::Release()
 {
 	for (auto itr = particleList_.begin(); itr != particleList_.end(); itr++)
 	{
-		SAFE_DELETE(*itr);
+		//SAFE_DELETE(*itr);
 	}
 
 }

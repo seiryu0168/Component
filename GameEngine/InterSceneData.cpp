@@ -109,20 +109,6 @@ namespace InterSceneData
             }
 
         }
-        return -2147483648;
+        return INT_MIN;
     }
-
-    bool GetboolData(std::string dataName)
-    {
-        for (int i = 0; i < dataList_.size(); i++)
-        {
-            if (dataList_[i]->b != nullptr && dataList_[i]->dataName == dataName)
-            {
-                return *(dataList_[i]->b);
-            }
-
-        }
-        return 3;
-    }
-
 }

@@ -127,8 +127,8 @@ public:
 	T& GetComponent(int componentNum=0)
 	{
 		std::string typeName = typeid(T).name();
-		if (entityList_.find(typeName)->second.size())
-			return Coordinator::GetComponent<T>(entityList_.find(typeName)->second[componentNum]);
+		assert(entityList_.find(typeName)->second.size());	//¸”s‚µ‚½‚ç‹­§I—¹
+		return Coordinator::GetComponent<T>(entityList_.find(typeName)->second[componentNum]);
 	}
 
 	template<class T>

@@ -76,7 +76,7 @@ private:
     };
 
     std::list<Emitter*>      emitterList_;
-    std::list<ParticleData*> particleList_;
+    std::list<std::shared_ptr<ParticleData>> particleList_;
     GameObject* attacheObject_;
 public:
     Particle();

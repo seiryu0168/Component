@@ -35,7 +35,7 @@ namespace InterSceneData
 	void DeleteData(std::string dataName);
 	void SetData(std::string dataName, std::string* name, int* i = nullptr, float* f = nullptr, bool* b = nullptr);
 	int GetintData(std::string dataName);
-	bool GetboolData(std::string dataName);
+	//bool GetboolData(std::string dataName);
 	/*int AddData(bool b, std::string name);
 	int AddData(XMFLOAT3 f3, std::string name);
 	int AddData(XMVECTOR v, std::string name);
