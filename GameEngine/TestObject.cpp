@@ -87,22 +87,22 @@ void TestObject::Initialize()
 	text2.SetColor({ 1,0,0,1 });
 	AddComponent<Text>(text2);
 	//text2.SetPosition({ 0,0 });
-	LineParticle line(this);
-	LineData lineData;
-	lineData.length = 100;
-	lineData.textureName = "Assets\\Image\\Effect01.png";
-	lineData.width = 0.5f;
-	lineData.endWidth = 0.0f;
-	line.SetLineParameter(lineData);
-	AddComponent<LineParticle>(line);
+	//LineParticle line(this);
+	//LineData lineData;
+	//lineData.length = 100;
+	//lineData.textureName = "Assets\\Image\\Effect01.png";
+	//lineData.width = 0.5f;
+	//lineData.endWidth = 0.0f;
+	//line.SetLineParameter(lineData);
+	//AddComponent<LineParticle>(line);
 	
 	
 	
-	Image image;
-	image.Load("Assets\\Image\\BrickTexture.jpg");
-	XMFLOAT3 pos = { -1.0f,0.001f,0 };
-	image.SetPosition(pos);
-	AddComponent<Image>(image);
+	//Image image;
+	//image.Load("Assets\\Image\\BrickTexture.jpg");
+	//XMFLOAT3 pos = { -1.0f,0.001f,0 };
+	//image.SetPosition(pos);
+	//AddComponent<Image>(image);
 
 }
 
