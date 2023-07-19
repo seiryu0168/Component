@@ -34,6 +34,15 @@
     <Filter Include="ソース ファイル\Engine\ResourceManager">
       <UniqueIdentifier>{c08edbe2-834c-4fbd-ab53-e8cd5e03f960}</UniqueIdentifier>
     </Filter>
+    <Filter Include="System">
+      <UniqueIdentifier>{7bb0e623-9eab-41b4-a913-aa6faf587aeb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component">
+      <UniqueIdentifier>{62a656dc-52a1-4343-9fee-75e42a07a146}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ECS">
+      <UniqueIdentifier>{e75d1f17-9c02-4145-812d-4f95b4675506}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ImGui\imgui.cpp">
@@ -78,9 +87,6 @@
     <ClCompile Include="Engine\Collider\BoxCollider.cpp">
       <Filter>ソース ファイル\Engine\Collider</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Collider\Collider.cpp">
-      <Filter>ソース ファイル\Engine\Collider</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\DirectX_11\BillBoard.cpp">
       <Filter>ソース ファイル\Engine\DirectX_11</Filter>
     </ClCompile>
@@ -96,13 +102,7 @@
     <ClCompile Include="Engine\DirectX_11\Input.cpp">
       <Filter>ソース ファイル\Engine\DirectX_11</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\DirectX_11\LineParticle.cpp">
-      <Filter>ソース ファイル\Engine\DirectX_11</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\DirectX_11\Math.cpp">
-      <Filter>ソース ファイル\Engine\DirectX_11</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\DirectX_11\Particle.cpp">
       <Filter>ソース ファイル\Engine\DirectX_11</Filter>
     </ClCompile>
     <ClCompile Include="Engine\DirectX_11\Sprite.cpp">
@@ -118,9 +118,6 @@
       <Filter>ソース ファイル\Engine\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Engine\GameObject\RootJob.cpp">
-      <Filter>ソース ファイル\Engine\GameObject</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\GameObject\Transform.cpp">
       <Filter>ソース ファイル\Engine\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Engine\ResourceManager\Audio.cpp">
@@ -140,9 +137,6 @@
     </ClCompile>
     <ClCompile Include="Engine\Main.cpp">
       <Filter>ソース ファイル\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\ResourceManager\Text.cpp">
-      <Filter>ソース ファイル\Engine\ResourceManager</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Collider\PolygonCollider.cpp">
       <Filter>ソース ファイル\Engine\Collider</Filter>
@@ -174,46 +168,10 @@
     <ClCompile Include="Material.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="ModelComponent.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="EntityManager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="SystemManager.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Coordinator.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="PhysicsSystem.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="TransformSystem.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="CoordinatorManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="ColliderSystem.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Test_Model_ECSver.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="MeshSystem.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="ModelManager_ECSver.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Mesh.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="ModelSystem.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="ComponentManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="SubScene.cpp">
@@ -234,35 +192,83 @@
     <ClCompile Include="newSceneManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Draw2DSystem.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Draw2DComponent.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Draw3DSystem.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Draw3DComponent.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="ParticleSystem.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="TextSystem.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="ColliderSystem.cpp">
+      <Filter>System</Filter>
     </ClCompile>
     <ClCompile Include="ImageSystem.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Image.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="ImageManager_ECSver.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>System</Filter>
     </ClCompile>
     <ClCompile Include="LineParticleSystem.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelSystem.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleSystem.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicsSystem.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="TextSystem.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="TransformSystem.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="Draw2DSystem.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="Draw3DSystem.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshSystem.cpp">
+      <Filter>System</Filter>
+    </ClCompile>
+    <ClCompile Include="Test_Model_ECSver.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Image.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\DirectX_11\LineParticle.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\DirectX_11\Particle.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Collider\Collider.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\GameObject\Transform.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\ResourceManager\Text.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="SystemManager.cpp">
+      <Filter>ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityManager.cpp">
+      <Filter>ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentManager.cpp">
+      <Filter>ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="Coordinator.cpp">
+      <Filter>ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="Draw3DComponent.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Draw2DComponent.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelManager_ECSver.cpp">
+      <Filter>ソース ファイル\Engine\ResourceManager</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageManager_ECSver.cpp">
+      <Filter>ソース ファイル\Engine\ResourceManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -311,9 +317,6 @@
     <ClInclude Include="InterSceneData.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Collider\Collider.h">
-      <Filter>ソース ファイル\Engine\Collider</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Collider\OBBCollider.h">
       <Filter>ソース ファイル\Engine\Collider</Filter>
     </ClInclude>
@@ -338,13 +341,7 @@
     <ClInclude Include="Engine\DirectX_11\Input.h">
       <Filter>ソース ファイル\Engine\DirectX_11</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\DirectX_11\LineParticle.h">
-      <Filter>ソース ファイル\Engine\DirectX_11</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\DirectX_11\Math.h">
-      <Filter>ソース ファイル\Engine\DirectX_11</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\DirectX_11\Particle.h">
       <Filter>ソース ファイル\Engine\DirectX_11</Filter>
     </ClInclude>
     <ClInclude Include="Engine\DirectX_11\Sprite.h">
@@ -362,9 +359,6 @@
     <ClInclude Include="Engine\GameObject\RootJob.h">
       <Filter>ソース ファイル\Engine\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\GameObject\Transform.h">
-      <Filter>ソース ファイル\Engine\GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\ResourceManager\Audio.h">
       <Filter>ソース ファイル\Engine\ResourceManager</Filter>
     </ClInclude>
@@ -379,9 +373,6 @@
     </ClInclude>
     <ClInclude Include="Engine\DirectX_11\Direct2D.h">
       <Filter>ソース ファイル\Engine\DirectX_11</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\ResourceManager\Text.h">
-      <Filter>ソース ファイル\Engine\ResourceManager</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Collider\PolygonCollider.h">
       <Filter>ソース ファイル\Engine\Collider</Filter>
@@ -404,9 +395,6 @@
     <ClInclude Include="TestObject.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="ComponentManager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Object.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -419,36 +407,6 @@
     <ClInclude Include="Material.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="ModelComponent.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="EntityManager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="IComponentArray.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="ComponentArray.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="System.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="SystemManager.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Coordinator.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="PhysicsSystem.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="ECS.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="TransformSystem.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="CoordinatorManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -458,22 +416,7 @@
     <ClInclude Include="Test_BoxCollider_ECSver.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="ColliderSystem.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Test_Model_ECSver.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="MeshSystem.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelManager_ECSver.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Mesh.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelSystem.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="SubScene.h">
@@ -494,35 +437,95 @@
     <ClInclude Include="newSceneManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Draw2DSystem.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Draw2DComponent.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Draw3DSystem.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Draw3DComponent.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="ParticleSystem.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="TransformSystem.h">
+      <Filter>System</Filter>
     </ClInclude>
     <ClInclude Include="TextSystem.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>System</Filter>
     </ClInclude>
-    <ClInclude Include="ImageSystem.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="PhysicsSystem.h">
+      <Filter>System</Filter>
     </ClInclude>
-    <ClInclude Include="Image.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="ParticleSystem.h">
+      <Filter>System</Filter>
     </ClInclude>
-    <ClInclude Include="ImageManager_ECSver.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="ModelSystem.h">
+      <Filter>System</Filter>
     </ClInclude>
     <ClInclude Include="LineParticleSystem.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageSystem.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="ColliderSystem.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="Draw3DSystem.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="Draw2DSystem.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshSystem.h">
+      <Filter>System</Filter>
+    </ClInclude>
+    <ClInclude Include="Test_Model_ECSver.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\DirectX_11\LineParticle.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\DirectX_11\Particle.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Collider\Collider.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\GameObject\Transform.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ResourceManager\Text.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Coordinator.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentManager.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentArray.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="SystemManager.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="System.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="IComponentArray.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="Draw3DComponent.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Draw2DComponent.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityManager.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS.h">
+      <Filter>ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelManager_ECSver.h">
+      <Filter>ソース ファイル\Engine\ResourceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageManager_ECSver.h">
+      <Filter>ソース ファイル\Engine\ResourceManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

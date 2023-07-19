@@ -229,7 +229,6 @@
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshSystem.cpp" />
-    <ClCompile Include="ModelComponent.cpp" />
     <ClCompile Include="ModelManager_ECSver.cpp" />
     <ClCompile Include="ModelSystem.cpp" />
     <ClCompile Include="newSceneManager.cpp" />
@@ -312,7 +311,6 @@
     <ClInclude Include="Material.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshSystem.h" />
-    <ClInclude Include="ModelComponent.h" />
     <ClInclude Include="ModelManager_ECSver.h" />
     <ClInclude Include="ModelSystem.h" />
     <ClInclude Include="newSceneManager.h" />
