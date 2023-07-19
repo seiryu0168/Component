@@ -31,9 +31,10 @@ namespace Coordinator
 
 	void AllRemove()
 	{
-		entityManager_->Initialize();
-		componentManager_->AllRemoveComponent();
+		
 		systemManager_->Clear();
+		entityManager_->Initialize();
+		//componentManager_->AllRemoveComponent();
 
 	}
 

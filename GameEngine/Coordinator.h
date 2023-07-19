@@ -33,7 +33,7 @@ namespace Coordinator
 	}
 
 	template <typename T>
-	void AddComponent(Entity entity,T component)
+	void AddComponent(Entity entity,T& component)
 	{
 		componentManager_->AddComponent<T>(entity, component);
 		auto signature = entityManager_->GetSignature(entity);

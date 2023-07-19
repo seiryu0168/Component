@@ -47,16 +47,15 @@ public:
 	}
 
 	template <typename T>
-	void AddComponent(Entity entity,T component)
+	void AddComponent(Entity entity,T& component)
 	{
 		GetComponentArray<T>()->InsertData(entity, component);
-
 	}
 
 	template <typename T>
 	void RemoveComponent(Entity entity)
 	{
-		GetComponentArray<T>()->RmoveData(entity);
+		GetComponentArray<T>()->RemoveData(entity);
 	}
 	void AllRemoveComponent();
 

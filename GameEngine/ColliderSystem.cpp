@@ -28,6 +28,20 @@ void ColliderSystem::Update()
 	}
 }
 
+void ColliderSystem::Release()
+{
+	std::set<Entity> ent = entities_;
+	for (Entity entity : ent)
+	{
+		//entities_
+		Coordinator::RemoveComponent<Collider>(entity);
+		Coordinator::DestroyEntity(entity);
+		//if (itr != entities_.end())
+		//	itr++;
+		//itr = entities_.erase(itr);
+	}
+}
+
 void ColliderSystem::CheckCollision(Collider* firstTarget, Collider* secondTarget)
 {
 	bool isCollision = false;

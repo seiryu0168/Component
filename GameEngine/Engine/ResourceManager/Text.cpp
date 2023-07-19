@@ -1,8 +1,6 @@
 #include "Text.h"
 #include<locale.h>
 
-
-
 Text::Text()
 {
 	textLength_	   = 0;
@@ -31,7 +29,7 @@ void Text::Release()
 {
 	SAFE_RELEASE(pTextFormat_);
 	SAFE_RELEASE(pWriteFactory_);
-	SAFE_RELEASE(pColorBrush_);
+	//SAFE_RELEASE(pColorBrush_);
 }
 
 int Text::Load(const std::string& text, const std::string& fontName, TEXT_RECT rect,STARTING_TYPE type)

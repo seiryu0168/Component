@@ -19,4 +19,8 @@ namespace ModelManager_ECSver
 		models_.insert({ fileName,pFbx });
 		return pFbx;
 	}
+	void Release()
+	{
+		models_.clear();
+	}
 }

@@ -1,8 +1,11 @@
 #include "newSceneManager.h"
 #include"Scene1.h"
 #include"Engine/ResourceManager/Model.h"
+#include"ModelManager_ECSver.h"
+#include"ImageManager_ECSver.h"
 #include"Engine/ResourceManager/ImageManager.h"
 #include"Engine/ResourceManager/Audio.h"
+#include"Engine/ResourceManager/TextureManager.h"
 #include"PhysicsSystem.h"
 #include"TransformSystem.h"
 #include"ColliderSystem.h"
@@ -64,12 +67,24 @@ namespace newSceneManager
 		if (isSceneChange_ && changeCount_ <= 0)
 		{
 			sceneList_[static_cast<int>(currentScene_)].AllKillObject();
-			Coordinator::AllRemove();
-			ModelManager::AllDeleteModelNum();
-			ModelManager::Release();
-			ImageManager::AllRelease();
 
-			ECSInitialize();
+			Coordinator::AllRemove();
+			ModelManager_ECSver::Release();
+			//ModelManager::AllDeleteModelNum();
+			//ModelManager::Release();
+			ImageManager_ECSver::Release();
+			//ImageManager::AllRelease();
+			TextureManager::Release();
+			
+			//pModelSyatem_.reset();
+			//pParticleSystem_.reset();
+			//pLineParticleSystem_.reset();
+			//pTextSystem_.reset();
+			//pImageSystem_.reset();
+
+
+
+			//ECSInitialize();
 			sceneList_[static_cast<int>(nextScene_)].SceneInitialize();
 			sceneList_[static_cast<int>(nextScene_)].ObjectSet();
 			currentScene_ = nextScene_;

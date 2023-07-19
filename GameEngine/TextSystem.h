@@ -6,5 +6,6 @@ class TextSystem : public System
 public:
 	TextSystem();
 	void Update() override;
+	void Release() override;
 };
 

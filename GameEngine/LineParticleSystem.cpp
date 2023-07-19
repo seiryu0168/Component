@@ -11,3 +11,18 @@ void LineParticleSystem::Update()
 		Coordinator::GetComponent<LineParticle>(entity).Draw();
 	}
 }
+
+void LineParticleSystem::Release()
+{
+	std::set<Entity> ent = entities_;
+	for (Entity entity : ent)
+	{
+		//entities_
+		Coordinator::RemoveComponent<LineParticle>(entity);
+		Coordinator::DestroyEntity(entity);
+		//if (itr != entities_.end())
+		//	itr++;
+		//itr = entities_.erase(itr);
+	}
+
+}

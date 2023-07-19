@@ -5,6 +5,7 @@
 
 class TransformSystem : public System
 {
+	void Release() override;
 
 };
 

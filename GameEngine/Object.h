@@ -96,7 +96,7 @@ public:
 	void PushBackChild(Object* pTarget);
 
 	template <typename T>
-	void AddComponent(T component)
+	void AddComponent(T& component)
 	{
 		std::string typeName = typeid(T).name();
 			Entity entity = Coordinator::CreateEntity();

@@ -21,4 +21,8 @@ namespace ImageManager_ECSver
 
 			return image;
     }
+	void Release()
+	{
+		images_.clear();
+	}
 }

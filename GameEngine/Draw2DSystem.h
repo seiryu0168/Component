@@ -4,7 +4,8 @@
 class Draw2DSystem : public System
 {
 public:
-	Draw2DSystem();
-	void Update() override;
+	//Draw2DSystem();
+	//void Update() override;
+	//void Release() override;
 };
 

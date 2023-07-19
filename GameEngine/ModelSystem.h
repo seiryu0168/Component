@@ -6,5 +6,6 @@ class ModelSystem : public System
 public:
 	ModelSystem();
 	void Update() override;
+	void Release() override;
 };
 

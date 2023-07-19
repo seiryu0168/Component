@@ -11,3 +11,18 @@ void TextSystem::Update()
 		Coordinator::GetComponent<Text>(entity).Draw();
 	}
 }
+
+void TextSystem::Release()
+{
+
+	std::set<Entity> ent = entities_;
+	for (Entity entity : ent)
+	{
+		//entities_
+		Coordinator::RemoveComponent<Text>(entity);
+		Coordinator::DestroyEntity(entity);
+		//if (itr != entities_.end())
+		//	itr++;
+		//itr = entities_.erase(itr);
+	}
+}

@@ -42,6 +42,10 @@ void SystemManager::AllSystemUpdate()
 
 void SystemManager::Clear()
 {
-	signatures_.clear();
-	systems_.clear();
+	for (auto&& itr = systems_.begin(); itr != systems_.end(); itr++)
+	{
+		itr->second->Release();
+	}
+	//signatures_.clear();
+	//systems_.clear();
 }

@@ -6,5 +6,6 @@ class LineParticleSystem : public System
 public:
 	LineParticleSystem();
 	void Update() override;
+	void Release() override;
 };
 

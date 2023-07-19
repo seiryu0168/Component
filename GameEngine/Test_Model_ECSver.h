@@ -20,7 +20,7 @@ private:
 public:
 	Test_Model_ECSver();
 	Test_Model_ECSver(GameObject* object);
-	Test_Model_ECSver(const Test_Model_ECSver& object);
+	//Test_Model_ECSver(const Test_Model_ECSver& object);
 
 
 

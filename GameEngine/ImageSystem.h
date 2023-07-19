@@ -6,4 +6,5 @@ class ImageSystem : public System
 public:
 	ImageSystem();
 	void Update() override;
+	void Release() override;
 };

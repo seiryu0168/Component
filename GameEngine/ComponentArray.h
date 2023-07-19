@@ -16,7 +16,7 @@ private:
 	//配列内の有効なエンティティの総数
 	size_t size_;
 public:
-	void InsertData(Entity entity, T component) 
+	void InsertData(Entity entity, T& component) 
 	{
 		//同じエンティティに複数のコンポーネントが追加されてはいけない
 		assert(entityToIndexMap_.find(entity) == entityToIndexMap_.end() && "Component added to same entity more than once");
@@ -55,11 +55,11 @@ public:
 	}
 	void Clear() override
 	{
-		T dummy;
-		componentArray_.fill(dummy);
-		entityToIndexMap_.clear();
-		indexToEntityMap_.clear();
-		size_ = 0;	
+		//T dummy;
+		//componentArray_.fill(dummy);
+		//entityToIndexMap_.clear();
+		//indexToEntityMap_.clear();
+		//size_ = 0;	
 	}
 	T& GetData(Entity entity)
 	{

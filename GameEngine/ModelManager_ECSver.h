@@ -7,5 +7,6 @@
 namespace ModelManager_ECSver
 {
 	std::shared_ptr<Fbx> Load(std::string fileName);
+	void Release();
 };
 
