@@ -95,8 +95,8 @@ HRESULT BillBoard::Load(const std::string& fileName)
 
 void BillBoard::Draw(const XMMATRIX& matW, const XMFLOAT4& col)
 {
-	Direct3D::SetBlendMode(BLEND_MODE::BLEND_ADD);
-	Direct3D::SetShader(SHADER_TYPE::SHADER_EFF);
+	//Direct3D::SetBlendMode(BLEND_MODE::BLEND_ADD);
+	//Direct3D::SetShader(SHADER_TYPE::SHADER_EFF);
 
 	CONSTANT_BUFFER cb;
 	cb.matWVP = XMMatrixTranspose(matW * Camera::GetViewMatrix() * Camera::GetProjectionMatrix());

@@ -3,10 +3,12 @@
 
 Particle::Particle() : Particle(nullptr)
 {
+	blendMode_ = BLEND_MODE::BLEND_ADD;
 }
 
 Particle::Particle(GameObject* object)
-	:attacheObject_(object)
+	:attacheObject_(object),
+	blendMode_(BLEND_MODE::BLEND_ADD)
 {
 
 }
@@ -218,6 +220,7 @@ void Particle::SetData(const EmitterData& data)
 	pEmitter->pBillBoard->Load(data.textureFileName);
 	handle = (int)emitterList_.size() - 1;
 	pEmitter->hParticle = handle;
+	blendMode_ = data.blendMode;
 	emitterList_.push_back(std::move(pEmitter));
 	//return handle;
 }
@@ -227,7 +230,7 @@ void Particle::Draw()
 {
 	Update();
 	Direct3D::SetShader(SHADER_TYPE::SHADER_EFF);
-	Direct3D::SetBlendMode(BLEND_MODE::BLEND_ADD);
+	Direct3D::SetBlendMode(blendMode_);
 
 	for (auto&& itr : particleList_)
 	{

@@ -6,20 +6,20 @@
 #include<vector>
 LineParticle::LineParticle() : LineParticle(nullptr)
 {
-	
+	blendMode_ = BLEND_MODE::BLEND_ADD;
 }
 LineParticle::LineParticle(GameObject* object)
 	:attachObject_(object),
 	WIDTH_(0.5),
 	LENGTH_(2),
 	endWidth_(0),
-	color_({1,1,1,1}),
+	color_({ 1,1,1,1 }),
+	blendMode_(BLEND_MODE::BLEND_ADD),
 	pVertexBuffer_(nullptr),
 	pIndexBuffer_(nullptr),
 	pConstantBuffer_(nullptr),
 	pTexture_(nullptr)
 {
-	
 	assert(LENGTH_ >= 1);
 	endWidth_ = max(endWidth_, 0);
 }
@@ -315,6 +315,7 @@ void LineParticle::Draw()
 	Update();
 	HRESULT hr;
 	Direct3D::SetShader(SHADER_TYPE::SHADER_EFF);
+	Direct3D::SetBlendMode(blendMode_);
 	CONSTANT_BUFFER cb;
 	cb.matWVP = XMMatrixTranspose(Camera::GetViewMatrix() * Camera::GetProjectionMatrix());
 	cb.color = color_;

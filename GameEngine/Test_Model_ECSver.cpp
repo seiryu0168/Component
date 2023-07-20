@@ -7,23 +7,12 @@ Test_Model_ECSver::Test_Model_ECSver()
 
 Test_Model_ECSver::Test_Model_ECSver(GameObject* object)
 	:attachObject_(object),
-	type(SHADER_TYPE::SHADER_3D),
+	type_(SHADER_TYPE::SHADER_3D),
 	animationFrame_(0),
 	hModel_(-1),
 	meshEntity_(0)
 {
 }
-
-//Test_Model_ECSver::Test_Model_ECSver(const Test_Model_ECSver& object)
-//{
-//	hModel_ = object.hModel_;
-//	type = object.type;
-//	animationFrame_ = object.animationFrame_;
-//	fbx_ = object.fbx_;
-//	materialList_ = object.materialList_;
-//	meshEntity_ = object.meshEntity_;
-//	attachObject_ = object.attachObject_;
-//}
 
 bool Test_Model_ECSver::Load(const std::string& fileName)
 {
@@ -38,5 +27,5 @@ void Test_Model_ECSver::RayCast(RayCastData& rayData)
 
 void Test_Model_ECSver::Draw()
 {
-	fbx_->Draw(*attachObject_->GetTransform(), type, animationFrame_);
+	fbx_->Draw(*attachObject_->GetTransform(), type_, animationFrame_);
 }

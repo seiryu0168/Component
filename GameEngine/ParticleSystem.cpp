@@ -16,14 +16,11 @@ void ParticleSystem::Update()
 
 void ParticleSystem::Release()
 {
-	//std::set<Entity> ent = entities_;
-	for (Entity entity : entities_)
+	//for文内で値を消すのでコピーして回す
+	std::set<Entity> subEntity = entities_;
+	for (Entity entity : subEntity)
 	{
-		//entities_
 		Coordinator::RemoveComponent<Particle>(entity);
 		Coordinator::DestroyEntity(entity);
-		//if (itr != entities_.end())
-		//	itr++;
-		//itr = entities_.erase(itr);
 	}
 }

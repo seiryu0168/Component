@@ -11,7 +11,7 @@ class Test_Model_ECSver// : public Draw3DComponent
 {
 private:
 	int hModel_;
-	SHADER_TYPE type;
+	SHADER_TYPE type_;
 	int animationFrame_;
 	std::shared_ptr<Fbx> fbx_;
 	std::vector<Entity> materialList_;
@@ -20,13 +20,10 @@ private:
 public:
 	Test_Model_ECSver();
 	Test_Model_ECSver(GameObject* object);
-	//Test_Model_ECSver(const Test_Model_ECSver& object);
-
-
-
 
 	bool Load(const std::string& fileName);
 	void RayCast(RayCastData& rayData);
+	void SetShaderType(SHADER_TYPE type) { type_ = type; }
 	void Draw();
 
 };

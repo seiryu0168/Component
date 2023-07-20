@@ -71,9 +71,9 @@ void TestObject::Initialize()
 	data.scale = { 1.0f,1.0f };
 	data.size = { 1,1 };
 	data.sizeErr = { 0,0 };
-	data.textureFileName = "Assets\\Image\\Effect01.png";
+	data.textureFileName = "Assets\\Image\\BrickTexture.jpg";
+	data.blendMode = BLEND_MODE::BLEND_DEFAULT;
 	particle.SetData(data);
-	//particle.SetDrawObject<Particle>(pa);
 	AddComponent<Particle>(particle);
 	
 	Test_Model_ECSver model(this);
@@ -94,6 +94,7 @@ void TestObject::Initialize()
 	lineData.width = 0.5f;
 	lineData.endWidth = 0.0f;
 	line.SetLineParameter(lineData);
+	line.SetBlendMode(BLEND_MODE::BLEND_DEFAULT);
 	AddComponent<LineParticle>(line);
 	
 	

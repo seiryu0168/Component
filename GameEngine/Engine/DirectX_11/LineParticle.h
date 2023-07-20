@@ -56,6 +56,7 @@ private:
 	std::vector<int> indexList;
 	std::list<XMFLOAT3> positionList_;
 	GameObject* attachObject_;
+	BLEND_MODE blendMode_;
 public:
 	LineParticle();
 	LineParticle(GameObject* object);
@@ -100,9 +101,10 @@ public:
 	/// <param name="length">ポジションの保存数</param>
 	/// <param name="tipWidth">終端の幅</param>
 	void SetLineParameter(const LineData& data);
-	void SetWidth(float width);
-	void SetEndWidth(float endWidth);
-	void SetLength(float length);
+	void SetBlendMode(BLEND_MODE mode) { blendMode_ = mode; }
+	void SetWidth(float width) { WIDTH_ = max(0,width); }
+	void SetEndWidth(float endWidth) { endWidth_ = max(0, endWidth); }
+	void SetLength(UINT length) { LENGTH_ = length; }
 	/// <summary>
 	/// ポジションリストの削除
 	/// </summary>
