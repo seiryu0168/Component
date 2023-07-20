@@ -24,6 +24,7 @@ class PhysicsSystem : public System
 	int time_;
 public:
 	PhysicsSystem();
+	~PhysicsSystem() {};
 	void Update() override;
 	void PhysicsUpdate(float deltaTime);
 };

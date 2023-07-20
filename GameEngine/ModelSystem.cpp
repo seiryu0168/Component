@@ -1,6 +1,6 @@
 #include "ModelSystem.h"
 #include"Coordinator.h"
-ModelSystem::ModelSystem()
+ModelSystem::ModelSystem() : System()
 {
 }
 
@@ -14,8 +14,8 @@ void ModelSystem::Update()
 
 void ModelSystem::Release()
 {
-	std::set<Entity> ent = entities_;
-	for (Entity entity : ent)
+	//std::set<Entity> ent = entities_;
+	for (Entity entity : entities_)
 	{
 		//entities_
 		Coordinator::RemoveComponent<Test_Model_ECSver>(entity);

@@ -2,7 +2,7 @@
 #include"Coordinator.h"
 
 
-PhysicsSystem::PhysicsSystem()
+PhysicsSystem::PhysicsSystem() : System(), time_(0)
 {
 	Coordinator::RegisterComponent<Gravity>();
 	Coordinator::RegisterComponent<TransformData>();
@@ -11,7 +11,7 @@ PhysicsSystem::PhysicsSystem()
 
 void PhysicsSystem::Update()
 {
-	time_++;
+	++time_;
 	PhysicsUpdate((float)time_ / 60.0f);
 	
 }

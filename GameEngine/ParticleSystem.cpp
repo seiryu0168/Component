@@ -1,7 +1,7 @@
 #include "ParticleSystem.h"
 #include"Coordinator.h"
 
-ParticleSystem::ParticleSystem()
+ParticleSystem::ParticleSystem() : System()
 {
 
 }
@@ -16,8 +16,8 @@ void ParticleSystem::Update()
 
 void ParticleSystem::Release()
 {
-	std::set<Entity> ent = entities_;
-	for (Entity entity : ent)
+	//std::set<Entity> ent = entities_;
+	for (Entity entity : entities_)
 	{
 		//entities_
 		Coordinator::RemoveComponent<Particle>(entity);

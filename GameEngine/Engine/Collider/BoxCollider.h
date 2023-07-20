@@ -9,8 +9,8 @@ private:
 public:
 
 	BoxCollider();
-	BoxCollider(XMFLOAT3 basePos, XMFLOAT3 size);
+	BoxCollider(const XMFLOAT3& basePos, const XMFLOAT3& size);
 	~BoxCollider();
-	void SetSize(XMFLOAT3 size) { size_ = size; }
-	XMFLOAT3 GetSize() { return size_; }
+	void SetSize(const XMFLOAT3& size) { size_ = size; }
+	XMFLOAT3 GetSize() const { return size_; }
 };

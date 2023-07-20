@@ -82,6 +82,7 @@ HRESULT Direct3D::Initialize(int winW, int winH, HWND hWnd)
 	//レンダーターゲットビューを作成
 	ID3D11Texture2D* pBackBuffer;
 	pSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&pBackBuffer);
+	assert(pBackBuffer != nullptr);
 	pDevice->CreateRenderTargetView(pBackBuffer, NULL, &pRenderTargetView);
 
 	//一時的にバックバッファを取得しただけなので解放
@@ -112,6 +113,7 @@ HRESULT Direct3D::Initialize(int winW, int winH, HWND hWnd)
 	descDepth.CPUAccessFlags = 0;
 	descDepth.MiscFlags = 0;
 	pDevice->CreateTexture2D(&descDepth, NULL, &pDepthStencil);
+	assert(pDepthStencil != nullptr);
 	pDevice->CreateDepthStencilView(pDepthStencil, NULL, &pDepthStencilView);
 
 

@@ -16,10 +16,8 @@
 #endif // _DEBUG
 
 Fbx::Fbx()
+	:animSpeed_(), pFbxManager_(), pFbxScene_(), endFrame_(), startFrame_(), frameRate_()
 {
-	animSpeed_ = 0;
-	pFbxManager_ = nullptr;
-	pFbxScene_ = nullptr;
 }
 Fbx::~Fbx()
 {
@@ -27,7 +25,7 @@ Fbx::~Fbx()
 }
 
 //FBXロード
-HRESULT Fbx::Load(std::string fileName)
+HRESULT Fbx::Load(const std::string& fileName)
 {
 	//マネージャを生成
 	 pFbxManager_ = FbxManager::Create();
@@ -85,20 +83,20 @@ HRESULT Fbx::Load(std::string fileName)
 	return S_OK;
 }
 
-HRESULT Fbx::CheckNode(FbxNode* pNode, std::vector<FbxParts*>* pPartsList)
+HRESULT Fbx::CheckNode(FbxNode* pNode, std::vector<std::unique_ptr<FbxParts>>* pPartsList)
 {
 	HRESULT hr;
 	FbxNodeAttribute* attr = pNode->GetNodeAttribute();
 	if (attr != nullptr && attr->GetAttributeType() == FbxNodeAttribute::eMesh)
 	{
 		//パーツインスタンス作って追加
-		FbxParts* pParts = new FbxParts;
+		std::unique_ptr<FbxParts> pParts = std::make_unique<FbxParts>();
 		hr = pParts->Init(pNode);
 		if (FAILED(hr))
 		{
 			return hr;
 		}
-		pPartsList->push_back(pParts);
+		pPartsList->push_back(std::move(pParts));
 	}
 
 	//子ノードも調べて同じ処理をする
@@ -368,18 +366,18 @@ void Fbx::Draw(Transform& transform, SHADER_TYPE shaderType,int frame)
 {
 	Direct3D::SetShader(shaderType);
 	Direct3D::SetBlendMode(BLEND_MODE::BLEND_DEFAULT);
-	for (int i = 0; i<parts_.size(); i++)
+	for (auto&& itr : parts_)
 	{
 		FbxTime time;
 		time.SetTime(0, 0, 0, frame,0, 0, frameRate_);
 
-		if (parts_[i]->GetSkinInfo())
+		if (itr->GetSkinInfo())
 		{
-			parts_[i]->DrawSkinAnime(transform, frame);
+			itr->DrawSkinAnime(transform, frame);
 		}
 		else
 		{
-			parts_[i]->Draw(transform);
+			itr->Draw(transform);
 		}
 	}
 }
@@ -388,35 +386,35 @@ void Fbx::DrawOutLine(Transform& transform, int frame, XMFLOAT4 lineColor)
 {
 	Direct3D::SetBlendMode(BLEND_MODE::BLEND_DEFAULT);
 	Direct3D::SetShader(SHADER_TYPE::SHADER_OUTLINE);
-	for (int i = 0; i < parts_.size(); i++)
+	for (auto&& itr : parts_)
 	{
 		FbxTime time;
 		time.SetTime(0, 0, 0, frame, 0, 0, frameRate_);
 
-		if (parts_[i]->GetSkinInfo())
+		if (itr->GetSkinInfo())
 		{
-			parts_[i]->DrawSkinAnime(transform, frame,lineColor);
+			itr->DrawSkinAnime(transform, frame,lineColor);
 		}
 		else
 		{
 
-			parts_[i]->Draw(transform,lineColor);
+			itr->Draw(transform,lineColor);
 		}
 	}
 
 	Direct3D::SetShader(SHADER_TYPE::SHADER_3D);
-	for (int i = 0; i < parts_.size(); i++)
+	for (auto&& itr : parts_)
 	{
 		FbxTime time;
 		time.SetTime(0, 0, 0, frame, 0, 0, frameRate_);
 
-		if (parts_[i]->GetSkinInfo())
+		if (itr->GetSkinInfo())
 		{
-			parts_[i]->DrawSkinAnime(transform, frame);
+			itr->DrawSkinAnime(transform, frame);
 		}
 		else
 		{
-			parts_[i]->Draw(transform);
+			itr->Draw(transform);
 		}
 	}
 }
@@ -428,43 +426,43 @@ void Fbx::DrawToon(Transform& transform, bool isOutLine, int frame)
 	{
 		Direct3D::SetShader(SHADER_TYPE::SHADER_OUTLINE);
 
-		for (int i = 0; i < parts_.size(); i++)
+		for (auto&& itr : parts_)
 		{
 			FbxTime time;
 			time.SetTime(0, 0, 0, frame, 0, 0, frameRate_);
 
-			if (parts_[i]->GetSkinInfo())
+			if (itr->GetSkinInfo())
 			{
-				parts_[i]->DrawSkinAnime(transform, frame);
+				itr->DrawSkinAnime(transform, frame);
 			}
 			else
 			{
-				parts_[i]->Draw(transform);
+				itr->Draw(transform);
 			}
 		}
 	}
 	Direct3D::SetShader(SHADER_TYPE::SHADER_TOON);
-	for (int i = 0; i < parts_.size(); i++)
+	for (auto&& itr : parts_)
 	{
 		FbxTime time;
 		time.SetTime(0, 0, 0, frame, 0, 0, frameRate_);
 
-		if (parts_[i]->GetSkinInfo())
+		if (itr->GetSkinInfo())
 		{
-			parts_[i]->DrawSkinAnime(transform, frame);
+			itr->DrawSkinAnime(transform, frame);
 		}
 		else
 		{
-			parts_[i]->Draw(transform);
+			itr->Draw(transform);
 		}
 	}
 }
 
 void Fbx::RayCast(RayCastData& ray, Transform& transform)
 {
-	for (int i = 0; i < parts_.size(); i++)
+	for (auto&& itr : parts_)
 	{
-		parts_[i]->RayCast(ray,transform);
+		itr->RayCast(ray,transform);
 	}
 
 	//for (int material = 0; material < materialCount_; material++)
@@ -500,12 +498,12 @@ void Fbx::RayCast(RayCastData& ray, Transform& transform)
 	//}
 }
 
-XMFLOAT3 Fbx::GetBonePosition(std::string boneName)
+XMFLOAT3 Fbx::GetBonePosition(const std::string& boneName)
 {
-	XMFLOAT3 position = { 0,0,0 };
-	for (int i = 0; i < parts_.size(); i++)
+	static XMFLOAT3 position = { 0,0,0 };
+	for (auto&& itr : parts_)
 	{
-		if (parts_[i]->GetBonePosition(boneName, &position))
+		if (itr->GetBonePosition(boneName, &position))
 		{
 			break;
 		}
@@ -513,16 +511,16 @@ XMFLOAT3 Fbx::GetBonePosition(std::string boneName)
 	return position;
 }
 
-std::string Fbx::GetModelName()
+std::string Fbx::GetModelName() const
 {
 	return modelName_;
 }
 
 void Fbx::Release()
 {
-	for (int i = 0; i < parts_.size(); i++)
+	/*for (int i = 0; i < parts_.size(); i++)
 	{
 		SAFE_DELETE(parts_[i]);
-	}
+	}*/
 	parts_.clear();
 }

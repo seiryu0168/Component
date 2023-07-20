@@ -1,14 +1,13 @@
 #include "BoxCollider.h"
 
 BoxCollider::BoxCollider()
-	:Collider()
+	: BoxCollider({0,0,0}, {1,1,1})
 {
 }
 
-BoxCollider::BoxCollider(XMFLOAT3 basePos, XMFLOAT3 size)
+BoxCollider::BoxCollider(const XMFLOAT3& basePos, const XMFLOAT3& size)
+	: Collider(basePos), size_(size)
 {
-	SetCenter(basePos);
-	size_ = size;
 }
 
 BoxCollider::~BoxCollider()

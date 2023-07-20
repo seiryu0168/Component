@@ -1,6 +1,6 @@
 #include "ImageSystem.h"
 #include"Coordinator.h"
-ImageSystem::ImageSystem()
+ImageSystem::ImageSystem() : System()
 {
 }
 
@@ -14,8 +14,8 @@ void ImageSystem::Update()
 
 void ImageSystem::Release()
 {
-	std::set<Entity> ent = entities_;
-	for (Entity entity : ent)
+	//std::set<Entity> ent = entities_;
+	for (Entity entity : entities_)
 	{
 		//entities_
 		Coordinator::RemoveComponent<Image>(entity);

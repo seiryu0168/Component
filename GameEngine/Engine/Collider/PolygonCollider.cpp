@@ -1,7 +1,7 @@
 #include "PolygonCollider.h"
 #include"../ResourceManager/Model.h"
 
-PolygonCollider::PolygonCollider(XMFLOAT3 pos, int hModel)
+PolygonCollider::PolygonCollider(const XMFLOAT3& pos, int hModel)
 {
 	//hModel_ = hModel;
 	//center_ = pos;

@@ -1,13 +1,13 @@
 #include "ColliderSystem.h"
 #include"Engine/GameObject/GameObject.h"
-ColliderSystem::ColliderSystem()
+ColliderSystem::ColliderSystem() : System()
 {
 	Coordinator::RegisterComponent<HitBox>();
 	Coordinator::RegisterComponent<HitSphere>();
-	Signature collSignature;
-	auto type = Coordinator::GetComponentType<HitBox>();
-	collSignature.set(Coordinator::GetComponentType<HitBox>());
-	collSignature.set(Coordinator::GetComponentType<HitSphere>());
+	//Signature collSignature;
+	//auto type = Coordinator::GetComponentType<HitBox>();
+	//collSignature.set(Coordinator::GetComponentType<HitBox>());
+	//collSignature.set(Coordinator::GetComponentType<HitSphere>());
 }
 
 void ColliderSystem::Update()
@@ -30,8 +30,8 @@ void ColliderSystem::Update()
 
 void ColliderSystem::Release()
 {
-	std::set<Entity> ent = entities_;
-	for (Entity entity : ent)
+	//std::set<Entity> ent = entities_;
+	for (Entity entity : entities_)
 	{
 		//entities_
 		Coordinator::RemoveComponent<Collider>(entity);
@@ -42,7 +42,7 @@ void ColliderSystem::Release()
 	}
 }
 
-void ColliderSystem::CheckCollision(Collider* firstTarget, Collider* secondTarget)
+void ColliderSystem::CheckCollision(Collider* firstTarget, Collider* secondTarget) const
 {
 	bool isCollision = false;
 	switch (firstTarget->GetType())
@@ -82,7 +82,7 @@ void ColliderSystem::CheckCollision(Collider* firstTarget, Collider* secondTarge
 
 }
 
-bool ColliderSystem::IsHitBox_Box(Collider* firstTarget,Collider* secondTarget)
+bool ColliderSystem::IsHitBox_Box(Collider* firstTarget,Collider* secondTarget) const
 {
 	XMFLOAT3 boxPos1 = StoreFloat3(firstTarget->GetAttachObject()->GetComponent<Transform>().position_ + XMLoadFloat3(&firstTarget->GetCenter()));
 	XMFLOAT3 boxPos2 = StoreFloat3(secondTarget->GetAttachObject()->GetComponent<Transform>().position_ + XMLoadFloat3(&secondTarget->GetCenter()));
@@ -102,7 +102,7 @@ bool ColliderSystem::IsHitBox_Box(Collider* firstTarget,Collider* secondTarget)
 	return false;
 }
 
-bool ColliderSystem::IsHitBox_Sphere(Collider* boxTarget, Collider* sphereTarget)
+bool ColliderSystem::IsHitBox_Sphere(Collider* boxTarget, Collider* sphereTarget) const
 {
 	XMFLOAT3 boxPos = StoreFloat3(boxTarget->GetAttachObject()->GetTransform()->position_ + XMLoadFloat3(&boxTarget->GetCenter()));
 	XMFLOAT3 spherePos = StoreFloat3(sphereTarget->GetAttachObject()->GetTransform()->position_ + XMLoadFloat3(&sphereTarget->GetCenter()));
@@ -121,7 +121,7 @@ bool ColliderSystem::IsHitBox_Sphere(Collider* boxTarget, Collider* sphereTarget
 	return false;
 }
 
-bool ColliderSystem::IsHitSphere_Sphere(Collider* firstTarget, Collider* secondTarget)
+bool ColliderSystem::IsHitSphere_Sphere(Collider* firstTarget, Collider* secondTarget) const
 {
 	XMVECTOR spherePos1 = firstTarget->GetAttachObject()->GetTransform()->position_ + XMLoadFloat3(&firstTarget->GetCenter());
 	XMVECTOR spherePos2 = secondTarget->GetAttachObject()->GetTransform()->position_ + XMLoadFloat3(&secondTarget->GetCenter());

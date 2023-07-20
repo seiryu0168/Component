@@ -14,11 +14,11 @@ class OBBCollider : public Collider
 	XMVECTOR OBB_Y;
 	XMVECTOR OBB_Z;
 public:
-	OBBCollider(XMFLOAT3 size, bool isRotate = true, bool isScale = true);
+	OBBCollider(const XMFLOAT3& size, bool isRotate = true, bool isScale = true);
 	//bool IsHit(Collider* target) override;
 
 	//オブジェクトA,Bの距離を計算
-	XMVECTOR calcDistance(XMFLOAT3 posA, XMFLOAT3 posB);
+	XMVECTOR calcDistance(const XMFLOAT3& posA, const XMFLOAT3& posB);
 	
 	//当たっているかどうかの計算
 	//sep : 分離軸

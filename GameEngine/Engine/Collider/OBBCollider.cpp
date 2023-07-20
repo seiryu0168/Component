@@ -1,6 +1,6 @@
 #include "OBBCollider.h"
 #include"../GameObject/GameObject.h"
-OBBCollider::OBBCollider(XMFLOAT3 size, bool isRotate, bool isScale)
+OBBCollider::OBBCollider(const XMFLOAT3& size, bool isRotate, bool isScale)
 {
 	//rotateFlag_ = isRotate;
 	//scaleFlag_ = isScale;

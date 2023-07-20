@@ -5,6 +5,7 @@ class ParticleSystem : public System
 {
 public:
 	ParticleSystem();
+	~ParticleSystem() {};
 	void Update() override;
 	void Release() override;
 };

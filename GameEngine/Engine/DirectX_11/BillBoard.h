@@ -25,10 +25,10 @@ public:
 	~BillBoard();
 
 	//ÉçÅ[Éh
-	HRESULT Load(std::string fileName);
+	HRESULT Load(const std::string& fileName);
 	
 	//ï`âÊ
-	void Draw(XMMATRIX matW,XMFLOAT4 col);
+	void Draw(const XMMATRIX& matW, const XMFLOAT4& col);
 	void Release();
 };
 

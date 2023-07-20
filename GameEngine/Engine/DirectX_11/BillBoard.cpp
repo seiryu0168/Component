@@ -14,18 +14,18 @@ BillBoard::~BillBoard()
 	Release();
 }
 
-HRESULT BillBoard::Load(std::string fileName)
+HRESULT BillBoard::Load(const std::string& fileName)
 {
 	HRESULT hr;
 
-	BILLBORD_VERTEX vertices[] = {
+	static BILLBORD_VERTEX vertices[] = {
 							{XMFLOAT3(-0.5,0.5,0),	XMFLOAT3(0,0,0)},//左上
 							{XMFLOAT3(0.5,0.5,0),	XMFLOAT3(1,0,0)},//右上
 							{XMFLOAT3(0.5,-0.5,0),	XMFLOAT3(1,1,0)},//右下
 							{XMFLOAT3(-0.5,-0.5,0),	XMFLOAT3(0,1,0)},//左下
 						};
 
-	int index[]={ 0,1,2, 0,2,3 };
+	static int index[]={ 0,1,2, 0,2,3 };
 
 	
 	///////////////////頂点バッファ作成////////////////////
@@ -93,7 +93,7 @@ HRESULT BillBoard::Load(std::string fileName)
 	return hr;
 }
 
-void BillBoard::Draw(XMMATRIX matW, XMFLOAT4 col)
+void BillBoard::Draw(const XMMATRIX& matW, const XMFLOAT4& col)
 {
 	Direct3D::SetBlendMode(BLEND_MODE::BLEND_ADD);
 	Direct3D::SetShader(SHADER_TYPE::SHADER_EFF);

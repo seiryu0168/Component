@@ -1,6 +1,6 @@
 #include "TextSystem.h"
 #include"Coordinator.h"
-TextSystem::TextSystem()
+TextSystem::TextSystem() : System()
 {
 }
 
@@ -15,8 +15,8 @@ void TextSystem::Update()
 void TextSystem::Release()
 {
 
-	std::set<Entity> ent = entities_;
-	for (Entity entity : ent)
+	//std::set<Entity> ent = entities_;
+	for (Entity entity : entities_)
 	{
 		//entities_
 		Coordinator::RemoveComponent<Text>(entity);

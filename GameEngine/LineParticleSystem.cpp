@@ -1,6 +1,6 @@
 #include "LineParticleSystem.h"
 #include"Coordinator.h"
-LineParticleSystem::LineParticleSystem()
+LineParticleSystem::LineParticleSystem() : System()
 {
 }
 
@@ -14,8 +14,8 @@ void LineParticleSystem::Update()
 
 void LineParticleSystem::Release()
 {
-	std::set<Entity> ent = entities_;
-	for (Entity entity : ent)
+	//std::set<Entity> ent = entities_;
+	for (Entity entity : entities_)
 	{
 		//entities_
 		Coordinator::RemoveComponent<LineParticle>(entity);

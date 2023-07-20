@@ -1,6 +1,7 @@
 #include "SphereCollider.h"
 
-SphereCollider::SphereCollider(XMFLOAT3 basePos, float radius)
+SphereCollider::SphereCollider(const XMFLOAT3& basePos, float radius)
+	: Collider(basePos)
 {
 	//center_ = basePos;
 	//size_ = XMFLOAT3(radius, radius, radius);

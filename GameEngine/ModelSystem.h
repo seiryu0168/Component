@@ -5,6 +5,7 @@ class ModelSystem : public System
 {
 public:
 	ModelSystem();
+	~ModelSystem() {};
 	void Update() override;
 	void Release() override;
 };
