@@ -33,10 +33,10 @@ namespace Coordinator
 	}
 
 	template <typename T>
-	void AddComponent(Entity entity,T& component)
+	void AddComponent(Entity entity, const T& component)
 	{
 		componentManager_->AddComponent<T>(entity, component);
-		auto signature = entityManager_->GetSignature(entity);
+		Signature signature = entityManager_->GetSignature(entity);
 		signature.set(componentManager_->GetComponentType<T>(), true);
 		entityManager_->SetSignature(entity, signature);
 
@@ -48,7 +48,7 @@ namespace Coordinator
 	void RemoveComponent(Entity entity)
 	{	
 		componentManager_->RemoveComponent<T>(entity);
-		auto signature = entityManager_->GetSignature(entity);
+		Signature signature = entityManager_->GetSignature(entity);
 		signature.set(componentManager_->GetComponentType<T>(), false);
 		entityManager_->SetSignature(entity, signature);
 
@@ -72,7 +72,7 @@ namespace Coordinator
 		return systemManager_->RegisterSistem<T>();
 	}
 	template <typename T>
-	void SetSystemSignature(Signature signature)
+	void SetSystemSignature(const Signature& signature)
 	{
 		systemManager_->SetSignature<T>(signature);
 	}

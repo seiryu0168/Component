@@ -23,9 +23,9 @@ public:
 	~EntityManager();
 
 	Entity CreateEntity();
-	void DestroyEntity(Entity entity);
-	void SetSignature(Entity entity, Signature signature);
-	Signature GetSignature(Entity entity);
+	void DestroyEntity(const Entity& entity);
+	void SetSignature(const Entity& entity, const Signature& signature);
+	Signature GetSignature (const Entity& entity) const;
 	void Initialize();
 
 };

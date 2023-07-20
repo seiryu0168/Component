@@ -27,24 +27,24 @@ public:
 	//各行列の計算
 	void Calclation();
 	//回転
-	void RotateAxis(XMVECTOR axis, float angle);
-	void RotateEular(XMFLOAT3 rotation);
+	void RotateAxis(const XMVECTOR& axis, float angle);
+	void RotateEular(const XMFLOAT3& rotation);
 
 	//回転行列と拡縮の逆行列の計算
-	XMMATRIX GetNormalMatrix();
+	XMMATRIX GetNormalMatrix() const;
 	
 	//ワールド行列を取得
 	XMMATRIX GetWorldMatrix();
-	XMMATRIX GetLocalMatrix();
-	XMMATRIX GetLocalTranslateMatrix();
-	XMMATRIX GetLocalRotateMatrix();
-	XMMATRIX GetLocalScaleMatrix();
+	XMMATRIX GetLocalMatrix() const;
+	XMMATRIX GetLocalTranslateMatrix() const;
+	XMMATRIX GetLocalRotateMatrix() const;
+	XMMATRIX GetLocalScaleMatrix() const;
 
 	XMMATRIX GetWorldTranslateMatrix();
 	XMMATRIX GetWorldRotateMatrix();
 	XMMATRIX GetWorldScaleMatrix();
 
-	static XMFLOAT3 Float3Add(XMVECTOR add1, XMVECTOR add2)
+	static XMFLOAT3 Float3Add(const XMVECTOR& add1, const XMVECTOR& add2)
 	{
 		return StoreFloat3(add1 + add2);
 	}

@@ -21,7 +21,7 @@ Entity EntityManager::CreateEntity()
 	return id;
 }
 
-void EntityManager::DestroyEntity(Entity entity)
+void EntityManager::DestroyEntity(const Entity& entity)
 {
 	assert(entity < MAX_ENTITIES && "Entity out of range");
 	//エンティティで配列内から無効化するシグネチャを選び、無効化
@@ -33,7 +33,7 @@ void EntityManager::DestroyEntity(Entity entity)
 	--livingEntityCount_;
 }
 
-void EntityManager::SetSignature(Entity entity, Signature signature)
+void EntityManager::SetSignature(const Entity& entity, const Signature& signature)
 {
 	assert(entity < MAX_ENTITIES &&"Entity out of range");
 	//シグネチャを配列に登録
@@ -41,7 +41,7 @@ void EntityManager::SetSignature(Entity entity, Signature signature)
 	
 }
 
-Signature EntityManager::GetSignature(Entity entity)
+Signature EntityManager::GetSignature(const Entity& entity) const
 {
 	assert(entity < MAX_ENTITIES && "Entity out of range");
 	

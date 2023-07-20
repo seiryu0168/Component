@@ -13,11 +13,11 @@ private:
 public:
 	Image();
 	~Image();
-	bool Load(std::string name);
-	void SetPosition(XMFLOAT3& pos);
+	bool Load(const std::string& name);
+	void SetPosition(const XMFLOAT3& pos);
 	void SetAlpha(float alpha);
-	void SetSize(XMFLOAT3 size);
-	void SetRotation(XMFLOAT3 rotate);
+	void SetSize(const XMFLOAT3& size);
+	void SetRotation(const XMFLOAT3& rotate);
 	void Draw();
 
 

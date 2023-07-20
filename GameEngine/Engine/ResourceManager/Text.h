@@ -41,23 +41,23 @@ public:
 	Text();
 	Text(std::string text);
 	~Text();
-	int Load(const std::string& text, const std::string& fontName, TEXT_RECT rect, STARTING_TYPE type);
+	int Load(const std::string& text, const std::string& fontName, const TEXT_RECT& rect, const STARTING_TYPE& type);
 	void Initialize();
 	void Draw();
-	void SetAlinmentType(STARTING_TYPE type);
+	void SetAlinmentType(const STARTING_TYPE& type);
 	HRESULT SetFont(const FontData& data);
-	void SetColor(XMFLOAT4 color);
+	void SetColor(const XMFLOAT4& color);
 	HRESULT SetTextSize(float size,UINT32 startPos,UINT32 length);
 	HRESULT SetTextSize(float size);
 	HRESULT SetFontWeight(DWRITE_FONT_WEIGHT weightType,UINT32 startPos,UINT32 length);
-	HRESULT SetText(std::string text);
-	void SetTransform(TEXT_POSITION pos);
+	HRESULT SetText(const std::string& text);
+	void SetTransform(const TEXT_POSITION& pos);
 	void SetTextLayout();
 	void SetRatio(float ratioX,float ratioY);
-	void SetPosition(XMFLOAT2 position);
-	void SetRect(TEXT_RECT rect);
-	const TEXT_RECT& GetRect() { return layoutRect_; }
-	int GetTextSize();
+	void SetPosition(const XMFLOAT2& position);
+	void SetRect(const TEXT_RECT& rect);
+	const TEXT_RECT& GetRect() const { return layoutRect_; }
+	int GetTextSize() const;
 	void Release();
 
 };

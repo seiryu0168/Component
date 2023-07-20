@@ -50,13 +50,13 @@ void Transform::Calclation()
 	matScale_ = XMMatrixScaling(scale_.x, scale_.y, scale_.z);
 }
 
-void Transform::RotateAxis(XMVECTOR axis, float angle)
+void Transform::RotateAxis(const XMVECTOR& axis, float angle)
 {
 
 	rotate_ = XMQuaternionRotationNormal(axis, angle);
 }
 
-void Transform::RotateEular(XMFLOAT3 rotation)
+void Transform::RotateEular(const XMFLOAT3& rotation)
 {
 	rotate_ = XMQuaternionRotationRollPitchYaw(XMConvertToRadians(rotation.x),
 											   XMConvertToRadians(rotation.y),
@@ -64,7 +64,7 @@ void Transform::RotateEular(XMFLOAT3 rotation)
 }
 
 //ãtçsóÒÇÃåvéZ
-XMMATRIX Transform::GetNormalMatrix()
+XMMATRIX Transform::GetNormalMatrix() const
 {
 	return matRotate_ * XMMatrixInverse(nullptr, matScale_);
 }
@@ -80,20 +80,20 @@ XMMATRIX Transform::GetWorldMatrix()
 	return matScale_ * matRotate_ * matTranslate_;
 
 }
-XMMATRIX Transform::GetLocalMatrix()
+XMMATRIX Transform::GetLocalMatrix() const
 {
 	return matScale_ * matRotate_ * matTranslate_;
 }
-XMMATRIX Transform::GetLocalTranslateMatrix()
+XMMATRIX Transform::GetLocalTranslateMatrix() const
 {
 	return matTranslate_;
 }
 
-XMMATRIX Transform::GetLocalRotateMatrix()
+XMMATRIX Transform::GetLocalRotateMatrix() const
 {
 	return matRotate_;
 }
-XMMATRIX Transform::GetLocalScaleMatrix()
+XMMATRIX Transform::GetLocalScaleMatrix() const
 {
 	return matScale_;
 }

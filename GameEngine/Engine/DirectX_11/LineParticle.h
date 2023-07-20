@@ -64,25 +64,25 @@ public:
 	/// 位置をポジションリストに追加
 	/// </summary>
 	/// <param name="pos">この関数が呼ばれた時の位置</param>
-	void AddPosition(XMFLOAT3 pos);
+	void AddPosition(const XMFLOAT3& pos);
 	/// <summary>
 	/// パイプ状のラインパーティクル生成
 	/// </summary>
 	/// <param name="pList"></param>
 	/// <returns></returns>
-	HRESULT CreateMeshPype(std::list<XMFLOAT3>* pList);
-	HRESULT CreateMeshPlate(std::list<XMFLOAT3>* pList);
+	HRESULT CreateMeshPype(const std::list<XMFLOAT3>* pList);
+	HRESULT CreateMeshPlate(const std::list<XMFLOAT3>* pList);
 	/// <summary>
 	/// ラインパーティクルに使う画像のロード
 	/// </summary>
 	/// <param name="fileName"></param>
 	/// <returns></returns>
-	HRESULT Load(std::string fileName);
+	HRESULT Load(const std::string& fileName);
 	/// <summary>
 	/// ラインパーティクルの色設定
 	/// </summary>
 	/// <param name="col">色</param>
-	void SetColor(XMFLOAT4 col);
+	void SetColor(const XMFLOAT4& col);
 	/// <summary>
 	/// インデックス生成
 	/// </summary>
@@ -99,7 +99,7 @@ public:
 	/// <param name="width">横幅</param>
 	/// <param name="length">ポジションの保存数</param>
 	/// <param name="tipWidth">終端の幅</param>
-	void SetLineParameter(LineData data);
+	void SetLineParameter(const LineData& data);
 	void SetWidth(float width);
 	void SetEndWidth(float endWidth);
 	void SetLength(float length);

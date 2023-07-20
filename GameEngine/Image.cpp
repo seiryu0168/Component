@@ -2,7 +2,11 @@
 #include"ImageManager_ECSver.h"
 Image::Image()
 	:alpha_(1.0f),
-	rect_({0,0,1,1})
+	rect_({0,0,1,1}),
+	color_(),
+	imageName_(""),
+	pSprite_(),
+	transform_()
 {
 }
 
@@ -10,7 +14,7 @@ Image::~Image()
 {
 }
 
-bool Image::Load(std::string name)
+bool Image::Load(const std::string& name)
 {
 	pSprite_ = ImageManager_ECSver::Load(name);
 	if(pSprite_==nullptr)
@@ -21,7 +25,7 @@ bool Image::Load(std::string name)
 	return true;
 }
 
-void Image::SetPosition(XMFLOAT3& pos)
+void Image::SetPosition(const XMFLOAT3& pos)
 {
 	transform_.position_ = XMLoadFloat3(&pos);
 }
@@ -31,12 +35,12 @@ void Image::SetAlpha(float alpha)
 	alpha_ = alpha;
 }
 
-void Image::SetSize(XMFLOAT3 size)
+void Image::SetSize(const XMFLOAT3& size)
 {
 	transform_.scale_ = size;
 }
 
-void Image::SetRotation(XMFLOAT3 rotate)
+void Image::SetRotation(const XMFLOAT3& rotate)
 {
 	transform_.RotateEular(rotate);
 }

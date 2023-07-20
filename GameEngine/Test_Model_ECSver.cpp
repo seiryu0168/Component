@@ -1,13 +1,16 @@
 #include "Test_Model_ECSver.h"
 #include"ModelManager_ECSver.h"
 Test_Model_ECSver::Test_Model_ECSver()
+	:Test_Model_ECSver(nullptr)
 {
 }
 
 Test_Model_ECSver::Test_Model_ECSver(GameObject* object)
 	:attachObject_(object),
 	type(SHADER_TYPE::SHADER_3D),
-	animationFrame_(0)
+	animationFrame_(0),
+	hModel_(-1),
+	meshEntity_(0)
 {
 }
 
@@ -22,7 +25,7 @@ Test_Model_ECSver::Test_Model_ECSver(GameObject* object)
 //	attachObject_ = object.attachObject_;
 //}
 
-bool Test_Model_ECSver::Load(std::string fileName)
+bool Test_Model_ECSver::Load(const std::string& fileName)
 {
 	fbx_=ModelManager_ECSver::Load(fileName);
 	return true;

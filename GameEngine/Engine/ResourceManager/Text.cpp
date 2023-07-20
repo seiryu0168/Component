@@ -20,7 +20,7 @@ Text::~Text()
 	//Release();
 }
 
-int Text::GetTextSize()
+int Text::GetTextSize() const
 {
 	return (int)pLayout_->GetFontSize();
 }
@@ -32,7 +32,7 @@ void Text::Release()
 	//SAFE_RELEASE(pColorBrush_);
 }
 
-int Text::Load(const std::string& text, const std::string& fontName, TEXT_RECT rect,STARTING_TYPE type)
+int Text::Load(const std::string& text, const std::string& fontName, const TEXT_RECT& rect, const STARTING_TYPE& type)
 {
 	//フォント名用の配列用意
 	size_t ret;
@@ -92,7 +92,7 @@ void Text::Initialize()
 	FontData data;
 	std::wstring fontName= L"Sitka Text";
 	std::wstring&& text = L"sumple";
-	size_t textSize;
+	//size_t textSize;
 	data.pFontName_ = fontName;
 
 	//描画するテキスト用の配列を用意する
@@ -136,7 +136,7 @@ void Text::Draw()
 	D2D::GetRenderTarget()->EndDraw();
 	Direct3D::SetDepthBufferWriteEnable(true);
 }
-void Text::SetColor(XMFLOAT4 color)
+void Text::SetColor(const XMFLOAT4& color)
 {
 	D2D1_COLOR_F colorF = { color.x, color.y,color.z,color.w };
 	pColorBrush_->SetColor(colorF);
@@ -147,7 +147,7 @@ void Text::SetRatio(float ratioX, float ratioY)
 	transform2D.y = Direct3D::GetScreenHeight() * ratioY;
 }
 
-void Text::SetPosition(XMFLOAT2 position)
+void Text::SetPosition(const XMFLOAT2& position)
 {
 	transform2D.x = 0.5f*position.x+0.5f*Direct3D::GetScreenWidth();
 	transform2D.y = -(0.5f * position.y)+ 0.5f * Direct3D::GetScreenHeight();
@@ -158,7 +158,7 @@ void Text::SetTextLayout()
 	//pWriteFactory_->CreateTextLayout()
 }
 
-HRESULT Text::SetText(std::string text)
+HRESULT Text::SetText(const std::string& text)
 {
 	size_t textSize;
 	textLength_ = text.length() + 1;
@@ -183,7 +183,7 @@ HRESULT Text::SetFontWeight(DWRITE_FONT_WEIGHT weightType, UINT32 startPos, UINT
 HRESULT Text::SetTextSize(float size, UINT32 startPos, UINT32 length)
 {
 	HRESULT hr;
-	if ((long long)startPos + length >= textLength_)
+	if ((long long)startPos + length >= (UINT)textLength_)
 	{
 		length = startPos + length - (UINT32)textLength_;
 	}
@@ -224,16 +224,16 @@ HRESULT Text::SetFont(const FontData& data)
 	assert(hr==S_OK);
 	return hr;
 }
-void Text::SetTransform(TEXT_POSITION pos)
+void Text::SetTransform(const TEXT_POSITION& pos)
 {
 	transform2D = pos;
 }
 
-void Text::SetRect(TEXT_RECT rect)
+void Text::SetRect(const TEXT_RECT& rect)
 {	
 	layoutRect_ = rect;
 }
-void Text::SetAlinmentType(STARTING_TYPE type)
+void Text::SetAlinmentType(const STARTING_TYPE& type)
 {
 
 	switch (type)

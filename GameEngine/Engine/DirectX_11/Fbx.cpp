@@ -59,7 +59,7 @@ HRESULT Fbx::Load(std::string fileName)
 	WCHAR defaultDirectory[MAX_PATH];
 	GetCurrentDirectory(MAX_PATH, defaultDirectory);
 	//fileNameからディレクトリを取得
-	wchar_t wtext[FILENAME_MAX];
+	//wchar_t wtext[FILENAME_MAX];
 	size_t ret;
 	CHAR dir[MAX_PATH];
 	WCHAR wDir[MAX_PATH];

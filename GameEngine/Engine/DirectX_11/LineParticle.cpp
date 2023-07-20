@@ -4,15 +4,7 @@
 #include"../ResourceManager/TextureManager.h"
 #include"../GameObject/Camera.h"
 #include<vector>
-LineParticle::LineParticle()
-	:WIDTH_(0.5),
-	LENGTH_(2),
-	endWidth_(0),
-	color_(1,1,1,1),
-	pVertexBuffer_(nullptr),
-	pIndexBuffer_(nullptr),
-	pConstantBuffer_(nullptr),
-	pTexture_(nullptr)
+LineParticle::LineParticle() : LineParticle(nullptr)
 {
 	
 }
@@ -33,7 +25,7 @@ LineParticle::LineParticle(GameObject* object)
 }
 
 //現在位置を記憶 : pos
-void LineParticle::AddPosition(XMFLOAT3 pos)
+void LineParticle::AddPosition(const XMFLOAT3& pos)
 {
 	//リストの先端に現在位置を入れる
 	positionList_.push_front(pos);
@@ -57,7 +49,7 @@ void LineParticle::AddPosition(XMFLOAT3 pos)
 	CreateMeshPype(&positionList_);
 }
 
-HRESULT LineParticle::CreateMeshPype(std::list<XMFLOAT3>* pList)
+HRESULT LineParticle::CreateMeshPype(const std::list<XMFLOAT3>* pList)
 {
 	//カメラの位置取得(ベクトルで)
 	XMFLOAT3 camPos = Camera::GetPosition();
@@ -164,7 +156,7 @@ HRESULT LineParticle::CreateMeshPype(std::list<XMFLOAT3>* pList)
 	return hr;
 }
 
-HRESULT LineParticle::CreateMeshPlate(std::list<XMFLOAT3>* pList)
+HRESULT LineParticle::CreateMeshPlate(const std::list<XMFLOAT3>* pList)
 {
 	//カメラの位置取得(ベクトルで)
 	XMFLOAT3 camPos = Camera::GetPosition();
@@ -229,7 +221,7 @@ HRESULT LineParticle::CreateMeshPlate(std::list<XMFLOAT3>* pList)
 	return hr;
 }
 
-HRESULT LineParticle::Load(std::string fileName)
+HRESULT LineParticle::Load(const std::string& fileName)
 {
 	HRESULT hr;
 	D3D11_BUFFER_DESC bd_constant;
@@ -264,7 +256,7 @@ HRESULT LineParticle::Load(std::string fileName)
 	return S_OK;
 }
 
-void LineParticle::SetColor(XMFLOAT4 col)
+void LineParticle::SetColor(const XMFLOAT4& col)
 {
 	color_ = col;
 }
@@ -365,7 +357,7 @@ void LineParticle::Draw()
 	Direct3D::pContext->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 }
 
-void LineParticle::SetLineParameter(LineData data)
+void LineParticle::SetLineParameter(const LineData& data)
 {
 	
 	WIDTH_ = data.width;

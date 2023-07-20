@@ -25,7 +25,7 @@ public:
 
 
 
-	bool Load(std::string fileName);
+	bool Load(const std::string& fileName);
 	void RayCast(RayCastData& rayData);
 	void Draw();
 

@@ -11,14 +11,14 @@ void SystemManager::EntityDestroyed(Entity entity)
 	}
 }
 
-void SystemManager::EntitySignatureChanged(Entity entity, Signature entitySignature)
+void SystemManager::EntitySignatureChanged(Entity entity, const Signature entitySignature)
 {
 	//各システムにエンティティのシグネチャが変更されたことを通知
 	for (auto const& pair : systems_)
 	{
 		auto const& type = pair.first;
 		auto const& system = pair.second;
-		auto const& systemSignature = signatures_[type];
+		auto const& systemSignature = signatures_.at(type);
 		//エンティティのシグネチャがシステムのシグネチャと一致するなら
 		if ((entitySignature & systemSignature) == systemSignature)
 		{
@@ -42,9 +42,9 @@ void SystemManager::AllSystemUpdate()
 
 void SystemManager::Clear()
 {
-	for (auto&& itr = systems_.begin(); itr != systems_.end(); itr++)
+	for (auto&& itr : systems_)
 	{
-		itr->second->Release();
+		itr.second->Release();
 	}
 	//signatures_.clear();
 	//systems_.clear();

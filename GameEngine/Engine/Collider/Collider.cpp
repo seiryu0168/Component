@@ -8,24 +8,26 @@
 //#include"../DirectX_11/Fbx.h"
 //#include"../ResourceManager/Model.h"
 
-Collider::Collider()
-	:attachObject_(nullptr),
-	center_({0,0,0}),
-	isKill_(false),
-	colliderType_(ColliderType::BOX_COLLIDER)
+Collider::Collider() : Collider({0,0,0})
 {
 }
 
-Collider::Collider(XMFLOAT3 centerPos)
+Collider::Collider(const XMFLOAT3& centerPos)
+	:attachObject_(nullptr),
+	center_(centerPos),
+	isKill_(false),
+	colliderType_(ColliderType::BOX_COLLIDER),
+	colliderEntity_(0),
+	nowHit_(false),
+	prevHit_(false)
 {
-	center_ = centerPos;
 }
 
 Collider::~Collider()
 {
 }
 
-void Collider::SetCollisionType(std::string name)
+void Collider::SetCollisionType(const std::string& name)
 {
 	if (name == "struct HitBox")
 		colliderType_ = ColliderType::BOX_COLLIDER;

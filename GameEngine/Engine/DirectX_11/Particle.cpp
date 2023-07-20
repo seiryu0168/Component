@@ -1,7 +1,7 @@
 #include "Particle.h"
 #include"../GameObject/Camera.h"
 
-Particle::Particle()
+Particle::Particle() : Particle(nullptr)
 {
 }
 
@@ -86,8 +86,8 @@ void Particle::UpdateEmitter()
 			if ((*emitterCount)->particleCount == 0)
 			{
 				(*emitterCount)->pBillBoard->Release();
-				SAFE_DELETE((*emitterCount)->pBillBoard);
-				SAFE_DELETE(*emitterCount);
+				//SAFE_DELETE((*emitterCount)->pBillBoard);
+				//SAFE_DELETE(*emitterCount);
 				emitterCount = emitterList_.erase(emitterCount);
 			}
 			else
@@ -147,7 +147,7 @@ void Particle::UpdateEmitter()
 					pParticle->gravity = (*emitterCount)->data.gravity;				//パーティクルのにかかる重力
 					pParticle->acceleration = (*emitterCount)->data.acceleration;	//パーティクルの加速度
 					
-					pParticle->pEmitter = *emitterCount;
+					pParticle->pEmitter = emitterCount->get();
 					++pParticle->pEmitter->particleCount;
 
 					//作成したパーティクルをリストに入れる
@@ -162,36 +162,36 @@ void Particle::UpdateEmitter()
 				(*emitterCount)->isDead = true;
 			}
 
-			emitterCount++;
+			++emitterCount;
 		}
 	}
 }
 
-int Particle::ParticleStart(EmitterData data)
+int Particle::ParticleStart(const EmitterData& data)
 {
 	int handle = 0;
-	for (auto emitterCount : emitterList_)
+	/*for (auto&& emitterCount : emitterList_)
 	{
 		handle++;
-	}
+	}*/
 
-	Emitter* pEmitter = new Emitter;
+	std::unique_ptr<Emitter> pEmitter = std::make_unique<Emitter>();
 
 	pEmitter->data = data;
 	pEmitter->frameCount = 0;
 
-	pEmitter->pBillBoard = new BillBoard;
+	pEmitter->pBillBoard = std::make_unique<BillBoard>();
 	pEmitter->pBillBoard->Load(data.textureFileName);
-	emitterList_.push_back(pEmitter);
 	handle = (int)emitterList_.size() - 1;
 	pEmitter->hParticle = handle;
+	emitterList_.push_back(std::move(pEmitter));
 	return handle;
 	//return handle;
 }
 
 void Particle::KillEmitter(int hEmitter)
 {
-	for (auto itr : emitterList_)
+	for (auto&& itr : emitterList_)
 	{
 		if (itr->hParticle == hEmitter)
 		{
@@ -201,24 +201,24 @@ void Particle::KillEmitter(int hEmitter)
 	}
 }
 
-void Particle::SetData(EmitterData data)
+void Particle::SetData(const EmitterData& data)
 {
 	int handle = 0;
-	for (auto emitterCount : emitterList_)
+	/*for (auto&& emitterCount : emitterList_)
 	{
 		handle++;
-	}
+	}*/
 
-	Emitter* pEmitter = new Emitter;
+	std::unique_ptr<Emitter> pEmitter = std::make_unique<Emitter>();
 
 	pEmitter->data = data;
 	pEmitter->frameCount = 0;
 
-	pEmitter->pBillBoard = new BillBoard;
+	pEmitter->pBillBoard = std::make_unique<BillBoard>();
 	pEmitter->pBillBoard->Load(data.textureFileName);
-	emitterList_.push_back(pEmitter);
 	handle = (int)emitterList_.size() - 1;
 	pEmitter->hParticle = handle;
+	emitterList_.push_back(std::move(pEmitter));
 	//return handle;
 }
 
@@ -229,19 +229,19 @@ void Particle::Draw()
 	Direct3D::SetShader(SHADER_TYPE::SHADER_EFF);
 	Direct3D::SetBlendMode(BLEND_MODE::BLEND_ADD);
 
-	for (auto i = particleList_.begin(); i != particleList_.end(); i++)
+	for (auto&& itr : particleList_)
 	{
 		XMMATRIX matW;
 
 		//移動行列
-		XMFLOAT3 pos = StoreFloat3((*i)->nowData.position);
+		XMFLOAT3 pos = StoreFloat3(itr->nowData.position);
 		XMMATRIX matTrans = attacheObject_->GetTransform()->GetWorldMatrix()*XMMatrixTranslation(pos.x, pos.y, pos.z);
 		
 		//拡大行列
-		XMMATRIX matScale = XMMatrixScaling((*i)->nowData.scale.x, (*i)->nowData.scale.y, 1.0f);
+		XMMATRIX matScale = XMMatrixScaling(itr->nowData.scale.x, itr->nowData.scale.y, 1.0f);
 
 		matW = matScale * Camera::GetBillBoardMatrix() * matTrans;
-		(*i)->pEmitter->pBillBoard->Draw(matW, (*i)->nowData.color);
+		itr->pEmitter->pBillBoard->Draw(matW, itr->nowData.color);
 	}
 }
 

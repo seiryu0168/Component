@@ -16,7 +16,7 @@ private:
 	//配列内の有効なエンティティの総数
 	size_t size_;
 public:
-	void InsertData(Entity entity, T& component) 
+	void InsertData(const Entity& entity, const T& component) 
 	{
 		//同じエンティティに複数のコンポーネントが追加されてはいけない
 		assert(entityToIndexMap_.find(entity) == entityToIndexMap_.end() && "Component added to same entity more than once");
@@ -28,7 +28,7 @@ public:
 		componentArray_[newIndex] = component;
 		++size_;
 	}
-	void RemoveData(Entity entity)
+	void RemoveData(const Entity& entity)
 	{
 		assert(entityToIndexMap_.find(entity) != entityToIndexMap_.end() && "Removing non-existent component");
 
@@ -61,13 +61,13 @@ public:
 		//indexToEntityMap_.clear();
 		//size_ = 0;	
 	}
-	T& GetData(Entity entity)
+	T& GetData(const Entity& entity)
 	{
 		assert(entityToIndexMap_.find(entity) != entityToIndexMap_.end() && "Retrieving non-existent component");
 		//指定されたエンティティを返す
 		return componentArray_[entityToIndexMap_[entity]];
 	}
-	void EntityDestroyed(Entity entity) override
+	void EntityDestroyed(const Entity& entity) override
 	{
 		//指定したエンティティを消す
 		if (entityToIndexMap_.find(entity) != entityToIndexMap_.end())

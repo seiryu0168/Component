@@ -50,7 +50,7 @@ private:
         EmitterData data;                   //エミッターのデータ
         int hParticle = -1;                 //ハンドル
         DWORD frameCount = 0;               //経過フレーム数
-        BillBoard* pBillBoard = nullptr;    //パーティクルに使うポリゴン
+        std::unique_ptr<BillBoard> pBillBoard = nullptr;    //パーティクルに使うポリゴン
         bool isDead = false;                //消すかどうか
         int particleCount = 0;              //このエミッターから出て今残ってるパーティクルの数
     };
@@ -75,7 +75,7 @@ private:
         Emitter* pEmitter;      //エミッター
     };
 
-    std::list<Emitter*>      emitterList_;
+    std::list<std::shared_ptr<Emitter>>      emitterList_;
     std::list<std::shared_ptr<ParticleData>> particleList_;
     GameObject* attacheObject_;
 public:
@@ -98,11 +98,11 @@ public:
     void UpdateEmitter();
 
     //パーティクル発生
-    int ParticleStart(EmitterData data);
+    int ParticleStart(const EmitterData& data);
     
     //エミッター消去
     void KillEmitter(int hEmitter);
-    void SetData(EmitterData data);
+    void SetData(const EmitterData& data);
 
     //描画
     void Draw();

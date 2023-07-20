@@ -50,9 +50,9 @@ private:
 public:
 
 	Collider();
-	Collider(XMFLOAT3 centerPos);
+	Collider(const XMFLOAT3& centerPos);
 	template<typename T>
-	Collider(XMFLOAT3 centerPos, T colliderShape)
+	Collider(const XMFLOAT3& centerPos, const T& colliderShape)
 	{
 		center_ = centerPos;
 		std::string typeName = typeid(T).name();
@@ -63,17 +63,17 @@ public:
 	~Collider();
 
 	void SetAttachObject(GameObject* object) { attachObject_ = object; }
-	GameObject* GetAttachObject() { return attachObject_; }
-	ColliderType GetType() { return colliderType_; }
+	GameObject* GetAttachObject() const { return attachObject_; }
+	ColliderType GetType() const { return colliderType_; }
 	void SetCenter(const XMFLOAT3& pos) { center_ = pos; }
-	const XMFLOAT3& GetCenter() { return center_; }
+	const XMFLOAT3& GetCenter() const { return center_; }
 	void HitEnable(bool isHit) { nowHit_ = isHit; }
-	bool IsHit() { return nowHit_; }
+	bool IsHit() const { return nowHit_; }
 	void KillCollider() { isKill_ = true; }
-	bool IsKill() { return isKill_; }
+	bool IsKill() const { return isKill_; }
 
 	template<typename T>
-	void SetCollider(T colliderShape)
+	void SetCollider(const T& colliderShape)
 	{
 		std::string typeName = typeid(T).name();
 		SetCollisionType(typeName);
@@ -82,17 +82,17 @@ public:
 	}
 
 	template <typename T>
-	T& GetCollider()
+	T& GetCollider() const
 	{
 
 		return Coordinator::GetComponent<T>(colliderEntity_);
 	}
 	template<typename T>
-	T& GetCollisionShape()
+	T& GetCollisionShape() const
 	{
 		return Coordinator::GetComponent<T>(colliderEntity_);
 	}
-	void SetCollisionType(std::string name);
+	void SetCollisionType(const std::string& name);
 
 	////è’ìÀîÕàÕ
 	//

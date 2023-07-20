@@ -15,7 +15,7 @@ private:
 
 public:
 	void EntityDestroyed(Entity entity);
-	void EntitySignatureChanged(Entity entity, Signature entitySignature);
+	void EntitySignatureChanged(Entity entity, const Signature entitySignature);
 	void AllSystemUpdate();
 	void Clear();
 
@@ -33,7 +33,7 @@ public:
 	}
 
 	template <typename T>
-	void SetSignature(Signature signature)
+	void SetSignature(const Signature& signature)
 	{
 		const char* typeName = typeid(T).name();
 		assert(signatures_.find(typeName) == signatures_.end() && "System used before registered");
@@ -42,7 +42,7 @@ public:
 	}
 
 	template <typename T>
-	System* GetSystem()
+	System* GetSystem() const
 	{
 
 		const char* typeName = typeid(T).name();
