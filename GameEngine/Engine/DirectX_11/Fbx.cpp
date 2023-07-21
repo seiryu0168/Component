@@ -3,6 +3,7 @@
 #include"../GameObject/Camera.h"
 #include"Math.h"
 #include"Texture.h"
+#include <filesystem>
 #ifdef _DEBUG
 #define _CRTDBG_MAP_ALLOC
 #include<memory>
@@ -54,29 +55,31 @@ HRESULT Fbx::Load(const std::string& fileName)
 
 
 	//現在のカレントディレクトリを退避しておく
-	WCHAR defaultDirectory[MAX_PATH];
-	GetCurrentDirectory(MAX_PATH, defaultDirectory);
+	std::filesystem::path def = std::filesystem::current_path();
+	//WCHAR defaultDirectory[MAX_PATH];
+	//GetCurrentDirectory(MAX_PATH, defaultDirectory);
 	//fileNameからディレクトリを取得
 	//wchar_t wtext[FILENAME_MAX];
-	size_t ret;
-	CHAR dir[MAX_PATH];
-	WCHAR wDir[MAX_PATH];
-	CHAR fName[FILENAME_MAX];
-	
+	//size_t ret;
+	//CHAR dir[MAX_PATH];
+	//WCHAR wDir[MAX_PATH];
+	//CHAR fName[FILENAME_MAX];
 	//文字列を分割してディレクトリとファイル名を分ける
-	_splitpath_s(fileName.c_str(), nullptr, 0, dir, MAX_PATH, fName, FILENAME_MAX, nullptr, 0);
-	mbstowcs_s(&ret, wDir, dir, MAX_PATH);
+	//_splitpath_s(fileName.c_str(), nullptr, 0, dir, MAX_PATH, fName, FILENAME_MAX, nullptr, 0);
+	//mbstowcs_s(&ret, wDir, dir, MAX_PATH);
+	// 
 	//ファイル名
-	modelName_ = fName;
+	std::filesystem::path file = fileName;
+	modelName_ = file.stem().string();
 	
 
 	//ディレクトリ変更
-	SetCurrentDirectory(wDir);
+	SetCurrentDirectory(file.parent_path().c_str());
 	
 	CheckNode(pNode, &parts_);
 	
 	//ディレクトリを元に戻す
-	SetCurrentDirectory(defaultDirectory);
+	SetCurrentDirectory(def.c_str());
 
 	pFbxScene_->Destroy();
 	pFbxManager_->Destroy();

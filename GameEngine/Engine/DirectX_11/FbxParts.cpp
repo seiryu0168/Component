@@ -3,6 +3,7 @@
 #include"../ResourceManager/Model.h"
 #include"../GameObject/Camera.h"
 #include"Direct3D.h"
+#include <filesystem>
 
 #ifdef _DEBUG
 #define _CRTDBG_MAP_ALLOC
@@ -581,20 +582,19 @@ void FbxParts::InitMaterial(fbxsdk::FbxNode* pNode)
 		if (lProperty.GetSrcObjectCount<FbxFileTexture>() > 0)
 		{
 			FbxFileTexture* textureInfo = lProperty.GetSrcObject<FbxFileTexture>(0);
-			const char* textureFilePath = textureInfo->GetRelativeFileName();
+			std::filesystem::path textureFilePath = textureInfo->GetRelativeFileName();
 
 			//パス名をファイル名と拡張子だけにする
-			char name[_MAX_FNAME];	//ファイル名
-			char ext[_MAX_EXT];		//拡張子
-			_splitpath_s(textureFilePath, nullptr, 0, nullptr, 0, name, _MAX_FNAME, ext, _MAX_EXT);
-			sprintf_s(name, "%s%s", name, ext);
+			//char name[_MAX_FNAME];	//ファイル名
+			//char ext[_MAX_EXT];		//拡張子
+			//_splitpath_s(textureFilePath, nullptr, 0, nullptr, 0, name, _MAX_FNAME, ext, _MAX_EXT);
+			//sprintf_s(name, "%s%s", name, ext);
 
-			wchar_t wtext[FILENAME_MAX];
-			size_t ret;
-			mbstowcs_s(&ret, wtext, name, strlen(name));
+			//wchar_t wtext[FILENAME_MAX];
+			//size_t ret;
+			//mbstowcs_s(&ret, wtext, name, strlen(name));
 
-			std::wstring fName = wtext;
-			fName = L"../Image\\" + fName;
+			std::wstring fName = L"../Image\\" + textureFilePath.filename().wstring();
 			//ファイルからテクスチャ作成
 			std::unique_ptr<Texture> pTex= std::make_unique<Texture>();
 			pTex->Load(fName.c_str());
@@ -619,21 +619,21 @@ void FbxParts::InitMaterial(fbxsdk::FbxNode* pNode)
 			if (normalMapCount != 0)
 			{
 				FbxFileTexture* textureInfo = IPropaty.GetSrcObject<FbxFileTexture>(0);
-				const char* textureFilePath = textureInfo->GetRelativeFileName();
+				std::filesystem::path textureFilePath = textureInfo->GetRelativeFileName();
 
 				//ファイル名+拡張だけにする
-				char name[_MAX_FNAME];	//ファイル名
-				char ext[_MAX_EXT];	//拡張子
-				_splitpath_s(textureFilePath, nullptr, 0, nullptr, 0, name, _MAX_FNAME, ext, _MAX_EXT);
+				//char name[_MAX_FNAME];	//ファイル名
+				//char ext[_MAX_EXT];	//拡張子
+				//_splitpath_s(textureFilePath, nullptr, 0, nullptr, 0, name, _MAX_FNAME, ext, _MAX_EXT);
 
-				sprintf_s(name, "%s%s", name, ext);
+				//sprintf_s(name, "%s%s", name, ext);
 
 				//ファイルからテクスチャ作成
-				wchar_t wtext[FILENAME_MAX];
-				size_t ret;
-				mbstowcs_s(&ret, wtext, name, strlen(name));
+				//wchar_t wtext[FILENAME_MAX];
+				//size_t ret;
+				//mbstowcs_s(&ret, wtext, name, strlen(name));
 
-				pNormal->Load(wtext);
+				pNormal->Load(textureFilePath.filename().c_str());
 				materialList_[i].SetNormalMap(std::move(pNormal));
 			}
 			else

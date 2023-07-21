@@ -241,11 +241,11 @@ HRESULT LineParticle::Load(const std::string& fileName)
 		return hr;
 	}
 	pTexture_ = std::make_shared<Texture>();
-	wchar_t name[FILENAME_MAX];
-	size_t ret;
-	mbstowcs_s(&ret, name, fileName.c_str(), fileName.length());
+	//wchar_t name[FILENAME_MAX];
+	//size_t ret;
+	//mbstowcs_s(&ret, name, fileName.c_str(), fileName.length());
 
-	hr = pTexture_->Load(name);
+	hr = pTexture_->Load(fileName.c_str());
 	if (FAILED(hr))
 	{
 		MessageBox(nullptr, L"ラインパーティクルのテクスチャのロードに失敗", L"エラー", MB_OK);
