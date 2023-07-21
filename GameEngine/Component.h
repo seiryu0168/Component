@@ -15,7 +15,7 @@ public:
 
 	virtual ~Component() {};
 	void SetParent(Component* parent);
-	Component* GetParent();
+	Component* GetParent() const;
 	//virtual void Draw() {};
 	virtual void Start() {};
 	virtual void Update() {};

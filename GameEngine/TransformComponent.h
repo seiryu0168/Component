@@ -18,8 +18,8 @@ public:
 		
 	std::shared_ptr<TransformComponent> pParent_;//親の情報
 	
-	TransformComponent(Object* atcObj);
-	TransformComponent();
+	TransformComponent(Object* atcObj = nullptr);
+	//TransformComponent();
 	~TransformComponent();
 
 	//各行列の計算
@@ -42,17 +42,17 @@ public:
 	void SetPositionX(float x) { position_.x = x; }
 	void SetPositionY(float y) { position_.y = y; }
 	void SetPositionZ(float z) { position_.z = z; }
-	void SetPosition(XMFLOAT3 pos) { position_ = pos; }
+	void SetPosition(const XMFLOAT3& pos) { position_ = pos; }
 
 	void SetRotateX(float x) { rotate_.x = x; }
 	void SetRotateY(float y) { rotate_.y = y; }
 	void SetRotateZ(float z) { rotate_.z = z; }
-	void SetRotate(XMFLOAT3 rotate) { rotate_ = rotate; }
+	void SetRotate(const XMFLOAT3& rotate) { rotate_ = rotate; }
 
 	void SetScaleX(float x) { scale_.x = x; }
 	void SetScaleY(float y) { scale_.y = y; }
 	void SetScaleZ(float z) { scale_.z = z; }
-	void SetScale(XMFLOAT3 scale) { scale_ = scale; }
+	void SetScale(const XMFLOAT3& scale) { scale_ = scale; }
 
 	void SetParentTransformComponent(std::shared_ptr<TransformComponent> parent);
 

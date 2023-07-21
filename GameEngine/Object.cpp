@@ -3,7 +3,7 @@
 #include"Engine//SAFE_DELETE_RELEASE.h"
 
 int objectcount = 0;
-Object::Object(Object* parent, const std::string name)
+Object::Object(Object* parent, const std::string& name)
 	:pParent_(parent),
 	objectName_(name),
 	objectTag_(""),
@@ -13,7 +13,10 @@ Object::Object(Object* parent, const std::string name)
 	drawFlag_(true),
 	startFlag_(false),
 	objectID_(-1),
-	time_(0)
+	time_(0),
+	pScene_(nullptr),
+	physicsSystem_(nullptr),
+	childList_()
 {
 	
 	//Coordinator::RegisterComponent<Gravity>();
@@ -31,11 +34,7 @@ Object::Object(Object* parent, const std::string name)
 	Coordinator::SetSystemSignature<PhysicsSystem>(signature);*/
 }
 
-Object::Object(Object* parent)
-{
-}
-
-Object::Object()
+Object::Object(Object* parent) : Object(parent, "")
 {
 }
 
@@ -48,7 +47,7 @@ void Object::UpdateSub()
 	/////////アップデート/////////
 	if (startFlag_ == false && activeFlag_)
 	{
-		Object* p = GetRootObject();
+		//Object* p = GetRootObject();
 		this->Initialize();
 		this->startFlag_ = true;
 	}
@@ -59,9 +58,9 @@ void Object::UpdateSub()
 
 	
 
-	for (auto itr = childList_.begin(); itr != childList_.end(); itr++)
+	for (auto&& itr : childList_)
 	{
-		(*itr)->UpdateSub();
+		itr->UpdateSub();
 	}
 }
 
@@ -76,9 +75,9 @@ void Object::ComponentUpdate()
 void Object::FixedUpdateSub()
 {
 	FixedUpdate();
-	for (auto itr = childList_.begin(); itr != childList_.end(); itr++)
+	for (auto&& itr : childList_)
 	{
-		(*itr)->FixedUpdateSub();
+		itr->FixedUpdateSub();
 	}
 
 	for (auto itr = childList_.begin(); itr != childList_.end();)
@@ -86,7 +85,7 @@ void Object::FixedUpdateSub()
 		if ((*itr)->killFlag_ == true)
 		{
 			(*itr)->ReleaseSub();
-			delete* itr;
+			//delete* itr;
 			itr = childList_.erase(itr);
 		}
 		/*else
@@ -102,9 +101,9 @@ void Object::DrawSub()
 	{
 		Draw();
 	}
-	for (auto itr=childList_.begin();itr!=childList_.end();itr++)
+	for (auto&& itr : childList_)
 	{
-		(*itr)->DrawSub();
+		itr->DrawSub();
 	}
 }
 
@@ -115,10 +114,9 @@ void Object::SecondDrawSub()
 		SecondDraw();
 	}
 
-	for (auto itr = childList_.begin(); itr != childList_.end(); itr++)
+	for (auto&& itr : childList_)
 	{
-		
-			(*itr)->SecondDrawSub();
+		itr->SecondDrawSub();
 	}
 }
 
@@ -129,9 +127,9 @@ void Object::ThirdDrawSub()
 		ThirdDraw();
 	}
 
-	for (auto itr = childList_.begin(); itr != childList_.end(); itr++)
+	for (auto&& itr : childList_)
 	{
-			(*itr)->ThirdDrawSub();
+		itr->ThirdDrawSub();
 	}
 }
 void Object::ReleaseSub()
@@ -140,10 +138,10 @@ void Object::ReleaseSub()
 	//{
 	//	SAFE_DELETE(*i);
 	//}
-	for (auto i = childList_.begin(); i != childList_.end(); i++)
+	for (auto&& itr : childList_)
 	{
-		(*i)->ReleaseSub();
-		SAFE_DELETE(*i);
+		itr->ReleaseSub();
+		//SAFE_DELETE(*i);
 	}
 
 	Release();
@@ -172,7 +170,7 @@ void Object::ReleaseSub()
 //	}
 //}
 
-Object* Object::GetParent()
+Object* Object::GetParent() const
 {
 	return pParent_;
 }
@@ -185,25 +183,25 @@ Object* Object::GetRootObject()
 		return GetParent()->GetRootObject();
 }
 
-Object* Object::FindObject(std::string name)
+Object* Object::FindObject(const std::string& name)
 {
 	return GetRootObject()->FindChild(name);
 }
 
-Object* Object::FindObjectAtTag(std::string tagName)
+Object* Object::FindObjectAtTag(const std::string& tagName)
 {
 	return GetRootObject()->FindChildAtTag(tagName);
 }
 
-Object* Object::FindChild(std::string name)
+Object* Object::FindChild(const std::string& name) const
 {
 	if (childList_.empty())
 		return nullptr;
 
-	for (Object* obj : childList_)
+	for (auto&& obj : childList_)
 	{
 		if (obj->objectName_ == name)
-			return obj;
+			return obj.get();
 
 		Object* objChild = obj->FindChild(name);
 		if (objChild != nullptr)
@@ -213,15 +211,15 @@ Object* Object::FindChild(std::string name)
 	return nullptr;
 }
 
-Object* Object::FindChildAtTag(std::string tagName)
+Object* Object::FindChildAtTag(const std::string& tagName) const
 {
 	if (childList_.empty())
 		return nullptr;
 
-	for (Object* obj : childList_)
+	for (auto&& obj : childList_)
 	{
 		if (obj->objectTag_== tagName)
-			return obj;
+			return obj.get();
 
 		Object* objChild = obj->FindChildAtTag(tagName);
 		if (objChild != nullptr)
@@ -234,7 +232,7 @@ Object* Object::FindChildAtTag(std::string tagName)
 Object* Object::GetScene()
 {
 	auto itr = GetRootObject()->GetChildList()->begin();
-	return (*(*itr)->GetChildList()->begin());
+	return (*itr)->GetChildList()->begin()->get();
 }
 
 void Object::KillAllChildren()
@@ -245,29 +243,30 @@ void Object::KillAllChildren()
 		return;
 	}
 	//リストにある子どもを全員消す
-	for (auto itr = this->childList_.begin(); itr != this->childList_.end();)
+	for (auto&& itr : childList_)
 	{
-		KillObjectSub(*itr);
-		delete* itr;
-		itr = this->childList_.erase(itr);
+		KillObjectSub(itr.get());
+		//delete* itr;
+		//itr = this->childList_.erase(itr);
 	}
+	childList_.clear();
 }
 
 void Object::KillObjectSub(Object* pTarget)
 {
 	if (!pTarget->childList_.empty())
 	{
-		for (auto itr = pTarget->childList_.begin(); itr != pTarget->childList_.end();)
+		for (auto&& itr : pTarget->childList_)
 		{
-			KillObjectSub(*itr);
-			SAFE_DELETE(*itr);
-			itr = pTarget->childList_.erase(itr);
+			KillObjectSub(itr.get());
+			//SAFE_DELETE(*itr);
+			//itr = pTarget->childList_.erase(itr);
 		}
 		pTarget->childList_.clear();
 	}
 	pTarget->Release();
 }
-void Object::PushBackChild(Object* pTarget)
+void Object::PushBackChild(const std::shared_ptr<Object>& pTarget)
 {
 	assert(pTarget != nullptr);
 	pTarget->pParent_ = this;

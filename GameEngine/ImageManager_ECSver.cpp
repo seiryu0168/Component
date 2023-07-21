@@ -3,11 +3,11 @@ namespace ImageManager_ECSver
 {
 
 		std::unordered_map<std::string, std::shared_ptr<Sprite>> images_;
-    std::shared_ptr<Sprite> Load(std::string fileName)
+    std::shared_ptr<Sprite> Load(const std::string& fileName)
     {	
-			if (images_.find(fileName) != images_.end())
+			if (auto itr = images_.find(fileName); itr != images_.end())
 			{
-				return images_.find(fileName)->second;
+				return itr->second;
 			}
 
 			std::shared_ptr<Sprite> image = std::make_shared<Sprite>();

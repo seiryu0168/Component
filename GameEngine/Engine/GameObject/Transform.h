@@ -18,8 +18,8 @@ public:
 	Transform* pParent_;//親の情報
 
 	//コンストラクタ
-	Transform();
-	Transform(Transform* parent);
+	//Transform();
+	Transform(Transform* parent = nullptr);
 
 	//デストラクタ
 	~Transform();

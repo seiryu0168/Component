@@ -13,7 +13,7 @@ namespace Audio
 	/// <param name="fileName">ファイル名</param>
 	/// <param name="svNum">最大同時再生数</param>
 	/// <returns>ロードしたデータの番号</returns>
-	int Load(std::string fileName,int svNum = 1);
+	int Load(const std::string& fileName,int svNum = 1);
 	
 	/// <summary>
 	/// 再生

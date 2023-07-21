@@ -6,7 +6,7 @@
 #include"Engine/GameObject/Transform.h"
 namespace ModelManager_ECSver
 {
-	std::shared_ptr<Fbx> Load(std::string fileName);
+	std::shared_ptr<Fbx> Load(const std::string& fileName);
 	void Release();
 };
 

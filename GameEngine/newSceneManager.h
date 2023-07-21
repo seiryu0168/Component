@@ -13,11 +13,11 @@ enum class SCENE_ID
 namespace newSceneManager
 {
 	void Initialize();
-	void Initialize(std::string name);
+	void Initialize(const std::string& name);
 	void Update();
 	void Draw();
-	void AddScene(std::string objectFileName);
-	void CreateScene(std::string sceneName);
+	void AddScene(const std::string& objectFileName);
+	void CreateScene(const std::string& sceneName);
 	void ChangeScene(SCENE_ID next, int countDown = 0);
 	void ECSInitialize();
 

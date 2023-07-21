@@ -2,13 +2,13 @@
 #include"Object.h"
 Component::Component(Object* atcObj, Component* parent)
 	:attacheObject_(atcObj),
-	parent_(parent)
+	parent_(parent),
+	componentID_()
 {
 }
 
 Component::Component()
-	:attacheObject_(nullptr),
-	parent_(nullptr)
+	:Component(nullptr, nullptr)
 {
 }
 
@@ -17,7 +17,7 @@ void Component::SetParent(Component* parent)
 	parent_ = parent;
 }
 
-Component* Component::GetParent()
+Component* Component::GetParent() const
 {
 	return parent_;
 }

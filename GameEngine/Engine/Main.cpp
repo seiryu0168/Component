@@ -104,7 +104,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
 	DebugUI::Initialize(hWnd, Direct3D::GetDevice(), Direct3D::GetContext());
 	Input::Initialize(hWnd);
-	ModelManager::Initialize();
+	//ModelManager::Initialize();
 	Camera::Initialize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	Audio::Initialize();
 	Coordinator::Init();

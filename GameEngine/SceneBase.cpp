@@ -8,20 +8,20 @@
 
 
 SceneBase::SceneBase()
-	:sceneName_("default")
+	:SceneBase("default")
 {
 }
 
-SceneBase::SceneBase(std::string name)
+SceneBase::SceneBase(const std::string& name)
 	:sceneName_(name)
 {
 }
 
 void SceneBase::SceneInitialize()
 {
-	rootObject_ = new RootObject;
+	rootObject_ = std::make_shared<RootObject>();
 	rootObject_->SetTransform();
-	setter_ = ObjectSetter(rootObject_);
+	setter_ = ObjectSetter(rootObject_.get());
 }
 
 void SceneBase::ObjectSet()
@@ -29,7 +29,7 @@ void SceneBase::ObjectSet()
 	setter_.SetObject();
 }
 
-void SceneBase::SetFile(std::string name)
+void SceneBase::SetFile(const std::string& name)
 {
 	fileName_ = name;
 }
@@ -42,6 +42,6 @@ void SceneBase::Update()
 void SceneBase::AllKillObject()
 {
 	rootObject_->KillAllChildren();
-	SAFE_DELETE(rootObject_);
+	//SAFE_DELETE(rootObject_);
 	setter_.DeleteObject();
 }

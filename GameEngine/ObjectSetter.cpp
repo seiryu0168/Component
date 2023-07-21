@@ -2,7 +2,7 @@
 #include"RootObject.h"
 #include"TestObject.h"
 #include"TestObjectChild.h"
-ObjectSetter::ObjectSetter()
+ObjectSetter::ObjectSetter() : ObjectSetter(nullptr)
 {
 
 }
@@ -16,7 +16,7 @@ ObjectSetter::~ObjectSetter()
 {
 }
 
-bool ObjectSetter::DataLoad(std::string fileName)
+bool ObjectSetter::DataLoad(const std::string& fileName)
 {
 	return false;
 }

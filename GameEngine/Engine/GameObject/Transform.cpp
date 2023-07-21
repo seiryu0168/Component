@@ -1,18 +1,18 @@
 #include "Transform.h"
 
 //コンストラクタ
-Transform::Transform()
-	:matTranslate_(XMMatrixIdentity()),
-	matRotate_(XMMatrixIdentity()),
-	matScale_(XMMatrixIdentity()),
-	position_(XMVectorSet(0.0f, 0.0f, 0.0f, 0.0f)),
-	rotate_(XMVectorSet(0.0f, 0.0f, 0.0f, 0.0f)),
-	scale_(XMFLOAT3(1.0f, 1.0f, 1.0f)),
-	baseVec_(XMVectorSet(0, 0, 0, 0)),
-	pParent_(nullptr)
-{
-
-}
+//Transform::Transform()
+//	:matTranslate_(XMMatrixIdentity()),
+//	matRotate_(XMMatrixIdentity()),
+//	matScale_(XMMatrixIdentity()),
+//	position_(XMVectorSet(0.0f, 0.0f, 0.0f, 0.0f)),
+//	rotate_(XMVectorSet(0.0f, 0.0f, 0.0f, 0.0f)),
+//	scale_(XMFLOAT3(1.0f, 1.0f, 1.0f)),
+//	baseVec_(XMVectorSet(0, 0, 0, 0)),
+//	pParent_(nullptr)
+//{
+//
+//}
 
 Transform::Transform(Transform* parent)
 	:matTranslate_(XMMatrixIdentity()),

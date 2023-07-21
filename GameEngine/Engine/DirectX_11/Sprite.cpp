@@ -43,7 +43,7 @@ HRESULT Sprite::Initialize()
 	return S_OK;
 }
 
-void Sprite::Draw(Transform& transform, RECT rect, XMFLOAT4 changeColor,float alpha)
+void Sprite::Draw(Transform& transform, const RECT& rect, const XMFLOAT4& changeColor,float alpha)
 {
 	Direct3D::SetShader(SHADER_TYPE::SHADER_2D);
 	Direct3D::SetBlendMode(BLEND_MODE::BLEND_DEFAULT);
@@ -110,7 +110,7 @@ HRESULT Sprite::CreateVertexBuffer()
 	bd_vertex.MiscFlags = 0;
 	bd_vertex.StructureByteStride = 0;
 	D3D11_SUBRESOURCE_DATA data_vertex;
-	data_vertex.pSysMem = vertices_;
+	data_vertex.pSysMem = vertices_.get();
 	HRESULT hr = Direct3D::pDevice->CreateBuffer(&bd_vertex, &data_vertex, &pVertexBuffer_);
 	if (FAILED(hr))
 	{
@@ -132,7 +132,7 @@ HRESULT Sprite::CreateIndexBuffer()
 	bd.MiscFlags = 0;
 
 	D3D11_SUBRESOURCE_DATA InitData;
-	InitData.pSysMem = index_;
+	InitData.pSysMem = index_.get();
 	InitData.SysMemPitch = 0;
 	InitData.SysMemSlicePitch = 0;
 	HRESULT hr = Direct3D::pDevice->CreateBuffer(&bd, &InitData, &pIndexBuffer_);
@@ -165,7 +165,7 @@ HRESULT Sprite::CreateConstantBuffer()
 	return S_OK;
 }
 
-HRESULT Sprite::Load(std::string fileName)
+HRESULT Sprite::Load(const std::string& fileName)
 {
 	hPict_ = TextureManager::Load(fileName.c_str());
 	if (hPict_<0)
@@ -199,7 +199,7 @@ HRESULT Sprite::Load(std::string fileName)
 void Sprite::InitVertex()
 {
 	// 頂点情報
-	VERTEX vertices[] =
+	static VERTEX vertices[] =
 	{
 		//1
 		XMVectorSet( -1.0f,  1.0f, 0.0f, 0.0f),	XMVectorSet(0.0f,0.0f,0.0f,0.0f),	// 四角形の頂点（左上）
@@ -208,18 +208,18 @@ void Sprite::InitVertex()
 		XMVectorSet( -1.0f, -1.0f, 0.0f, 0.0f),	XMVectorSet(0.0f,1.0f,0.0f,0.0f),   // 四角形の頂点（左下）
 	};
 	vertexNum_ = sizeof(vertices) / sizeof(VERTEX);
-	vertices_ = new VERTEX[vertexNum_];
-	memcpy(vertices_, vertices, sizeof(vertices));
+	vertices_ = std::make_unique<VERTEX[]>(vertexNum_);
+	memcpy(vertices_.get(), vertices, sizeof(vertices));
 }
 
 void Sprite::InitIndex()
 {
 	//インデックス情報
-	int index[] = { 0,1,2, 0,2,3};
+	static int index[] = { 0,1,2, 0,2,3};
 
 	indexNum_ = sizeof(index) / sizeof(int);
-	index_ = new int[indexNum_];
-	memcpy(index_, index, sizeof(index));
+	index_ = std::make_unique<int[]>(indexNum_);
+	memcpy(index_.get(), index, sizeof(index));
 }
 
 //コンスタントバッファに情報を渡す
@@ -262,8 +262,8 @@ void Sprite::InitIndex()
 
 void Sprite::Release()
 {
-	SAFE_DELETE_ARRAY(index_);
-	SAFE_DELETE_ARRAY(vertices_);
+	//SAFE_DELETE_ARRAY(index_);
+	//SAFE_DELETE_ARRAY(vertices_);
 	SAFE_RELEASE(pConstantBuffer_);
 	SAFE_RELEASE(pIndexBuffer_);
 	SAFE_RELEASE(pVertexBuffer_);

@@ -3,7 +3,7 @@
 #include "Texture.h"
 
 #pragma comment( lib, "WindowsCodecs.lib" )
-Texture::Texture()
+Texture::Texture() : imgHeight_(), imgWidth_()
 {
 	pSampler_ = nullptr;
 	pSRV_ = nullptr;
@@ -14,7 +14,7 @@ Texture::~Texture()
 	Release();
 }
 
-HRESULT Texture::Load(LPCWSTR fileName)
+HRESULT Texture::Load(const LPCWSTR& fileName)
 {
 	//画像ファイルロード
 	IWICImagingFactory* pFactory = nullptr;
@@ -101,7 +101,7 @@ HRESULT Texture::Load(LPCWSTR fileName)
 
 }
 
-HRESULT Texture::Load(std::string fileName)
+HRESULT Texture::Load(const std::string& fileName)
 {
 	//パス名をファイル名と拡張子だけにする
 	char name[_MAX_FNAME];	//ファイル名
@@ -204,12 +204,12 @@ HRESULT Texture::Load(std::string fileName)
 
 
 
-UINT Texture::GetWidth()
+UINT Texture::GetWidth() const
 {
 	return imgWidth_;
 }
 
-UINT Texture::GetHeight()
+UINT Texture::GetHeight() const
 {
 	return imgHeight_;
 }

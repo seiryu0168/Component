@@ -16,7 +16,7 @@ public:
 	/// </summary>
 	/// <param name="fileName"></param>
 	/// <returns>¬Œ÷‚µ‚½ê‡true,¸”s‚µ‚½‚çfalse</returns>
-	bool DataLoad(std::string fileName);
+	bool DataLoad(const std::string& fileName);
 	void SetObject();
 	void DeleteObject();
 

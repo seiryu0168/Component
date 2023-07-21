@@ -4,59 +4,60 @@ namespace TextureManager
 {
 	struct textureData
 	{
-		Texture* pTexture_;
+		std::shared_ptr<Texture> pTexture_;
 		std::string fileName_;
+		textureData() : pTexture_(nullptr), fileName_("") {}
 	};
-	std::vector<textureData*> textureList_;
+	std::vector<std::shared_ptr<textureData>> textureList_;
 }
 
-int TextureManager::Load(std::string fileName)
+int TextureManager::Load(const std::string& fileName)
 {
-	textureData* pTextureData = new textureData;
+	std::unique_ptr<textureData> pTextureData = std::make_unique<textureData>();
 	pTextureData->fileName_ = fileName;
 	pTextureData->pTexture_ = nullptr;
 	
-	for (auto itr = textureList_.begin(); itr != textureList_.end(); itr++)
+	for (auto&& itr : textureList_)
 	{
-		if (fileName == (*itr)->fileName_)
+		if (fileName == itr->fileName_)
 		{
-			pTextureData->pTexture_ = (*itr)->pTexture_;
+			pTextureData->pTexture_ = itr->pTexture_;
 
 			break;
 		}
 	}
 	if (pTextureData->pTexture_ == nullptr)
 	{
-		pTextureData->pTexture_ = new Texture;
+		pTextureData->pTexture_ = std::make_shared<Texture>();
 		pTextureData->pTexture_->Load(pTextureData->fileName_);
 	}
-	textureList_.push_back(pTextureData);
+	textureList_.push_back(std::move(pTextureData));
 	return (int)textureList_.size() - 1;
 }
 
 Texture* TextureManager::GetTexture(int textureHandle)
 {
-	return textureList_[textureHandle]->pTexture_;
+	return textureList_[textureHandle]->pTexture_.get();
 }
 
 void TextureManager::Release()
 {
-	for (int i = 0; i<textureList_.size(); i++)
-	{
-		bool isRef = false;
-		for (int j = i + 1; j < textureList_.size(); j++)
-		{
-			if (textureList_[i]->pTexture_ == textureList_[j]->pTexture_)
-			{
-				isRef = true;
-			}
-		}
-		if (isRef==false)
-		{
-			SAFE_DELETE(textureList_[i]->pTexture_);
-		}
-		SAFE_DELETE(textureList_[i]);
-	}
+	//for (auto&& itr : textureList_)
+	//{
+	//	bool isRef = false;
+	//	for (int j = i + 1; j < textureList_.size(); j++)
+	//	{
+	//		if (itr->pTexture_ == textureList_[j]->pTexture_)
+	//		{
+	//			isRef = true;
+	//		}
+	//	}
+	//	if (isRef==false)
+	//	{
+	//		//SAFE_DELETE(textureList_[i]->pTexture_);
+	//	}
+	//	//SAFE_DELETE(textureList_[i]);
+	//}
 
 	textureList_.clear();
 }

@@ -52,7 +52,7 @@ namespace newSceneManager
 		sceneList_[static_cast<int>(currentScene_)].SceneInitialize();
 		sceneList_[static_cast<int>(currentScene_)].ObjectSet();
 	}
-	void Initialize(std::string name)
+	void Initialize(const std::string& name)
 	{
 		currentScene_ = SCENE_ID::SCENE_ID_MAIN;
 		ECSInitialize();
@@ -108,12 +108,12 @@ namespace newSceneManager
 		
 	}
 
-	void AddScene(std::string objectFileName)
+	void AddScene(const std::string& objectFileName)
 	{
 
 	}
 
-	void CreateScene(std::string sceneName)
+	void CreateScene(const std::string& sceneName)
 	{
 		Scene1 scene(sceneName);
 		sceneList_.push_back(scene);

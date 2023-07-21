@@ -21,10 +21,10 @@ public:
 	void Release() override;
 
 	void ChangeScene(SCENE_ID sceneID, UINT count = 0);
-	int GetCountDown() { return countDown_; }
-	SCENE_ID GetCurrentSceneID() { return currentSceneID_; }
-	SCENE_ID GetNextSceneID() { return nextSceneID_; }
-	bool IsSceneChange() { return isSceneChange_; }
+	int GetCountDown() const { return countDown_; }
+	SCENE_ID GetCurrentSceneID() const { return currentSceneID_; }
+	SCENE_ID GetNextSceneID() const { return nextSceneID_; }
+	bool IsSceneChange() const { return isSceneChange_; }
 	void ECSInitialize();
 	GameObject* CurrentScene();
 };

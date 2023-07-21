@@ -12,38 +12,40 @@ Material::Material()
 
 Material::~Material()
 {
-	SAFE_RELEASE_DELETE(pTexture_);
-	SAFE_RELEASE_DELETE(pNormalMap_);
+	//SAFE_RELEASE_DELETE(pTexture_);
+	//SAFE_RELEASE_DELETE(pNormalMap_);
+	SAFE_RELEASE(pTexture_);
+	SAFE_RELEASE(pNormalMap_);
 }
 
-void Material::SetMaterialName(std::string name)
+void Material::SetMaterialName(const std::string& name)
 {
 	materialName_ = name;
 }
 
-void Material::SetTexture(Texture* tex)
+void Material::SetTexture(std::shared_ptr<Texture> tex)
 {
-	if (pTexture_ != nullptr)
-		SAFE_RELEASE_DELETE(pTexture_);
+	/*if (pTexture_ != nullptr)
+		SAFE_RELEASE_DELETE(pTexture_);*/
 	pTexture_ = tex;
 }
 
-void Material::SetNormalMap(Texture* nmlMap)
+void Material::SetNormalMap(std::shared_ptr<Texture> nmlMap)
 {
 	pNormalMap_ = nmlMap;
 }
 
-void Material::SetDiffuse(XMFLOAT4 diff)
+void Material::SetDiffuse(const XMFLOAT4& diff)
 {
 	diffuse_=diff;
 }
 
-void Material::SetAmbient(XMFLOAT4 amb)
+void Material::SetAmbient(const XMFLOAT4& amb)
 {
 	ambient_ = amb;
 }
 
-void Material::SetSpeculer(XMFLOAT4 spec)
+void Material::SetSpeculer(const XMFLOAT4& spec)
 {
 	speculer_ = spec;
 }

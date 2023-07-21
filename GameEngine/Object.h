@@ -29,7 +29,7 @@ private:
 	float time_;
 protected:
 
-	std::list<Object*> childList_;
+	std::list<std::shared_ptr<Object>> childList_;
 	std::list<Component*> componentList_;
 	//std::list<Collider*> colliderList_; //コライダーリスト	
 	std::unordered_map<std::string, std::vector<Entity>> entityList_;
@@ -46,9 +46,9 @@ protected:
 	bool startFlag_;					//一回もアクティブになってない場合false
 	PhysicsSystem* physicsSystem_;
 public:
-	Object(Object* parent,std::string name);
-	Object(Object* parent);
-	Object();
+	Object(Object* parent,const std::string& name);
+	Object(Object* parent = nullptr);
+	//Object();
 	~Object();
 
 	virtual void Initialize() = 0;
@@ -75,28 +75,28 @@ public:
 
 
 	void KillMe() { killFlag_ = true; }
-	void SetTag(std::string tagName) { objectTag_ = tagName; }
-	bool IsActive() { return activeFlag_; }
-	bool IsStart() { return startFlag_; }
-	bool IsUpdate() { return isUpdate_; }
-	std::string GetObjectName() { return objectName_; }
-	Object* GetParent();
+	void SetTag(const std::string& tagName) { objectTag_ = tagName; }
+	bool IsActive() const { return activeFlag_; }
+	bool IsStart() const { return startFlag_; }
+	bool IsUpdate() const { return isUpdate_; }
+	std::string GetObjectName() const { return objectName_; }
+	Object* GetParent() const;
 	Object* GetRootObject();
-	Object* FindObject(std::string name);
-	Object* FindObjectAtTag(std::string tagName);
+	Object* FindObject(const std::string& name);
+	Object* FindObjectAtTag(const std::string& tagName);
 
-	Object* FindChild(std::string name);
-	Object* FindChildAtTag(std::string tagName);
+	Object* FindChild(const std::string& name) const;
+	Object* FindChildAtTag(const std::string& tagName) const;
 
 	Object* GetScene();
-	std::list<Object*>* GetChildList() { return &childList_; }
+	std::list<std::shared_ptr<Object>>* GetChildList() { return &childList_; }
 
 	void KillAllChildren();
 	void KillObjectSub(Object* pTarget);
-	void PushBackChild(Object* pTarget);
+	void PushBackChild(const std::shared_ptr<Object>& pTarget);
 
 	template <typename T>
-	void AddComponent(T& component)
+	void AddComponent(const T& component)
 	{
 		std::string typeName = typeid(T).name();
 			Entity entity = Coordinator::CreateEntity();
@@ -134,12 +134,11 @@ public:
 	template<class T>
 	T* Instantiate(Object* parent)
 	{
-		T* p;
-		p = new T(parent);
+		std::shared_ptr<T> p = std::make_shared<T>(parent);
 		if (parent != nullptr)
 		{
-			parent->PushBackChild(p);
+			parent->PushBackChild(std::move(p));
 		}
-		return p;
+		return p.get();
 	}
 };
