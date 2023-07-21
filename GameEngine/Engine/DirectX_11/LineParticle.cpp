@@ -60,77 +60,77 @@ HRESULT LineParticle::CreateMeshPype(const std::list<XMFLOAT3>* pList)
 	XMVECTOR upVec = XMVectorSet(0, 1, 0, 0);
 	std::vector<VERTEX> vertices;
 	vertices.reserve(pList->size() * 4);
-	
-		int index = 0;
-		auto itr = pList->begin();
-		for (UINT j = 0; j < LENGTH_+2; j++)
+
+	int index = 0;
+	auto itr = pList->begin();
+	for (UINT j = 0; j < LENGTH_ + 2; j++)
+	{
+		//記憶している位置取得
+		XMVECTOR vPos = XMLoadFloat3(&(*itr));
+
+		if (++itr == pList->end())
 		{
-			//記憶している位置取得
-			XMVECTOR vPos = XMLoadFloat3(&(*itr));
-
-			if (++itr == pList->end())
-			{
-				break;
-			}
-
-			//さっき取得した位置から次の位置に向かうベクトル
-			XMVECTOR vLine = XMLoadFloat3(&(*itr)) - vPos;
-
-			if (XMVectorGetX(XMVector3Length(vLine)) >= 0.01f)
-			{
-				//パーティクルの腕を回すクオータニオン
-				XMVECTOR armRotate = XMQuaternionRotationAxis(vLine, (float)(std::numbers::pi_v<float> / 2.0f));
-				
-				//パーティクルの腕を作る
-				XMVECTOR vArm = XMVector3Cross(vLine, vCamPos);
-				
-				//距離によって太さ変わる
-				vArm = XMVector3Normalize(vArm) * (float)(WIDTH_*(LENGTH_-j)/LENGTH_);
-				
-				//腕を回転
-				XMVECTOR vArm2 = XMVector3Rotate(vArm, armRotate);
-				XMFLOAT3 pos;
-
-				//ひし形になるように頂点を配置
-				XMStoreFloat3(&pos, vPos + -vArm);	
-				VERTEX vertex0 = { pos,XMFLOAT3((float)j / LENGTH_,1.0f/4.0f,0) };
-
-				XMStoreFloat3(&pos, vPos + vArm2);
-				VERTEX vertex1 = { pos,XMFLOAT3((float)j / LENGTH_,2.0f / 4.0f,0) };
-
-				XMStoreFloat3(&pos, vPos + vArm);
-				VERTEX vertex2 = { pos,XMFLOAT3((float)j / LENGTH_,3.0f/4.0f,0) };
-
-				XMStoreFloat3(&pos, vPos + -vArm2);
-				VERTEX vertex3 = { pos,XMFLOAT3((float)j / LENGTH_,1,0) };
-				
-				vertices.push_back(vertex0);
-				vertices.push_back(vertex1);
-				vertices.push_back(vertex2);
-				vertices.push_back(vertex3);
-			} 
-			else
-			{
-				XMFLOAT3 dumPos;
-				XMStoreFloat3(&dumPos, vPos);
-				VERTEX dummy = { dumPos,{0,0,0} };
-				vertices.push_back(dummy);
-				vertices.push_back(dummy);
-				vertices.push_back(dummy);
-				vertices.push_back(dummy);
-			}
+			break;
 		}
 
-		for (int i = 0; i < vertices.size() / sizeof(VERTEX); i++)
+		//さっき取得した位置から次の位置に向かうベクトル
+		XMVECTOR vLine = XMLoadFloat3(&(*itr)) - vPos;
+
+		if (XMVectorGetX(XMVector3Length(vLine)) >= 0.01f)
 		{
-			if (abs(vertices[i].position.x) <= 0.1f&& abs(vertices[i].position.y) <= 1.1f&& abs(vertices[i].position.z) <= 0.1f)
-			{
-				int a = 0;
-			}
+			//パーティクルの腕を回すクオータニオン
+			XMVECTOR armRotate = XMQuaternionRotationAxis(vLine, (float)(std::numbers::pi_v<float> / 2.0f));
+
+			//パーティクルの腕を作る
+			XMVECTOR vArm = XMVector3Cross(vLine, vCamPos);
+
+			//距離によって太さ変わる
+			vArm = XMVector3Normalize(vArm) * (float)(WIDTH_ * (LENGTH_ - j) / LENGTH_);
+
+			//腕を回転
+			XMVECTOR vArm2 = XMVector3Rotate(vArm, armRotate);
+			XMFLOAT3 pos;
+
+			//ひし形になるように頂点を配置
+			XMStoreFloat3(&pos, vPos + -vArm);
+			VERTEX vertex0 = { pos,XMFLOAT3((float)j / LENGTH_,1.0f / 4.0f,0) };
+
+			XMStoreFloat3(&pos, vPos + vArm2);
+			VERTEX vertex1 = { pos,XMFLOAT3((float)j / LENGTH_,2.0f / 4.0f,0) };
+
+			XMStoreFloat3(&pos, vPos + vArm);
+			VERTEX vertex2 = { pos,XMFLOAT3((float)j / LENGTH_,3.0f / 4.0f,0) };
+
+			XMStoreFloat3(&pos, vPos + -vArm2);
+			VERTEX vertex3 = { pos,XMFLOAT3((float)j / LENGTH_,1,0) };
+
+			vertices.push_back(vertex0);
+			vertices.push_back(vertex1);
+			vertices.push_back(vertex2);
+			vertices.push_back(vertex3);
 		}
+		else
+		{
+			XMFLOAT3 dumPos;
+			XMStoreFloat3(&dumPos, vPos);
+			VERTEX dummy = { dumPos,{0,0,0} };
+			vertices.push_back(dummy);
+			vertices.push_back(dummy);
+			vertices.push_back(dummy);
+			vertices.push_back(dummy);
+		}
+	}
+
+	for (int i = 0; i < vertices.size() / sizeof(VERTEX); i++)
+	{
+		if (abs(vertices[i].position.x) <= 0.1f && abs(vertices[i].position.y) <= 1.1f && abs(vertices[i].position.z) <= 0.1f)
+		{
+			int a = 0;
+		}
+	}
 
 	D3D11_BUFFER_DESC bd_vertex;
-	bd_vertex.ByteWidth = sizeof(VERTEX) * (UINT)pList->size()*4;
+	bd_vertex.ByteWidth = sizeof(VERTEX) * (UINT)pList->size() * 4;
 	bd_vertex.Usage = D3D11_USAGE_DEFAULT;
 	bd_vertex.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 	bd_vertex.CPUAccessFlags = 0;
@@ -167,7 +167,7 @@ HRESULT LineParticle::CreateMeshPlate(const std::list<XMFLOAT3>* pList)
 	std::vector<VERTEX> vertices;
 	vertices.reserve(pList->size() * 2);
 
-	for (UINT i = 0; i < LENGTH_+2; i++)
+	for (UINT i = 0; i < LENGTH_ + 2; i++)
 	{
 		//記憶している位置取得
 		XMVECTOR vPos = XMLoadFloat3(&(*itr));
@@ -183,19 +183,19 @@ HRESULT LineParticle::CreateMeshPlate(const std::list<XMFLOAT3>* pList)
 		XMVECTOR vArm = XMVector3Cross(vLine, vCamPos);
 		vArm = XMVector3Normalize(vArm) * WIDTH_;
 
-			XMFLOAT3 pos;
-			XMStoreFloat3(&pos, vPos + vArm);
-			VERTEX vertex1 = { pos,XMFLOAT3((float)i / LENGTH_ + endWidth_,0,0) };
+		XMFLOAT3 pos;
+		XMStoreFloat3(&pos, vPos + vArm);
+		VERTEX vertex1 = { pos,XMFLOAT3((float)i / LENGTH_ + endWidth_,0,0) };
 
-			XMStoreFloat3(&pos, vPos - vArm);
-			VERTEX vertex2 = { pos,XMFLOAT3((float)i / LENGTH_ + endWidth_,1,0) };
+		XMStoreFloat3(&pos, vPos - vArm);
+		VERTEX vertex2 = { pos,XMFLOAT3((float)i / LENGTH_ + endWidth_,1,0) };
 
-			vertices.push_back(vertex1);
-			vertices.push_back(vertex2);
+		vertices.push_back(vertex1);
+		vertices.push_back(vertex2);
 	}
 	//頂点バッファ用意
 	D3D11_BUFFER_DESC bd_vertex;
-	bd_vertex.ByteWidth = sizeof(VERTEX) * ((size_t)LENGTH_+2) * 4;
+	bd_vertex.ByteWidth = sizeof(VERTEX) * ((size_t)LENGTH_ + 2) * 4;
 	bd_vertex.Usage = D3D11_USAGE_DEFAULT;
 	bd_vertex.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 	bd_vertex.CPUAccessFlags = 0;
@@ -240,7 +240,7 @@ HRESULT LineParticle::Load(const std::string& fileName)
 		MessageBox(nullptr, L"ラインパーティクル用コンスタントバッファの作成に失敗", L"エラー", MB_OK);
 		return hr;
 	}
-	pTexture_ = new Texture();
+	pTexture_ = std::make_shared<Texture>();
 	wchar_t name[FILENAME_MAX];
 	size_t ret;
 	mbstowcs_s(&ret, name, fileName.c_str(), fileName.length());
@@ -264,7 +264,7 @@ void LineParticle::SetColor(const XMFLOAT4& col)
 void LineParticle::SetIndex()
 {
 	//インデックスの初期配列
-	int fixedIndex[] = { 0,0,-3, 3,-1,1, 5,5,2,  8, 4, 6, 10,10, 7, 13,9, 11, 15,19,16, 18,18,16 };
+	static int fixedIndex[] = { 0,0,-3, 3,-1,1, 5,5,2,  8, 4, 6, 10,10, 7, 13,9, 11, 15,19,16, 18,18,16 };
 
 	//配列を一巡した時に増える値
 	int indexOffset = 0;

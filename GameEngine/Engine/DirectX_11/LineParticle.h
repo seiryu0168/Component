@@ -52,7 +52,7 @@ private:
 	ID3D11Buffer* pIndexBuffer_;
 	ID3D11Buffer* pConstantBuffer_;
 
-	Texture* pTexture_;
+	std::shared_ptr<Texture> pTexture_;
 	std::vector<int> indexList;
 	std::list<XMFLOAT3> positionList_;
 	GameObject* attachObject_;
