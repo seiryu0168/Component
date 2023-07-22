@@ -3,9 +3,8 @@
 #include<fbxsdk.h>
 #include<d3d11.h>
 #include"Texture.h"
-#include"../../Material.h"
-#include"../GameObject/Transform.h"
-#include"../../TransformComponent.h"
+#include"../DirectX_11/Material.h"
+#include"../Components/Transform.h"
 #include"Fbx.h"
 
 class FbxParts

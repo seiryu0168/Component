@@ -1,16 +1,15 @@
 #include "TestObject.h"
 #include"Engine/ResourceManager/Model.h"
-#include"PhysicsSystem.h"
+#include"Engine/Systems/PhysicsSystem.h"
 #include"TestObjectChild.h"
-#include"EntityManager.h"
+#include"Engine/ECS/EntityManager.h"
 #include"Engine/Collider/BoxCollider.h"
-#include"Test_Model_ECSver.h"
-#include"Engine/ResourceManager/Text.h"
+#include"Engine/Components/Test_Model_ECSver.h"
+#include"Engine/Components/Text.h"
 #include"AssimpLoader.h"
-#include"ImageSystem.h"
-#include"newSceneManager.h"
+#include"Engine/Systems/ImageSystem.h"
+#include"Engine/newSceneManager.h"
 #include"Engine/DirectX_11/Input.h"
-#include"Mesh.h"
 
 TestObject::TestObject(Object* parent)
 	:GameObject(parent,"TestObject"),

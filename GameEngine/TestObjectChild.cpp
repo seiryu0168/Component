@@ -1,8 +1,8 @@
 #include "TestObjectChild.h"
-#include"PhysicsSystem.h"
-#include"TextSystem.h"
-#include"ImageSystem.h"
-#include"ModelSystem.h"
+#include"Engine/Systems/PhysicsSystem.h"
+#include"Engine/Systems/TextSystem.h"
+#include"Engine/Systems/ImageSystem.h"
+#include"Engine/Systems/ModelSystem.h"
 TestObjectChild::TestObjectChild(Object* parent)
 	:GameObject(parent,"TestObjectChild"),
 	hModel_(-1),

@@ -1,12 +1,12 @@
 #pragma once
 #include"Engine/GameObject/GameObject.h"
-#include"Coordinator.h"
-#include"ParticleSystem.h"
-#include"LineParticleSystem.h"
-#include"Test_Model_ECSver.h"
-#include"Engine/Collider/Collider.h"
-#include"Engine/ResourceManager/Text.h"
-#include"Image.h"
+#include"Engine/Coordinator.h"
+#include"Engine/Systems/ParticleSystem.h"
+#include"Engine/Systems/LineParticleSystem.h"
+#include"Engine/Components/Test_Model_ECSver.h"
+#include"Engine/Components/Collider.h"
+#include"Engine/Components/Text.h"
+#include"Engine/Components/Image.h"
 #include"Engine/ResourceManager/json.hpp"
 	using json = nlohmann::json;
 

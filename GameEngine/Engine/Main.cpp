@@ -15,7 +15,7 @@
 #include"../ImGui/imgui_impl_dx11.h"
 #include"../ImGui/imgui_impl_win32.h"
 #include"ResourceManager/Audio.h"
-#include"../newSceneManager.h"
+#include"newSceneManager.h"
 
 #ifdef _DEBUG
 #define _CRTDBG_MAP_ALLOC

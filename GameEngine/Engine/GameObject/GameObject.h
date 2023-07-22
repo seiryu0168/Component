@@ -3,14 +3,9 @@
 #include<typeinfo>
 #include<memory>
 #include<list>
-#include"../../Object.h"
-#include"../Collider/BoxCollider.h"
-#include"../Collider/SphereCollider.h"
-#include"../Collider/OBBCollider.h"
+#include"Object.h"
 #include<vector>
-#include"Transform.h"
-//#include"../../TransformComponent.h"
-//#include"../../DrawComponent.h"
+#include"../Components/Transform.h"
 
 class GameObject : public Object
 {

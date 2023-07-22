@@ -1,7 +1,7 @@
 #pragma once
 #include"Direct3D.h"
 #include"Texture.h"
-#include"../GameObject/Transform.h"
+#include"../Components/Transform.h"
 #include"../SAFE_DELETE_RELEASE.h"
 
 class Sprite
