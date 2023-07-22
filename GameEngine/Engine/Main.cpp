@@ -4,10 +4,10 @@
 #include"DirectX_11/Direct3D.h"
 #include"DirectX_11/Direct2D.h"
 #include"GameObject/Camera.h"
-#include"DirectX_11/Sprite.h"
-#include"GameObject/Transform.h"
-#include"ResourceManager/ImageManager.h"
-#include"ResourceManager/Model.h"
+//#include"DirectX_11/Sprite.h"
+//#include"GameObject/Transform.h"
+//#include"ResourceManager/ImageManager.h"
+//#include"ResourceManager/Model.h"
 #include"../DebugUI.h"
 #include"DirectX_11/Input.h"
 #include"GameObject/RootJob.h"
@@ -176,7 +176,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 				//pRootJob->SecondDrawSub();
 
 				//D2D::EndDraw();
-				ImageManager::DrawUI();
+				//ImageManager::DrawUI();
 				//pRootJob->ThirdDrawSub();
 #ifdef _DEBUG	
 				ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
@@ -188,7 +188,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
 	Audio::Releace();
 	DebugUI::CleanUp();
-	ImageManager::AllRelease();
+	//ImageManager::AllRelease();
 	//pRootJob->ReleaseSub();
 	SAFE_DELETE(pRootJob);
 	Input::Release();

@@ -5,13 +5,11 @@
 typedef D2D_RECT_F TEXT_RECT;//left top right bottom
 typedef D2D1_POINT_2F TEXT_POSITION;
 
-class Text
-{
 	struct FontData
 	{
 		float fontSize_;
-		std::wstring pFontName_;		//フォント名
-		std::wstring pLocale_;			//ロケール
+		std::wstring fontName_;		//フォント名
+		std::wstring locale_;			//ロケール
 		DWRITE_FONT_WEIGHT	fontWaight_;		//フォントの太さ
 		DWRITE_FONT_STYLE   fontStyle_;			//フォントスタイル
 		DWRITE_FONT_STRETCH fontStretch_;
@@ -19,14 +17,15 @@ class Text
 		FontData()
 		{
 			fontSize_ = 72.0f;
-			//pFontName_ = L"";//nullptr;
-			//pLocale_ = nullptr;
 			fontWaight_ = DWRITE_FONT_WEIGHT_REGULAR;
 			fontStyle_ = DWRITE_FONT_STYLE_NORMAL;
 			fontStretch_ = DWRITE_FONT_STRETCH_NORMAL;
 			pCollection_ = nullptr;
 		}
 	};
+
+class Text
+{
 private:
 	size_t				  textLength_;		//テキストの長さ
 	D2D1_RECT_F			  layoutRect_;		//レイアウトレクト
@@ -39,7 +38,7 @@ private:
 public:
 	TEXT_POSITION				  transform2D;		//座標
 	Text();
-	Text(std::string text);
+	//Text(std::string text);
 	~Text();
 	int Load(const std::string& text, const std::string& fontName, const TEXT_RECT& rect, const STARTING_TYPE& type);
 	void Initialize();

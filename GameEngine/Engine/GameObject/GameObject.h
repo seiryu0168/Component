@@ -7,10 +7,10 @@
 #include"../Collider/BoxCollider.h"
 #include"../Collider/SphereCollider.h"
 #include"../Collider/OBBCollider.h"
-#include"../../TransformComponent.h"
-#include"../../DrawComponent.h"
 #include<vector>
 #include"Transform.h"
+//#include"../../TransformComponent.h"
+//#include"../../DrawComponent.h"
 
 class GameObject : public Object
 {

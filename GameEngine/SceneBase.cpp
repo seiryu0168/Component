@@ -19,9 +19,14 @@ SceneBase::SceneBase(const std::string& name)
 
 void SceneBase::SceneInitialize()
 {
-	rootObject_ = std::make_shared<RootObject>();
-	rootObject_->SetTransform();
-	setter_ = ObjectSetter(rootObject_.get());
+	//rootObject_ = std::make_shared<RootObject>();
+	//rootObject_->SetTransform();
+	//setter_ = ObjectSetter(rootObject_.get());
+}
+
+void SceneBase::SetRootObject(std::shared_ptr<Object> obj)
+{
+	rootObject_ = obj;
 }
 
 void SceneBase::ObjectSet()
@@ -42,6 +47,5 @@ void SceneBase::Update()
 void SceneBase::AllKillObject()
 {
 	rootObject_->KillAllChildren();
-	//SAFE_DELETE(rootObject_);
 	setter_.DeleteObject();
 }

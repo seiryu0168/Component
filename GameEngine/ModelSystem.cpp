@@ -1,5 +1,4 @@
 #include "ModelSystem.h"
-#include"Coordinator.h"
 ModelSystem::ModelSystem() : System()
 {
 }

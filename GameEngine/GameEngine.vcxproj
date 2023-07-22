@@ -175,15 +175,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ColliderSystem.cpp" />
-    <ClCompile Include="Component.cpp" />
     <ClCompile Include="ComponentManager.cpp" />
     <ClCompile Include="Coordinator.cpp" />
-    <ClCompile Include="CoordinatorManager.cpp" />
-    <ClCompile Include="Draw2DComponent.cpp" />
-    <ClCompile Include="Draw2DSystem.cpp" />
-    <ClCompile Include="Draw3DComponent.cpp" />
-    <ClCompile Include="Draw3DSystem.cpp" />
-    <ClCompile Include="DrawComponent.cpp" />
     <ClCompile Include="Easing.cpp" />
     <ClCompile Include="DebugUI.cpp" />
     <ClCompile Include="Engine\Collider\BoxCollider.cpp" />
@@ -204,16 +197,12 @@
     <ClCompile Include="Engine\DirectX_11\Texture.cpp" />
     <ClCompile Include="Engine\GameObject\Camera.cpp" />
     <ClCompile Include="Engine\GameObject\GameObject.cpp" />
-    <ClCompile Include="Engine\GameObject\RootJob.cpp" />
     <ClCompile Include="Engine\GameObject\Transform.cpp" />
     <ClCompile Include="Engine\Main.cpp" />
     <ClCompile Include="Engine\ResourceManager\Audio.cpp" />
     <ClCompile Include="Engine\ResourceManager\CsvReader.cpp" />
-    <ClCompile Include="Engine\ResourceManager\ImageManager.cpp" />
-    <ClCompile Include="Engine\ResourceManager\Model.cpp" />
     <ClCompile Include="Engine\ResourceManager\Text.cpp" />
     <ClCompile Include="Engine\ResourceManager\TextureManager.cpp" />
-    <ClCompile Include="Engine\SceneManager.cpp" />
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="ImageManager_ECSver.cpp" />
@@ -229,8 +218,7 @@
     <ClCompile Include="LineParticleSystem.cpp" />
     <ClCompile Include="MainScene.cpp" />
     <ClCompile Include="Material.cpp" />
-    <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="MeshSystem.cpp" />
+    <ClCompile Include="Scene_Menu.cpp" />
     <ClCompile Include="ModelManager_ECSver.cpp" />
     <ClCompile Include="ModelSystem.cpp" />
     <ClCompile Include="newSceneManager.cpp" />
@@ -239,6 +227,8 @@
     <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="PhysicsSystem.cpp" />
     <ClCompile Include="RootObject.cpp" />
+    <ClCompile Include="RootObject_Menu.cpp" />
+    <ClCompile Include="RootObject_Title.cpp" />
     <ClCompile Include="Scene1.cpp" />
     <ClCompile Include="SceneBase.cpp" />
     <ClCompile Include="SubScene.cpp" />
@@ -247,21 +237,14 @@
     <ClCompile Include="TestObjectChild.cpp" />
     <ClCompile Include="Test_Model_ECSver.cpp" />
     <ClCompile Include="TextSystem.cpp" />
-    <ClCompile Include="TransformComponent.cpp" />
+    <ClCompile Include="Scene_Title.cpp" />
     <ClCompile Include="TransformSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ColliderSystem.h" />
-    <ClInclude Include="Component.h" />
     <ClInclude Include="ComponentArray.h" />
     <ClInclude Include="ComponentManager.h" />
     <ClInclude Include="Coordinator.h" />
-    <ClInclude Include="CoordinatorManager.h" />
-    <ClInclude Include="Draw2DComponent.h" />
-    <ClInclude Include="Draw2DSystem.h" />
-    <ClInclude Include="Draw3DComponent.h" />
-    <ClInclude Include="Draw3DSystem.h" />
-    <ClInclude Include="DrawComponent.h" />
     <ClInclude Include="Easing.h" />
     <ClInclude Include="DebugUI.h" />
     <ClInclude Include="ECS.h" />
@@ -283,17 +266,13 @@
     <ClInclude Include="Engine\DirectX_11\Texture.h" />
     <ClInclude Include="Engine\GameObject\Camera.h" />
     <ClInclude Include="Engine\GameObject\GameObject.h" />
-    <ClInclude Include="Engine\GameObject\RootJob.h" />
     <ClInclude Include="Engine\GameObject\Transform.h" />
     <ClInclude Include="Engine\ResourceManager\Audio.h" />
     <ClInclude Include="Engine\ResourceManager\CsvReader.h" />
-    <ClInclude Include="Engine\ResourceManager\ImageManager.h" />
     <ClInclude Include="Engine\ResourceManager\json.hpp" />
-    <ClInclude Include="Engine\ResourceManager\Model.h" />
     <ClInclude Include="Engine\ResourceManager\Text.h" />
     <ClInclude Include="Engine\ResourceManager\TextureManager.h" />
     <ClInclude Include="Engine\SAFE_DELETE_RELEASE.h" />
-    <ClInclude Include="Engine\SceneManager.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="IComponentArray.h" />
     <ClInclude Include="Image.h" />
@@ -311,8 +290,8 @@
     <ClInclude Include="LineParticleSystem.h" />
     <ClInclude Include="MainScene.h" />
     <ClInclude Include="Material.h" />
+    <ClInclude Include="Scene_Menu.h" />
     <ClInclude Include="Mesh.h" />
-    <ClInclude Include="MeshSystem.h" />
     <ClInclude Include="ModelManager_ECSver.h" />
     <ClInclude Include="ModelSystem.h" />
     <ClInclude Include="newSceneManager.h" />
@@ -323,6 +302,8 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="EngineTime.h" />
     <ClInclude Include="RootObject.h" />
+    <ClInclude Include="RootObject_Menu.h" />
+    <ClInclude Include="RootObject_Title.h" />
     <ClInclude Include="Scene1.h" />
     <ClInclude Include="SceneBase.h" />
     <ClInclude Include="SubScene.h" />
@@ -334,7 +315,7 @@
     <ClInclude Include="Test_Collider_ECSver.h" />
     <ClInclude Include="Test_Model_ECSver.h" />
     <ClInclude Include="TextSystem.h" />
-    <ClInclude Include="TransformComponent.h" />
+    <ClInclude Include="Scene_Title.h" />
     <ClInclude Include="TransformSystem.h" />
   </ItemGroup>
   <ItemGroup>

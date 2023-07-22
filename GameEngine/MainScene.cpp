@@ -1,9 +1,10 @@
 #include "MainScene.h"
 #include"TestObject.h"
 #include"TestObjectChild.h"
-#include"DrawComponent.h"
+//#include"DrawComponent.h"
 #include"Engine/DirectX_11/Input.h"
-#include"Engine/SceneManager.h"
+//#include"Engine/SceneManager.h"
+#include"newSceneManager.h"
 MainScene::MainScene(Object* parent)
 	:GameObject(parent,"MainScene")
 {
@@ -21,10 +22,6 @@ void MainScene::Initialize()
 
 void MainScene::Update()
 {
-	if(Input::IsKeyDown(DIK_A))
-	{
-		((SceneManager*)FindObject("SceneManager"))->ChangeScene(SCENE_ID::SCENE_ID_SUB);
-	}
 	
 }
 

@@ -1,5 +1,5 @@
 #include "RootJob.h"
-#include"../SceneManager.h"
+//#include"../SceneManager.h"
 #include"../SAFE_DELETE_RELEASE.h"
 
 #pragma comment(lib, "winmm.lib")
@@ -7,7 +7,7 @@
 RootJob::RootJob() 
 	: GameObject(nullptr,"RootJob")
 {
-		Instantiate<SceneManager>(this);
+		//Instantiate<SceneManager>(this);
 
 }
 

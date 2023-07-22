@@ -1,9 +1,8 @@
 #include "TestObjectChild.h"
 #include"PhysicsSystem.h"
-#include"Engine/ResourceManager/Model.h"
-#include"Engine/Collider/BoxCollider.h"
-#include"Test_Model_ECSver.h"
-#include"Draw3DComponent.h"
+#include"TextSystem.h"
+#include"ImageSystem.h"
+#include"ModelSystem.h"
 TestObjectChild::TestObjectChild(Object* parent)
 	:GameObject(parent,"TestObjectChild"),
 	hModel_(-1),
@@ -18,13 +17,20 @@ TestObjectChild::~TestObjectChild()
 
 void TestObjectChild::Initialize()
 {
-	//Text text;
-	//text.SetText("ASDFGHJKL");
-	//AddComponent<Text>(text);
-	//Text text2;
-	//text2.SetColor({ 0,1,1,1 });
-	//text2.SetFontWeight(DWRITE_FONT_WEIGHT_BOLD, 0,50);
-	//AddComponent<Text>(text2);
+	Text text;
+	text.SetText("destroy");
+	//text.SetPosition({ 0,0 });
+	text.SetColor({ 0,0,1,1 });
+	AddComponent<Text>(text);
+	
+	Image image;
+	image.Load("Assets\\Image\\Line.png");
+	AddComponent<Image>(image);
+
+	Test_Model_ECSver model(this);
+	model.Load("Assets\\Model\\BlueBall.fbx");
+	model.SetShaderType(SHADER_TYPE::SHADER_OUTLINE);
+	AddComponent<Test_Model_ECSver>(model);
 }
 
 void TestObjectChild::Update()

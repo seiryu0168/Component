@@ -32,12 +32,6 @@ enum class ColliderType
 
 class Collider
 {
-
-	//friend class BoxCollider;
-	//friend class SphereCollider;
-	//friend class OBBCollider;	
-	//friend class PolygonCollider;
-
 private:
 	//friend class Test_BoxCollider_ECSver;
 	XMFLOAT3     center_;		//Œ´“_
