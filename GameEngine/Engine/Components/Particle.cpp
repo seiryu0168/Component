@@ -1,5 +1,5 @@
 #include "Particle.h"
-#include"../GameObject/Camera.h"
+#include"../GameObject/CameraManager.h"
 
 Particle::Particle() : Particle(nullptr)
 {
@@ -243,7 +243,7 @@ void Particle::Draw()
 		//Šg‘ås—ñ
 		XMMATRIX matScale = XMMatrixScaling(itr->nowData.scale.x, itr->nowData.scale.y, 1.0f);
 
-		matW = matScale * Camera::GetBillBoardMatrix() * matTrans;
+		matW = matScale * CameraManager::GetCurrentCamera().GetBillBoardMatrix() * matTrans;
 		itr->pEmitter->pBillBoard->Draw(matW, itr->nowData.color);
 	}
 }

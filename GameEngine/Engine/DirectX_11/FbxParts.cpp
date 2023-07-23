@@ -1,7 +1,7 @@
 #include "FbxParts.h"
 #include"Math.h"
 #include"../ResourceManager/Model.h"
-#include"../GameObject/Camera.h"
+#include"../GameObject/CameraManager.h"
 #include"Direct3D.h"
 #include <filesystem>
 
@@ -103,11 +103,11 @@ void FbxParts::Draw(Transform& transform,XMFLOAT4 lineColor)
 	for (int i = 0; i < materialCount_; i++)
 	{
 		CONSTANT_BUFFER cb;
-		cb.matWVP = XMMatrixTranspose(transform.GetWorldMatrix() * Camera::GetViewMatrix() * Camera::GetProjectionMatrix());
+		cb.matWVP = XMMatrixTranspose(transform.GetWorldMatrix() * CameraManager::GetCurrentCamera().GetViewMatrix() * CameraManager::GetCurrentCamera().GetProjectionMatrix());
 		cb.matW = XMMatrixTranspose(transform.GetWorldMatrix());
 		cb.matNormal = XMMatrixTranspose(transform.GetNormalMatrix());
 		cb.lightDirection = XMFLOAT4(0, 1, 0, 0);
-		cb.cameraPosition = XMFLOAT4(Camera::GetPosition().x, Camera::GetPosition().y, Camera::GetPosition().z, 0);
+		cb.cameraPosition = XMFLOAT4(CameraManager::GetCurrentCamera().GetPosition().x, CameraManager::GetCurrentCamera().GetPosition().y, CameraManager::GetCurrentCamera().GetPosition().z, 0);
 
 		cb.isTexture = materialList_[i].GetTexture() != nullptr;
 		cb.isNormal = materialList_[i].GetNormalMap() != nullptr;

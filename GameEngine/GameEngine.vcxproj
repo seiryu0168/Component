@@ -198,6 +198,7 @@
     <ClCompile Include="Engine\ECS\EntityManager.cpp" />
     <ClCompile Include="Engine\ECS\SystemManager.cpp" />
     <ClCompile Include="Engine\GameObject\Camera.cpp" />
+    <ClCompile Include="Engine\GameObject\CameraManager.cpp" />
     <ClCompile Include="Engine\GameObject\GameObject.cpp" />
     <ClCompile Include="Engine\GameObject\Object.cpp" />
     <ClCompile Include="Engine\Main.cpp" />
@@ -262,6 +263,7 @@
     <ClInclude Include="Engine\ECS\System.h" />
     <ClInclude Include="Engine\ECS\SystemManager.h" />
     <ClInclude Include="Engine\GameObject\Camera.h" />
+    <ClInclude Include="Engine\GameObject\CameraManager.h" />
     <ClInclude Include="Engine\GameObject\GameObject.h" />
     <ClInclude Include="Engine\GameObject\Object.h" />
     <ClInclude Include="Engine\newSceneManager.h" />

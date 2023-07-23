@@ -98,11 +98,12 @@ void TestObject::Initialize()
 	
 	
 	
-	//Image image;
-	//image.Load("Assets\\Image\\BrickTexture.jpg");
-	//XMFLOAT3 pos = { -1.0f,0.001f,0 };
-	//image.SetPosition(pos);
-	//AddComponent<Image>(image);
+	Image image;
+	image.Load("Assets\\Image\\BrickTexture.jpg");
+	XMFLOAT3 pos = { -1.0f,0.001f,0 };
+	image.SetPosition(pos);
+	image.SetDrawTarget(0);
+	AddComponent<Image>(image);
 
 }
 
@@ -113,7 +114,7 @@ void TestObject::Update()
 	transform_->position_ = vPos_;
 	if (Input::IsKeyDown(DIK_A))
 	{
-		newSceneManager::ChangeScene(SCENE_ID::SCENE_ID_MENU);
+		newSceneManager::ChangeScene("Menu");
 	}
 }
 

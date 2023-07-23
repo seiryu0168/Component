@@ -1,6 +1,6 @@
 #include "Fbx.h"
 #include"FbxParts.h"
-#include"../GameObject/Camera.h"
+#include"../GameObject/CameraManager.h"
 #include"Math.h"
 #include"Texture.h"
 #include <filesystem>

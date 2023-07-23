@@ -1,12 +1,14 @@
 #include "Image.h"
 #include"../ResourceManager/ImageManager_ECSver.h"
+#include"../DirectX_11/Direct3D.h"
 Image::Image()
 	:alpha_(1.0f),
 	rect_({0,0,1,1}),
 	color_(),
 	imageName_(""),
 	pSprite_(),
-	transform_()
+	transform_(),
+	drawTargetNumber_(-1)
 {
 }
 
@@ -47,5 +49,6 @@ void Image::SetRotation(const XMFLOAT3& rotate)
 
 void Image::Draw()
 {
+	if(drawTargetNumber_ == Direct3D::GetViewNumber() || drawTargetNumber_ == -1)
 	pSprite_->Draw(transform_, rect_, color_, alpha_);
 }

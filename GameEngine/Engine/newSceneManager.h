@@ -18,7 +18,8 @@ namespace newSceneManager
 	void Draw();
 	void AddScene(const std::string& objectFileName);
 	void CreateScene(const std::string& sceneName);
-	void ChangeScene(SCENE_ID next, int countDown = 0);
+	//void ChangeScene(SCENE_ID next, int countDown = 0);
+	void ChangeScene(std::string next, int countDown = 0);
 	void ECSInitialize();
 
 };

@@ -3,7 +3,7 @@
 #include<stdlib.h>
 #include"DirectX_11/Direct3D.h"
 #include"DirectX_11/Direct2D.h"
-#include"GameObject/Camera.h"
+#include"GameObject/CameraManager.h"
 //#include"DirectX_11/Sprite.h"
 //#include"GameObject/Transform.h"
 //#include"ResourceManager/ImageManager.h"
@@ -105,7 +105,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	DebugUI::Initialize(hWnd, Direct3D::GetDevice(), Direct3D::GetContext());
 	Input::Initialize(hWnd);
 	//ModelManager::Initialize();
-	Camera::Initialize(WINDOW_WIDTH, WINDOW_HEIGHT);
+	CameraManager::Initialize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	Audio::Initialize();
 	Coordinator::Init();
 
@@ -159,7 +159,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 				countFps++;
 				newSceneManager::Update();
 				//pRootJob->UpdateSub();
-				Camera::Update();
+				CameraManager::Update();
 #ifdef _DEBUG
 				DebugUI::Debug(/*(GameObject*)pRootJob->FindChild("SceneManager")*/);
 				//DebugUI::Log();
@@ -172,7 +172,25 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 				//D2D::BeginDraw();
 				//Coordinator::SystemsUpdate();
 				//pRootJob->DrawSub();
-				newSceneManager::Draw();
+				//ビューポート１
+				CameraManager::Update();
+				for (int i = 0; i < CameraManager::GetCameraCount(); i++)
+				{
+					Direct3D::SetViewPort(CameraManager::GetCamera(i).GetViewPort());
+
+				
+					//Direct3D::SetViewPort(0);
+					////CameraManager::SetPosition(XMVectorSet(0, 10, -10, 0));
+					newSceneManager::Draw();
+				}
+				////ビューポート２
+				//{
+				//	Direct3D::SetViewPort(1);
+				//	//CameraManager::SetPosition(XMVectorSet(10, 10, -10, 0));
+				//	//CameraManager::SetTarget(XMVectorSet(0, 0, 0, 0));
+				//	CameraManager::Update();
+				//	newSceneManager::Draw();
+				//}
 				//pRootJob->SecondDrawSub();
 
 				//D2D::EndDraw();

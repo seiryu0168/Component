@@ -1,20 +1,23 @@
 #pragma once
 #include "../DirectX_11/Direct3D.h"
 #include <DirectXMath.h>
-
-using namespace DirectX;
-
-//-----------------------------------------------------------
-//カメラ
-//-----------------------------------------------------------
-namespace Camera
+class Camera
 {
-	//初期化（プロジェクション行列作成）
-	void Initialize(float width, float height);
-
-	//更新（ビュー行列作成）
+	XMVECTOR position_;			//カメラの位置（視点）
+	XMVECTOR target_;			//見る位置（焦点）
+	XMVECTOR upVector_;			//上ベクトル
+	XMMATRIX viewMatrix_;		//ビュー行列
+	XMMATRIX projMatrix_;		//プロジェクション行列
+	XMMATRIX billBoardMatrix_;	//ビルボード行列
+	float	 angleOfView_;		//視野角
+	float	 aspectRadio_;		//アスペクト比
+	float	 nearClipping_;		//ニアクリッピング
+	float	 farClipping_;		//ファークリッピング
+	D3D11_VIEWPORT viewPort_;	//ビューポート
+public:
+	Camera();
+	void Initialize(float width, float height, float nearClipping, float farClipping);
 	void Update();
-
 	//視点（カメラの位置）を設定
 	void SetPosition(XMVECTOR position);
 
@@ -52,19 +55,24 @@ namespace Camera
 	/// <param name="farZ">ファークリッピング</param>
 	void SetClipping(float nearZ, float farZ);
 
+	void SetViewPort(float width, float height, float minDepth, float maxDepth, float topLeftX, float topLeftY);
+
 	//視点(見える位置)を取得
 	XMFLOAT3 GetPosition();
 
 	//焦点取得
-	XMVECTOR GetTarget();
+	XMVECTOR GetTarget() { return target_; }
 
 	//ビュー行列を取得
-	XMMATRIX GetViewMatrix();
+	XMMATRIX GetViewMatrix() { return viewMatrix_; }
 
 	//ビルボード用回転行列
-	XMMATRIX GetBillBoardMatrix();
+	XMMATRIX GetBillBoardMatrix() { return billBoardMatrix_; }
 
 	//プロジェクション行列を取得
-	XMMATRIX GetProjectionMatrix();
+	XMMATRIX GetProjectionMatrix() { return projMatrix_; }
+
+	D3D11_VIEWPORT GetViewPort() { return viewPort_; }
 
 };
+

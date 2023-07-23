@@ -9,6 +9,7 @@ private:
 	RECT rect_;
 	XMFLOAT4 color_;
 	float alpha_;
+	int drawTargetNumber_;
 	Transform transform_;
 public:
 	Image();
@@ -16,6 +17,7 @@ public:
 	bool Load(const std::string& name);
 	void SetPosition(const XMFLOAT3& pos);
 	void SetAlpha(float alpha);
+	void SetDrawTarget(int targetNum) { drawTargetNumber_ = targetNum; }
 	void SetSize(const XMFLOAT3& size);
 	void SetRotation(const XMFLOAT3& rotate);
 	void Draw();

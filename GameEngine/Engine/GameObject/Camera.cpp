@@ -1,32 +1,33 @@
 #include "Camera.h"
 
-//変数
-XMVECTOR position_;			//カメラの位置（視点）
-XMVECTOR target_;			//見る位置（焦点）
-XMVECTOR upVector_;			//上ベクトル
-XMMATRIX viewMatrix_;		//ビュー行列
-XMMATRIX projMatrix_;		//プロジェクション行列
-XMMATRIX billBoardMatrix_;	//ビルボード行列
-float	 angleOfView;		//視野角
-float	 aspectRadio;		//アスペクト比
-float	 nearClipping;		//ニアクリッピング
-float	 farClipping;		//ファークリッピング
+Camera::Camera()
+	:angleOfView_(XM_PIDIV4),
+	aspectRadio_(1),
+	billBoardMatrix_(XMMatrixIdentity()),
+	nearClipping_(1.0f),
+	farClipping_(100.0f),
+	position_(XMVectorZero()),
+	projMatrix_(XMMatrixIdentity()),
+	target_(XMVectorZero()),
+	upVector_(XMVectorSet(0,1,0,0)),
+	viewMatrix_(XMMatrixIdentity()),
+	viewPort_()
+{
+}
 
-//初期化
-void Camera::Initialize(float width,float height)
+void Camera::Initialize(float width, float height, float nearClipping, float farClipping)
 {
 	position_ = XMVectorSet(0, 10, -40, 0);	//カメラの位置
 	target_ = XMVectorSet(0, 0, 0, 0);	//カメラの焦点
 	upVector_ = XMVectorSet(0, 1, 0, 0);
-	angleOfView = XM_PIDIV4;
-	aspectRadio = (FLOAT)width / (FLOAT)height;
-	nearClipping = 0.1f;
-	farClipping = 1000.0f;
+	angleOfView_ = XM_PIDIV4;
+	aspectRadio_ = (FLOAT)width / (FLOAT)height;
+	nearClipping_ = nearClipping;
+	farClipping_ = farClipping;
 	// プロジェクション行列
-		projMatrix_ = XMMatrixPerspectiveFovLH(XM_PIDIV4, (FLOAT)width / (FLOAT)height, 0.1f, 1000.0f);
+	projMatrix_ = XMMatrixPerspectiveFovLH(XM_PIDIV4, (FLOAT)width / (FLOAT)height, 0.1f, 1000.0f);
 }
 
-//更新
 void Camera::Update()
 {
 	//ビュー行列の作成
@@ -36,13 +37,11 @@ void Camera::Update()
 	billBoardMatrix_ = XMMatrixInverse(nullptr, billBoardMatrix_);
 }
 
-//位置を設定
 void Camera::SetPosition(XMVECTOR position)
 {
 	position_ = position;
 }
 
-//焦点を設定
 void Camera::SetTarget(XMVECTOR target)
 {
 	target_ = target;
@@ -60,41 +59,30 @@ void Camera::SetProjection(float aov, float aspectRadio, float nearZ, float farZ
 
 void Camera::SetAOV(float aov)
 {
-	projMatrix_ = XMMatrixPerspectiveFovLH(aov, aspectRadio, nearClipping, farClipping);
+	projMatrix_ = XMMatrixPerspectiveFovLH(aov, aspectRadio_, nearClipping_, farClipping_);
 }
 
 void Camera::SetAspectRadio(float aspect)
 {
-	projMatrix_ = XMMatrixPerspectiveFovLH(angleOfView, aspect, nearClipping, farClipping);
+	projMatrix_ = XMMatrixPerspectiveFovLH(angleOfView_, aspect, nearClipping_, farClipping_);
 }
 
 void Camera::SetClipping(float nearZ, float farZ)
 {
-	projMatrix_ = XMMatrixPerspectiveFovLH(angleOfView, aspectRadio, nearZ, farZ);
+	projMatrix_ = XMMatrixPerspectiveFovLH(angleOfView_, aspectRadio_, nearZ, farZ);
 }
 
+void Camera::SetViewPort(float width, float height, float minDepth, float maxDepth, float topLeftX, float topLeftY)
+{
+	viewPort_.Width = width;
+	viewPort_.Height = height;
+	viewPort_.MinDepth = minDepth;
+	viewPort_.MaxDepth = maxDepth;
+	viewPort_.TopLeftX = topLeftX;
+	viewPort_.TopLeftY = topLeftY;
+}
 
-//視点(カメラの位置)を取得
 XMFLOAT3 Camera::GetPosition()
 {
 	return StoreFloat3(position_);
-}
-XMVECTOR Camera::GetTarget()
-{
-	return target_;
-}
-//ビュー行列を取得
-XMMATRIX Camera::GetViewMatrix()
-{
-	return viewMatrix_;
-}
-
-XMMATRIX Camera::GetBillBoardMatrix()
-{
-	return billBoardMatrix_;
-}
-//プロジェクション行列を取得
-XMMATRIX Camera::GetProjectionMatrix()
-{
-	return projMatrix_;
-}
+}	

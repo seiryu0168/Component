@@ -17,14 +17,14 @@
 
 namespace newSceneManager
 {
-	SCENE_ID prevScene_;
-	SCENE_ID currentScene_;
-	SCENE_ID nextScene_;
+	std::string prevSceneName_;
+	std::string currentSceneName_;
+	std::string nextSceneName_;
 	bool isSceneChange_;
 	UINT changeCount_;
 	std::string sceneFile_;
-	std::vector<std::shared_ptr<SceneBase>> sceneList_;
-
+	std::unordered_map<std::string,std::shared_ptr<SceneBase>> sceneList_;
+	std::shared_ptr<SceneBase> currentScene_;
 	std::shared_ptr<ColliderSystem> pColliderSystem_;
 	std::shared_ptr<ModelSystem> pModelSyatem_;
 	std::shared_ptr<ParticleSystem> pParticleSystem_;
@@ -33,51 +33,40 @@ namespace newSceneManager
 	std::shared_ptr<ImageSystem> pImageSystem_;
 	void Initialize()
 	{
-		prevScene_ = SCENE_ID::SCENE_ID_TITLE;
-		currentScene_ = SCENE_ID::SCENE_ID_TITLE;
-		nextScene_ = SCENE_ID::SCENE_ID_TITLE;
+		prevSceneName_ = "Title";
+		currentSceneName_ = "Title";
+		nextSceneName_ = "Title";
 		isSceneChange_ = false;
 		changeCount_ = 0;
 		ECSInitialize();
 		std::shared_ptr<Scene_Title> title=std::make_shared<Scene_Title>("Title");
 		std::shared_ptr<Scene_Menu> menu = std::make_shared<Scene_Menu>("Menu");
-		sceneList_.push_back(title);
-		sceneList_.push_back(menu);
-		
-		for (int i = 0; i < static_cast<int>(SCENE_ID::SCENE_MAX); i++)
-		{
-			sceneList_[i]->SceneInitialize();
-		}
-		//sceneList_[static_cast<int>(currentScene_)]->ObjectSet();
+		sceneList_.insert({"Title", title });
+		sceneList_.insert({ "Menu",menu });
+		currentScene_ = title;
+		currentScene_->SceneInitialize();
 	}
-	//void Initialize(const std::string& name)
-	//{
-	//	currentScene_ = SCENE_ID::SCENE_ID_MAIN;
-	//	ECSInitialize();
-	//	Scene1 scene(name);
-	//	sceneList_.push_back(scene);
-	//	sceneList_[static_cast<int>(currentScene_)].SceneInitialize();
-	//	sceneList_[static_cast<int>(currentScene_)].ObjectSet();
-	//}
 
 	void Update()
 	{
 		if (isSceneChange_ && changeCount_ <= 0)
 		{
-			sceneList_[static_cast<int>(currentScene_)]->AllKillObject();
+			currentScene_->AllKillObject();
 
 			Coordinator::AllRemove();
 			ModelManager_ECSver::Release();
 			ImageManager_ECSver::Release();
 			TextureManager::Release();
 
-			sceneList_[static_cast<int>(nextScene_)]->SceneInitialize();
-			sceneList_[static_cast<int>(nextScene_)]->ObjectSet();
-			currentScene_ = nextScene_;
+			currentScene_=sceneList_.find(nextSceneName_)->second;
+			currentScene_->SceneInitialize();
+			//sceneList_[static_cast<int>(nextScene_)].second->SceneInitialize();
+			//sceneList_[static_cast<int>(nextScene_)].second->ObjectSet();
+			currentSceneName_ = nextSceneName_;
 			isSceneChange_ = false;
 		}
 		pColliderSystem_.get()->Update();
-		sceneList_[static_cast<int>(currentScene_)]->Update();
+		currentScene_->Update();
 
 		if(changeCount_!=0)
 		changeCount_--;
@@ -105,10 +94,19 @@ namespace newSceneManager
 		//sceneList_.push_back(scene);
 	}
 
-	void ChangeScene(SCENE_ID next, int countDown)
+	//void ChangeScene(SCENE_ID next, int countDown)
+	//{
+	//	isSceneChange_ = true;
+	//	//nextSceneName_ = next;
+	//	changeCount_ = countDown;
+	//}
+
+	void ChangeScene(std::string next, int countDown)
 	{
+		if (sceneList_.find(next) == sceneList_.end())
+			return;
 		isSceneChange_ = true;
-		nextScene_ = next;
+		nextSceneName_ = next;
 		changeCount_ = countDown;
 	}
 

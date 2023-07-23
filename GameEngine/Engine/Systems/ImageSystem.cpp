@@ -15,7 +15,7 @@ void ImageSystem::Update()
 void ImageSystem::Release()
 {
 	//for文内で値を消すのでコピーして回す
-	std::set<Entity>& subEntity = entities_;
+	std::set<Entity> subEntity = entities_;
 	for (Entity entity : subEntity)
 	{
 		Coordinator::RemoveComponent<Image>(entity);

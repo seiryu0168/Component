@@ -1,6 +1,6 @@
 #include "LineParticle.h"
 #include"../ResourceManager/TextureManager.h"
-#include"../GameObject/Camera.h"
+#include"../GameObject/CameraManager.h"
 #include<vector>
 LineParticle::LineParticle() : LineParticle(nullptr)
 {
@@ -41,7 +41,7 @@ void LineParticle::AddPosition(const XMFLOAT3& pos)
 	SetIndex();
 
 	//カメラの位置取得(ベクトルで)
-	XMFLOAT3 camPos = Camera::GetPosition();
+	XMFLOAT3 camPos = CameraManager::GetCurrentCamera().GetPosition();
 	XMVECTOR vCamPos = XMLoadFloat3(&camPos);
 
 	CreateMeshPype(&positionList_);
@@ -50,7 +50,7 @@ void LineParticle::AddPosition(const XMFLOAT3& pos)
 HRESULT LineParticle::CreateMeshPype(const std::list<XMFLOAT3>* pList)
 {
 	//カメラの位置取得(ベクトルで)
-	XMFLOAT3 camPos = Camera::GetPosition();
+	XMFLOAT3 camPos = CameraManager::GetCurrentCamera().GetPosition();
 	XMVECTOR vCamPos = XMLoadFloat3(&camPos);
 
 
@@ -157,7 +157,7 @@ HRESULT LineParticle::CreateMeshPype(const std::list<XMFLOAT3>* pList)
 HRESULT LineParticle::CreateMeshPlate(const std::list<XMFLOAT3>* pList)
 {
 	//カメラの位置取得(ベクトルで)
-	XMFLOAT3 camPos = Camera::GetPosition();
+	XMFLOAT3 camPos = CameraManager::GetCurrentCamera().GetPosition();
 	XMVECTOR vCamPos = XMLoadFloat3(&camPos);
 
 	auto itr = pList->begin();
@@ -315,7 +315,7 @@ void LineParticle::Draw()
 	Direct3D::SetShader(SHADER_TYPE::SHADER_EFF);
 	Direct3D::SetBlendMode(blendMode_);
 	CONSTANT_BUFFER cb;
-	cb.matWVP = XMMatrixTranspose(Camera::GetViewMatrix() * Camera::GetProjectionMatrix());
+	cb.matWVP = XMMatrixTranspose(CameraManager::GetCurrentCamera().GetViewMatrix() * CameraManager::GetCurrentCamera().GetProjectionMatrix());
 	cb.color = color_;
 
 	D3D11_MAPPED_SUBRESOURCE pdata;
