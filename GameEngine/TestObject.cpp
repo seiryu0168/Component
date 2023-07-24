@@ -114,7 +114,7 @@ void TestObject::Update()
 	transform_->position_ = vPos_;
 	if (Input::IsKeyDown(DIK_A))
 	{
-		newSceneManager::ChangeScene("Menu");
+		newSceneManager::ChangeScene(SCENE_ID::MENU);
 	}
 }
 

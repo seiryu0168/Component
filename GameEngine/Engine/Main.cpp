@@ -16,6 +16,7 @@
 #include"../ImGui/imgui_impl_win32.h"
 #include"ResourceManager/Audio.h"
 #include"newSceneManager.h"
+#include "Time.h"
 
 #ifdef _DEBUG
 #define _CRTDBG_MAP_ALLOC
@@ -109,7 +110,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	Audio::Initialize();
 	Coordinator::Init();
 
-	
+	Time::Initialize();
 	//pRootJob = new RootJob;
 	
 	newSceneManager::Initialize();
@@ -153,6 +154,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 				DebugUI::StartImGui();
 #endif
 				//ÉQÅ[ÉÄÇÃèàóù
+				Time::Update();
 				Input::Update();
 
 				lastUpdateTime = nowTime;
