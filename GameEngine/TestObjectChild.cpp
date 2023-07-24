@@ -37,15 +37,15 @@ TestObjectChild::~TestObjectChild()
 void TestObjectChild::Initialize()
 {
 	Text text;
-	text.SetText("destroy");
+	text.SetText("GameSelect");
 	//text.SetPosition({ 0,0 });
 	text.SetColor({ 0,0,1,1 });
 	AddComponent<Text>(text);
 	
-	Image image;
-	image.Load("Assets\\Image\\Line.png");
-	image.SetDrawTarget(1);
-	AddComponent<Image>(image);
+	//Image image;
+	//image.Load("Assets\\Image\\Line.png");
+	//image.SetDrawTarget(1);
+	//AddComponent<Image>(image);
 
 	Test_Model_ECSver model(this);
 	model.Load("Assets\\Model\\AAA.fbx");

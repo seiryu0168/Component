@@ -480,7 +480,7 @@
       <Filter>ソース ファイル\MiniGames</Filter>
     </ClInclude>
     <ClInclude Include="SelectUI.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ソース ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

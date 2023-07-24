@@ -162,13 +162,16 @@ HRESULT Text::SetText(const std::string& text)
 {
 	size_t textSize;
 	textLength_ = text.length() + 1;
-	//wchar_t* txt = nullptr;
+	wchar_t* txt = nullptr;
 	//SAFE_DELETE(pText_);
-	//txt = new wchar_t[textLength_];
+	txt = new wchar_t[textLength_];
 
 	std::string locale = setlocale(LC_CTYPE, NULL);
 	setlocale(LC_CTYPE, "ja-jp");
-	mbstowcs_s(&textSize, (wchar_t*)pText_.c_str(), textLength_, text.c_str(), text.length());
+	//MultiByteToWideChar()
+	errno_t err = mbstowcs_s(&textSize, txt, textLength_, text.c_str(), text.length()+2);
+	std::wstring wStr(txt);
+	pText_ = wStr;
 	setlocale(LC_CTYPE, locale.c_str());
 	textLength_ = textSize;
 	SAFE_RELEASE(pLayout_);

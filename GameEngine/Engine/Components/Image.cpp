@@ -32,6 +32,13 @@ void Image::SetPosition(const XMFLOAT3& pos)
 	transform_.position_ = XMLoadFloat3(&pos);
 }
 
+void Image::SetPositionAtPixel(XMFLOAT3 pos)
+{
+	pos.x = pos.x / (float)Direct3D::GetScreenWidth() ;
+	pos.y = pos.y / (float)Direct3D::GetScreenHeight();
+	transform_.position_ = XMLoadFloat3(&pos);
+}	
+
 void Image::SetAlpha(float alpha)
 {
 	alpha_ = alpha;

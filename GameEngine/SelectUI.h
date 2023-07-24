@@ -11,6 +11,7 @@ private:
 	};
 	short moveDir_;
 	SELECT_STATE state_;
+	//XMINT2 buttonLimit_;
 	int buttonCount_;
 	int buttonNum_;
 	int moveTime_;
@@ -24,7 +25,7 @@ public:
 	void Initialize() override;
 	void Update() override;
 	void MoveButton(float ratio);
-	void PushedButton();
+	void PushedButton(int buttonNum);
 	void Release() override;
 };
 

@@ -103,7 +103,7 @@ void TestObject::Initialize()
 	XMFLOAT3 pos = { -1.0f,0.001f,0 };
 	image.SetPosition(pos);
 	image.SetDrawTarget(0);
-	AddComponent<Image>(image);
+	AddComponent<Image>(image);	
 
 }
 

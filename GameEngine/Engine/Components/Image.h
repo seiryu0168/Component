@@ -16,6 +16,7 @@ public:
 	~Image();
 	bool Load(const std::string& name);
 	void SetPosition(const XMFLOAT3& pos);
+	void SetPositionAtPixel(XMFLOAT3 pos);
 	void SetAlpha(float alpha);
 	void SetDrawTarget(int targetNum) { drawTargetNumber_ = targetNum; }
 	void SetSize(const XMFLOAT3& size);
