@@ -112,9 +112,9 @@ void TestObject::Update()
 	time_++;
 	vPos_ = XMVector3Rotate(vPos_, XMQuaternionRotationAxis(XMVectorSet(0, 1.0f, 0, 0), XMConvertToRadians(1)));
 	transform_->position_ = vPos_;
-	if (Input::IsPadAnyButtonDown(3))
+	if (Input::IsPadAnyButtonDown(3) || Input::IsMouseButtonDown(0))
 	{
-		newSceneManager::ChangeScene(SCENE_ID::MENU);
+		newSceneManager::ChangeScene(SCENE_ID::PLAY);
 	}
 }
 

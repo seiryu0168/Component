@@ -137,7 +137,7 @@ public:
 		std::shared_ptr<T> p = std::make_shared<T>(parent);
 		if (parent != nullptr)
 		{
-			parent->PushBackChild(std::move(p));
+			parent->PushBackChild(p);
 		}
 		return p.get();
 	}

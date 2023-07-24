@@ -1,6 +1,6 @@
 #include "Time.h"
 #include <chrono>
-#include <list>
+#include <vector>
 
 //変数
 namespace
@@ -8,7 +8,7 @@ namespace
 	std::chrono::steady_clock::time_point Prev = std::chrono::steady_clock::now();	//前フレームのシステム時間を保存
 	std::chrono::steady_clock::time_point Now = std::chrono::steady_clock::now();	//現在のシステム時間を保存
 
-	std::list<Time::Watch*> WatchList = {};	//生成されたWatchクラスを管理しておく配列
+	std::vector<Time::Watch*> WatchList = {};	//生成されたWatchクラスを管理しておく配列
 
 	std::unique_ptr<Time::Watch> WorldTime;
 }
@@ -69,12 +69,12 @@ namespace Time
 	}
 	
 
-	Watch::Watch() : Lock_(false), CountDown_(false), MilliSeconds_(0)
+	Watch::Watch() : Lock_(true), CountDown_(false), MilliSeconds_(0)
 	{
 		WatchList.push_back(this);
 	}
 
-	Watch::Watch(int sec) : Lock_(false), CountDown_(true), MilliSeconds_((int)std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::seconds(sec)).count())
+	Watch::Watch(int sec) : Lock_(true), CountDown_(true), MilliSeconds_((int)std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::seconds(sec)).count())
 	{
 		WatchList.push_back(this);
 	}

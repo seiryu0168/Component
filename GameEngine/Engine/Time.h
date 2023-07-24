@@ -37,6 +37,10 @@ namespace Time
 		int GetMinutes() const;
 		int GetHours() const;
 
+		//カウントダウンまたはカウントアップに変更
+		//true = カウントダウン, false = カウントアップ
+		void SetCountdown(bool c) { CountDown_ = c; }
+
 		//カウントダウン状態かどうか
 		bool IsCountDown() const;
 		bool IsLock() const { return Lock_; }

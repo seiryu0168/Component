@@ -49,6 +49,9 @@
     <Filter Include="ソース ファイル\Scenes\RootObjects">
       <UniqueIdentifier>{eb914c11-856a-4677-8ad5-f8dab3af7c61}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\MiniGames">
+      <UniqueIdentifier>{ab83e262-d17c-4df1-b8ab-cc424200191e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ImGui\imgui.cpp">
@@ -233,6 +236,21 @@
     </ClCompile>
     <ClCompile Include="Engine\Time.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\RootObject\RootObject_Play.cpp">
+      <Filter>ソース ファイル\Scenes\RootObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGames\Player.cpp">
+      <Filter>ソース ファイル\MiniGames</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGames\Framework.cpp">
+      <Filter>ソース ファイル\MiniGames</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGames\ChickenRace.cpp">
+      <Filter>ソース ファイル\MiniGames</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGames\Player_ChickenRace.cpp">
+      <Filter>ソース ファイル\MiniGames</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -441,7 +459,22 @@
       <Filter>ソース ファイル\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Time.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\RootObject\RootObject_Play.h">
+      <Filter>ソース ファイル\Scenes\RootObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGames\Player.h">
+      <Filter>ソース ファイル\MiniGames</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGames\Framework.h">
+      <Filter>ソース ファイル\MiniGames</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGames\ChickenRace.h">
+      <Filter>ソース ファイル\MiniGames</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGames\Player_ChickenRace.h">
+      <Filter>ソース ファイル\MiniGames</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
