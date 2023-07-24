@@ -22,24 +22,24 @@ namespace Input
 	bool IsMouseButtonUp(int buttonCode);
 
 	//コントローラー
-	bool IsPadButton(int buttonCode);
-	bool IsPadButtonDown(int buttonCode);
-	bool IsPadButtonUp(int buttonCode);
+	bool IsPadButton(int buttonCode,int padID = 0);
+	bool IsPadButtonDown(int buttonCode, int padID = 0);
+	bool IsPadButtonUp(int buttonCode, int padID = 0);
 
-	float GetLStick_X();
-	float GetLStick_Y();
-	float GetRStick_X();
-	float GetRStick_Y();
+	float GetLStick_X(int padID = 0);
+	float GetLStick_Y(int padID = 0);
+	float GetRStick_X(int padID = 0);
+	float GetRStick_Y(int padID = 0);
 
 
 
-	float GetLTrigger();
-	float GetLTriggerDown();
-	float GetLTriggerUp();
+	float GetLTrigger(int padID = 0);
+	float GetLTriggerDown(int padID = 0);
+	float GetLTriggerUp(int padID = 0);
 
-	float GetRTrigger();
-	float GetRTriggerDown();
-	float GetRTriggerUp();
+	float GetRTrigger(int padID = 0);
+	float GetRTriggerDown(int padID = 0);
+	float GetRTriggerUp(int padID = 0);
 
 	XMVECTOR GetMousePosition();
 	XMVECTOR GetMouseMove();
