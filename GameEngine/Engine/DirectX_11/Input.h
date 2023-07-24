@@ -11,6 +11,7 @@ namespace Input
 {
 	void Initialize(HWND hWnd);
 	void Update();
+	int GetConectedControllerCount();
 	//キーボード
 	bool IsKey(int keyCode);
 	bool IsKeyDown(int keyCode);
@@ -22,6 +23,9 @@ namespace Input
 	bool IsMouseButtonUp(int buttonCode);
 
 	//コントローラー
+	bool IsPadAnyButton(int padID = 0);
+	bool IsPadAnyButtonDown(int padID = 0);
+	bool IsPadAnyButtonUp(int padID = 0);
 	bool IsPadButton(int buttonCode,int padID = 0);
 	bool IsPadButtonDown(int buttonCode, int padID = 0);
 	bool IsPadButtonUp(int buttonCode, int padID = 0);

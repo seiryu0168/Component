@@ -23,10 +23,7 @@ namespace Input
 		DIMOUSESTATE mouseState;
 		DIMOUSESTATE prevMouseState;
 
-		int xInputConectCount_ = 0;
-
-
-
+		int connectedController_;
 
 	void Initialize(HWND hWnd)
 	{
@@ -63,15 +60,22 @@ namespace Input
 		pMouseDevice->GetDeviceState(sizeof(mouseState), &mouseState);	//ƒ}ƒEƒX’²‚×‚é
 
 		DWORD result;
+		int connected = 0;;
 		for (int i = 0; i < PAD_MAX; i++)
 		{
 			memcpy(&prevController_[i], &Controller_[i], sizeof(Controller_[i]));
 			result = XInputGetState(i, &Controller_[i]);
-			//if(result== ERROR_SUCCESS)
+			if (result != ERROR_SUCCESS)
+				connected++;
 
 		}
-	}
+		connectedController_ = connected;
 
+	}
+	int GetConectedControllerCount()
+	{
+		return connectedController_;
+	}
 	bool IsKey(int keyCode)
 	{
 		if (keyState[keyCode] & 0x80)
@@ -122,6 +126,24 @@ namespace Input
 		return false;
 	}
 
+	bool IsPadAnyButton(int padID)
+	{
+		if (Controller_[padID].Gamepad.wButtons != 0)
+			return true;
+		return false;
+	}
+	bool IsPadAnyButtonDown(int padID)
+	{
+		if (IsPadAnyButton(padID) && prevController_[padID].Gamepad.wButtons != 0)
+			return true;
+		return false;
+	}
+	bool IsPadAnyButtonUp(int padID)
+	{
+		if (!IsPadAnyButton(padID) && prevController_[padID].Gamepad.wButtons != 0)
+			return true;
+		return false;
+	}
 	bool IsPadButton(int buttonCode, int padID)
 	{
 		if (Controller_[padID].Gamepad.wButtons & buttonCode)
