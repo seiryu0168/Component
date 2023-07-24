@@ -44,7 +44,7 @@ void CameraManager::Initialize(float width,float height)
 	//defaultCamera_.SetTarget(target_);
 	//defaultCamera_.SetAOV(angleOfView);
 	//defaultCamera_.SetAspectRadio(aspectRadio);
-	defaultCamera_.SetViewPort(width, height, 0.0f, 1.0f, 0, 250);
+	defaultCamera_.SetViewPort(width, height, 0.0f, 1.0f, 0, 0);
 	cameraList_.push_back(defaultCamera_);
 }
 
@@ -106,6 +106,12 @@ void CameraManager::AddCamera(Camera camera)
 void CameraManager::AllRmoveCamera(UINT num)
 {
 	cameraList_.clear();
+}
+
+void CameraManager::ResetCamera()
+{
+	cameraList_.clear();
+	cameraList_.push_back(defaultCamera_);
 }
 
 UINT CameraManager::GetCameraCount()

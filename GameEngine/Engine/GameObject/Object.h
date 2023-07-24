@@ -130,6 +130,13 @@ public:
 		assert(entityList_.find(typeName)->second.size());	//¸”s‚µ‚½‚ç‹­§I—¹
 		return Coordinator::GetComponent<T>(entityList_.find(typeName)->second[componentNum]);
 	}
+	template <typename T>
+	std::vector<Entity>& GetComponentList()
+	{
+		std::string typeName = typeid(T).name();
+		assert(entityList_.find(typeName)!=entityList_.end());	//¸”s‚µ‚½‚ç‹­§I—¹
+		return entityList_.find(typeName)->second;
+	}
 
 	template<class T>
 	T* Instantiate(Object* parent)

@@ -99,12 +99,12 @@ HRESULT Direct3D::Initialize(int winW, int winH, HWND hWnd)
 
 	///////////////////////////ビューポート（描画範囲）設定///////////////////////////////
 	//レンダリング結果を表示する範囲
-	vp.Width = (float)winW;	//幅
-	vp.Height = (float)winH;//高さ
-	vp.MinDepth = 0.0f;	//手前
-	vp.MaxDepth = 1.0f;	//奥
-	vp.TopLeftX = 0;	//左
-	vp.TopLeftY = 0;	//上
+	//vp.Width = (float)winW;	//幅
+	//vp.Height = (float)winH;//高さ
+	//vp.MinDepth = 0.0f;	//手前
+	//vp.MaxDepth = 1.0f;	//奥
+	//vp.TopLeftX = 0;	//左
+	//vp.TopLeftY = 0;	//上
 
 	//viewPortList_.push_back(vp);
 	//vp_01.Width = (float)winW / 2;

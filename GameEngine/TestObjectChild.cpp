@@ -10,24 +10,24 @@ TestObjectChild::TestObjectChild(Object* parent)
 	hModel_(-1),
 	time_(0)
 {
-	CameraManager::AllRmoveCamera(0);
-
-	XMFLOAT2 screenWidth = { (float)Direct3D::GetScreenWidth(),(float)Direct3D::GetScreenHeight() };
-	Camera camera;
-	camera.Initialize(screenWidth.x / 2.0f, screenWidth .y/2.0f, 0.1f, 100.0f);
-	//camera.SetAOV((float)Direct3D::GetScreenHeight() / (float)Direct3D::GetScreenWidth());
-	camera.SetPosition(XMVectorSet(-30, 10, -30, 0));
-	camera.SetTarget(XMVectorSet(0, 0, 0, 0));
-	camera.SetViewPort(screenWidth.x / 2.0f, screenWidth .y/2.0f, 0.0f, 1.0f, 0, screenWidth.y / 4.0f);
-	CameraManager::AddCamera(camera);
-	
-	Camera camera2;
-	camera2.Initialize(screenWidth.x / 2.0f, screenWidth .y/2.0f, 0.1f, 100.0f);
-	//camera2.SetAOV((float)Direct3D::GetScreenHeight() / (float)Direct3D::GetScreenWidth());
-	camera2.SetPosition(XMVectorSet(0, 10, -40, 0));
-	camera2.SetTarget(XMVectorSet(0, 0, 0, 0));
-	camera2.SetViewPort(screenWidth.x / 2.0f, screenWidth .y/2.0f, 0.0f, 1.0f, screenWidth .x/2.0f, screenWidth .y/4.0f);
-	CameraManager::AddCamera(camera2);
+	//CameraManager::AllRmoveCamera(0);
+	//
+	//XMFLOAT2 screenWidth = { (float)Direct3D::GetScreenWidth(),(float)Direct3D::GetScreenHeight() };
+	//Camera camera;
+	//camera.Initialize(screenWidth.x / 2.0f, screenWidth .y/2.0f, 0.1f, 100.0f);
+	////camera.SetAOV((float)Direct3D::GetScreenHeight() / (float)Direct3D::GetScreenWidth());
+	//camera.SetPosition(XMVectorSet(-30, 10, -30, 0));
+	//camera.SetTarget(XMVectorSet(0, 0, 0, 0));
+	//camera.SetViewPort(screenWidth.x / 2.0f, screenWidth .y/2.0f, 0.0f, 1.0f, 0, screenWidth.y / 4.0f);
+	//CameraManager::AddCamera(camera);
+	//
+	//Camera camera2;
+	//camera2.Initialize(screenWidth.x / 2.0f, screenWidth .y/2.0f, 0.1f, 100.0f);
+	////camera2.SetAOV((float)Direct3D::GetScreenHeight() / (float)Direct3D::GetScreenWidth());
+	//camera2.SetPosition(XMVectorSet(0, 10, -40, 0));
+	//camera2.SetTarget(XMVectorSet(0, 0, 0, 0));
+	//camera2.SetViewPort(screenWidth.x / 2.0f, screenWidth .y/2.0f, 0.0f, 1.0f, screenWidth .x/2.0f, screenWidth .y/4.0f);
+	//CameraManager::AddCamera(camera2);
 }
 
 TestObjectChild::~TestObjectChild()

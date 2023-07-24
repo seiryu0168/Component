@@ -1,7 +1,7 @@
 #include "RootObject_Title.h"
 #include"../../Engine/Components/Transform.h"
 #include"../../TestObject.h"
-#include"../../TestObjectChild.h"
+#include"../../SelectUI.h"
 RootObject_Title::RootObject_Title()
 {
 	Transform transform;
@@ -15,7 +15,7 @@ RootObject_Title::~RootObject_Title()
 void RootObject_Title::Initialize()
 {
 	Instantiate<TestObject>(this);
-	//Instantiate<TestObjectChild>(this);
+	Instantiate<SelectUI>(this);
 }
 
 void RootObject_Title::SetTransform()

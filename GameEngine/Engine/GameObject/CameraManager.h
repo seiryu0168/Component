@@ -20,6 +20,7 @@ namespace CameraManager
 	Camera& GetCurrentCamera();
 	void AddCamera(Camera camera);
 	void AllRmoveCamera(UINT num);
+	void ResetCamera();
 	UINT GetCameraCount();
 	
 	////視点（カメラの位置）を設定

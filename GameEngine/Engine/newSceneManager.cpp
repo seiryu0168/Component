@@ -1,4 +1,3 @@
-#include "newSceneManager.h"
 #include"../Scenes/Scene_Title.h"
 #include"../Scenes/Scene_Menu.h"
 #include"../Scenes/Scene_Play.h"
@@ -7,6 +6,7 @@
 #include"ResourceManager/ImageManager_ECSver.h"
 #include"ResourceManager/Audio.h"
 #include"ResourceManager/TextureManager.h"
+
 #include"Systems/PhysicsSystem.h"
 #include"Systems/TransformSystem.h"
 #include"Systems/ColliderSystem.h"
@@ -15,7 +15,11 @@
 #include"Systems/LineParticleSystem.h"
 #include"Systems/TextSystem.h"
 #include"Systems/ImageSystem.h"
+
+#include"GameObject/CameraManager.h"
+
 #include"Coordinator.h"
+#include "newSceneManager.h"
 
 //•Ï”
 namespace
@@ -72,6 +76,7 @@ namespace newSceneManager
 			ImageManager_ECSver::Release();
 			TextureManager::Release();
 
+			CameraManager::ResetCamera();
 			currentScene_ = sceneList_[nextSceneName_];
 			currentScene_->SceneInitialize();
 			//sceneList_[static_cast<int>(nextScene_)].second->SceneInitialize();
