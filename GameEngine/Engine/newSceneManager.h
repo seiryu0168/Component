@@ -5,9 +5,10 @@
 #include"../Scenes/SceneBase.h"
 enum class SCENE_ID
 {
-	SCENE_ID_TITLE = 0,
-	SCENE_ID_MENU,
-	SCENE_MAX,
+	TITLE = 0,
+	MENU,
+	PLAY,
+	//MAX,
 };
 
 namespace newSceneManager
@@ -19,7 +20,7 @@ namespace newSceneManager
 	void AddScene(const std::string& objectFileName);
 	void CreateScene(const std::string& sceneName);
 	//void ChangeScene(SCENE_ID next, int countDown = 0);
-	void ChangeScene(std::string next, int countDown = 0);
+	void ChangeScene(const SCENE_ID& sceneId, int countDown = 0);
 	void ECSInitialize();
 
 };

@@ -1,6 +1,8 @@
 #include "newSceneManager.h"
 #include"../Scenes/Scene_Title.h"
 #include"../Scenes/Scene_Menu.h"
+#include"../Scenes/Scene_Play.h"
+
 #include"ResourceManager/ModelManager_ECSver.h"
 #include"ResourceManager/ImageManager_ECSver.h"
 #include"ResourceManager/Audio.h"
@@ -15,15 +17,16 @@
 #include"Systems/ImageSystem.h"
 #include"Coordinator.h"
 
-namespace newSceneManager
+//変数
+namespace
 {
-	std::string prevSceneName_;
-	std::string currentSceneName_;
-	std::string nextSceneName_;
+	SCENE_ID prevSceneName_;
+	SCENE_ID currentSceneName_;
+	SCENE_ID nextSceneName_;
 	bool isSceneChange_;
 	UINT changeCount_;
 	std::string sceneFile_;
-	std::unordered_map<std::string,std::shared_ptr<SceneBase>> sceneList_;
+	std::unordered_map<SCENE_ID, std::shared_ptr<SceneBase>> sceneList_;
 	std::shared_ptr<SceneBase> currentScene_;
 	std::shared_ptr<ColliderSystem> pColliderSystem_;
 	std::shared_ptr<ModelSystem> pModelSyatem_;
@@ -31,19 +34,30 @@ namespace newSceneManager
 	std::shared_ptr<LineParticleSystem> pLineParticleSystem_;
 	std::shared_ptr<TextSystem> pTextSystem_;
 	std::shared_ptr<ImageSystem> pImageSystem_;
+}
+
+//外部から見えないようにする
+namespace newSceneManager
+{
+	//シーンリストに要素を格納する
+	void SceneInitialize();
+}
+
+namespace newSceneManager
+{
+	
 	void Initialize()
 	{
-		prevSceneName_ = "Title";
-		currentSceneName_ = "Title";
-		nextSceneName_ = "Title";
+		prevSceneName_ = SCENE_ID::TITLE;
+		currentSceneName_ = SCENE_ID::TITLE;
+		nextSceneName_ = SCENE_ID::TITLE;
 		isSceneChange_ = false;
 		changeCount_ = 0;
 		ECSInitialize();
-		std::shared_ptr<Scene_Title> title=std::make_shared<Scene_Title>("Title");
-		std::shared_ptr<Scene_Menu> menu = std::make_shared<Scene_Menu>("Menu");
-		sceneList_.insert({"Title", title });
-		sceneList_.insert({ "Menu",menu });
-		currentScene_ = title;
+
+		SceneInitialize();
+
+		currentScene_ = sceneList_[currentSceneName_];
 		currentScene_->SceneInitialize();
 	}
 
@@ -58,7 +72,7 @@ namespace newSceneManager
 			ImageManager_ECSver::Release();
 			TextureManager::Release();
 
-			currentScene_=sceneList_.find(nextSceneName_)->second;
+			currentScene_ = sceneList_[nextSceneName_];
 			currentScene_->SceneInitialize();
 			//sceneList_[static_cast<int>(nextScene_)].second->SceneInitialize();
 			//sceneList_[static_cast<int>(nextScene_)].second->ObjectSet();
@@ -101,12 +115,12 @@ namespace newSceneManager
 	//	changeCount_ = countDown;
 	//}
 
-	void ChangeScene(std::string next, int countDown)
+	void ChangeScene(const SCENE_ID& sceneId, int countDown)
 	{
-		if (sceneList_.find(next) == sceneList_.end())
+		if (sceneList_.find(sceneId) == sceneList_.end())
 			return;
 		isSceneChange_ = true;
-		nextSceneName_ = next;
+		nextSceneName_ = sceneId;
 		changeCount_ = countDown;
 	}
 
@@ -158,4 +172,10 @@ namespace newSceneManager
 		Coordinator::SetSystemSignature<ImageSystem>(image_signature);
 	}
 
+	void SceneInitialize()
+	{
+		sceneList_.insert({ SCENE_ID::TITLE, std::make_unique<Scene_Title>("Title") });
+		sceneList_.insert({ SCENE_ID::MENU, std::make_unique<Scene_Menu>("Menu") });
+		sceneList_.insert({ SCENE_ID::PLAY, std::make_unique<Scene_Play>("Play") });
+	}
 }

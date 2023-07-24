@@ -114,7 +114,7 @@ void TestObject::Update()
 	transform_->position_ = vPos_;
 	if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A,0))
 	{
-		newSceneManager::ChangeScene("Menu");
+		newSceneManager::ChangeScene(SCENE_ID::MENU);
 	}
 }
 
