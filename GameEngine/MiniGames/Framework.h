@@ -20,7 +20,7 @@ protected:
 	}
 
 	//ミニゲームが終了したときに呼び出す関数
-	void Finish();
+	virtual void Finish() = 0;
 public:
 	Framework(Object* parent, const std::string& name);
 	virtual ~Framework();
