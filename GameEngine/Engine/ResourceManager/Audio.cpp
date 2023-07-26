@@ -36,7 +36,7 @@ void Audio::Initialize()
 	hr=pXAudio_->CreateMasteringVoice(&pMastaringVoice_);
 }
 
-int Audio::Load(std::string fileName, int svNum)
+int Audio::Load(const std::string& fileName, int svNum)
 {
 	for (int i = 0; i < audioList_.size(); i++)
 	{

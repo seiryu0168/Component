@@ -7,8 +7,7 @@
 #include<list>
 #include<vector>
 #include <algorithm>
-#include"../../TransformComponent.h"
-#include "../GameObject/Transform.h"
+#include "../Components/Transform.h"
 
 #pragma comment(lib, "LibFbxSDK-MT.lib")
 #pragma comment(lib, "LibXml2-MT.lib")

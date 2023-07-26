@@ -3,7 +3,7 @@
 #include"../MainScene.h"
 #include"../SubScene.h"
 #include"ResourceManager/Model.h"
-#include"ResourceManager/ImageManager.h"
+//#include"ResourceManager/ImageManager.h"
 #include"ResourceManager/Audio.h"
 #include"../PhysicsSystem.h"
 #include"../TransformSystem.h"

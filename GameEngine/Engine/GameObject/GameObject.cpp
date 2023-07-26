@@ -192,7 +192,7 @@ void GameObject::Collision(GameObject* pTarget)
 		if (typeid(itr) == typeid(GameObject*))
 		{
 
-		Collision((GameObject*)*itr);
+		Collision((GameObject*)itr->get());
 		}
 	}
 }
@@ -351,10 +351,10 @@ void GameObject::SetActive(bool status)
 void GameObject::SetParent(GameObject* parent)
 {
 	pParent_ = parent;
-	GetParent()->PushBackChild(pParent_);
+	GetParent()->PushBackChild(std::shared_ptr<Object>(pParent_));
 }
 
-Transform* GameObject::GetTransform()
+Transform* GameObject::GetTransform() const
 {
 	return this->transform_;
 }
@@ -372,18 +372,19 @@ Transform* GameObject::GetTransform()
 //	return this->transform_->scale_;
 //}
 
-XMMATRIX GameObject::LookAtMatrix(XMFLOAT3 target, XMVECTOR frontVec, XMVECTOR upVector)
+XMMATRIX GameObject::LookAtMatrix(const XMFLOAT3& target, const XMVECTOR& frontVec, const XMVECTOR& upVector)
 {
-	frontVec = XMVector3Normalize(frontVec);
+	//frontVec = XMVector3Normalize(frontVec);
+	XMVECTOR front = XMVector3Normalize(frontVec);
 
 	XMVECTOR Z = XMLoadFloat3(&target) - this->transform_->position_; //自分から目標へのベクトル　=　Z軸
 	Z = XMVector3Normalize(Z);
 
 	float angleX=0;
-	XMVECTOR AAA = XMVector3Cross(Z, frontVec);					//Z軸と向いてる方向のベクトルの外積計算(この外積が回転の軸になる)
+	XMVECTOR AAA = XMVector3Cross(Z, front);					//Z軸と向いてる方向のベクトルの外積計算(この外積が回転の軸になる)
 	AAA = XMVector3Normalize(AAA);								//正規化
 
-	angleX= XMVectorGetX(XMVector3Dot(frontVec,Z));				//Z軸と向いてる方向のベクトルの外積計算
+	angleX= XMVectorGetX(XMVector3Dot(front,Z));				//Z軸と向いてる方向のベクトルの外積計算
 	angleX = -acosf(angleX);									//ラジアン角に変換
 
 	XMVECTOR quo = XMQuaternionRotationNormal(AAA, angleX);    //AAAを軸に回転四元数を作成

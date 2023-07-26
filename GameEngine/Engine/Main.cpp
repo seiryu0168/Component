@@ -3,11 +3,11 @@
 #include<stdlib.h>
 #include"DirectX_11/Direct3D.h"
 #include"DirectX_11/Direct2D.h"
-#include"GameObject/Camera.h"
-#include"DirectX_11/Sprite.h"
-#include"GameObject/Transform.h"
-#include"ResourceManager/ImageManager.h"
-#include"ResourceManager/Model.h"
+#include"GameObject/CameraManager.h"
+//#include"DirectX_11/Sprite.h"
+//#include"GameObject/Transform.h"
+//#include"ResourceManager/ImageManager.h"
+//#include"ResourceManager/Model.h"
 #include"../DebugUI.h"
 #include"DirectX_11/Input.h"
 #include"GameObject/RootJob.h"
@@ -15,7 +15,8 @@
 #include"../ImGui/imgui_impl_dx11.h"
 #include"../ImGui/imgui_impl_win32.h"
 #include"ResourceManager/Audio.h"
-#include"../newSceneManager.h"
+#include"newSceneManager.h"
+#include "Time.h"
 
 #ifdef _DEBUG
 #define _CRTDBG_MAP_ALLOC
@@ -104,12 +105,12 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
 	DebugUI::Initialize(hWnd, Direct3D::GetDevice(), Direct3D::GetContext());
 	Input::Initialize(hWnd);
-	ModelManager::Initialize();
-	Camera::Initialize(WINDOW_WIDTH, WINDOW_HEIGHT);
+	//ModelManager::Initialize();
+	CameraManager::Initialize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	Audio::Initialize();
 	Coordinator::Init();
 
-	
+	Time::Initialize();
 	//pRootJob = new RootJob;
 	
 	newSceneManager::Initialize();
@@ -153,13 +154,14 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 				DebugUI::StartImGui();
 #endif
 				//ゲームの処理
+				Time::Update();
 				Input::Update();
 
 				lastUpdateTime = nowTime;
 				countFps++;
 				newSceneManager::Update();
 				//pRootJob->UpdateSub();
-				Camera::Update();
+				CameraManager::Update();
 #ifdef _DEBUG
 				DebugUI::Debug(/*(GameObject*)pRootJob->FindChild("SceneManager")*/);
 				//DebugUI::Log();
@@ -172,11 +174,29 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 				//D2D::BeginDraw();
 				//Coordinator::SystemsUpdate();
 				//pRootJob->DrawSub();
-				newSceneManager::Draw();
+				//ビューポート１
+				CameraManager::Update();
+				for (int i = 0; i < CameraManager::GetCameraCount(); i++)
+				{
+					Direct3D::SetViewPort(CameraManager::GetCamera(i).GetViewPort());
+
+				
+					//Direct3D::SetViewPort(0);
+					////CameraManager::SetPosition(XMVectorSet(0, 10, -10, 0));
+					newSceneManager::Draw();
+				}
+				////ビューポート２
+				//{
+				//	Direct3D::SetViewPort(1);
+				//	//CameraManager::SetPosition(XMVectorSet(10, 10, -10, 0));
+				//	//CameraManager::SetTarget(XMVectorSet(0, 0, 0, 0));
+				//	CameraManager::Update();
+				//	newSceneManager::Draw();
+				//}
 				//pRootJob->SecondDrawSub();
 
 				//D2D::EndDraw();
-				ImageManager::DrawUI();
+				//ImageManager::DrawUI();
 				//pRootJob->ThirdDrawSub();
 #ifdef _DEBUG	
 				ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
@@ -188,7 +208,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
 	Audio::Releace();
 	DebugUI::CleanUp();
-	ImageManager::AllRelease();
+	//ImageManager::AllRelease();
 	//pRootJob->ReleaseSub();
 	SAFE_DELETE(pRootJob);
 	Input::Release();

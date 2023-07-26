@@ -3,112 +3,48 @@
 #include<vector>
 namespace InterSceneData
 {
-
     struct Data
     {
         std::string dataName = "";
-        std::string* s = nullptr;
-        int* i = nullptr;
-        float* f = nullptr;
-        bool* b = nullptr;
+        json data;
     };
 
+    std::vector<Data> datas_;
     std::vector<Data*> dataList_;
 
 
-    int AddData(std::string dataName,std::string* s,int* i, float* f,bool* b)
+    void AddData(const std::string& dataName,const json& jsonData)
     {
-        bool existData = false;
-        Data* pData = new Data;
-        pData->i = new int;
-        pData->f = new float;
-        if (s != nullptr)
+        for (Data& data : datas_)
         {
-            pData->s = new std::string;
-            *pData->s = *s;
+            if (data.dataName == dataName)
+                return;
         }
-
-        if (i != nullptr)
-        {
-            pData->i = new int;
-            *pData->i = *i;
-           
-            existData = true;
-        }
-        if (f != nullptr)
-        {
-            pData->f = new float;
-            *pData->f = *f;
-            existData = true;
-        }
-
-        if (b != nullptr)
-        {
-            pData->b = new bool;
-            *pData->b = *b;
-            existData = true;
-        }
-
-        if (existData)
-        {
-            pData->dataName = dataName;
-            dataList_.push_back(pData);
-            return 1;
-        }
-        else
-            delete pData;
-
-        return 0;
+        Data data;
+        data.dataName = dataName;
+        data.data = jsonData;
+        datas_.push_back(data);
     }
 
-    void DeleteData(std::string dataName)
+    void DeleteData(const std::string& dataName)
     {
-        auto itr = dataList_.begin();
-        for (int i = 0; i < dataList_.size(); i++)
+        for (auto itr = datas_.begin(); itr < datas_.end();)
         {
-            if (dataList_[i]->dataName == dataName)
+            if ((*itr).dataName == dataName)
             {
-                SAFE_DELETE(dataList_[i]);
-                dataList_.erase(itr + i);
+                itr = datas_.erase(itr);
+                return;
             }
+            itr++;
         }
     }
 
-    void SetData(std::string dataName, std::string* name, int* i, float* f, bool* b)
+    json& GetData(const std::string& dataName)
     {
-        bool existData = false;
-        for (int it = 0; it < dataList_.size(); it++)
+        for (Data& d :datas_)
         {
-            if (dataList_[it]->dataName == dataName)
-            {
-                existData = true;
-                if (name != nullptr)
-                    *(dataList_[it]->s) = *name;
-                if (i != nullptr)
-                    *(dataList_[it]->i) = *i;
-                if (f != nullptr)
-                    *(dataList_[it]->f) = *f;
-                if (b != nullptr)
-                    *(dataList_[it]->b) = *b;
-            }
+            if (d.dataName == dataName)
+                return d.data;
         }
-
-        if (existData==false)
-        {
-            AddData(dataName, name, i, f, b);
-        }
-    }
-
-    int GetintData(std::string dataName)
-    {
-        for (int i = 0; i < dataList_.size(); i++)
-        {
-            if (dataList_[i]->dataName == dataName&&dataList_[i]->i!=nullptr)
-            {
-                return *(dataList_[i]->i);
-            }
-
-        }
-        return INT_MIN;
     }
 }

@@ -27,6 +27,15 @@ namespace Direct3D
 
 	int screenWidth;
 	int screenHeight;
+
+	D3D11_VIEWPORT vp;
+
+	std::vector<D3D11_VIEWPORT> viewPortList_;
+	D3D11_VIEWPORT vp_01;
+	D3D11_VIEWPORT vp_02;
+	D3D11_VIEWPORT vp_03;
+	D3D11_VIEWPORT vp_04;
+	int viewNumber_ = 0;
 }
 
 //初期化
@@ -90,14 +99,27 @@ HRESULT Direct3D::Initialize(int winW, int winH, HWND hWnd)
 
 	///////////////////////////ビューポート（描画範囲）設定///////////////////////////////
 	//レンダリング結果を表示する範囲
-	D3D11_VIEWPORT vp;
-	vp.Width = (float)winW;	//幅
-	vp.Height = (float)winH;//高さ
-	vp.MinDepth = 0.0f;	//手前
-	vp.MaxDepth = 1.0f;	//奥
-	vp.TopLeftX = 0;	//左
-	vp.TopLeftY = 0;	//上
+	//vp.Width = (float)winW;	//幅
+	//vp.Height = (float)winH;//高さ
+	//vp.MinDepth = 0.0f;	//手前
+	//vp.MaxDepth = 1.0f;	//奥
+	//vp.TopLeftX = 0;	//左
+	//vp.TopLeftY = 0;	//上
 
+	//viewPortList_.push_back(vp);
+	//vp_01.Width = (float)winW / 2;
+	//vp_01.Height = (float)winH/2;
+	//vp_01.MinDepth = 0.0f;
+	//vp_01.MaxDepth = 1.0f;
+	//vp_01.TopLeftX = 0;
+	//vp_01.TopLeftY = 250;
+	//
+	//vp_02.Width = (float)winW / 2;
+	//vp_02.Height = (float)winH/2;
+	//vp_02.MinDepth = 0.0f;
+	//vp_02.MaxDepth = 1.0f;
+	//vp_02.TopLeftX = (float)winW / 2;
+	//vp_02.TopLeftY = 250;
 
 	//深度ステンシルビューの作成
 	D3D11_TEXTURE2D_DESC descDepth;
@@ -166,7 +188,7 @@ HRESULT Direct3D::Initialize(int winW, int winH, HWND hWnd)
 	//データを画面に描画するための一通りの設定（パイプライン）
 	pContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);       //データの入力種類を指定
 	pContext->OMSetRenderTargets(1, &pRenderTargetView, pDepthStencilView);        // 描画先を設定
-	pContext->RSSetViewports(1, &vp);
+	//pContext->RSSetViewports(1, &vp);
 
 	//シェーダー準備
 	 hr=InitShader();
@@ -603,6 +625,39 @@ void Direct3D::SetDepthBufferWriteEnable(bool isWrite)
 	{
 		pContext->OMSetRenderTargets(1, &pRenderTargetView, nullptr);
 	}
+}
+int Direct3D::GetViewPortCount()
+{
+	return (int)viewPortList_.size();
+}
+void Direct3D::AddViewPort(D3D11_VIEWPORT port)
+{
+	viewPortList_.push_back(port);
+}
+void Direct3D::RemoveViewPort(UINT index)
+{
+	//if(index<viewPortList_.size())
+}
+void Direct3D::SetViewPort(D3D11_VIEWPORT viewPort)
+{
+	pContext->RSSetViewports(1, &viewPort);
+	//switch (num)
+	//{
+	//case 0:
+	//	pContext->RSSetViewports(1, &vp_01);
+	//	viewNumber_ = num;
+	//	break;
+	//case 1:
+	//	pContext->RSSetViewports(1, &vp_02);
+	//	viewNumber_ = num;
+	//	break;
+	//default:
+	//	break;
+	//}
+}
+int Direct3D::GetViewNumber()
+{
+	return viewNumber_;
 }
 //描画開始
 void Direct3D::BeginDraw()

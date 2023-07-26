@@ -1,5 +1,5 @@
 #include "DebugUI.h"
-#include"Engine/SceneManager.h"
+#include"Engine/newSceneManager.h"
 #include<psapi.h>
 
 
@@ -11,7 +11,7 @@ namespace DebugUI
 		std::string objectName_;
 		std::string message_;
 	};
-	std::vector<debugData*> debugLogs;
+	std::vector<std::unique_ptr<debugData>> debugLogs;
 
 }
 	
@@ -40,12 +40,12 @@ void DebugUI::Debug(/*GameObject* object*/)
 	
 }
 
-void DebugUI::DebugLog(GameObject* object, std::string message)
+void DebugUI::DebugLog(GameObject* object, const std::string& message)
 {
-	debugData* pData = new debugData;
+	auto pData = std::make_unique<debugData>();
 	pData->objectName_ = object->GetObjectName();
 	pData->message_ = message;
-	debugLogs.push_back(pData);
+	debugLogs.push_back(std::move(pData));
 }
 
 void DebugUI::StartImGui()
@@ -111,7 +111,7 @@ void DebugUI::ObjectCount(GameObject* object)
 	{
 		return;
 	}
-	objectCount_++;
+	++objectCount_;
 	if (ImGui::TreeNode(object->GetObjectName().c_str()))
 	{
 		//座標、回転、サイズの情報を表示
@@ -134,7 +134,7 @@ void DebugUI::ObjectCount(GameObject* object)
 		for (auto itr = object->GetChildList()->begin(); itr != object->GetChildList()->end(); itr++)
 		{
 			if (typeid(itr) == typeid(GameObject*))
-			ObjectCount((GameObject*)*itr);
+			ObjectCount((GameObject*)itr->get());
 		}
 		ImGui::TreePop();
 	}

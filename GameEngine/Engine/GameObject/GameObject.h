@@ -3,14 +3,9 @@
 #include<typeinfo>
 #include<memory>
 #include<list>
-#include"../../Object.h"
-#include"../Collider/BoxCollider.h"
-#include"../Collider/SphereCollider.h"
-#include"../Collider/OBBCollider.h"
-#include"../../TransformComponent.h"
-#include"../../DrawComponent.h"
+#include"Object.h"
 #include<vector>
-#include"Transform.h"
+#include"../Components/Transform.h"
 
 class GameObject : public Object
 {
@@ -27,7 +22,7 @@ public:
 	GameObject(Object* parent, const std::string& name);
 	virtual ~GameObject() {};
 
-	bool IsDraw() { return drawFlag_; }
+	bool IsDraw() const { return drawFlag_; }
 	void SetDrawFlag(bool flag) { drawFlag_ = flag; }
 
 	///////////////////////////衝突関連の関数////////////////////////
@@ -40,23 +35,23 @@ public:
 	//void DelCollider(const GameObject& obj);
 
 ///////////////////////////各セッターゲッター//////////////////////////////////////
-	void SetTag(std::string tagName) { objectTag_ = tagName; }
+	void SetTag(const std::string& tagName) { objectTag_ = tagName; }
 	void SetActive(bool status);
 	void SetUpdate(bool status) { isUpdate_ = status; };
 	void SetStart(bool status) { startFlag_ = status; }
 	void SetParent(GameObject* parent);
-	std::string GetTag() { return objectTag_; }
+	std::string GetTag() const { return objectTag_; }
 
-	Transform* GetTransform();
-	XMFLOAT3  GetPosition();
+	Transform* GetTransform() const;
+	/*XMFLOAT3  GetPosition();
 	XMFLOAT3  GetRotate();
-	XMFLOAT3  GetScale();
+	XMFLOAT3  GetScale();*/
 
 	//指定した座標に回転させる行列を作る関数
-	XMMATRIX LookAtMatrix(XMFLOAT3 target, XMVECTOR frontVec, XMVECTOR upVec = XMVectorSet(0, 1, 0, 0));
+	XMMATRIX LookAtMatrix(const XMFLOAT3& target, const XMVECTOR& frontVec, const XMVECTOR& upVec = XMVectorSet(0, 1, 0, 0));
 	XMMATRIX    GetWorldMatrix();
 
 	//ワールド座標取得
-	XMFLOAT3    GetWorldPosition() { return Transform::Float3Add(((GameObject*)GetParent())->transform_->position_, transform_->position_); }
+	XMFLOAT3    GetWorldPosition() const { return Transform::Float3Add(((GameObject*)GetParent())->transform_->position_, transform_->position_); }
 
 };

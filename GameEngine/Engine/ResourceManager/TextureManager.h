@@ -2,9 +2,10 @@
 #include"../DirectX_11/Texture.h"
 #include<string>
 #include<vector>
+#include<memory>
 namespace TextureManager
 {
-	int Load(std::string fileName);
+	int Load(const std::string& fileName);
 	Texture* GetTexture(int textureHandle);
 	void Release();
 }

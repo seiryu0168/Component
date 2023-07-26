@@ -1,16 +1,15 @@
 #include "TestObject.h"
 #include"Engine/ResourceManager/Model.h"
-#include"PhysicsSystem.h"
+#include"Engine/Systems/PhysicsSystem.h"
 #include"TestObjectChild.h"
-#include"EntityManager.h"
+#include"Engine/ECS/EntityManager.h"
 #include"Engine/Collider/BoxCollider.h"
-#include"Test_Model_ECSver.h"
-#include"Engine/ResourceManager/Text.h"
+#include"Engine/Components/Test_Model_ECSver.h"
+#include"Engine/Components/Text.h"
 #include"AssimpLoader.h"
-#include"ImageSystem.h"
-#include"newSceneManager.h"
+#include"Engine/Systems/ImageSystem.h"
+#include"Engine/newSceneManager.h"
 #include"Engine/DirectX_11/Input.h"
-#include"Mesh.h"
 
 TestObject::TestObject(Object* parent)
 	:GameObject(parent,"TestObject"),
@@ -71,9 +70,9 @@ void TestObject::Initialize()
 	data.scale = { 1.0f,1.0f };
 	data.size = { 1,1 };
 	data.sizeErr = { 0,0 };
-	data.textureFileName = "Assets\\Image\\Effect01.png";
+	data.textureFileName = "Assets\\Image\\BrickTexture.jpg";
+	data.blendMode = BLEND_MODE::BLEND_DEFAULT;
 	particle.SetData(data);
-	//particle.SetDrawObject<Particle>(pa);
 	AddComponent<Particle>(particle);
 	
 	Test_Model_ECSver model(this);
@@ -94,15 +93,17 @@ void TestObject::Initialize()
 	lineData.width = 0.5f;
 	lineData.endWidth = 0.0f;
 	line.SetLineParameter(lineData);
+	line.SetBlendMode(BLEND_MODE::BLEND_DEFAULT);
 	AddComponent<LineParticle>(line);
 	
 	
 	
-	//Image image;
-	//image.Load("Assets\\Image\\BrickTexture.jpg");
-	//XMFLOAT3 pos = { -1.0f,0.001f,0 };
-	//image.SetPosition(pos);
-	//AddComponent<Image>(image);
+	Image image;
+	image.Load("Assets\\Image\\BrickTexture.jpg");
+	XMFLOAT3 pos = { -1.0f,0.001f,0 };
+	image.SetPosition(pos);
+	image.SetDrawTarget(0);
+	AddComponent<Image>(image);	
 
 }
 
@@ -111,10 +112,13 @@ void TestObject::Update()
 	time_++;
 	vPos_ = XMVector3Rotate(vPos_, XMQuaternionRotationAxis(XMVectorSet(0, 1.0f, 0, 0), XMConvertToRadians(1)));
 	transform_->position_ = vPos_;
-	if (Input::IsKeyDown(DIK_A))
+	if (/*Input::IsPadAnyButtonDown(3) || */Input::IsMouseButtonDown(0))
 	{
-		newSceneManager::ChangeScene(SCENE_ID::SCENE_ID_SUB);
+		newSceneManager::ChangeScene(SCENE_ID::PLAY);
 	}
+	if(Input::IsMouseButtonDown(1))
+		newSceneManager::ChangeScene(SCENE_ID::MENU);
+
 }
 
 void TestObject::Draw()

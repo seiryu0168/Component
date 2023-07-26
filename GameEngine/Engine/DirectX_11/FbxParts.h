@@ -3,9 +3,8 @@
 #include<fbxsdk.h>
 #include<d3d11.h>
 #include"Texture.h"
-#include"../../Material.h"
-#include"../GameObject/Transform.h"
-#include"../../TransformComponent.h"
+#include"../DirectX_11/Material.h"
+#include"../Components/Transform.h"
 #include"Fbx.h"
 
 class FbxParts
@@ -62,8 +61,8 @@ private:
 	{
 		XMVECTOR originPos;			//元の頂点座標
 		XMVECTOR originNormal;		//元の法線ベクトル
-		int*	 pBoneIndex;		//関連するボーンのID
-		float*	 pBoneWeight;		//ボーンのウェイト
+		std::unique_ptr<int[]>	 pBoneIndex;		//関連するボーンのID
+		std::unique_ptr<float[]>	 pBoneWeight;		//ボーンのウェイト
 	};
 
 	int vertexCount_;		//頂点数
@@ -73,22 +72,22 @@ private:
 
 
 	ID3D11Buffer* pVertexBuffer_;	//頂点バッファ
-	ID3D11Buffer** ppIndexBuffer_;	//インデックスバッファ
+	std::unique_ptr<ID3D11Buffer*[]> ppIndexBuffer_;	//インデックスバッファ
 	ID3D11Buffer* pConstantBuffer_;	//コンスタントバッファ
 
 	FbxSkin*	 pSkinInfo_;     //スキンメッシュの情報
-	FbxCluster** ppCluster_;	 //クラスタ情報
-	BONE*		 pBoneArray_;	 //各ボーンの情報
-	WEIGHT*		 pWeightArray_;	 //ウェイトの情報
+	std::unique_ptr<FbxCluster*[]> ppCluster_;	 //クラスタ情報
+	std::unique_ptr<BONE[]>		 pBoneArray_;	 //各ボーンの情報
+	std::unique_ptr<WEIGHT[]>		 pWeightArray_;	 //ウェイトの情報
 	
-	Material* materialList_;
+	std::unique_ptr<Material[]> materialList_;
 
 	//MATERIAL* pMaterialList_;//マテリアルリスト
-	int*	  indexCount_;
+	std::unique_ptr<int[]>	  indexCount_;
 
-	int**	ppIndex_;
-	VERTEX* pVertices_;
-	Texture* pToonTexture_;
+	std::unique_ptr<std::unique_ptr<int[]>[]>	ppIndex_;
+	std::unique_ptr<VERTEX[]> pVertices_;
+	std::unique_ptr<Texture> pToonTexture_;
 
 	HRESULT InitVertex(fbxsdk::FbxMesh* mesh);
 	HRESULT InitIndex(fbxsdk::FbxMesh* mesh);

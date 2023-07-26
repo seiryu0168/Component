@@ -1,5 +1,5 @@
 #include "BillBoard.h"
-#include"../GameObject/Camera.h"
+#include"../GameObject/CameraManager.h"
 #include"../ResourceManager/TextureManager.h"
 BillBoard::BillBoard()
 	:hTexture_(-1)
@@ -95,11 +95,11 @@ HRESULT BillBoard::Load(const std::string& fileName)
 
 void BillBoard::Draw(const XMMATRIX& matW, const XMFLOAT4& col)
 {
-	Direct3D::SetBlendMode(BLEND_MODE::BLEND_ADD);
-	Direct3D::SetShader(SHADER_TYPE::SHADER_EFF);
+	//Direct3D::SetBlendMode(BLEND_MODE::BLEND_ADD);
+	//Direct3D::SetShader(SHADER_TYPE::SHADER_EFF);
 
 	CONSTANT_BUFFER cb;
-	cb.matWVP = XMMatrixTranspose(matW * Camera::GetViewMatrix() * Camera::GetProjectionMatrix());
+	cb.matWVP = XMMatrixTranspose(matW * CameraManager::GetCurrentCamera().GetViewMatrix() * CameraManager::GetCurrentCamera().GetProjectionMatrix());
 	cb.color = col;
 
 	D3D11_MAPPED_SUBRESOURCE pdata;

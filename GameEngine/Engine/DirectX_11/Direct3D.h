@@ -72,6 +72,11 @@ namespace Direct3D
 	int GetScreenHeight();
 	HWND GetWindowHandle(); 
 	void SetDepthBufferWriteEnable(bool isWrite);
+	int GetViewPortCount();
+	void AddViewPort(D3D11_VIEWPORT port);
+	void RemoveViewPort(UINT index);
+	void SetViewPort(D3D11_VIEWPORT viewPort);
+	int GetViewNumber();
 
 	//描画開始
 	void BeginDraw();
@@ -82,23 +87,5 @@ namespace Direct3D
 	//解放
 	void Release();
 
-	//インラインで関数を置き換えるので少し早くなる
-	//変えられたくない引数はconstをつける
-	//inline XMVECTOR operator-(const XMFLOAT3& p1, const XMFLOAT3& p2)
-	//{
-	//	XMVECTOR a;
-	//	XMVECTOR b;
-	//
-	//
-	//
-	//	return a + b;// XMLoadFloat3(&p1) - XMLoadFloat3(&p2);
-	//}
-	//
-	////＝がつくオペレーターは参照で引数を設定する必要がある
-	//
-	//inline XMVECTOR operator*=(XMVECTOR& v1, const XMMATRIX& m1)
-	//{
-	//	v1 = XMVector3TransformCoord(v1, m1);
-	//	return v1;
-	//}
+	
 };

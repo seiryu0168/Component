@@ -1,8 +1,9 @@
 #include "FbxParts.h"
 #include"Math.h"
 #include"../ResourceManager/Model.h"
-#include"../GameObject/Camera.h"
+#include"../GameObject/CameraManager.h"
 #include"Direct3D.h"
+#include <filesystem>
 
 #ifdef _DEBUG
 #define _CRTDBG_MAP_ALLOC
@@ -40,34 +41,34 @@ FbxParts::FbxParts()
 
 FbxParts::~FbxParts()
 {
-	SAFE_RELEASE_DELETE(pToonTexture_);
+	//SAFE_RELEASE_DELETE(pToonTexture_);
 
-	SAFE_DELETE(pVertices_);
-	SAFE_DELETE(indexCount_);
+	//SAFE_DELETE(pVertices_);
+	//SAFE_DELETE(indexCount_);
 
 	for (int i = 0; i < materialCount_; i++)
 	{
-		SAFE_DELETE_ARRAY(ppIndex_[i]);
+		//SAFE_DELETE_ARRAY(ppIndex_[i]);
 		SAFE_RELEASE(ppIndexBuffer_[i]);
 		//SAFE_RELEASE_DELETE(pMaterialList_[i].pTexture);
 		//SAFE_RELEASE_DELETE(pMaterialList_[i].pNormalMap);
 	}
-	SAFE_DELETE_ARRAY(ppIndex_);
+	//SAFE_DELETE_ARRAY(ppIndex_);
 	//SAFE_DELETE_ARRAY(pMaterialList_);
 	SAFE_RELEASE(pVertexBuffer_);
-	SAFE_DELETE_ARRAY(ppIndexBuffer_);
+	//SAFE_DELETE_ARRAY(ppIndexBuffer_);
 	SAFE_RELEASE(pConstantBuffer_);
 
-	SAFE_DELETE_ARRAY(ppCluster_);
+	//SAFE_DELETE_ARRAY(ppCluster_);
 	if (pWeightArray_ != nullptr)
 	{
 		for (int i = 0; i < vertexCount_; i++)
 		{
-			SAFE_DELETE_ARRAY(pWeightArray_[i].pBoneIndex);
-			SAFE_DELETE_ARRAY(pWeightArray_[i].pBoneWeight);
-			SAFE_DELETE_ARRAY(pBoneArray_);
+			//SAFE_DELETE_ARRAY(pWeightArray_[i].pBoneIndex);
+			//SAFE_DELETE_ARRAY(pWeightArray_[i].pBoneWeight);
+			//SAFE_DELETE_ARRAY(pBoneArray_);
 		}
-			SAFE_DELETE_ARRAY(pWeightArray_);
+			//SAFE_DELETE_ARRAY(pWeightArray_);
 	}
 	
 }
@@ -75,7 +76,7 @@ FbxParts::~FbxParts()
 HRESULT FbxParts::Init(FbxNode* pNode)
 {
 	FbxMesh* mesh = pNode->GetMesh();
-	pToonTexture_ = new Texture;
+	pToonTexture_ = std::make_unique<Texture>();
 	pToonTexture_->Load("../Image\\ToonTexture.jpg");
 	
 	//各情報の個数を取得
@@ -95,18 +96,18 @@ HRESULT FbxParts::Init(FbxNode* pNode)
 void FbxParts::Draw(Transform& transform,XMFLOAT4 lineColor)
 {
 	transform.Calclation();
-	float factor[4] = { D3D11_BLEND_ZERO,D3D11_BLEND_ZERO, D3D11_BLEND_ZERO, D3D11_BLEND_ZERO };
+	static float factor[4] = { D3D11_BLEND_ZERO,D3D11_BLEND_ZERO, D3D11_BLEND_ZERO, D3D11_BLEND_ZERO };
 
 	
 	//コンスタントバッファに情報を渡す
 	for (int i = 0; i < materialCount_; i++)
 	{
 		CONSTANT_BUFFER cb;
-		cb.matWVP = XMMatrixTranspose(transform.GetWorldMatrix() * Camera::GetViewMatrix() * Camera::GetProjectionMatrix());
+		cb.matWVP = XMMatrixTranspose(transform.GetWorldMatrix() * CameraManager::GetCurrentCamera().GetViewMatrix() * CameraManager::GetCurrentCamera().GetProjectionMatrix());
 		cb.matW = XMMatrixTranspose(transform.GetWorldMatrix());
 		cb.matNormal = XMMatrixTranspose(transform.GetNormalMatrix());
 		cb.lightDirection = XMFLOAT4(0, 1, 0, 0);
-		cb.cameraPosition = XMFLOAT4(Camera::GetPosition().x, Camera::GetPosition().y, Camera::GetPosition().z, 0);
+		cb.cameraPosition = XMFLOAT4(CameraManager::GetCurrentCamera().GetPosition().x, CameraManager::GetCurrentCamera().GetPosition().y, CameraManager::GetCurrentCamera().GetPosition().z, 0);
 
 		cb.isTexture = materialList_[i].GetTexture() != nullptr;
 		cb.isNormal = materialList_[i].GetNormalMap() != nullptr;
@@ -121,15 +122,15 @@ void FbxParts::Draw(Transform& transform,XMFLOAT4 lineColor)
 		memcpy_s(pdata.pData, pdata.RowPitch, (void*)(&cb), sizeof(cb));			      //データを値を送る
 		if (cb.isTexture)
 		{
-			ID3D11SamplerState* pSampler = ((Texture*)materialList_[i].GetTexture())->GetSampler();
+			ID3D11SamplerState* pSampler = ((Texture*)materialList_[i].GetTexture().get())->GetSampler();
 			Direct3D::pContext->PSSetSamplers(0, 1, &pSampler);
-			ID3D11ShaderResourceView* pSRV1 = ((Texture*)materialList_[i].GetTexture())->GetSRV();
+			ID3D11ShaderResourceView* pSRV1 = ((Texture*)materialList_[i].GetTexture().get())->GetSRV();
 
 			Direct3D::pContext->PSSetShaderResources(0, 1, &pSRV1);
 		}
 		if (cb.isNormal)
 		{
-			ID3D11ShaderResourceView* pNormalSRV = ((Texture*)materialList_[i].GetNormalMap())->GetSRV();
+			ID3D11ShaderResourceView* pNormalSRV = ((Texture*)materialList_[i].GetNormalMap().get())->GetSRV();
 			Direct3D::pContext->PSSetShaderResources(2, 1, &pNormalSRV);
 		}
 		Direct3D::pContext->Unmap(pConstantBuffer_, 0);//再開
@@ -157,7 +158,7 @@ void FbxParts::Draw(Transform& transform,XMFLOAT4 lineColor)
 		Direct3D::pContext->VSSetConstantBuffers(0, 1, &pConstantBuffer_);							//頂点シェーダー用	
 		Direct3D::pContext->PSSetConstantBuffers(0, 1, &pConstantBuffer_);							//ピクセルシェーダー用
 		Direct3D::pContext->UpdateSubresource(pConstantBuffer_, 0, nullptr, &cb, 0, 0);
-		Direct3D::pContext->DrawIndexed(indexCount_[i], 0, 0);
+		Direct3D::pContext->DrawIndexed(indexCount_.get()[i], 0, 0);
 	}
 }
 
@@ -208,7 +209,7 @@ void FbxParts::DrawSkinAnime(Transform& transform, FbxTime time, XMFLOAT4 lineCo
 	Direct3D::pContext->Map(pVertexBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &msr);
 	if (msr.pData)
 	{
-		memcpy_s(msr.pData, msr.RowPitch, pVertices_, sizeof(VERTEX) * vertexCount_);
+		memcpy_s(msr.pData, msr.RowPitch, pVertices_.get(), sizeof(VERTEX) * vertexCount_);
 		Direct3D::pContext->Unmap(pVertexBuffer_, 0);
 	}
 	Draw(transform,lineColor);
@@ -217,7 +218,7 @@ void FbxParts::DrawSkinAnime(Transform& transform, FbxTime time, XMFLOAT4 lineCo
 HRESULT FbxParts::InitVertex(fbxsdk::FbxMesh* mesh)
 {
 	//頂点情報を入れる配列
-	pVertices_ = new VERTEX[vertexCount_];
+	pVertices_ = std::make_unique<VERTEX[]>(vertexCount_);
 
 	//全ポリゴン
 	for (DWORD poly = 0; poly < (DWORD)polygonCount_; poly++)
@@ -339,7 +340,7 @@ HRESULT FbxParts::InitVertex(fbxsdk::FbxMesh* mesh)
 	bd_vertex.MiscFlags = 0;
 	bd_vertex.StructureByteStride = 0;
 	D3D11_SUBRESOURCE_DATA data_vertex;
-	data_vertex.pSysMem = pVertices_;
+	data_vertex.pSysMem = pVertices_.get();
 	HRESULT hr = Direct3D::pDevice->CreateBuffer(&bd_vertex, &data_vertex, &pVertexBuffer_);
 	if (FAILED(hr))
 	{
@@ -352,14 +353,14 @@ HRESULT FbxParts::InitVertex(fbxsdk::FbxMesh* mesh)
 /////////////////////////////インデックス///////////////////////////////////
 HRESULT FbxParts::InitIndex(fbxsdk::FbxMesh* mesh)
 {
-	ppIndex_ = new int* [materialCount_];
-	ppIndexBuffer_ = new ID3D11Buffer * [materialCount_];
-	indexCount_ = new int[materialCount_];
+	ppIndex_ = std::make_unique<std::unique_ptr<int[]>[]>(materialCount_);
+	ppIndexBuffer_ = std::make_unique<ID3D11Buffer*[]>(materialCount_);
+	indexCount_ = std::make_unique<int[]>(materialCount_);
 
 	for (int i = 0; i < materialCount_; i++)
 	{
 		int count = 0;
-		ppIndex_[i] = new int[polygonCount_ * 3];
+		ppIndex_[i] = std::make_unique<int[]>(polygonCount_ * 3);
 		//全ポリゴン
 		for (DWORD poly = 0; poly < (DWORD)polygonCount_; poly++)
 		{
@@ -376,7 +377,7 @@ HRESULT FbxParts::InitIndex(fbxsdk::FbxMesh* mesh)
 				}
 			}
 		}
-		indexCount_[i] = count;
+		indexCount_.get()[i] = count;
 
 		D3D11_BUFFER_DESC bd;
 		bd.Usage = D3D11_USAGE_DEFAULT;
@@ -386,7 +387,7 @@ HRESULT FbxParts::InitIndex(fbxsdk::FbxMesh* mesh)
 		bd.MiscFlags = 0;
 
 		D3D11_SUBRESOURCE_DATA InitData;
-		InitData.pSysMem = ppIndex_[i];
+		InitData.pSysMem = ppIndex_[i].get();
 		InitData.SysMemPitch = 0;
 		InitData.SysMemSlicePitch = 0;
 		HRESULT hr = Direct3D::pDevice->CreateBuffer(&bd, &InitData, &ppIndexBuffer_[i]);
@@ -461,20 +462,20 @@ HRESULT FbxParts::InitSkelton(FbxMesh* pMesh)
 
 	//ボーン情報取得
 	boneNum_ = pSkinInfo_->GetClusterCount();
-	ppCluster_ = new FbxCluster * [boneNum_];
+	ppCluster_ = std::make_unique<FbxCluster*[]>(boneNum_);
 	for (int i = 0; i < boneNum_; i++)
 	{
 		ppCluster_[i] = pSkinInfo_->GetCluster(i);
 	}
 
 	//ボーンの数に合わせてウェイト情報を準備
-	pWeightArray_ = new FbxParts::WEIGHT[vertexCount_];
+	pWeightArray_ = std::make_unique<FbxParts::WEIGHT[]>(vertexCount_);
 	for (int i = 0; i < vertexCount_; i++)
 	{
 		pWeightArray_[i].originPos = pVertices_[i].position;
 		pWeightArray_[i].originNormal = pVertices_[i].normal;
-		pWeightArray_[i].pBoneIndex = new int[boneNum_];
-		pWeightArray_[i].pBoneWeight = new float[boneNum_];
+		pWeightArray_[i].pBoneIndex = std::make_unique<int[]>(boneNum_);
+		pWeightArray_[i].pBoneWeight = std::make_unique<float[]>(boneNum_);
 		for (int j = 0; j < boneNum_; j++)
 		{
 			pWeightArray_[i].pBoneIndex[j] = -1;
@@ -511,7 +512,7 @@ HRESULT FbxParts::InitSkelton(FbxMesh* pMesh)
 	}
 	
 	//ボーンの生成
-	pBoneArray_ = new FbxParts::BONE[boneNum_];
+	pBoneArray_ = std::make_unique<FbxParts::BONE[]>(boneNum_);
 	for (int i = 0; i < boneNum_; i++)
 	{
 		//ボーンのデフォルト位置を取得
@@ -543,7 +544,7 @@ HRESULT FbxParts::InitSkelton(FbxMesh* pMesh)
 
 void FbxParts::InitMaterial(fbxsdk::FbxNode* pNode)
 {
-	materialList_ = new Material[materialCount_];
+	materialList_ = std::make_unique<Material[]>(materialCount_);
 
 	for (int i = 0; i < materialCount_; i++)
 	{
@@ -581,24 +582,23 @@ void FbxParts::InitMaterial(fbxsdk::FbxNode* pNode)
 		if (lProperty.GetSrcObjectCount<FbxFileTexture>() > 0)
 		{
 			FbxFileTexture* textureInfo = lProperty.GetSrcObject<FbxFileTexture>(0);
-			const char* textureFilePath = textureInfo->GetRelativeFileName();
+			std::filesystem::path textureFilePath = textureInfo->GetRelativeFileName();
 
 			//パス名をファイル名と拡張子だけにする
-			char name[_MAX_FNAME];	//ファイル名
-			char ext[_MAX_EXT];		//拡張子
-			_splitpath_s(textureFilePath, nullptr, 0, nullptr, 0, name, _MAX_FNAME, ext, _MAX_EXT);
-			sprintf_s(name, "%s%s", name, ext);
+			//char name[_MAX_FNAME];	//ファイル名
+			//char ext[_MAX_EXT];		//拡張子
+			//_splitpath_s(textureFilePath, nullptr, 0, nullptr, 0, name, _MAX_FNAME, ext, _MAX_EXT);
+			//sprintf_s(name, "%s%s", name, ext);
 
-			wchar_t wtext[FILENAME_MAX];
-			size_t ret;
-			mbstowcs_s(&ret, wtext, name, strlen(name));
+			//wchar_t wtext[FILENAME_MAX];
+			//size_t ret;
+			//mbstowcs_s(&ret, wtext, name, strlen(name));
 
-			std::wstring fName = wtext;
-			fName = L"../Image\\" + fName;
+			std::wstring fName = L"../Image\\" + textureFilePath.filename().wstring();
 			//ファイルからテクスチャ作成
-			Texture*pTex=new Texture;
+			std::unique_ptr<Texture> pTex= std::make_unique<Texture>();
 			pTex->Load(fName.c_str());
-			materialList_[i].SetTexture(pTex);
+			materialList_[i].SetTexture(std::move(pTex));
 		}
 
 		//テクスチャ無し
@@ -611,7 +611,7 @@ void FbxParts::InitMaterial(fbxsdk::FbxNode* pNode)
 		}
 
 		/////////////////////////////////ノーマルマップ//////////////////////////
-		Texture* pNormal = new Texture();
+		std::unique_ptr<Texture> pNormal = std::make_unique<Texture>();
 		{
 			FbxProperty IPropaty = pMaterial->FindProperty(FbxSurfaceMaterial::sBump);
 			int normalMapCount = IPropaty.GetSrcObjectCount<FbxFileTexture>();
@@ -619,27 +619,27 @@ void FbxParts::InitMaterial(fbxsdk::FbxNode* pNode)
 			if (normalMapCount != 0)
 			{
 				FbxFileTexture* textureInfo = IPropaty.GetSrcObject<FbxFileTexture>(0);
-				const char* textureFilePath = textureInfo->GetRelativeFileName();
+				std::filesystem::path textureFilePath = textureInfo->GetRelativeFileName();
 
 				//ファイル名+拡張だけにする
-				char name[_MAX_FNAME];	//ファイル名
-				char ext[_MAX_EXT];	//拡張子
-				_splitpath_s(textureFilePath, nullptr, 0, nullptr, 0, name, _MAX_FNAME, ext, _MAX_EXT);
+				//char name[_MAX_FNAME];	//ファイル名
+				//char ext[_MAX_EXT];	//拡張子
+				//_splitpath_s(textureFilePath, nullptr, 0, nullptr, 0, name, _MAX_FNAME, ext, _MAX_EXT);
 
-				sprintf_s(name, "%s%s", name, ext);
+				//sprintf_s(name, "%s%s", name, ext);
 
 				//ファイルからテクスチャ作成
-				wchar_t wtext[FILENAME_MAX];
-				size_t ret;
-				mbstowcs_s(&ret, wtext, name, strlen(name));
+				//wchar_t wtext[FILENAME_MAX];
+				//size_t ret;
+				//mbstowcs_s(&ret, wtext, name, strlen(name));
 
-				pNormal->Load(wtext);
-				materialList_[i].SetNormalMap(pNormal);
+				pNormal->Load(textureFilePath.filename().c_str());
+				materialList_[i].SetNormalMap(std::move(pNormal));
 			}
 			else
 			{
 				pNormal->Load(L"../Image\\DefaultNormalMap.jpg");
-				materialList_[i].SetNormalMap(pNormal);
+				materialList_[i].SetNormalMap(std::move(pNormal));
 			}
 		}
 	}
@@ -731,7 +731,7 @@ void FbxParts::RayCast(RayCastData& rayData, Transform& transform)
 
 		XMVECTOR nmlVec1;
 		XMVECTOR nmlVec2;
-		for (int poly = 0; poly < indexCount_[material]; poly++)
+		for (int poly = 0; poly < indexCount_.get()[material]; poly++)
 		{
 			//3つの頂点のベクトルを使って当たっているかどうかの判別をする
 			XMFLOAT3 v0 = { 0,0,0 };

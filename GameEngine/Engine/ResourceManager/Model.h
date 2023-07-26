@@ -2,8 +2,8 @@
 #include<string>
 #include"../DirectX_11/Fbx.h"
 #include"../DirectX_11/Texture.h"
-#include"../GameObject/Transform.h"
-#include"../../TransformComponent.h"
+#include"../Components/Transform.h"
+//#include"../../TransformComponent.h"
 #include<vector>
 namespace ModelManager
 {
@@ -23,7 +23,7 @@ namespace ModelManager
 	/// <param name="modelNum">ƒ‚ƒfƒ‹”Ô†</param>
 	/// <param name="transform">ŒÄ‚Ño‚µŒ³‚Ìtransform</param>
 	void SetTransform(int modelNum, Transform transform);
-	void SetTransform(int modelNum, TransformComponent transformComp);
+	//void SetTransform(int modelNum, TransformComponent transformComp);
 	/// <summary>
 	/// •`‰æ
 	/// </summary>

@@ -20,7 +20,7 @@ namespace DebugUI
 	/// </summary>
 	void StartImGui();
 	void Debug(/*GameObject* object*/);
-	void DebugLog(GameObject* object, std::string message);
+	void DebugLog(GameObject* object, const std::string& message);
 	void Log();
 	void CleanUp();
 	void PrintProcessMemory();

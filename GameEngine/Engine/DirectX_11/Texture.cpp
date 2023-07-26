@@ -1,9 +1,10 @@
 #include <wincodec.h>
 #include"Direct3D.h"
 #include "Texture.h"
+#include <filesystem>
 
 #pragma comment( lib, "WindowsCodecs.lib" )
-Texture::Texture()
+Texture::Texture() : imgHeight_(), imgWidth_()
 {
 	pSampler_ = nullptr;
 	pSRV_ = nullptr;
@@ -14,7 +15,7 @@ Texture::~Texture()
 	Release();
 }
 
-HRESULT Texture::Load(LPCWSTR fileName)
+HRESULT Texture::Load(const LPCWSTR& fileName)
 {
 	//画像ファイルロード
 	IWICImagingFactory* pFactory = nullptr;
@@ -101,17 +102,18 @@ HRESULT Texture::Load(LPCWSTR fileName)
 
 }
 
-HRESULT Texture::Load(std::string fileName)
+HRESULT Texture::Load(const std::string& fileName)
 {
+	std::filesystem::path file = fileName;
 	//パス名をファイル名と拡張子だけにする
-	char name[_MAX_FNAME];	//ファイル名
-	char ext[_MAX_EXT];		//拡張子
-	_splitpath_s(fileName.c_str(), nullptr, 0, nullptr, 0, name, _MAX_FNAME, ext, _MAX_EXT);
-	sprintf_s(name, "%s%s", name, ext);
+	//char name[_MAX_FNAME];	//ファイル名
+	//char ext[_MAX_EXT];		//拡張子
+	//_splitpath_s(fileName.c_str(), nullptr, 0, nullptr, 0, name, _MAX_FNAME, ext, _MAX_EXT);
+	//sprintf_s(name, "%s%s", name, ext);
 
-	wchar_t wtext[FILENAME_MAX];
-	size_t ret;
-	mbstowcs_s(&ret, wtext, fileName.c_str(), fileName.length());
+	//wchar_t wtext[FILENAME_MAX];
+	//size_t ret;
+	//mbstowcs_s(&ret, wtext, fileName.c_str(), fileName.length());
 
 	//画像ファイルロード
 	IWICImagingFactory* pFactory = nullptr;
@@ -119,7 +121,7 @@ HRESULT Texture::Load(std::string fileName)
 	IWICBitmapFrameDecode* pFrame = nullptr;
 	IWICFormatConverter* pFormatConverter = nullptr;
 	HRESULT hr=CoCreateInstance(CLSID_WICImagingFactory, nullptr, CLSCTX_INPROC_SERVER, IID_IWICImagingFactory, reinterpret_cast<void**>(&pFactory));
-	hr = pFactory->CreateDecoderFromFilename(wtext, NULL, GENERIC_READ, WICDecodeMetadataCacheOnDemand, &pDecoder);
+	hr = pFactory->CreateDecoderFromFilename(file.c_str(), NULL, GENERIC_READ, WICDecodeMetadataCacheOnDemand, &pDecoder);
 	if (FAILED(hr))
 	{
 		MessageBox(nullptr, L"Texture:テクスチャファイルのロードに失敗しました", L"エラー", MB_OK);
@@ -204,12 +206,12 @@ HRESULT Texture::Load(std::string fileName)
 
 
 
-UINT Texture::GetWidth()
+UINT Texture::GetWidth() const
 {
 	return imgWidth_;
 }
 
-UINT Texture::GetHeight()
+UINT Texture::GetHeight() const
 {
 	return imgHeight_;
 }

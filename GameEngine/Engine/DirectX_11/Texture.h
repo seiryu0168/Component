@@ -1,6 +1,6 @@
 #pragma once
 #include <d3d11.h>
-#include "string"
+#include <string>
 
 class Texture
 {
@@ -19,18 +19,18 @@ public:
 	/// </summary>
 	/// <param name="fileName">ファイル名</param>
 	/// <returns></returns>
-	HRESULT Load(LPCWSTR fileName);
+	HRESULT Load(const LPCWSTR& fileName);
 	/// <summary>
 	/// 画像ロード(パス込み)
 	/// </summary>
 	/// <param name="fileName">ファイル名</param>
 	/// <returns></returns>
-	HRESULT Load(std::string fileName);
-	ID3D11SamplerState* GetSampler(){ return pSampler_; }
-	ID3D11ShaderResourceView* GetSRV() { return pSRV_; }
+	HRESULT Load(const std::string& fileName);
+	ID3D11SamplerState* GetSampler() const { return pSampler_; }
+	ID3D11ShaderResourceView* GetSRV() const { return pSRV_; }
 
 
-	UINT GetWidth();
-	UINT GetHeight();
+	UINT GetWidth() const;
+	UINT GetHeight() const;
 	void Release();
 };
