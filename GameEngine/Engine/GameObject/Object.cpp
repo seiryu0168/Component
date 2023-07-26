@@ -179,6 +179,15 @@ void Object::ReleaseSub()
 //	}
 //}
 
+void Object::KillMe()
+{
+	this->killFlag_ = true;
+	for (auto&& itr = childList_.begin(); itr != childList_.end(); itr++)
+	{
+		(*itr)->KillMe();
+	}
+}
+
 Object* Object::GetParent() const
 {
 	return pParent_;

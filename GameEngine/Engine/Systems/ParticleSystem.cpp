@@ -38,7 +38,7 @@ void ParticleSystem::CheckRemove()
 	std::set<Entity> subEntities = entities_;
 	for (Entity entity : subEntities)
 	{
-		if (Coordinator::GetComponent<Particle>(entity).GetAttachedObject() == nullptr)
+		if (Coordinator::GetComponent<Particle>(entity).GetAttachedObject()->IsDead())
 			Coordinator::RemoveComponent<Particle>(entity);
 	}
 }

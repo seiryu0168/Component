@@ -74,7 +74,7 @@ public:
 	//void DelCollider(const Object& obj);
 
 
-	void KillMe() { killFlag_ = true; }
+	void KillMe();
 	bool IsDead() { return killFlag_; }
 	void SetTag(const std::string& tagName) { objectTag_ = tagName; }
 	bool IsActive() const { return activeFlag_; }

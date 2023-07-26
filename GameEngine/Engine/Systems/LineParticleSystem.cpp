@@ -37,7 +37,7 @@ void LineParticleSystem::CheckRemove()
 	std::set<Entity> subEntities = entities_;
 	for (Entity entity : subEntities)
 	{
-		if (Coordinator::GetComponent<LineParticle>(entity).GetAttachedObject() == nullptr)
+		if (Coordinator::GetComponent<LineParticle>(entity).GetAttachedObject()->IsDead())
 			Coordinator::RemoveComponent<LineParticle>(entity);
 	}
 }

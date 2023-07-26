@@ -45,7 +45,7 @@ void ColliderSystem::CheckRemove()
 	std::set<Entity> subEntities = entities_;
 	for (Entity entity : subEntities)
 	{
-	if (Coordinator::GetComponent<Collider>(entity).GetAttachedObject() == nullptr)
+	if (Coordinator::GetComponent<Collider>(entity).GetAttachedObject()->IsDead())
 		Coordinator::RemoveComponent<Collider>(entity);
 	}
 }

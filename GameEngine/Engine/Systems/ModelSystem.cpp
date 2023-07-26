@@ -33,7 +33,7 @@ void ModelSystem::CheckRemove()
 	std::set<Entity> subEntities = entities_;
 	for (Entity entity : subEntities)
 	{
-		if (Coordinator::GetComponent<Test_Model_ECSver>(entity).GetAttachedObject() == nullptr)
+		if (Coordinator::GetComponent<Test_Model_ECSver>(entity).GetAttachedObject()->IsDead())
 			Coordinator::RemoveComponent<Test_Model_ECSver>(entity);
 	}
 }

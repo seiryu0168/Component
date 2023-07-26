@@ -119,11 +119,11 @@ namespace newSceneManager
 
 	void CheckRemoveObject()
 	{
-		currentScene_->CheckKillObject();
 		pColliderSystem_->CheckRemove();
 		pModelSyatem_->CheckRemove();
 		pParticleSystem_->CheckRemove();
 		pLineParticleSystem_->CheckRemove();
+		currentScene_->CheckKillObject();
 		//pImageSystem_->CheckRemove();
 		//pTextSystem_->CheckRemove();
 	}
