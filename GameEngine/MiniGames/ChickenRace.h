@@ -2,6 +2,8 @@
 #include "Framework.h"
 #include "../Engine/Components/Text.h"
 
+class GameObject;
+
 class ChickenRace : public Framework
 {
 private:
@@ -9,7 +11,8 @@ private:
 	std::vector<float> PlayersTime_;
 	Text* text_;
 
-	void Finish() override;
+	void Finish();
+	void Failed(GameObject* obj);
 public:
 	ChickenRace(Object* parent);
 	~ChickenRace() {}
@@ -20,5 +23,6 @@ public:
 	void Release() override;
 
 	void SendTime(Object* target, float time);
+	int GetTarget() const { return TargetTime; }
 };
 

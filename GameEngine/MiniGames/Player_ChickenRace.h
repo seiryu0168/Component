@@ -9,6 +9,15 @@ private:
 	Time::Watch watch_;
 
 	Text* text_;
+
+	int TargetTime_;
+
+	bool CallFin_;
+
+	//パーティクルを初期化する
+	void CreateParticle();
+
+	void Finish();
 public:
 	Player_ChickenRace(Object* parent);
 	~Player_ChickenRace() {}

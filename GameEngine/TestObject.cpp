@@ -65,7 +65,7 @@ void TestObject::Initialize()
 	data.dirErr = { 0,0,0 };
 	data.gravity = -0.01f;
 	data.firstSpeed = 0.001f;
-	data.lifTime = 100;
+	data.lifeTime = 100;
 	data.number = 10;
 	data.scale = { 1.0f,1.0f };
 	data.size = { 1,1 };
