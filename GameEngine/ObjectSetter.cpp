@@ -59,7 +59,7 @@ void ObjectSetter::AddParticle(GameObject* object, std::string name, XMFLOAT3 po
 	data.color = color;	data.deltaColor = deltaCol;
 	data.size = size; data.sizeErr = sizeErr;
 	data.scale = scale;
-	data.lifTime = lifeTime;
+	data.lifeTime = lifeTime;
 	data.delay = delay;
 	data.number = number;
 	data.blendMode = mode;

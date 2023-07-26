@@ -145,7 +145,7 @@ void Particle::UpdateEmitter()
 					pParticle->deltaData.color = (*emitterCount)->data.deltaColor;	//パーティクルの色
 				
 
-					pParticle->life = (*emitterCount)->data.lifTime;				//パーティクルの寿命
+					pParticle->life = (*emitterCount)->data.lifeTime;				//パーティクルの寿命
 					pParticle->gravity = (*emitterCount)->data.gravity;				//パーティクルのにかかる重力
 					pParticle->acceleration = (*emitterCount)->data.acceleration;	//パーティクルの加速度
 					
@@ -253,6 +253,7 @@ void Particle::Release()
 {
 	for (auto itr = particleList_.begin(); itr != particleList_.end(); itr++)
 	{
+
 		//SAFE_DELETE(*itr);
 	}
 

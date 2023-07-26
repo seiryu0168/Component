@@ -19,7 +19,7 @@ struct EmitterData
     XMFLOAT2 size;                  //サイズ
     XMFLOAT2 sizeErr;               //サイズの誤差
     XMFLOAT2 scale;                 //1フレームあたりの拡大率
-    DWORD lifTime;                  //パーティクルの寿命
+    DWORD lifeTime;                  //パーティクルの寿命
     BLEND_MODE blendMode;
     
     int delay;                      //パーティクルを出す間隔のフレーム数
@@ -38,7 +38,7 @@ struct EmitterData
             color = { 1,1,1,1 };
             deltaColor = { 0,0,0,0 };
             size = scale = { 1.0f,1.0f };
-            lifTime = 10;
+            lifeTime = 10;
             blendMode = BLEND_MODE::BLEND_ADD;
         }
 
@@ -77,8 +77,8 @@ private:
         Emitter* pEmitter;      //エミッター
     };
 
-    std::list<std::shared_ptr<Emitter>>      emitterList_;
-    std::list<std::shared_ptr<ParticleData>> particleList_;
+    std::vector<std::shared_ptr<Emitter>>      emitterList_;
+    std::vector<std::shared_ptr<ParticleData>> particleList_;
     GameObject* attacheObject_;
     BLEND_MODE blendMode_;
 public:

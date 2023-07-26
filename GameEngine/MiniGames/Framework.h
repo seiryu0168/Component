@@ -18,9 +18,6 @@ protected:
 			Instantiate<T>(this);
 		}
 	}
-
-	//ミニゲームが終了したときに呼び出す関数
-	virtual void Finish() = 0;
 public:
 	Framework(Object* parent, const std::string& name);
 	virtual ~Framework();

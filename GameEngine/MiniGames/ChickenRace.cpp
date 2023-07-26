@@ -2,6 +2,7 @@
 #include "Player_ChickenRace.h"
 #include <format>
 #include <random>
+#include "../Engine/Components/Particle.h"
 
 ChickenRace::ChickenRace(Object* parent)
 	: Framework(parent, "ChickenRace") , TargetTime(0), PlayersTime_(), text_()
@@ -58,6 +59,27 @@ void ChickenRace::SendTime(Object* target, float time)
 		if (itr.get() == target)
 		{
 			PlayersTime_[element] = time;
+			if (time > TargetTime)
+			{
+				Failed((GameObject*)itr.get());
+			}
+			else
+			{
+				Text text;
+				text.SetText(std::format("Player{:d} : {:g}•b", element + 1 ,PlayersTime_[element]));
+				switch (element)
+				{
+				case 0:
+					text.SetRatio(0.15f, 0.5f);
+					break;
+				case 1:
+					text.SetRatio(0.65f, 0.5f);
+					break;
+				default:
+					break;
+				}
+				AddComponent<Text>(text);
+			}
 		}
 		++element;
 	}
@@ -71,6 +93,42 @@ void ChickenRace::SendTime(Object* target, float time)
 
 void ChickenRace::Finish()
 {
-	text_->SetRatio(0.3f, 0.3f);
-	text_->SetText(std::format("Player1 : {:g}•b  Player2 : {:g}•b", PlayersTime_[0], PlayersTime_[1]));
+	if ((PlayersTime_[0] > TargetTime && PlayersTime_[1] > TargetTime) || PlayersTime_[0] == PlayersTime_[1])
+	{
+		text_->SetText("Draw");
+	}
+	else if (PlayersTime_[0] > TargetTime || PlayersTime_[1] > PlayersTime_[0])
+	{
+		text_->SetText("Player2 Win!");
+	}
+	else
+	{
+		text_->SetText("Player1 Win!");
+	}
+	//text_->SetText(std::format("Player1 : {:g}•b  Player2 : {:g}•b", PlayersTime_[0], PlayersTime_[1]));
+}
+
+void ChickenRace::Failed(GameObject* obj)
+{
+	//‰Î‰Ô
+	Particle particle(obj);
+	EmitterData data;
+	data.position = StoreFloat3(obj->GetTransform()->position_);
+	data.delay = 0;
+	data.number = 400;
+	data.lifeTime = 200;
+	data.dir = XMFLOAT3(0, 1, 0);
+	data.dirErr = XMFLOAT3(150, 150, 90);
+	data.gravity = 0.001f;
+	data.speedErr = 5;
+	data.size = XMFLOAT2(1, 1);
+	data.sizeErr = XMFLOAT2(0.4f, 0.4f);
+	data.scale = XMFLOAT2(1, 1);
+	data.color = XMFLOAT4(1, 1, 0.1f, 1);
+	data.deltaColor = XMFLOAT4(0, -1.0f / 20, 0, -1.0f / 20);
+	data.textureFileName = "Assets\\Image\\Cloud.png";
+	data.firstSpeed = 0.5f;
+	data.blendMode = BLEND_MODE::BLEND_ADD;
+	particle.SetData(data);
+	AddComponent<Particle>(particle);
 }
