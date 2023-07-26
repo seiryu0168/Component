@@ -57,7 +57,7 @@ public:
 	~Collider();
 
 	void SetAttachObject(GameObject* object) { attachObject_ = object; }
-	GameObject* GetAttachObject() const { return attachObject_; }
+	GameObject* GetAttachedObject() const { return attachObject_; }
 	ColliderType GetType() const { return colliderType_; }
 	void SetCenter(const XMFLOAT3& pos) { center_ = pos; }
 	const XMFLOAT3& GetCenter() const { return center_; }

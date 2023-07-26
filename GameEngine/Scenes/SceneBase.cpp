@@ -44,6 +44,11 @@ void SceneBase::Update()
 	rootObject_->UpdateSub();
 }
 
+void SceneBase::CheckKillObject()
+{
+	rootObject_->ReleaseSub();
+}
+
 void SceneBase::AllKillObject()
 {
 	rootObject_->KillAllChildren();

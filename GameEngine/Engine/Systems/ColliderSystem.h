@@ -9,6 +9,7 @@ public:
 	~ColliderSystem() {};
 	void Update() override;
 	void Release() override;
+	void CheckRemove() override;
 	void CheckCollision(Collider* firstTarget, Collider* secondTarget) const;
 	
 	bool IsHitBox_Box(Collider* firstTarget, Collider* secondTarget) const;

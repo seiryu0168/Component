@@ -17,6 +17,7 @@ namespace newSceneManager
 	//void Initialize(const std::string& name);
 	void Update();
 	void Draw();
+	void CheckRemoveObject();
 	void AddScene(const std::string& objectFileName);
 	void CreateScene(const std::string& sceneName);
 	//void ChangeScene(SCENE_ID next, int countDown = 0);

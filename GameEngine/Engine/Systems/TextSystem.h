@@ -6,7 +6,8 @@ class TextSystem : public System
 public:
 	TextSystem();
 	~TextSystem() {};
-	void Update() override;
+	//void Update() override;
+	void Draw() override;
 	void Release() override;
 };
 

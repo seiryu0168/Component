@@ -310,7 +310,7 @@ void LineParticle::Update()
 
 void LineParticle::Draw()
 {
-	Update();
+	//Update();
 	HRESULT hr;
 	Direct3D::SetShader(SHADER_TYPE::SHADER_EFF);
 	Direct3D::SetBlendMode(blendMode_);

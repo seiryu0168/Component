@@ -17,6 +17,7 @@ public:
 	void ObjectSet();
 	void SetFile(const std::string& name);
 	void Update();
+	void CheckKillObject();
 
 	void AllKillObject();
 

@@ -40,7 +40,7 @@ private:
 	bool isKill_;
 	bool prevHit_;
 	bool nowHit_;
-	GameObject* attachObject_;
+	std::shared_ptr<GameObject> attachObject_;
 public:
 
 	Collider();
@@ -56,8 +56,8 @@ public:
 	}
 	~Collider();
 
-	void SetAttachObject(GameObject* object) { attachObject_ = object; }
-	GameObject* GetAttachedObject() const { return attachObject_; }
+	void SetAttachObject(std::shared_ptr<GameObject> object) { attachObject_ = object; }
+	std::shared_ptr<GameObject> GetAttachedObject() const { return attachObject_; }
 	ColliderType GetType() const { return colliderType_; }
 	void SetCenter(const XMFLOAT3& pos) { center_ = pos; }
 	const XMFLOAT3& GetCenter() const { return center_; }

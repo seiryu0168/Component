@@ -6,6 +6,7 @@ class ImageSystem : public System
 public:
 	ImageSystem();
 	~ImageSystem() {};
-	void Update() override;
+	//void Update() override;
+	void Draw() override;
 	void Release() override;
 };

@@ -8,14 +8,17 @@ ParticleSystem::ParticleSystem() : System()
 
 void ParticleSystem::Update()
 {
-	std::set<Entity> subEntities = entities_;
-	for (Entity entity : subEntities)
+	for (Entity entity : entities_)
 	{
-		Particle& particle = Coordinator::GetComponent<Particle>(entity);
-		if (particle.GetAttachedObject() == nullptr)
-			Coordinator::RemoveComponent<Particle>(entity);
-		else
-			particle.Draw();
+		Coordinator::GetComponent<Particle>(entity).Update();
+	}
+}
+
+void ParticleSystem::Draw()
+{
+	for (Entity entity : entities_)
+	{
+		Coordinator::GetComponent<Particle>(entity).Draw();
 	}
 }
 
@@ -27,5 +30,15 @@ void ParticleSystem::Release()
 	{
 		Coordinator::RemoveComponent<Particle>(entity);
 		Coordinator::DestroyEntity(entity);
+	}
+}
+
+void ParticleSystem::CheckRemove()
+{
+	std::set<Entity> subEntities = entities_;
+	for (Entity entity : subEntities)
+	{
+		if (Coordinator::GetComponent<Particle>(entity).GetAttachedObject() == nullptr)
+			Coordinator::RemoveComponent<Particle>(entity);
 	}
 }

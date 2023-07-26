@@ -6,14 +6,17 @@ LineParticleSystem::LineParticleSystem() : System()
 
 void LineParticleSystem::Update()
 {
-	std::set<Entity> subEntities = entities_;
-	for (Entity entity : subEntities)
+	for (Entity entity : entities_)
 	{
-		LineParticle& lineParticle = Coordinator::GetComponent<LineParticle>(entity);
-		if (lineParticle.GetAttachedObject() == nullptr)
-			Coordinator::RemoveComponent<LineParticle>(entity);
-		else
-			lineParticle.Draw();
+		Coordinator::GetComponent<LineParticle>(entity).Update();
+	}
+}
+
+void LineParticleSystem::Draw()
+{
+	for (Entity entity : entities_)
+	{
+		Coordinator::GetComponent<LineParticle>(entity).Draw();
 	}
 }
 
@@ -27,4 +30,14 @@ void LineParticleSystem::Release()
 		Coordinator::DestroyEntity(entity);
 	}
 
+}
+
+void LineParticleSystem::CheckRemove()
+{
+	std::set<Entity> subEntities = entities_;
+	for (Entity entity : subEntities)
+	{
+		if (Coordinator::GetComponent<LineParticle>(entity).GetAttachedObject() == nullptr)
+			Coordinator::RemoveComponent<LineParticle>(entity);
+	}
 }

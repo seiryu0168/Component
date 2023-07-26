@@ -4,7 +4,11 @@ ImageSystem::ImageSystem() : System()
 {
 }
 
-void ImageSystem::Update()
+//void ImageSystem::Update()
+//{
+//}
+
+void ImageSystem::Draw()
 {
 	for (Entity entity : entities_)
 	{

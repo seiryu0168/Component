@@ -329,9 +329,6 @@
     <ClInclude Include="Engine\ResourceManager\CsvReader.h">
       <Filter>ソース ファイル\Engine\ResourceManager</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Collider\Collider.h">
-      <Filter>ソース ファイル\Engine\Component</Filter>
-    </ClInclude>
     <ClInclude Include="DebugUI.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
@@ -481,6 +478,9 @@
     </ClInclude>
     <ClInclude Include="SelectUI.h">
       <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Components\Collider.h">
+      <Filter>ソース ファイル\Engine\Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -4,7 +4,12 @@ TextSystem::TextSystem() : System()
 {
 }
 
-void TextSystem::Update()
+//void TextSystem::Update()
+//{
+//	
+//}
+
+void TextSystem::Draw()
 {
 	for (Entity entity : entities_)
 	{

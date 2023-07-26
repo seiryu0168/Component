@@ -228,7 +228,7 @@ void Particle::SetData(const EmitterData& data)
 //•`‰æ
 void Particle::Draw()
 {
-	Update();
+	//Update();
 	Direct3D::SetShader(SHADER_TYPE::SHADER_EFF);
 	Direct3D::SetBlendMode(blendMode_);
 

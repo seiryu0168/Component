@@ -167,6 +167,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 				//DebugUI::Log();
 				ImGui::Render();
 #endif 
+				newSceneManager::CheckRemoveObject();
 				//•`‰æˆ—
 				Direct3D::BeginDraw();
 

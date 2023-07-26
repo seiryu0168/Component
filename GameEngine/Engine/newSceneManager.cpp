@@ -87,6 +87,10 @@ namespace newSceneManager
 		pColliderSystem_.get()->Update();
 		currentScene_->Update();
 
+		pModelSyatem_->Update();
+		pParticleSystem_->Update();
+		pLineParticleSystem_->Update();
+		
 		if(changeCount_!=0)
 		changeCount_--;
 		changeCount_ = max(0, changeCount_);
@@ -94,11 +98,11 @@ namespace newSceneManager
 
 	void Draw()
 	{
-		pModelSyatem_->Update();
-		pParticleSystem_->Update();
-		pLineParticleSystem_->Update();
-		pImageSystem_->Update();
-		pTextSystem_->Update();
+		pModelSyatem_->Draw();
+		pParticleSystem_->Draw();
+		pLineParticleSystem_->Draw();
+		pImageSystem_->Draw();
+		pTextSystem_->Draw();
 		
 	}
 
@@ -111,6 +115,17 @@ namespace newSceneManager
 	{
 		//Scene1 scene(sceneName);
 		//sceneList_.push_back(scene);
+	}
+
+	void CheckRemoveObject()
+	{
+		currentScene_->CheckKillObject();
+		pColliderSystem_->CheckRemove();
+		pModelSyatem_->CheckRemove();
+		pParticleSystem_->CheckRemove();
+		pLineParticleSystem_->CheckRemove();
+		//pImageSystem_->CheckRemove();
+		//pTextSystem_->CheckRemove();
 	}
 
 	//void ChangeScene(SCENE_ID next, int countDown)

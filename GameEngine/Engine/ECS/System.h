@@ -10,6 +10,8 @@ public:
 	~System() {};
 	virtual void Init() {};
 	virtual void Update() {};
+	virtual void Draw() {};
+	virtual void CheckRemove() {};
 	virtual void Release() {};
 };
 

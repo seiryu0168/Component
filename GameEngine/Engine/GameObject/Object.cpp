@@ -63,17 +63,17 @@ void Object::UpdateSub()
 		itr->UpdateSub();
 	}
 
-	for (auto itr = childList_.begin(); itr != childList_.end();)
-	{
-		if ((*itr)->killFlag_ == true)
-		{
-			(*itr)->ReleaseSub();
-			 SAFE_DELETE(*itr);
-			itr = childList_.erase(itr);
-		}
-		else
-			itr++;
-	}
+	//for (auto itr = childList_.begin(); itr != childList_.end();)
+	//{
+	//	if ((*itr)->killFlag_ == true)
+	//	{
+	//		(*itr)->ReleaseSub();
+	//		 //SAFE_RELEASE(*itr->get());
+	//		itr = childList_.erase(itr);
+	//	}
+	//	else
+	//		itr++;
+	//}
 }
 
 //void Object::ComponentUpdate()
@@ -97,7 +97,6 @@ void Object::FixedUpdateSub()
 		if ((*itr)->killFlag_ == true)
 		{
 			(*itr)->ReleaseSub();
-			//delete* itr;
 			itr = childList_.erase(itr);
 		}
 		/*else
@@ -146,25 +145,23 @@ void Object::ThirdDrawSub()
 }
 void Object::ReleaseSub()
 {
-	//for (auto i = colliderList_.begin(); i != colliderList_.end(); i++)
-	//{
-	//	SAFE_DELETE(*i);
-	//}
-	for (auto&& itr : childList_)
+	for (auto itr = childList_.begin();itr != childList_.end();)
 	{
-		itr->ReleaseSub();
-		//SAFE_DELETE(*i);
+		if ((*itr)->IsDead())
+		{
+			(*itr)->ReleaseSub();
+			//SAFE_DELETE(*itr)
+			itr = childList_.erase(itr);
+		}
+		else
+			itr++;
+
+
+	
 	}
 
 	Release();
 }
-//コライダーを追加
-//collider->pColObjectにセットする奴
-//void Object::AddCollider(Collider* collider)
-//{
-//	collider->SetGemaObject(this);
-//	colliderList_.push_back(collider);
-//}
 
 //void Object::DelCollider(const Object& obj)
 //{

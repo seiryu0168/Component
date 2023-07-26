@@ -12,28 +12,19 @@ ColliderSystem::ColliderSystem() : System()
 
 void ColliderSystem::Update()
 {
-	std::set<Entity> FirstSubEntities = entities_;
-	for (auto const& firstEntity : FirstSubEntities)
+	
+	for (auto const& firstEntity : entities_)
 	{
 		auto& firstCollision = Coordinator::GetComponent<Collider>(firstEntity);
-		if (firstCollision.GetAttachObject() != nullptr)
-			Coordinator::RemoveComponent<Collider>(firstEntity);
-
-		else
+		for (auto const& secondEntity : entities_)
 		{
-			std::set<Entity>secondSubEntities = entities_;
-			for (auto const& secondEntity : secondSubEntities)
+			if (firstEntity == secondEntity)
 			{
-				if (firstEntity == secondEntity)
-				{
-					continue;
-				}
-				auto& secondCollision = Coordinator::GetComponent<Collider>(secondEntity);
-				if (secondCollision.GetAttachObject() == nullptr)
-					Coordinator::RemoveComponent<Collider>(secondEntity);
-
-					CheckCollision(&firstCollision, &secondCollision);
+				continue;
 			}
+			auto& secondCollision = Coordinator::GetComponent<Collider>(secondEntity);
+
+			CheckCollision(&firstCollision, &secondCollision);
 		}
 	}
 }
@@ -46,6 +37,16 @@ void ColliderSystem::Release()
 	{
 		Coordinator::RemoveComponent<Collider>(entity);
 		Coordinator::DestroyEntity(entity);
+	}
+}
+
+void ColliderSystem::CheckRemove()
+{
+	std::set<Entity> subEntities = entities_;
+	for (Entity entity : subEntities)
+	{
+	if (Coordinator::GetComponent<Collider>(entity).GetAttachedObject() == nullptr)
+		Coordinator::RemoveComponent<Collider>(entity);
 	}
 }
 
@@ -85,14 +86,14 @@ void ColliderSystem::CheckCollision(Collider* firstTarget, Collider* secondTarge
 	}
 
 	if (isCollision)
-		firstTarget->GetAttachObject()->OnCollision(secondTarget->GetAttachObject());
+		firstTarget->GetAttachedObject()->OnCollision(secondTarget->GetAttachedObject());
 
 }
 
 bool ColliderSystem::IsHitBox_Box(Collider* firstTarget,Collider* secondTarget) const
 {
-	XMFLOAT3 boxPos1 = StoreFloat3(firstTarget->GetAttachObject()->GetComponent<Transform>().position_ + XMLoadFloat3(&firstTarget->GetCenter()));
-	XMFLOAT3 boxPos2 = StoreFloat3(secondTarget->GetAttachObject()->GetComponent<Transform>().position_ + XMLoadFloat3(&secondTarget->GetCenter()));
+	XMFLOAT3 boxPos1 = StoreFloat3(firstTarget->GetAttachedObject()->GetComponent<Transform>().position_ + XMLoadFloat3(&firstTarget->GetCenter()));
+	XMFLOAT3 boxPos2 = StoreFloat3(secondTarget->GetAttachedObject()->GetComponent<Transform>().position_ + XMLoadFloat3(&secondTarget->GetCenter()));
 
 	if ((boxPos1.x + firstTarget->GetCollisionShape<HitBox>().size_.x) > (boxPos2.x - secondTarget->GetCollisionShape<HitBox>().size_.x) &&
 		(boxPos1.x - firstTarget->GetCollisionShape<HitBox>().size_.x) < (boxPos2.x + secondTarget->GetCollisionShape<HitBox>().size_.x) &&
@@ -111,8 +112,8 @@ bool ColliderSystem::IsHitBox_Box(Collider* firstTarget,Collider* secondTarget) 
 
 bool ColliderSystem::IsHitBox_Sphere(Collider* boxTarget, Collider* sphereTarget) const
 {
-	XMFLOAT3 boxPos = StoreFloat3(boxTarget->GetAttachObject()->GetTransform()->position_ + XMLoadFloat3(&boxTarget->GetCenter()));
-	XMFLOAT3 spherePos = StoreFloat3(sphereTarget->GetAttachObject()->GetTransform()->position_ + XMLoadFloat3(&sphereTarget->GetCenter()));
+	XMFLOAT3 boxPos = StoreFloat3(boxTarget->GetAttachedObject()->GetTransform()->position_ + XMLoadFloat3(&boxTarget->GetCenter()));
+	XMFLOAT3 spherePos = StoreFloat3(sphereTarget->GetAttachedObject()->GetTransform()->position_ + XMLoadFloat3(&sphereTarget->GetCenter()));
 	XMFLOAT3 box = boxTarget->GetCollisionShape<HitBox>().size_;
 	float radius = sphereTarget->GetCollisionShape<HitSphere>().radius_;
 	
@@ -130,8 +131,8 @@ bool ColliderSystem::IsHitBox_Sphere(Collider* boxTarget, Collider* sphereTarget
 
 bool ColliderSystem::IsHitSphere_Sphere(Collider* firstTarget, Collider* secondTarget) const
 {
-	XMVECTOR spherePos1 = firstTarget->GetAttachObject()->GetTransform()->position_ + XMLoadFloat3(&firstTarget->GetCenter());
-	XMVECTOR spherePos2 = secondTarget->GetAttachObject()->GetTransform()->position_ + XMLoadFloat3(&secondTarget->GetCenter());
+	XMVECTOR spherePos1 = firstTarget->GetAttachedObject()->GetTransform()->position_ + XMLoadFloat3(&firstTarget->GetCenter());
+	XMVECTOR spherePos2 = secondTarget->GetAttachedObject()->GetTransform()->position_ + XMLoadFloat3(&secondTarget->GetCenter());
 	float sphereDistance = VectorLength(spherePos2 - spherePos1);
 	float distance = firstTarget->GetCollisionShape<HitSphere>().radius_ + secondTarget->GetCollisionShape<HitSphere>().radius_;
 

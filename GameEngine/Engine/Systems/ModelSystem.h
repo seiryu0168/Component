@@ -6,7 +6,9 @@ class ModelSystem : public System
 public:
 	ModelSystem();
 	~ModelSystem() {};
-	void Update() override;
+	//void Update() override;
+	void Draw() override;
 	void Release() override;
+	void CheckRemove() override;
 };
 
