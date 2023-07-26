@@ -119,8 +119,12 @@ public:
 	{
 		std::string typeName = typeid(T).name();
 		//コンポーネント番号が配列内にあるなら
-		if(componentNum< entityList_.find(typeName)->second.size())
-		Coordinator::RemoveComponent<T>(entityList_.find(typeName)->second[componentNum]);
+		if (componentNum < entityList_.find(typeName)->second.size())
+		{
+			Coordinator::RemoveComponent<T>(entityList_.find(typeName)->second[componentNum]);
+			entityList_.find(typeName)->second.erase(entityList_.find(typeName)->second.begin() + componentNum);
+		}
+		
 	}
 
 	template <typename T>
