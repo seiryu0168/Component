@@ -8,9 +8,14 @@ ParticleSystem::ParticleSystem() : System()
 
 void ParticleSystem::Update()
 {
-	for (Entity entity : entities_)
+	std::set<Entity> subEntities = entities_;
+	for (Entity entity : subEntities)
 	{
-		Coordinator::GetComponent<Particle>(entity).Draw();
+		Particle& particle = Coordinator::GetComponent<Particle>(entity);
+		if (particle.GetAttachedObject() == nullptr)
+			Coordinator::RemoveComponent<Particle>(entity);
+		else
+			particle.Draw();
 	}
 }
 

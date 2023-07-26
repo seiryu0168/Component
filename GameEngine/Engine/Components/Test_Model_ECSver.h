@@ -24,6 +24,7 @@ public:
 	bool Load(const std::string& fileName);
 	void RayCast(RayCastData& rayData);
 	void SetShaderType(SHADER_TYPE type) { type_ = type; }
+	GameObject* GetAttachedObject() { return attachObject_; }
 	void Draw();
 
 };

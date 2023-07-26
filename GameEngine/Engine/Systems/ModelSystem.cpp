@@ -5,9 +5,14 @@ ModelSystem::ModelSystem() : System()
 
 void ModelSystem::Update()
 {
-	for (Entity entity : entities_)
+	std::set<Entity> subEntities = entities_;
+	for (Entity entity : subEntities)
 	{
-		Coordinator::GetComponent<Test_Model_ECSver>(entity).Draw();
+		Test_Model_ECSver& model = Coordinator::GetComponent<Test_Model_ECSver>(entity);
+		if (model.GetAttachedObject() == nullptr)
+			Coordinator::RemoveComponent<Test_Model_ECSver>(entity);
+		else
+			model.Draw();
 	}
 }
 

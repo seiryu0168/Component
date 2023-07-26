@@ -1,5 +1,7 @@
 #include "Collider.h"
 #include"../../DebugUI.h"
+#include "Collider.h"
+
 
 Collider::Collider() : Collider({0,0,0})
 {
@@ -19,6 +21,7 @@ Collider::Collider(const XMFLOAT3& centerPos)
 Collider::~Collider()
 {
 }
+
 
 void Collider::SetCollisionType(const std::string& name)
 {

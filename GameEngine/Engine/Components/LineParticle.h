@@ -108,6 +108,7 @@ public:
 	/// <summary>
 	/// ポジションリストの削除
 	/// </summary>
+	GameObject* GetAttachedObject() { return attachObject_; }
 	void DeleteLine();
 	void Release();
 

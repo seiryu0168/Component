@@ -107,6 +107,7 @@ public:
     void KillEmitter(int hEmitter);
     void SetData(const EmitterData& data);
 
+    GameObject* GetAttachedObject() { return attacheObject_; }
     //•`‰æ
     void Draw();
 

@@ -6,9 +6,14 @@ LineParticleSystem::LineParticleSystem() : System()
 
 void LineParticleSystem::Update()
 {
-	for (Entity entity : entities_)
+	std::set<Entity> subEntities = entities_;
+	for (Entity entity : subEntities)
 	{
-		Coordinator::GetComponent<LineParticle>(entity).Draw();
+		LineParticle& lineParticle = Coordinator::GetComponent<LineParticle>(entity);
+		if (lineParticle.GetAttachedObject() == nullptr)
+			Coordinator::RemoveComponent<LineParticle>(entity);
+		else
+			lineParticle.Draw();
 	}
 }
 

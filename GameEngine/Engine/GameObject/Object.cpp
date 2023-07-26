@@ -62,6 +62,18 @@ void Object::UpdateSub()
 	{
 		itr->UpdateSub();
 	}
+
+	for (auto itr = childList_.begin(); itr != childList_.end();)
+	{
+		if ((*itr)->killFlag_ == true)
+		{
+			(*itr)->ReleaseSub();
+			 SAFE_DELETE(*itr);
+			itr = childList_.erase(itr);
+		}
+		else
+			itr++;
+	}
 }
 
 //void Object::ComponentUpdate()

@@ -12,18 +12,28 @@ ColliderSystem::ColliderSystem() : System()
 
 void ColliderSystem::Update()
 {
-	for (auto const& firstEntity : entities_)
+	std::set<Entity> FirstSubEntities = entities_;
+	for (auto const& firstEntity : FirstSubEntities)
 	{
 		auto& firstCollision = Coordinator::GetComponent<Collider>(firstEntity);
-		for (auto const& secondEntity : entities_)
+		if (firstCollision.GetAttachObject() != nullptr)
+			Coordinator::RemoveComponent<Collider>(firstEntity);
+
+		else
 		{
-			if (firstEntity == secondEntity)
+			std::set<Entity>secondSubEntities = entities_;
+			for (auto const& secondEntity : secondSubEntities)
 			{
-				continue;
+				if (firstEntity == secondEntity)
+				{
+					continue;
+				}
+				auto& secondCollision = Coordinator::GetComponent<Collider>(secondEntity);
+				if (secondCollision.GetAttachObject() == nullptr)
+					Coordinator::RemoveComponent<Collider>(secondEntity);
+
+					CheckCollision(&firstCollision, &secondCollision);
 			}
-			auto& secondCollision = Coordinator::GetComponent<Collider>(secondEntity);
-			
-			CheckCollision(&firstCollision,&secondCollision);
 		}
 	}
 }

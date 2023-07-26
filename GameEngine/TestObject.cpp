@@ -104,6 +104,7 @@ void TestObject::Initialize()
 	image.SetPosition(pos);
 	image.SetDrawTarget(0);
 	AddComponent<Image>(image);	
+	Instantiate<TestObjectChild>(this);
 
 }
 
@@ -118,6 +119,8 @@ void TestObject::Update()
 	}
 	if(Input::IsMouseButtonDown(1))
 		newSceneManager::ChangeScene(SCENE_ID::MENU);
+	if (Input::IsKeyDown(DIK_X))
+		KillMe();
 
 }
 
