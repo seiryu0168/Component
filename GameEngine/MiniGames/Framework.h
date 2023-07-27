@@ -1,6 +1,7 @@
 #pragma once
 #include "../Engine/GameObject/Object.h"
 #include "../Engine/Time.h"
+#include "../Engine/Components/Text.h"
 
 //ミニゲームの枠組みとなる基底クラス
 class Framework : public Object
@@ -15,7 +16,8 @@ protected:
 	{
 		for (int i = 0; i < Players_; i++)
 		{
-			Instantiate<T>(this);
+			auto p = Instantiate<T>(this);
+			p->SetID(i);
 		}
 	}
 public:

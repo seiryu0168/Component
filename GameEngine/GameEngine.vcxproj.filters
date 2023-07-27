@@ -255,6 +255,12 @@
     <ClCompile Include="SelectUI.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="MiniGames\CommandMemory.cpp">
+      <Filter>ソース ファイル\MiniGames</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGames\P_CommandMemory.cpp">
+      <Filter>ソース ファイル\MiniGames</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ImGui\imstb_truetype.h">
@@ -481,6 +487,12 @@
     </ClInclude>
     <ClInclude Include="Engine\Components\Collider.h">
       <Filter>ソース ファイル\Engine\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGames\CommandMemory.h">
+      <Filter>ソース ファイル\MiniGames</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGames\P_CommandMemory.h">
+      <Filter>ソース ファイル\MiniGames</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

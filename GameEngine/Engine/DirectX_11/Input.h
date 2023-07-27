@@ -7,6 +7,8 @@
 #pragma comment(lib,"Xinput.lib")
 #include"../SAFE_DELETE_RELEASE.h"
 
+static const WORD NO_PUSH = 0xffff;
+
 namespace Input
 {
 	void Initialize(HWND hWnd);
@@ -29,6 +31,13 @@ namespace Input
 	bool IsPadButton(int buttonCode,int padID = 0);
 	bool IsPadButtonDown(int buttonCode, int padID = 0);
 	bool IsPadButtonUp(int buttonCode, int padID = 0);
+	
+	/// <summary>
+	/// どのボタンが押されたか返す関数
+	/// </summary>
+	/// <param name="padID">検証するコントローラのID</param>
+	/// <returns>押されたボタンのビットマスク(押されていなければNO_PUSHを返す)</returns>
+	WORD GetPadAnyDown(int padID = 0);
 
 	float GetLStick_X(int padID = 0);
 	float GetLStick_Y(int padID = 0);

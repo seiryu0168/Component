@@ -226,9 +226,11 @@
     <ClCompile Include="InterSceneData.cpp" />
     <ClCompile Include="EngineTime.cpp" />
     <ClCompile Include="MiniGames\ChickenRace.cpp" />
+    <ClCompile Include="MiniGames\CommandMemory.cpp" />
     <ClCompile Include="MiniGames\Framework.cpp" />
     <ClCompile Include="MiniGames\Player.cpp" />
     <ClCompile Include="MiniGames\Player_ChickenRace.cpp" />
+    <ClCompile Include="MiniGames\P_CommandMemory.cpp" />
     <ClCompile Include="Scenes\RootObject\RootObject.cpp" />
     <ClCompile Include="Scenes\RootObject\RootObject_Menu.cpp" />
     <ClCompile Include="Scenes\RootObject\RootObject_Play.cpp" />
@@ -301,9 +303,11 @@
     <ClInclude Include="ImGui\imstb_truetype.h" />
     <ClInclude Include="InterSceneData.h" />
     <ClInclude Include="MiniGames\ChickenRace.h" />
+    <ClInclude Include="MiniGames\CommandMemory.h" />
     <ClInclude Include="MiniGames\Framework.h" />
     <ClInclude Include="MiniGames\Player.h" />
     <ClInclude Include="MiniGames\Player_ChickenRace.h" />
+    <ClInclude Include="MiniGames\P_CommandMemory.h" />
     <ClInclude Include="Scenes\RootObject\RootObject.h" />
     <ClInclude Include="Scenes\RootObject\RootObject_Menu.h" />
     <ClInclude Include="Scenes\RootObject\RootObject_Play.h" />

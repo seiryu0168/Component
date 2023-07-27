@@ -5,7 +5,11 @@ namespace
 	constexpr float TILT_MAX	= 32768.0f;
 	constexpr float TRIGGER_MAX = 255.0f;
 	const int		PAD_MAX		= 4;
-
+	//ゲームパッドの各ボタンの配列
+	const WORD Code[] = { XINPUT_GAMEPAD_DPAD_UP, XINPUT_GAMEPAD_DPAD_DOWN, XINPUT_GAMEPAD_DPAD_LEFT, XINPUT_GAMEPAD_DPAD_RIGHT,
+		XINPUT_GAMEPAD_START, XINPUT_GAMEPAD_BACK, XINPUT_GAMEPAD_LEFT_THUMB, XINPUT_GAMEPAD_RIGHT_THUMB,
+		XINPUT_GAMEPAD_LEFT_SHOULDER, XINPUT_GAMEPAD_RIGHT_SHOULDER,
+		XINPUT_GAMEPAD_A, XINPUT_GAMEPAD_B, XINPUT_GAMEPAD_X, XINPUT_GAMEPAD_Y };
 }
 
 namespace Input
@@ -170,6 +174,17 @@ namespace Input
 		return false;
 	}
 
+	WORD GetPadAnyDown(int padID)
+	{
+		for (WORD i : Code)
+		{
+			if (IsPadButtonDown(i, padID))
+				return i;
+		}
+
+		return NO_PUSH;
+	}
+
 	float GetLStick_X(int padID)
 	{
 		if (fabs(Controller_[padID].Gamepad.sThumbLX) >= XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE)
@@ -262,7 +277,7 @@ namespace Input
 
 	XMVECTOR GetMouseMove()
 	{
-		XMVECTOR move = XMVectorSet(mouseState.lX, mouseState.lY, mouseState.lZ,0);
+		XMVECTOR move = XMVectorSet((float)mouseState.lX, (float)mouseState.lY, (float)mouseState.lZ,0);
 		return move;
 	}
 
