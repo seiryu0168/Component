@@ -174,15 +174,36 @@ namespace Input
 		return false;
 	}
 
+	WORD GetPadAnyButton(int padID)
+	{
+		return Controller_[padID].Gamepad.wButtons;
+	}
+
 	WORD GetPadAnyDown(int padID)
 	{
-		for (WORD i : Code)
-		{
-			if (IsPadButtonDown(i, padID))
-				return i;
-		}
+		if (Controller_[padID].Gamepad.wButtons != 0 && prevController_[padID].Gamepad.wButtons == 0)
+			return prevController_[padID].Gamepad.wButtons;
+		else
+			return NO_PUSH;
+			//return 0;
+		//return Controller_[padID].Gamepad.wButtons & 0xffff;
 
-		return NO_PUSH;
+		//for (WORD i : Code)
+		//{
+		//	if (IsPadButtonDown(i, padID))
+		//		return i;
+		//}
+		//
+		//return NO_PUSH;
+	}
+
+	WORD GetPadAnyUp(int padID)
+	{
+		if (Controller_[padID].Gamepad.wButtons == 0 && prevController_[padID].Gamepad.wButtons != 0)
+			return Controller_[padID].Gamepad.wButtons;
+		else
+			return PUSH;
+		return WORD();
 	}
 
 	float GetLStick_X(int padID)

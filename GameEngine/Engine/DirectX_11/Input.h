@@ -8,6 +8,7 @@
 #include"../SAFE_DELETE_RELEASE.h"
 
 static const WORD NO_PUSH = 0xffff;
+static const WORD PUSH = 0xfff0;
 
 namespace Input
 {
@@ -37,7 +38,9 @@ namespace Input
 	/// </summary>
 	/// <param name="padID">検証するコントローラのID</param>
 	/// <returns>押されたボタンのビットマスク(押されていなければNO_PUSHを返す)</returns>
+	WORD GetPadAnyButton(int padID = 0);
 	WORD GetPadAnyDown(int padID = 0);
+	WORD GetPadAnyUp(int padID = 0);
 
 	float GetLStick_X(int padID = 0);
 	float GetLStick_Y(int padID = 0);

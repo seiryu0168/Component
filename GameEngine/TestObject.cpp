@@ -122,6 +122,10 @@ void TestObject::Update()
 	if (Input::IsKeyDown(DIK_X))
 		KillMe();
 
+	WORD input;
+
+	if (Input::GetPadAnyUp(0)!=PUSH)
+		input = XINPUT_GAMEPAD_B;
 }
 
 void TestObject::Draw()
