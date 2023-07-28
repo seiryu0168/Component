@@ -7,7 +7,6 @@
 #pragma comment(lib,"Xinput.lib")
 #include"../SAFE_DELETE_RELEASE.h"
 
-static const WORD NO_PUSH = 0xffff;
 static const WORD PUSH = 0xfff0;
 
 namespace Input
