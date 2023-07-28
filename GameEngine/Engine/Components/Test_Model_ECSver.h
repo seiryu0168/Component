@@ -21,10 +21,15 @@ public:
 	Test_Model_ECSver();
 	Test_Model_ECSver(GameObject* object);
 
+	//モデルのロード
 	bool Load(const std::string& fileName);
+	//レイキャスト(未検証)
 	void RayCast(RayCastData& rayData);
+	//シェーダータイプ設定
 	void SetShaderType(SHADER_TYPE type) { type_ = type; }
+	//アタッチされているオブジェクトを返す
 	GameObject* GetAttachedObject() { return attachObject_; }
+	//描画
 	void Draw();
 
 };

@@ -101,13 +101,32 @@ public:
 	/// <param name="length">ポジションの保存数</param>
 	/// <param name="tipWidth">終端の幅</param>
 	void SetLineParameter(const LineData& data);
+	/// <summary>
+	/// ブレンドモード設定
+	/// </summary>
+	/// <param name="mode">ブレンドモード</param>
 	void SetBlendMode(BLEND_MODE mode) { blendMode_ = mode; }
+	
+	
+	/// <summary>
+	/// ラインパーティクルの幅設定
+	/// </summary>
+	/// <param name="width">幅</param>
 	void SetWidth(float width) { WIDTH_ = max(0,width); }
+	/// <summary>
+	/// 末端の幅設定
+	/// </summary>
+	/// <param name="endWidth">幅</param>
 	void SetEndWidth(float endWidth) { endWidth_ = max(0, endWidth); }
+	/// <summary>
+	/// 基準点の保存量
+	/// </summary>
+	/// <param name="length"></param>
 	void SetLength(UINT length) { LENGTH_ = length; }
 	/// <summary>
-	/// ポジションリストの削除
+	/// アタッチされているオブジェクトを返す
 	/// </summary>
+	/// <returns>ゲームオブジェクト</returns>
 	GameObject* GetAttachedObject() { return attachObject_; }
 	void DeleteLine();
 	void Release();

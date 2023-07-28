@@ -62,8 +62,9 @@ void SelectUI::Initialize()
 	//テキスト
 	{
 		Text text1;
-		text1.SetText("Stage01");
+		text1.SetText("デアイカ");
 		text1.SetPosition({ basePosList_[0].x, basePosList_[0].y });
+		text1.SetFont("ShotaroV3 KT", 0, 5);
 		AddComponent<Text>(text1);
 	}
 	//テキスト2
@@ -71,6 +72,8 @@ void SelectUI::Initialize()
 		Text text2;
 		text2.SetText("Stage02");
 		text2.SetPosition({ basePosList_[1].x, basePosList_[1].y });
+		text2.SetFontStyle(DWRITE_FONT_STYLE_ITALIC, 0, 3);
+		text2.SetFontWeight(DWRITE_FONT_WEIGHT_BOLD, 0, 5);
 		AddComponent<Text>(text2);
 	}
 	//テキスト3

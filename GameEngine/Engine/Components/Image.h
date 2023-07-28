@@ -14,13 +14,21 @@ private:
 public:
 	Image();
 	~Image();
+	//画像ロード
 	bool Load(const std::string& name);
+	//座標設定
 	void SetPosition(const XMFLOAT3& pos);
+	//座標設定(ピクセル単位)
 	void SetPositionAtPixel(XMFLOAT3 pos);
+	//透明度設定
 	void SetAlpha(float alpha);
-	void SetDrawTarget(int targetNum) { drawTargetNumber_ = targetNum; }
+	//画像サイズ設定
 	void SetSize(const XMFLOAT3& size);
+	//画像回転
 	void SetRotation(const XMFLOAT3& rotate);
+	//描画対象設定(複数画面時)
+	void SetDrawTarget(int targetNum) { drawTargetNumber_ = targetNum; }
+	//描画
 	void Draw();
 
 

@@ -1,10 +1,16 @@
 #include "Direct2D.h"
 #include"../SAFE_DELETE_RELEASE.h"
+#include<fileSystem>
 
 namespace D2D
 {
-	ID2D1Factory*		   pFactory_	  = nullptr;	//ファクトリ
-	ID2D1RenderTarget* pRenderTarget_ = nullptr;    //レンダーターゲット
+	ID2D1Factory*			pFactory_	     = nullptr;	//ファクトリ
+	IDWriteFactory5*		pWriteFactory_   = nullptr;	//ライトファクトリ
+	IDWriteFontSetBuilder1* pFontSetBuilder_ = nullptr;
+	IDWriteFontFile*		pFontFile_		 = nullptr;
+	IDWriteFontSet*			pFontSet_		 = nullptr;
+	IDWriteFontCollection1* pFontCollection_ = nullptr;
+	ID2D1RenderTarget*		pRenderTarget_   = nullptr; //レンダーターゲット
 
 	//ID2D1SolidColorBrush*  pColorBrush_   = nullptr;	//ブラシ	
 	//IDWriteFactory*		   pWriteFactory_ = nullptr;	//文字描画のファクトリ
@@ -25,7 +31,48 @@ HRESULT D2D::Initialize(int winW, int winH, HWND hWnd)
 		MessageBox(nullptr, L"ファクトリの作成に失敗", L"エラー", MB_OK);
 		return hr;
 	}
-	IDXGISurface* pBackBuffer;
+	DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED, __uuidof(IDWriteFactory), reinterpret_cast<IUnknown**>(&pWriteFactory_));
+	assert(FAILED(hr) == false);
+		
+	hr = pWriteFactory_->CreateFontSetBuilder(&pFontSetBuilder_);
+	assert(FAILED(hr) == false);
+
+	std::filesystem::path path = "Assets/Font/mksd_shotaro_v3/mksd_shotaro_v3/ShotaroV-KT.otf";
+	hr = pWriteFactory_->CreateFontFileReference(path.wstring().c_str(), nullptr, &pFontFile_);
+	assert(FAILED(hr) == false);
+
+	
+	pFontSetBuilder_->AddFontFile(pFontFile_);
+	assert(FAILED(hr) == false);
+
+	pFontSetBuilder_->CreateFontSet(&pFontSet_);
+	assert(FAILED(hr) == false);
+
+	pWriteFactory_->CreateFontCollectionFromFontSet(pFontSet_, &pFontCollection_);
+	assert(FAILED(hr) == false);
+	//BOOL isSupport;// = nullptr;
+	//DWRITE_FONT_FILE_TYPE fileType;// = nullptr;
+	//DWRITE_FONT_FACE_TYPE faceType;// = nullptr;
+	//UINT32 count;// = nullptr;
+	//UINT32 familyCount;
+	//BOOL isFind;
+	//IDWriteFontFamily1* family=nullptr;
+	//hr = pFontCollection_->GetFontFamily(0,&family);
+	//IDWriteLocalizedStrings* name;
+	//family->GetFamilyNames(&name);
+	//std::wstring fontName;
+	//UINT32 length = 0;
+	//
+	//name->GetStringLength(0, &length);
+	//name->GetString(0, (WCHAR*)fontName.c_str(), length + 1);
+	//hr = pFontFile_->Analyze(&isSupport, &fileType, &faceType, &count);
+
+
+
+	
+	
+	
+	IDXGISurface* pBackBuffer;	
 	Direct3D::GetSwapChain()->GetBuffer(0, IID_PPV_ARGS(&pBackBuffer));
 	//hr = DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED,__uuidof(IDWriteFactory),reinterpret_cast<IUnknown**>(&pWriteFactory_));
 	//if (FAILED(hr))
@@ -101,6 +148,16 @@ HRESULT D2D::Initialize(int winW, int winH, HWND hWnd)
 ID2D1Factory* D2D::Get2DFactory()
 {
 	return pFactory_;
+}
+
+IDWriteFactory5* D2D::GetDWriteFactory()
+{
+	return pWriteFactory_;
+}
+
+IDWriteFontCollection1* D2D::GetCollection()
+{
+	return pFontCollection_;
 }
 
 ID2D1RenderTarget* D2D::GetRenderTarget()

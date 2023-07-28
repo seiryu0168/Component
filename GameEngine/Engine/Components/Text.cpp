@@ -10,7 +10,7 @@ Text::Text()
 
 	pText_		   = L"";
 	pColorBrush_   = nullptr;
-	pWriteFactory_ = nullptr;
+	//pWriteFactory_ = nullptr;
 	pTextFormat_   = nullptr;
 	pLayout_	   = nullptr;
 	Initialize();
@@ -29,7 +29,7 @@ int Text::GetTextSize() const
 void Text::Release()
 {
 	SAFE_RELEASE(pTextFormat_);
-	SAFE_RELEASE(pWriteFactory_);
+	//SAFE_RELEASE(pWriteFactory_);
 	//SAFE_RELEASE(pColorBrush_);
 }
 
@@ -57,15 +57,16 @@ int Text::Load(const std::string& text, const std::string& fontName, const TEXT_
 	//変換した文字数
 	textLength_ = textSize;
 
-	HRESULT hr=DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED, __uuidof(IDWriteFactory), reinterpret_cast<IUnknown**>(&pWriteFactory_));
-	//テキストフォーマットにフォントを設定
-	hr=SetFont(data);
-	if (FAILED(hr))
-	{
-		return hr;
-	}
+	//HRESULT hr=DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED, __uuidof(IDWriteFactory), reinterpret_cast<IUnknown**>(&pWriteFactory_));
+	////テキストフォーマットにフォントを設定
+	//hr=SetFont(data);
+	//if (FAILED(hr))
+	//{
+	//	return hr;
+	//}
 	//pWriteFactory_->CreateTextFormat(pFontName_, NULL, DWRITE_FONT_WEIGHT_REGULAR, DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_STRETCH_NORMAL,72.0f, L"ja-jp", &pTextFormat_);
 	//アライメント設定
+	HRESULT hr;
 	SetAlinmentType(type);
 	//描画のためのブラシ作成
 	hr=D2D::GetRenderTarget()->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White), &pColorBrush_);
@@ -77,7 +78,7 @@ int Text::Load(const std::string& text, const std::string& fontName, const TEXT_
 	layoutRect_ = rect;
 	
 	//テキストレイアウト作成
-	hr=pWriteFactory_->CreateTextLayout(pText_.c_str(), (UINT32)textLength_, pTextFormat_, (layoutRect_.right - layoutRect_.left), (layoutRect_.bottom - layoutRect_.top), &pLayout_);
+	hr=D2D::GetDWriteFactory()->CreateTextLayout(pText_.c_str(), (UINT32)textLength_, pTextFormat_, (layoutRect_.right - layoutRect_.left), (layoutRect_.bottom - layoutRect_.top), &pLayout_);
 	if (FAILED(hr))
 	{
 		return hr;
@@ -91,10 +92,11 @@ void Text::Initialize()
 	//フォント名用の配列用意
 	//size_t ret;
 	FontData data;
-	std::wstring fontName= L"Sitka Text";
+	std::wstring fontName= L"Arial";
 	std::wstring&& text = L"sumple";
 	//size_t textSize;
 	data.fontName_ = fontName;
+	data.pCollection_ = D2D::GetCollection();
 
 	//描画するテキスト用の配列を用意する
 	textLength_ = text.length() + 1;
@@ -105,9 +107,14 @@ void Text::Initialize()
 	std::string locale = setlocale(LC_CTYPE, NULL);
 
 	data.locale_ = (wchar_t*)L"en-us";
+	data.fontWaight_ = DWRITE_FONT_WEIGHT_NORMAL;
+	data.fontStyle_ = DWRITE_FONT_STYLE_NORMAL;
+	data.fontStretch_=DWRITE_FONT_STRETCH_NORMAL;
 
-	HRESULT hr = DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED, __uuidof(IDWriteFactory), reinterpret_cast<IUnknown**>(&pWriteFactory_));
-	assert(FAILED(hr) == false);
+	//HRESULT hr = DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED, __uuidof(IDWriteFactory), reinterpret_cast<IUnknown**>(&pWriteFactory_));
+	//assert(FAILED(hr) == false);
+	
+	HRESULT hr;
 	//テキストフォーマットにフォントを設定
 	hr = SetFont(data);
 	assert(FAILED(hr) == false);
@@ -120,7 +127,7 @@ void Text::Initialize()
 	layoutRect_ = {0,0,500,100};
 
 	//テキストレイアウト作成
-	hr = pWriteFactory_->CreateTextLayout(pText_.c_str(), (UINT32)textLength_, pTextFormat_, (layoutRect_.right - layoutRect_.left), (layoutRect_.bottom - layoutRect_.top), &pLayout_);
+	hr = D2D::GetDWriteFactory()->CreateTextLayout(pText_.c_str(), (UINT32)textLength_, pTextFormat_, (layoutRect_.right - layoutRect_.left), (layoutRect_.bottom - layoutRect_.top), &pLayout_);
 	assert(FAILED(hr) == false);
 }
 
@@ -176,13 +183,28 @@ HRESULT Text::SetText(const std::string& text)
 	setlocale(LC_CTYPE, locale.c_str());
 	textLength_ = pText_.length();
 	SAFE_RELEASE(pLayout_);
-	return pWriteFactory_->CreateTextLayout(pText_.c_str(), (UINT32)textLength_, pTextFormat_, (layoutRect_.right - layoutRect_.left), (layoutRect_.bottom - layoutRect_.top), &pLayout_);
+	return D2D::GetDWriteFactory()->CreateTextLayout(pText_.c_str(), (UINT32)textLength_, pTextFormat_, (layoutRect_.right - layoutRect_.left), (layoutRect_.bottom - layoutRect_.top), &pLayout_);
 }
 
 HRESULT Text::SetFontWeight(DWRITE_FONT_WEIGHT weightType, UINT32 startPos, UINT32 length)
 {
-	return pLayout_->SetFontWeight(weightType, { startPos,length });
+	DWRITE_TEXT_RANGE range;
+	range.length = length;
+	range.startPosition = startPos;
+	return pLayout_->SetFontWeight(weightType, range);
 }
+
+HRESULT Text::SetFontStyle(DWRITE_FONT_STYLE style, const UINT32& startPos, const UINT32& length)
+{
+	HRESULT hr;
+	DWRITE_TEXT_RANGE range;
+	range.length = length;
+	range.startPosition = startPos;
+	return pLayout_->SetFontStyle(style, range);
+}
+
+
+
 
 HRESULT Text::SetTextSize(float size, UINT32 startPos, UINT32 length)
 {
@@ -214,18 +236,34 @@ HRESULT Text::SetTextSize(float size)
 		return hr;
 	//書式設定
 	SAFE_RELEASE(pTextFormat_);
-	hr = pWriteFactory_->CreateTextFormat((WCHAR*)data.fontName_.c_str(), data.pCollection_, data.fontWaight_, data.fontStyle_, data.fontStretch_, data.fontSize_, data.locale_.c_str(), &pTextFormat_);
+	hr = D2D::GetDWriteFactory()->CreateTextFormat((WCHAR*)data.fontName_.c_str(), data.pCollection_, data.fontWaight_, data.fontStyle_, data.fontStretch_, data.fontSize_, data.locale_.c_str(), &pTextFormat_);
 	if (FAILED(hr))
 		return hr;
 	SAFE_RELEASE(pLayout_);
-	hr = pWriteFactory_->CreateTextLayout(pText_.c_str(), (UINT32)textLength_, pTextFormat_, (layoutRect_.right - layoutRect_.left), (layoutRect_.bottom - layoutRect_.top), &pLayout_);
+	hr = D2D::GetDWriteFactory()->CreateTextLayout(pText_.c_str(), (UINT32)textLength_, pTextFormat_, (layoutRect_.right - layoutRect_.left), (layoutRect_.bottom - layoutRect_.top), &pLayout_);
 		return hr;
 }
 
 HRESULT Text::SetFont(const FontData& data)
 {
-	HRESULT hr= pWriteFactory_->CreateTextFormat(data.fontName_.c_str(), data.pCollection_, data.fontWaight_/*DWRITE_FONT_WEIGHT_REGULAR*/, data.fontStyle_/*DWRITE_FONT_STYLE_NORMAL*/, data.fontStretch_/*DWRITE_FONT_STRETCH_NORMAL*/, data.fontSize_, data.locale_.c_str(), &pTextFormat_);
+	FontData fData;
+	fData.fontName_ = data.fontName_;
+	fData.pCollection_ = data.pCollection_;
+	fData.locale_ = data.locale_;
+	fData.fontWaight_ = data.fontWaight_;
+	fData.fontStyle_ = data.fontStyle_;
+	fData.fontStretch_ = data.fontStretch_;
+	HRESULT hr= D2D::GetDWriteFactory()->CreateTextFormat(fData.fontName_.c_str(), fData.pCollection_, data.fontWaight_/*DWRITE_FONT_WEIGHT_REGULAR*/, data.fontStyle_/*DWRITE_FONT_STYLE_NORMAL*/, data.fontStretch_/*DWRITE_FONT_STRETCH_NORMAL*/, data.fontSize_, data.locale_.c_str(), &pTextFormat_);
 	assert(hr==S_OK);
+	return hr;
+}
+HRESULT Text::SetFont(const std::string& fontName, const UINT32& startPos, const UINT32& length)
+{
+	std::filesystem::path str = fontName;
+	DWRITE_TEXT_RANGE range;
+	range.startPosition = startPos;
+	range.length = length;
+		HRESULT hr = pLayout_->SetFontFamilyName(str.wstring().c_str(), range);
 	return hr;
 }
 void Text::SetTransform(const TEXT_POSITION& pos)

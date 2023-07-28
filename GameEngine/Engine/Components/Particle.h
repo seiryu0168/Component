@@ -54,6 +54,7 @@ private:
         DWORD frameCount = 0;               //経過フレーム数
         std::unique_ptr<BillBoard> pBillBoard = nullptr;    //パーティクルに使うポリゴン
         bool isDead = false;                //消すかどうか
+        bool isStop = false;                //パーティクルを止めるかどうか
         int particleCount = 0;              //このエミッターから出て今残ってるパーティクルの数
     };
 
@@ -81,6 +82,13 @@ private:
     std::vector<std::shared_ptr<ParticleData>> particleList_;
     GameObject* attacheObject_;
     BLEND_MODE blendMode_;
+    bool isStop_;
+
+    //パーティクルのアップデート
+    void UpdateParticle();
+    
+    //エミッターのアップデート
+    void UpdateEmitter();
 public:
     Particle();
     Particle(GameObject* object);
@@ -94,11 +102,6 @@ public:
     //更新
     void Update();
 
-    //パーティクルのアップデート
-    void UpdateParticle();
-    
-    //エミッターのアップデート
-    void UpdateEmitter();
 
     //パーティクル発生
     int ParticleStart(const EmitterData& data);
@@ -107,7 +110,14 @@ public:
     void KillEmitter(int hEmitter);
     void SetData(const EmitterData& data);
 
+    //アタッチされてるオブジェクトを返す
     GameObject* GetAttachedObject() { return attacheObject_; }
+
+    //パーティクルの生成を止める
+    void Stop() { isStop_ = true; }
+    //パーティクルの生成を再開する
+    void Restart() { isStop_ = false; }
+
     //描画
     void Draw();
 

@@ -56,16 +56,30 @@ public:
 	}
 	~Collider();
 
+	//アタッチするオブジェクトを設定
 	void SetAttachObject(GameObject* object) { attachObject_ = object; }
+	//アタッチしてるオブジェクトを返す
 	GameObject* GetAttachedObject() const { return attachObject_; }
+	//コライダーのタイプを返す
 	ColliderType GetType() const { return colliderType_; }
+	//コライダーの位置設定
 	void SetCenter(const XMFLOAT3& pos) { center_ = pos; }
+	//コライダーの位置を返す
 	const XMFLOAT3& GetCenter() const { return center_; }
+	//今ヒットしてるかどうか設定(未完成機能)
 	void HitEnable(bool isHit) { nowHit_ = isHit; }
+	//ヒットしてるかどうか
 	bool IsHit() const { return nowHit_; }
+	//コライダーを消す
 	void KillCollider() { isKill_ = true; }
+	//
 	bool IsKill() const { return isKill_; }
 
+	/// <summary>
+	/// コライダーの形を設定
+	/// </summary>
+	/// <typeparam name="T">コライダーの形(BOXかSPHERE)</typeparam>
+	/// <param name="colliderShape">コライダーの情報</param>
 	template<typename T>
 	void SetCollider(const T& colliderShape)
 	{
@@ -75,18 +89,27 @@ public:
 		Coordinator::AddComponent<T>(colliderEntity_,colliderShape);
 	}
 
-	template <typename T>
-	T& GetCollider() const
-	{
-
-		return Coordinator::GetComponent<T>(colliderEntity_);
-	}
+	/// <summary>
+	/// コライダー情報を返す
+	/// </summary>
+	/// <typeparam name="T">コライダーの形の型</typeparam>
+	/// <returns>コライダーの情報</returns>
 	template<typename T>
 	T& GetCollisionShape() const
 	{
 		return Coordinator::GetComponent<T>(colliderEntity_);
 	}
+	//コライダーの型を設定
 	void SetCollisionType(const std::string& name);
+
+	//template <typename T>
+	//T& GetCollider() const
+	//{
+	//
+	//	return Coordinator::GetComponent<T>(colliderEntity_);
+	//}
+	
+	
 
 	////衝突範囲
 	//

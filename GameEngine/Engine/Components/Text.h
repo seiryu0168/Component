@@ -31,8 +31,8 @@ private:
 	D2D1_RECT_F			  layoutRect_;		//レイアウトレクト
 	std::wstring		  pText_;			//テキスト
 	std::wstring		  pFontName_;
-	ID2D1SolidColorBrush* pColorBrush_;		//ブラシ	
-	IDWriteFactory*		  pWriteFactory_;	//文字描画のファクトリ
+	ID2D1SolidColorBrush* pColorBrush_;		//ブラシ
+	//IDWriteFactory5*		  pWriteFactory_;	//文字描画のファクトリ
 	IDWriteTextFormat*	  pTextFormat_;     //テキストフォーマット
 	IDWriteTextLayout*	  pLayout_;			//テキストレイアウト
 public:
@@ -44,12 +44,15 @@ public:
 	void Initialize();
 	void Draw();
 	void SetAlinmentType(const STARTING_TYPE& type);
-	HRESULT SetFont(const FontData& data);
 	void SetColor(const XMFLOAT4& color);
+	HRESULT SetFont(const FontData& data);
+	HRESULT SetFont(const std::string& fontName, const UINT32& startPos, const UINT32& length);
+	HRESULT SetText(const std::string& text);
 	HRESULT SetTextSize(float size,UINT32 startPos,UINT32 length);
 	HRESULT SetTextSize(float size);
 	HRESULT SetFontWeight(DWRITE_FONT_WEIGHT weightType,UINT32 startPos,UINT32 length);
-	HRESULT SetText(const std::string& text);
+	HRESULT SetFontStyle(DWRITE_FONT_STYLE style,const UINT32& startPos,const UINT32& length);
+	
 	void SetTransform(const TEXT_POSITION& pos);
 	void SetTextLayout();
 	void SetRatio(float ratioX,float ratioY);

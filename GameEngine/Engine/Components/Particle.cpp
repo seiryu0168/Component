@@ -79,6 +79,8 @@ void Particle::UpdateParticle()
 
 void Particle::UpdateEmitter()
 {
+	if (isStop_)
+		return;
 	for (auto emitterCount = emitterList_.begin(); emitterCount != emitterList_.end();)
 	{
 		//死んでるエミッターの処理
@@ -109,7 +111,6 @@ void Particle::UpdateEmitter()
 					float deltaX = (float)((*emitterCount)->data.positionErr.x == 0 ? 0 : rand() % (int)((*emitterCount)->data.positionErr.x * 201) - ((*emitterCount)->data.positionErr.x * 100))/100.0f;
 					float deltaY = (float)((*emitterCount)->data.positionErr.y == 0 ? 0 : rand() % (int)((*emitterCount)->data.positionErr.y * 201) - ((*emitterCount)->data.positionErr.y * 100))/100.0f;
 					float deltaZ = (float)((*emitterCount)->data.positionErr.z == 0 ? 0 : rand() % (int)((*emitterCount)->data.positionErr.z * 201) - ((*emitterCount)->data.positionErr.z * 100))/100.0f;
-
 					pParticle->nowData.position += XMVectorSet(deltaX,deltaY,deltaZ,0);
 	
 
@@ -139,7 +140,6 @@ void Particle::UpdateEmitter()
 					float spd = (float)((*emitterCount)->data.speedErr == 0 ? 0 : (int)((*emitterCount)->data.speedErr * 201) - ((*emitterCount)->data.speedErr * 100)) / 100.0f+1.0f;
 		
 					vecDir = XMVector3Normalize(vecDir) * (*emitterCount)->data.firstSpeed * spd;
-					//XMStoreFloat3(&pParticle->deltaData.position, vecDir);
 					pParticle->deltaData.position = vecDir;
 					pParticle->deltaData.scale = (*emitterCount)->data.scale;		//パーティクルの拡大率
 					pParticle->deltaData.color = (*emitterCount)->data.deltaColor;	//パーティクルの色
