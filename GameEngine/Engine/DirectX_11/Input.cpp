@@ -184,7 +184,7 @@ namespace Input
 		if (Controller_[padID].Gamepad.wButtons != 0 && prevController_[padID].Gamepad.wButtons == 0)
 			return prevController_[padID].Gamepad.wButtons;
 		else
-			return NO_PUSH;
+			return NULL;
 			//return 0;
 		//return Controller_[padID].Gamepad.wButtons & 0xffff;
 

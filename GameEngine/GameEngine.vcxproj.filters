@@ -261,6 +261,12 @@
     <ClCompile Include="MiniGames\P_CommandMemory.cpp">
       <Filter>ソース ファイル\MiniGames</Filter>
     </ClCompile>
+    <ClCompile Include="MiniGames\P_FindDifference.cpp">
+      <Filter>ソース ファイル\MiniGames</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGames\FindDifference.cpp">
+      <Filter>ソース ファイル\MiniGames</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ImGui\imstb_truetype.h">
@@ -492,6 +498,12 @@
       <Filter>ソース ファイル\MiniGames</Filter>
     </ClInclude>
     <ClInclude Include="MiniGames\P_CommandMemory.h">
+      <Filter>ソース ファイル\MiniGames</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGames\P_FindDifference.h">
+      <Filter>ソース ファイル\MiniGames</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGames\FindDifference.h">
       <Filter>ソース ファイル\MiniGames</Filter>
     </ClInclude>
   </ItemGroup>
