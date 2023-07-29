@@ -244,6 +244,15 @@ HRESULT Text::SetTextSize(float size)
 		return hr;
 }
 
+HRESULT Text::SetFontCollection(IDWriteFontCollection* collection, UINT32 startPos, UINT32 length)
+{
+	DWRITE_TEXT_RANGE range;
+	range.startPosition = startPos;
+	range.length = length;
+	HRESULT hr = pLayout_->SetFontCollection(collection, range);
+	return hr;
+}
+
 HRESULT Text::SetFont(const FontData& data)
 {
 	FontData fData;
@@ -263,7 +272,21 @@ HRESULT Text::SetFont(const std::string& fontName, const UINT32& startPos, const
 	DWRITE_TEXT_RANGE range;
 	range.startPosition = startPos;
 	range.length = length;
-		HRESULT hr = pLayout_->SetFontFamilyName(str.wstring().c_str(), range);
+	BOOL isFont = false;
+	std::filesystem::path name = fontName;
+	UINT32 index;
+	D2D::GetCollection()->FindFamilyName((wchar_t*)name.wstring().c_str(), &index, &isFont);
+	if (isFont == false)
+	{
+		D2D::GetSystemFontCollection()->FindFamilyName((wchar_t*)name.wstring().c_str(), &index, &isFont);
+		if (isFont)
+			pLayout_->SetFontCollection(D2D::GetSystemFontCollection(), range);
+		else
+			return E_FAIL;
+	}
+	
+	pLayout_->SetFontCollection(D2D::GetCollection(),range);
+	HRESULT hr = pLayout_->SetFontFamilyName(str.wstring().c_str(), range);
 	return hr;
 }
 void Text::SetTransform(const TEXT_POSITION& pos)

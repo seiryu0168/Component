@@ -7,11 +7,11 @@ namespace D2D
 	ID2D1Factory*			pFactory_	     = nullptr;	//ファクトリ
 	IDWriteFactory5*		pWriteFactory_   = nullptr;	//ライトファクトリ
 	IDWriteFontSetBuilder1* pFontSetBuilder_ = nullptr;
-	IDWriteFontFile*		pFontFile_		 = nullptr;
+	IDWriteFontCollection*  pSystemFontCollection_ = nullptr;
 	IDWriteFontSet*			pFontSet_		 = nullptr;
 	IDWriteFontCollection1* pFontCollection_ = nullptr;
 	ID2D1RenderTarget*		pRenderTarget_   = nullptr; //レンダーターゲット
-
+	std::vector<IDWriteFontFile*> fontFileList;
 	//ID2D1SolidColorBrush*  pColorBrush_   = nullptr;	//ブラシ	
 	//IDWriteFactory*		   pWriteFactory_ = nullptr;	//文字描画のファクトリ
 	//IDWriteTextFormat*	   pTextFormat_   = nullptr;	//テキストフォーマット
@@ -33,23 +33,23 @@ HRESULT D2D::Initialize(int winW, int winH, HWND hWnd)
 	}
 	DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED, __uuidof(IDWriteFactory), reinterpret_cast<IUnknown**>(&pWriteFactory_));
 	assert(FAILED(hr) == false);
-		
+	pWriteFactory_->GetSystemFontCollection(&pSystemFontCollection_);
 	hr = pWriteFactory_->CreateFontSetBuilder(&pFontSetBuilder_);
 	assert(FAILED(hr) == false);
-
-	std::filesystem::path path = "Assets/Font/mksd_shotaro_v3/mksd_shotaro_v3/ShotaroV-KT.otf";
-	hr = pWriteFactory_->CreateFontFileReference(path.wstring().c_str(), nullptr, &pFontFile_);
-	assert(FAILED(hr) == false);
-
-	
-	pFontSetBuilder_->AddFontFile(pFontFile_);
-	assert(FAILED(hr) == false);
-
-	pFontSetBuilder_->CreateFontSet(&pFontSet_);
-	assert(FAILED(hr) == false);
-
-	pWriteFactory_->CreateFontCollectionFromFontSet(pFontSet_, &pFontCollection_);
-	assert(FAILED(hr) == false);
+	CreateFontCollection();
+	//std::filesystem::path path = "Assets/Font/holiday_mdjp05/HolidayMDJP.otf";
+	//hr = pWriteFactory_->CreateFontFileReference(path.wstring().c_str(), nullptr, &pFontFile_);
+	//assert(FAILED(hr) == false);
+	//
+	//
+	//pFontSetBuilder_->AddFontFile(pFontFile_);
+	//assert(FAILED(hr) == false);
+	//
+	//pFontSetBuilder_->CreateFontSet(&pFontSet_);
+	//assert(FAILED(hr) == false);
+	//
+	//pWriteFactory_->CreateFontCollectionFromFontSet(pFontSet_, &pFontCollection_);
+	//assert(FAILED(hr) == false);
 	//BOOL isSupport;// = nullptr;
 	//DWRITE_FONT_FILE_TYPE fileType;// = nullptr;
 	//DWRITE_FONT_FACE_TYPE faceType;// = nullptr;
@@ -64,7 +64,8 @@ HRESULT D2D::Initialize(int winW, int winH, HWND hWnd)
 	//UINT32 length = 0;
 	//
 	//name->GetStringLength(0, &length);
-	//name->GetString(0, (WCHAR*)fontName.c_str(), length + 1);
+	//wchar_t* fontNameArray = new wchar_t[length];
+	//name->GetString(0, fontNameArray, length + 1);
 	//hr = pFontFile_->Analyze(&isSupport, &fileType, &faceType, &count);
 
 
@@ -143,6 +144,54 @@ HRESULT D2D::Initialize(int winW, int winH, HWND hWnd)
 
 
 	return S_OK;
+}
+
+HRESULT D2D::CreateFontCollection()
+{
+	//std::filesystem::recursive_directory_iterator rcsv_Directory_Itr("Assets/Font");
+
+	//std::filesystem::path path = "Assets/Font/holiday_mdjp05/HolidayMDJP.otf";
+	HRESULT hr;
+	for (const std::filesystem::directory_entry& directry : std::filesystem::recursive_directory_iterator("Assets/Fonts"))
+	{
+
+
+		IDWriteFontFile* fontFile = nullptr;
+		std::filesystem::path path = directry.path();
+		std::string exname = path.extension().string();
+		if (exname !=".ttf"&& exname !=".otf")
+		{	
+			SAFE_RELEASE(fontFile);
+			continue;
+		}
+		hr = pWriteFactory_->CreateFontFileReference(directry.path().wstring().c_str(), nullptr, &fontFile);
+
+		BOOL isFont;
+		hr = fontFile->Analyze(&isFont, nullptr, nullptr, nullptr);
+		if (isFont)
+		{
+			SAFE_RELEASE(fontFile);
+		}
+		else
+		{
+			hr = pFontSetBuilder_->AddFontFile(fontFile);
+			assert(FAILED(hr) == false);
+			fontFileList.push_back(fontFile);
+		}
+
+	}
+
+		hr = pFontSetBuilder_->CreateFontSet(&pFontSet_);
+		assert(FAILED(hr) == false);
+
+		hr = pWriteFactory_->CreateFontCollectionFromFontSet(pFontSet_, &pFontCollection_);
+		assert(FAILED(hr) == false);
+	return hr;
+}
+
+IDWriteFontCollection* D2D::GetSystemFontCollection()
+{
+	return pSystemFontCollection_;
 }
 
 ID2D1Factory* D2D::Get2DFactory()

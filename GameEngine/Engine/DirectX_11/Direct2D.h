@@ -26,6 +26,8 @@ namespace D2D
 	extern IDWriteFontSetBuilder1* pFontSetBuilder_;
 
 	HRESULT Initialize(int winW, int winH, HWND hWnd);
+	HRESULT CreateFontCollection();
+	IDWriteFontCollection* GetSystemFontCollection();
 	ID2D1Factory* Get2DFactory();
 	IDWriteFactory5* GetDWriteFactory();
 	IDWriteFontCollection1* GetCollection();

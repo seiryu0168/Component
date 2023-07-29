@@ -50,6 +50,7 @@ public:
 	HRESULT SetText(const std::string& text);
 	HRESULT SetTextSize(float size,UINT32 startPos,UINT32 length);
 	HRESULT SetTextSize(float size);
+	HRESULT SetFontCollection(IDWriteFontCollection* collection,UINT32 startPos,UINT32 length);
 	HRESULT SetFontWeight(DWRITE_FONT_WEIGHT weightType,UINT32 startPos,UINT32 length);
 	HRESULT SetFontStyle(DWRITE_FONT_STYLE style,const UINT32& startPos,const UINT32& length);
 	

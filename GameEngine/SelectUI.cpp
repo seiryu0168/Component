@@ -62,9 +62,11 @@ void SelectUI::Initialize()
 	//テキスト
 	{
 		Text text1;
-		text1.SetText("デアイカ");
+		text1.SetText("草書");
 		text1.SetPosition({ basePosList_[0].x, basePosList_[0].y });
-		text1.SetFont("ShotaroV3 KT", 0, 5);
+		//text1.SetFontCollection(D2D::GetCollection(), 0, 3);
+		//text1.SetFontCollection(D2D::GetCollection(), 0, 3);
+		text1.SetFont("Calibri", 0, 3);
 		AddComponent<Text>(text1);
 	}
 	//テキスト2
