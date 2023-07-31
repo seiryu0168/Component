@@ -33,7 +33,7 @@ void Text::Release()
 	//SAFE_RELEASE(pColorBrush_);
 }
 
-int Text::Load(const std::string& text, const std::string& fontName, const TEXT_RECT& rect, const STARTING_TYPE& type)
+int Text::Load(const std::string& text, const std::string& fontName, const TEXT_RECT& rect, const ALINMENT_TYPE& type)
 {
 	//フォント名用の配列用意
 	size_t ret;
@@ -275,18 +275,29 @@ HRESULT Text::SetFont(const std::string& fontName, const UINT32& startPos, const
 	BOOL isFont = false;
 	std::filesystem::path name = fontName;
 	UINT32 index;
+	HRESULT hr;
+	//エンジン内のフォントコレクションに目的のフォントがあるかどうか
 	D2D::GetCollection()->FindFamilyName((wchar_t*)name.wstring().c_str(), &index, &isFont);
 	if (isFont == false)
 	{
+		//無かった場合システムフォント探す
 		D2D::GetSystemFontCollection()->FindFamilyName((wchar_t*)name.wstring().c_str(), &index, &isFont);
 		if (isFont)
-			pLayout_->SetFontCollection(D2D::GetSystemFontCollection(), range);
+		{
+			//フォントコレクション設定
+			hr = pLayout_->SetFontCollection(D2D::GetSystemFontCollection(), range);
+			//フォントとその範囲設定
+			hr = pLayout_->SetFontFamilyName(str.wstring().c_str(), range);
+			return hr;
+		}
+		//フォントが見つからない場合なんもしない
 		else
 			return E_FAIL;
 	}
-	
-	pLayout_->SetFontCollection(D2D::GetCollection(),range);
-	HRESULT hr = pLayout_->SetFontFamilyName(str.wstring().c_str(), range);
+	//フォントコレクション設定
+	hr = pLayout_->SetFontCollection(D2D::GetCollection(),range);
+	//フォントとその範囲設定
+	hr = pLayout_->SetFontFamilyName(str.wstring().c_str(), range);
 	return hr;
 }
 void Text::SetTransform(const TEXT_POSITION& pos)
@@ -298,7 +309,7 @@ void Text::SetRect(const TEXT_RECT& rect)
 {	
 	layoutRect_ = rect;
 }
-void Text::SetAlinmentType(const STARTING_TYPE& type)
+void Text::SetAlinmentType(const ALINMENT_TYPE& type)
 {
 
 	switch (type)
