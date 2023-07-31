@@ -7,6 +7,7 @@ class Player : public GameObject
 protected:
 	//ƒvƒŒƒCƒ„[‚Ì”Ô†
 	int Playerid_;
+
 public:
 	Player(Object* parent, const std::string& name);
 	virtual ~Player() {}

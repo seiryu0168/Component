@@ -17,7 +17,7 @@ void P_CommandMemory::Initialize()
 
 void P_CommandMemory::Update()
 {
-	if (WORD button = Input::GetPadAnyDown(Playerid_); button != NULL)
+	if (WORD button = Input::GetPadOnlyDown(Playerid_); button != NULL)
 	{
 		memory_->sendCommand(button, Playerid_);
 	}

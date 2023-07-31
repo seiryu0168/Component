@@ -1,4 +1,5 @@
 #pragma once
+#define DIRECTINPUT_VERSION 0x0800
 #include <dInput.h>
 #include"Direct3D.h"
 #include"XInput.h"
@@ -40,6 +41,12 @@ namespace Input
 	WORD GetPadAnyButton(int padID = 0);
 	WORD GetPadAnyDown(int padID = 0);
 	WORD GetPadAnyUp(int padID = 0);
+
+	/// <summary>ボタンが一つだけ押されたときにその値を返す関数</summary>
+	/// <param name="padID">検証するコントローラのID</param>
+	/// <returns>一つのみの場合は押されたボタンのビットマスク、複数または一つもない場合はNULL</returns>
+	WORD GetPadOnlyDown(int padID = 0);
+	WORD GetPadOnlyUp(int padID = 0);
 
 	float GetLStick_X(int padID = 0);
 	float GetLStick_Y(int padID = 0);

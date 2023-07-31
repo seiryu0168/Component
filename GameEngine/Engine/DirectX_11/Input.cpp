@@ -132,9 +132,7 @@ namespace Input
 
 	bool IsPadAnyButton(int padID)
 	{
-		if (Controller_[padID].Gamepad.wButtons != 0)
-			return true;
-		return false;
+		return Controller_[padID].Gamepad.wButtons != 0;
 	}
 	bool IsPadAnyButtonDown(int padID)
 	{
@@ -150,11 +148,7 @@ namespace Input
 	}
 	bool IsPadButton(int buttonCode, int padID)
 	{
-		if (Controller_[padID].Gamepad.wButtons & buttonCode)
-		{
-			return true;
-		}
-		return false;
+		return (Controller_[padID].Gamepad.wButtons & buttonCode) != 0;
 	}
 	
 	bool IsPadButtonDown(int buttonCode, int padID)
@@ -185,7 +179,7 @@ namespace Input
 		return (Controller_[padID].Gamepad.wButtons ^ prevController_[padID].Gamepad.wButtons) & Controller_[padID].Gamepad.wButtons;
 
 		/*if (Controller_[padID].Gamepad.wButtons != 0 && prevController_[padID].Gamepad.wButtons == 0)
-			return prevController_[padID].Gamepad.wButtons;8
+			return prevController_[padID].Gamepad.wButtons;
 		else
 			return NULL;*/
 			//return 0;
@@ -209,6 +203,28 @@ namespace Input
 		else
 			return PUSH;
 		return WORD();*/
+	}
+
+	WORD GetPadOnlyDown(int padID)
+	{
+		WORD ans = GetPadAnyDown(padID);
+
+		if (std::has_single_bit(ans))
+		{
+			return ans;
+		}
+		return NULL;
+	}
+
+	WORD GetPadOnlyUp(int padID)
+	{
+		WORD ans = GetPadAnyUp(padID);
+
+		if (std::has_single_bit(ans))
+		{
+			return ans;
+		}
+		return NULL;
 	}
 
 	float GetLStick_X(int padID)

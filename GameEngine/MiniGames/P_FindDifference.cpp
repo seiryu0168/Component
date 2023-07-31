@@ -29,7 +29,7 @@ void P_FindDifference::Initialize()
 
 void P_FindDifference::Update()
 {
-	switch (WORD i = Input::GetPadAnyDown(Playerid_); i)
+	switch (WORD i = Input::GetPadOnlyDown(Playerid_); i)
 	{
 	case XINPUT_GAMEPAD_A:
 	case XINPUT_GAMEPAD_B:
@@ -40,6 +40,22 @@ void P_FindDifference::Update()
 	default:
 		break;
 	}
+	/*if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A))
+	{
+		pFD_->SendData(datas.at(XINPUT_GAMEPAD_A), Playerid_);
+	}
+	if (Input::IsPadButtonDown(XINPUT_GAMEPAD_B))
+	{
+		pFD_->SendData(datas.at(XINPUT_GAMEPAD_B), Playerid_);
+	}
+	if (Input::IsPadButtonDown(XINPUT_GAMEPAD_X))
+	{
+		pFD_->SendData(datas.at(XINPUT_GAMEPAD_X), Playerid_);
+	}
+	if (Input::IsPadButtonDown(XINPUT_GAMEPAD_Y))
+	{
+		pFD_->SendData(datas.at(XINPUT_GAMEPAD_Y), Playerid_);
+	}*/
 }
 
 void P_FindDifference::Release()

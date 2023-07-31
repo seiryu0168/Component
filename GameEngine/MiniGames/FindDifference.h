@@ -2,7 +2,7 @@
 #include "Framework.h"
 
 //選択肢
-enum class CHOICES
+enum class CHOICES : int
 {
 	ABOVE,
 	UNDER,
@@ -12,6 +12,11 @@ enum class CHOICES
 
 class FindDifference : public Framework
 {
+	int Penalty_;	//罰則対象となるプレイヤー
+
+	CHOICES Direction_;	//間違いを表示する方向
+
+	std::vector<int> Points_;	//プレイヤーごとの得点
 public:
 	FindDifference(Object* parent);
 	~FindDifference();
