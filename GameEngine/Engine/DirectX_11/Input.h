@@ -36,7 +36,7 @@ namespace Input
 	/// どのボタンが押されたか返す関数
 	/// </summary>
 	/// <param name="padID">検証するコントローラのID</param>
-	/// <returns>押されたボタンのビットマスク(押されていなければNO_PUSHを返す)</returns>
+	/// <returns>押されたボタンのビットマスク</returns>
 	WORD GetPadAnyButton(int padID = 0);
 	WORD GetPadAnyDown(int padID = 0);
 	WORD GetPadAnyUp(int padID = 0);

@@ -6,10 +6,10 @@ namespace
 	constexpr float TRIGGER_MAX = 255.0f;
 	const int		PAD_MAX		= 4;
 	//ゲームパッドの各ボタンの配列
-	const WORD Code[] = { XINPUT_GAMEPAD_DPAD_UP, XINPUT_GAMEPAD_DPAD_DOWN, XINPUT_GAMEPAD_DPAD_LEFT, XINPUT_GAMEPAD_DPAD_RIGHT,
+	/*const WORD Code[] = { XINPUT_GAMEPAD_DPAD_UP, XINPUT_GAMEPAD_DPAD_DOWN, XINPUT_GAMEPAD_DPAD_LEFT, XINPUT_GAMEPAD_DPAD_RIGHT,
 		XINPUT_GAMEPAD_START, XINPUT_GAMEPAD_BACK, XINPUT_GAMEPAD_LEFT_THUMB, XINPUT_GAMEPAD_RIGHT_THUMB,
 		XINPUT_GAMEPAD_LEFT_SHOULDER, XINPUT_GAMEPAD_RIGHT_SHOULDER,
-		XINPUT_GAMEPAD_A, XINPUT_GAMEPAD_B, XINPUT_GAMEPAD_X, XINPUT_GAMEPAD_Y };
+		XINPUT_GAMEPAD_A, XINPUT_GAMEPAD_B, XINPUT_GAMEPAD_X, XINPUT_GAMEPAD_Y };*/
 }
 
 namespace Input
@@ -181,10 +181,13 @@ namespace Input
 
 	WORD GetPadAnyDown(int padID)
 	{
-		if (Controller_[padID].Gamepad.wButtons != 0 && prevController_[padID].Gamepad.wButtons == 0)
+		//現在と直前の状態の排他的論理和を取得し、現在押されたビットのみを論理積で残す
+		return (Controller_[padID].Gamepad.wButtons ^ prevController_[padID].Gamepad.wButtons) & Controller_[padID].Gamepad.wButtons;
+
+		/*if (Controller_[padID].Gamepad.wButtons != 0 && prevController_[padID].Gamepad.wButtons == 0)
 			return prevController_[padID].Gamepad.wButtons;
 		else
-			return NULL;
+			return NULL;*/
 			//return 0;
 		//return Controller_[padID].Gamepad.wButtons & 0xffff;
 
@@ -199,11 +202,13 @@ namespace Input
 
 	WORD GetPadAnyUp(int padID)
 	{
-		if (Controller_[padID].Gamepad.wButtons == 0 && prevController_[padID].Gamepad.wButtons != 0)
+		return (Controller_[padID].Gamepad.wButtons ^ prevController_[padID].Gamepad.wButtons) & prevController_[padID].Gamepad.wButtons;
+
+		/*if (Controller_[padID].Gamepad.wButtons == 0 && prevController_[padID].Gamepad.wButtons != 0)
 			return Controller_[padID].Gamepad.wButtons;
 		else
 			return PUSH;
-		return WORD();
+		return WORD();*/
 	}
 
 	float GetLStick_X(int padID)
