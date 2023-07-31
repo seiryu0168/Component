@@ -174,6 +174,7 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Debug_SceneChanger.cpp" />
     <ClCompile Include="Easing.cpp" />
     <ClCompile Include="DebugUI.cpp" />
     <ClCompile Include="Engine\Components\Collider.cpp" />
@@ -247,6 +248,7 @@
     <ClCompile Include="TestObjectChild.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Debug_SceneChanger.h" />
     <ClInclude Include="Easing.h" />
     <ClInclude Include="DebugUI.h" />
     <ClInclude Include="Engine\Components\Collider.h" />

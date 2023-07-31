@@ -10,16 +10,17 @@
 SceneBase::SceneBase()
 	:SceneBase("default")
 {
+	debug_SceneChanger = std::make_shared<Debug_SceneChanger>();
 }
 
 SceneBase::SceneBase(const std::string& name)
 	:sceneName_(name)
 {
+	debug_SceneChanger = std::make_shared<Debug_SceneChanger>();
 }
 
 void SceneBase::SceneInitialize()
 {
-	//rootObject_ = std::make_shared<RootObject>();
 	//rootObject_->SetTransform();
 	//setter_ = ObjectSetter(rootObject_.get());
 }
@@ -41,6 +42,10 @@ void SceneBase::SetFile(const std::string& name)
 
 void SceneBase::Update()
 {
+#ifdef _DEBUG
+	debug_SceneChanger->Update();
+#endif // DEBUG
+
 	rootObject_->UpdateSub();
 }
 

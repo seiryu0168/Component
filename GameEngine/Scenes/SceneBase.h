@@ -2,9 +2,11 @@
 #include"../Engine/Coordinator.h"
 #include"RootObject/RootObject.h"
 #include"../ObjectSetter.h"
+#include"../Debug_SceneChanger.h"
 class SceneBase
 {
 	std::shared_ptr<Object> rootObject_;
+	std::shared_ptr<Debug_SceneChanger> debug_SceneChanger;
 	std::string sceneName_;
 	std::string fileName_;
 	ObjectSetter setter_;

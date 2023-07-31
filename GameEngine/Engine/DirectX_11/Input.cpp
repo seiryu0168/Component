@@ -185,7 +185,7 @@ namespace Input
 		return (Controller_[padID].Gamepad.wButtons ^ prevController_[padID].Gamepad.wButtons) & Controller_[padID].Gamepad.wButtons;
 
 		/*if (Controller_[padID].Gamepad.wButtons != 0 && prevController_[padID].Gamepad.wButtons == 0)
-			return prevController_[padID].Gamepad.wButtons;
+			return prevController_[padID].Gamepad.wButtons;8
 		else
 			return NULL;*/
 			//return 0;

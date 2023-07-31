@@ -1,9 +1,9 @@
 #pragma once
 #include"SceneBase.h"
 #include"RootObject/RootObject_Title.h"
+#include"../Debug_SceneChanger.h"
 class Scene_Title : public SceneBase
 {
-	//std::shared_ptr<RootObject_Title> rootObject_;
 public:
 	Scene_Title();
 	Scene_Title(const std::string& name);

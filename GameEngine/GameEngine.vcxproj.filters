@@ -267,6 +267,9 @@
     <ClCompile Include="MiniGames\FindDifference.cpp">
       <Filter>ソース ファイル\MiniGames</Filter>
     </ClCompile>
+    <ClCompile Include="Debug_SceneChanger.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ImGui\imstb_truetype.h">
@@ -505,6 +508,9 @@
     </ClInclude>
     <ClInclude Include="MiniGames\FindDifference.h">
       <Filter>ソース ファイル\MiniGames</Filter>
+    </ClInclude>
+    <ClInclude Include="Debug_SceneChanger.h">
+      <Filter>ソース ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
