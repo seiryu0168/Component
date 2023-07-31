@@ -246,6 +246,7 @@
     <ClCompile Include="SelectUI.cpp" />
     <ClCompile Include="TestObject.cpp" />
     <ClCompile Include="TestObjectChild.cpp" />
+    <ClCompile Include="Title.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Debug_SceneChanger.h" />
@@ -328,6 +329,7 @@
     <ClInclude Include="SelectUI.h" />
     <ClInclude Include="TestObject.h" />
     <ClInclude Include="TestObjectChild.h" />
+    <ClInclude Include="Title.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="BillBoard.hlsl">

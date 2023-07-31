@@ -166,6 +166,8 @@ void SelectUI::Update()
 	case SELECT_STATE::STATE_MOVE:
 		Move();
 		break;
+	case SELECT_STATE::STATE_SELECTED:
+		break;	
 	default:
 		break;
 	}
@@ -195,8 +197,8 @@ void SelectUI::MoveButton(float ratio)
 
 void SelectUI::PushedButton(int buttonNum)
 {
-
-	newSceneManager::ChangeScene(SCENE_ID::MENU);
+	state_ = SELECT_STATE::STATE_SELECTED;
+	newSceneManager::ChangeScene(SCENE_ID::PLAY);
 }
 
 void SelectUI::Release()

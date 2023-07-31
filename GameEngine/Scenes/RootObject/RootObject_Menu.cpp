@@ -1,6 +1,6 @@
 #include "RootObject_Menu.h"
 #include"../../Engine/Components/Transform.h"
-#include"../../TestObjectChild.h"
+#include"../../SelectUI.h"
 
 RootObject_Menu::RootObject_Menu()
 {
@@ -14,7 +14,7 @@ RootObject_Menu::~RootObject_Menu()
 
 void RootObject_Menu::Initialize()
 {
-	Instantiate<TestObjectChild>(this);
+	Instantiate<SelectUI>(this);
 	
 }
 
