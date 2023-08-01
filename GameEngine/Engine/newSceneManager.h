@@ -3,6 +3,7 @@
 #include<string>
 #include<utility>
 #include"../Scenes/SceneBase.h"
+#include "Systems/ImageSystem.h"
 enum class SCENE_ID
 {
 	TITLE = 0,
@@ -32,5 +33,6 @@ namespace newSceneManager
 	//ECSアーキテクチャの初期化
 	void ECSInitialize();
 
+	std::shared_ptr<ImageSystem> GetImageSystem();
 };
 

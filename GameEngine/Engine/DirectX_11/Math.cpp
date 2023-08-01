@@ -1,4 +1,5 @@
 #include "Math.h"
+#include "Direct3D.h"
 
 float Math::Det(XMFLOAT3 a, XMFLOAT3 b, XMFLOAT3 c)
 {
@@ -70,4 +71,25 @@ bool Math::IsFrontSurface(XMVECTOR vNormal, XMVECTOR vDir)
 		return true;
 	}
 	return false;
+}
+
+XMFLOAT3 Math::TransformToPixel(const XMFLOAT3& transform)
+{
+	//position_Ç0~1Ç…ïœçX
+	XMFLOAT3 pos = { (transform.x + 1) / 2, (-transform.y + 1) / 2, transform.z };
+
+	pos = { pos.x * Direct3D::GetScreenWidth(), pos.y * Direct3D::GetScreenHeight(), pos.z};
+
+	return pos;
+}
+
+XMFLOAT3 Math::PixelToTransform(const XMFLOAT3& pixel)
+{
+	XMFLOAT3 pos = { pixel.x / Direct3D::GetScreenWidth(), pixel.y / Direct3D::GetScreenHeight(), pixel.z};
+	pos = { pos.x * 2 - 1, -pos.y * 2 + 1, pos.z };
+	return pos;
+}
+XMFLOAT3 Math::PixelToTransform(const XMINT3& pixel)
+{
+	return PixelToTransform(XMFLOAT3{ (float)pixel.x, (float)pixel.y, (float)pixel.z });
 }

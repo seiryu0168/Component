@@ -37,6 +37,12 @@ namespace Math
 	/// <returns>表かどうか</returns>
 	bool IsFrontSurface(XMVECTOR vNormal, XMVECTOR vDir);
 
+
+	//画像のTransformの位置をピクセルに変換
+	XMFLOAT3 TransformToPixel(const XMFLOAT3& transform);
+	//画像のピクセルをTransformに変換
+	XMFLOAT3 PixelToTransform(const XMFLOAT3& pixel);
+	XMFLOAT3 PixelToTransform(const XMINT3& pixel);
 }
 
 template <typename T>

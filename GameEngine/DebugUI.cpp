@@ -1,7 +1,7 @@
 #include "DebugUI.h"
 #include"Engine/newSceneManager.h"
+#include "Engine/Debug.h"
 #include<psapi.h>
-
 
 namespace DebugUI
 {
@@ -37,6 +37,7 @@ void DebugUI::Debug(/*GameObject* object*/)
 	//ImGui::Text(object->GetObjectName().c_str());
 	//objectCount_ = 0;
 	ImGui::End();
+	
 	
 }
 

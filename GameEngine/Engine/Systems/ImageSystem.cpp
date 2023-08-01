@@ -26,3 +26,13 @@ void ImageSystem::Release()
 		Coordinator::DestroyEntity(entity);
 	}
 }
+
+int ImageSystem::IsHitCursorAny()
+{
+	for (Entity entity : entities_)
+	{
+		if (Coordinator::GetComponent<Image>(entity).IsHitCursor())
+			return entity;
+	}
+	return -1;
+}
