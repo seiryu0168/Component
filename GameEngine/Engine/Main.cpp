@@ -211,7 +211,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	DebugUI::CleanUp();
 	//ImageManager::AllRelease();
 	//pRootJob->ReleaseSub();
-	SAFE_DELETE(pRootJob);
+	//SAFE_DELETE(pRootJob);
 	Input::Release();
 	D2D::Release();
 	Direct3D::Release();

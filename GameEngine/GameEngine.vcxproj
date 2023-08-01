@@ -185,6 +185,7 @@
     <ClCompile Include="Engine\Components\Text.cpp" />
     <ClCompile Include="Engine\Components\Transform.cpp" />
     <ClCompile Include="Engine\Coordinator.cpp" />
+    <ClCompile Include="Engine\Debug.cpp" />
     <ClCompile Include="Engine\DirectX_11\BillBoard.cpp" />
     <ClCompile Include="Engine\DirectX_11\Direct2D.cpp" />
     <ClCompile Include="Engine\DirectX_11\Direct3D.cpp" />
@@ -207,6 +208,7 @@
     <ClCompile Include="Engine\ResourceManager\Audio.cpp" />
     <ClCompile Include="Engine\ResourceManager\CsvReader.cpp" />
     <ClCompile Include="Engine\ResourceManager\ImageManager_ECSver.cpp" />
+    <ClCompile Include="Engine\ResourceManager\JsonOperator.cpp" />
     <ClCompile Include="Engine\ResourceManager\ModelManager_ECSver.cpp" />
     <ClCompile Include="Engine\ResourceManager\TextureManager.cpp" />
     <ClCompile Include="Engine\Systems\ColliderSystem.cpp" />
@@ -262,6 +264,7 @@
     <ClInclude Include="Engine\Components\Text.h" />
     <ClInclude Include="Engine\Components\Transform.h" />
     <ClInclude Include="Engine\Coordinator.h" />
+    <ClInclude Include="Engine\Debug.h" />
     <ClInclude Include="Engine\DirectX_11\BillBoard.h" />
     <ClInclude Include="Engine\DirectX_11\Direct2D.h" />
     <ClInclude Include="Engine\DirectX_11\Direct3D.h" />
@@ -288,6 +291,7 @@
     <ClInclude Include="Engine\ResourceManager\CsvReader.h" />
     <ClInclude Include="Engine\ResourceManager\ImageManager_ECSver.h" />
     <ClInclude Include="Engine\ResourceManager\json.hpp" />
+    <ClInclude Include="Engine\ResourceManager\JsonOperator.h" />
     <ClInclude Include="Engine\ResourceManager\ModelManager_ECSver.h" />
     <ClInclude Include="Engine\ResourceManager\TextureManager.h" />
     <ClInclude Include="Engine\SAFE_DELETE_RELEASE.h" />

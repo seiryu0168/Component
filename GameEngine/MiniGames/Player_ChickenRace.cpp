@@ -29,7 +29,7 @@ void Player_ChickenRace::Update()
 	//—]Œv‚ÈŒ…‚ð•\Ž¦‚µ‚È‚¢
 	text_->SetText(std::format("{:g}", f));
 
-	if (Input::IsMouseButtonDown(0))
+	if (Input::GetPadOnlyDown(Playerid_) && !CallFin_)
 	{
 		if (watch_.IsLock())
 		{
@@ -38,8 +38,7 @@ void Player_ChickenRace::Update()
 		}
 		else
 		{
-			if (!CallFin_)
-				Finish();
+			Finish();
 		}
 	}
 

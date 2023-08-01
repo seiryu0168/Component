@@ -31,6 +31,8 @@ public:
 	//•`‰æ
 	void Draw();
 
+	XMFLOAT3 GetPosition() const { XMFLOAT3 pos; XMStoreFloat3(&pos, transform_.position_); return pos; }
 
+	bool IsHitCursor();
 };
 

@@ -1,6 +1,7 @@
 #include "Image.h"
 #include"../ResourceManager/ImageManager_ECSver.h"
 #include"../DirectX_11/Direct3D.h"
+#include "../DirectX_11/Input.h"
 Image::Image()
 	:alpha_(1.0f),
 	rect_({0,0,1,1}),
@@ -58,4 +59,20 @@ void Image::Draw()
 {
 	if(drawTargetNumber_ == Direct3D::GetViewNumber() || drawTargetNumber_ == -1)
 	pSprite_->Draw(transform_, rect_, color_, alpha_);
+}
+
+bool Image::IsHitCursor()
+{
+    UINT wid = (UINT)(pSprite_->GetSize().x * transform_.scale_.x / 2);
+    UINT hgt = (UINT)(pSprite_->GetSize().y * transform_.scale_.y / 2);
+    float Left = (XMVectorGetX(transform_.position_) + 1) * (Direct3D::GetScreenWidth() / 2.0f) - wid;
+    float Right = (XMVectorGetX(transform_.position_) + 1) * (Direct3D::GetScreenWidth() / 2.0f) + wid;
+    float Top = (-XMVectorGetY(transform_.position_) + 1) * (Direct3D::GetScreenHeight() / 2.0f) - hgt;
+    float Bottom = (-XMVectorGetY(transform_.position_) + 1) * (Direct3D::GetScreenHeight() / 2.0f) + hgt;
+    if (Left <= XMVectorGetX(Input::GetMousePosition()) && XMVectorGetX(Input::GetMousePosition()) &&
+        Top <= XMVectorGetY(Input::GetMousePosition()) && XMVectorGetY(Input::GetMousePosition()) <= Bottom)
+    {
+        return true;
+    }
+    return false;
 }

@@ -96,6 +96,9 @@ public:
 	void KillObjectSub(Object* pTarget);
 	void PushBackChild(const std::shared_ptr<Object>& pTarget);
 
+	virtual void ShowGraphical() {}							//ImGui表示
+	virtual void DebugMode() {}								//デバッグモードで操作すること
+
 	template <typename T>
 	void AddComponent(const T& component)
 	{
