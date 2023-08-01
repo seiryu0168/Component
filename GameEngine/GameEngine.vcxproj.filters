@@ -279,6 +279,15 @@
     <ClCompile Include="Engine\ResourceManager\JsonOperator.cpp">
       <Filter>ソース ファイル\Engine\ResourceManager</Filter>
     </ClCompile>
+    <ClCompile Include="MiniGames\Shooting.cpp">
+      <Filter>ソース ファイル\MiniGames</Filter>
+    </ClCompile>
+    <ClCompile Include="Shooter.cpp">
+      <Filter>ソース ファイル\MiniGames</Filter>
+    </ClCompile>
+    <ClCompile Include="Shooting_Table.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ImGui\imstb_truetype.h">
@@ -529,6 +538,15 @@
     </ClInclude>
     <ClInclude Include="Engine\ResourceManager\JsonOperator.h">
       <Filter>ソース ファイル\Engine\ResourceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGames\Shooting.h">
+      <Filter>ソース ファイル\MiniGames</Filter>
+    </ClInclude>
+    <ClInclude Include="Shooter.h">
+      <Filter>ソース ファイル\MiniGames</Filter>
+    </ClInclude>
+    <ClInclude Include="Shooting_Table.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

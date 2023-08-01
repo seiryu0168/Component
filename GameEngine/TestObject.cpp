@@ -79,12 +79,12 @@ void TestObject::Initialize()
 	model.Load("Assets\\Model\\AAA.fbx");
 	AddComponent<Test_Model_ECSver>(model);
 
-	Text text;
-	AddComponent<Text>(text);
-	Text text2;
-	text2.SetText("destroy");
-	text2.SetColor({ 1,0,0,1 });
-	AddComponent<Text>(text2);
+	//Text text;
+	//AddComponent<Text>(text);
+	//Text text2;
+	//text2.SetText("destroy");
+	//text2.SetColor({ 1,0,0,1 });
+	//AddComponent<Text>(text2);
 	//text2.SetPosition({ 0,0 });
 	LineParticle line(this);
 	LineData lineData;
@@ -110,25 +110,25 @@ void TestObject::Initialize()
 
 void TestObject::Update()
 {
-	time_++;
-	vPos_ = XMVector3Rotate(vPos_, XMQuaternionRotationAxis(XMVectorSet(0, 1.0f, 0, 0), XMConvertToRadians(1)));
-	transform_->position_ = vPos_;
-	if (/*Input::IsPadAnyButtonDown(3) || */Input::IsMouseButtonDown(0))
-	{
-		newSceneManager::ChangeScene(SCENE_ID::PLAY);
-	}
-	if(Input::IsMouseButtonDown(1))
-		newSceneManager::ChangeScene(SCENE_ID::MENU);
-	if (Input::IsKeyDown(DIK_X))
-		GetComponent<Particle>().Stop();
-	if (Input::IsKeyDown(DIK_L))
-		GetComponent<Particle>().Restart();
-
-
-	WORD input;
-
-	if (Input::GetPadAnyUp(0)!=PUSH)
-		input = XINPUT_GAMEPAD_B;
+	//time_++;
+	//vPos_ = XMVector3Rotate(vPos_, XMQuaternionRotationAxis(XMVectorSet(0, 1.0f, 0, 0), XMConvertToRadians(1)));
+	//transform_->position_ = vPos_;
+	//if (/*Input::IsPadAnyButtonDown(3) || */Input::IsMouseButtonDown(0))
+	//{
+	//	newSceneManager::ChangeScene(SCENE_ID::PLAY);
+	//}
+	//if(Input::IsMouseButtonDown(1))
+	//	newSceneManager::ChangeScene(SCENE_ID::MENU);
+	//if (Input::IsKeyDown(DIK_X))
+	//	GetComponent<Particle>().Stop();
+	//if (Input::IsKeyDown(DIK_L))
+	//	GetComponent<Particle>().Restart();
+	//
+	//
+	//WORD input;
+	//
+	//if (Input::GetPadAnyUp(0)!=PUSH)
+	//	input = XINPUT_GAMEPAD_B;
 }
 
 void TestObject::Draw()

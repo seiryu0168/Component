@@ -2,6 +2,8 @@
 #include"../Engine/Components/Transform.h"
 #include"../Engine/newSceneManager.h"
 #include"../Shooter.h"
+#include"../Shooting_Table.h"
+#include"../TestObject.h"
 
 Shooting::Shooting(Object* parent)
 	:Framework(parent,"Shooting"),state_(PLAY_STATE::STATE_PLAY)
@@ -21,7 +23,11 @@ Shooting::~Shooting()
 
 void Shooting::Initialize()
 {
+	Instantiate<Shooting_Table>(this);
 	Instantiate<Shooter>(this);
+	//Instantiate<TestObject>(this);
+
+
 }
 
 void Shooting::Update()
