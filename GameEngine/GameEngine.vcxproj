@@ -234,6 +234,7 @@
     <ClCompile Include="MiniGames\Player_ChickenRace.cpp" />
     <ClCompile Include="MiniGames\P_CommandMemory.cpp" />
     <ClCompile Include="MiniGames\P_FindDifference.cpp" />
+    <ClCompile Include="MiniGames\Shooting.cpp" />
     <ClCompile Include="Scenes\RootObject\RootObject.cpp" />
     <ClCompile Include="Scenes\RootObject\RootObject_Menu.cpp" />
     <ClCompile Include="Scenes\RootObject\RootObject_Play.cpp" />
@@ -244,6 +245,7 @@
     <ClCompile Include="Scenes\Scene_Title.cpp" />
     <ClCompile Include="ObjectSetter.cpp" />
     <ClCompile Include="SelectUI.cpp" />
+    <ClCompile Include="Shooter.cpp" />
     <ClCompile Include="TestObject.cpp" />
     <ClCompile Include="TestObjectChild.cpp" />
     <ClCompile Include="Title.cpp" />
@@ -315,6 +317,7 @@
     <ClInclude Include="MiniGames\Player_ChickenRace.h" />
     <ClInclude Include="MiniGames\P_CommandMemory.h" />
     <ClInclude Include="MiniGames\P_FindDifference.h" />
+    <ClInclude Include="MiniGames\Shooting.h" />
     <ClInclude Include="Scenes\RootObject\RootObject.h" />
     <ClInclude Include="Scenes\RootObject\RootObject_Menu.h" />
     <ClInclude Include="Scenes\RootObject\RootObject_Play.h" />
@@ -327,6 +330,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="EngineTime.h" />
     <ClInclude Include="SelectUI.h" />
+    <ClInclude Include="Shooter.h" />
     <ClInclude Include="TestObject.h" />
     <ClInclude Include="TestObjectChild.h" />
     <ClInclude Include="Title.h" />

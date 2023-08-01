@@ -14,7 +14,7 @@ namespace Input
 {
 	void Initialize(HWND hWnd);
 	void Update();
-	int GetConectedControllerCount();
+	int GetConnectedControllerCount() noexcept;
 	//キーボード
 	bool IsKey(int keyCode);
 	bool IsKeyDown(int keyCode);

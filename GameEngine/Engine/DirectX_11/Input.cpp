@@ -64,19 +64,19 @@ namespace Input
 		pMouseDevice->GetDeviceState(sizeof(mouseState), &mouseState);	//ƒ}ƒEƒX’²‚×‚é
 
 		DWORD result;
-		int connected = 0;;
+		int connected = 0;
 		for (int i = 0; i < PAD_MAX; i++)
 		{
 			memcpy(&prevController_[i], &Controller_[i], sizeof(Controller_[i]));
 			result = XInputGetState(i, &Controller_[i]);
-			if (result != ERROR_SUCCESS)
-				connected++;
+			if (result == ERROR_SUCCESS)
+				++connected;
 
 		}
 		connectedController_ = connected;
 
 	}
-	int GetConectedControllerCount()
+	int GetConnectedControllerCount() noexcept
 	{
 		return connectedController_;
 	}

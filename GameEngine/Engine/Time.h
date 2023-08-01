@@ -44,6 +44,11 @@ namespace Time
 		//カウントダウン状態かどうか
 		bool IsCountDown() const;
 		bool IsLock() const { return Lock_; }
+		template<typename T = int>
+		void SetSecond(T second)
+		{
+			MilliSeconds_ = (int)(second * 1'000);
+		}
 	};	//class Watch
 
 	//初期化

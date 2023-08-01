@@ -1,5 +1,5 @@
 #include "TestObject.h"
-#include"Engine/ResourceManager/Model.h"
+//#include"Engine/ResourceManager/Model.h"
 #include"Engine/Systems/PhysicsSystem.h"
 #include"TestObjectChild.h"
 #include"Engine/ECS/EntityManager.h"
