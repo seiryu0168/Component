@@ -38,8 +38,10 @@ LPCWSTR WIN_CLASS_NAME = L"SampleGame";
 LPCWSTR WIN_TITLE_NAME = L"サンプルゲーム";
 
 
-const int WINDOW_WIDTH = 1920;   //ウィンドウ幅
-const int WINDOW_HEIGHT = 1080;	 //ウィンドウ高さ
+int WINDOW_WIDTH = 1920;   //ウィンドウ幅
+int WINDOW_HEIGHT = 1080;	 //ウィンドウ高さ
+//const int WINDOW_WIDTH = 1280;   //ウィンドウ幅
+//const int WINDOW_HEIGHT = 720;	 //ウィンドウ高さ
 int pxelUnit;
 //プロトタイプ宣言
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
@@ -65,22 +67,24 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	wc.cbClsExtra = 0;
 	wc.cbWndExtra = 0;
 	wc.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH); //背景（白）
+	
 	RegisterClassEx(&wc);  //クラスを登録
 
 	//ウィンドウサイズの計算
-	RECT winRect = { 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT };
-	AdjustWindowRect(&winRect, WS_OVERLAPPEDWINDOW, FALSE);
-	int winW = winRect.right - winRect.left;     //ウィンドウ幅
-	int winH = winRect.bottom - winRect.top;     //ウィンドウ高さ
-	//ウィンドウ作成
+	//RECT winRect = { 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT };
+	//AdjustWindowRect(&winRect, WS_OVERLAPPEDWINDOW, FALSE);
+	//WINDOW_WIDTH = winRect.right - winRect.left;     //ウィンドウ幅
+	//WINDOW_HEIGHT = winRect.bottom - winRect.top;     //ウィンドウ高さ
+	
+	//ダミーのウィンドウ作成
 	HWND hWnd = CreateWindow(
 		WIN_CLASS_NAME,         //ウィンドウクラス名
 		WIN_TITLE_NAME,     //タイトルバーに表示する内容
-		WS_OVERLAPPEDWINDOW, //スタイル（普通のウィンドウ）
+		WS_OVERLAPPEDWINDOW /*^ WS_THICKFRAME*/ | WS_MAXIMIZE/* | WS_VISIBLE*/, //スタイル（普通のウィンドウ）
 		CW_USEDEFAULT,       //表示位置左（おまかせ）
 		CW_USEDEFAULT,       //表示位置上（おまかせ）
-		winW,                 //ウィンドウ幅
-		winH,                 //ウィンドウ高さ
+		WINDOW_WIDTH,                 //ウィンドウ幅
+		WINDOW_HEIGHT,                 //ウィンドウ高さ
 		NULL,                //親ウインドウ（なし）
 		NULL,                //メニュー（なし）
 		hInstance,           //インスタンス
@@ -230,9 +234,24 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
 	switch (msg)
 	{
-
 	case WM_MOUSEMOVE:
 		Input::SetMousePosition(LOWORD(lParam), HIWORD(lParam));
+		return 0;
+
+	case WM_GETMINMAXINFO:
+	{
+		//SetWindowLong(hWnd, GWL_EXSTYLE, WS_POPUP);
+		RECT r;
+		GetWindowRect(hWnd, &r);
+		WINDOW_WIDTH = r.right + r.left;
+		WINDOW_HEIGHT = r.bottom;
+		RECT winRect = { 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT };
+		AdjustWindowRect(&winRect, WS_OVERLAPPEDWINDOW, FALSE);
+		//WINDOW_WIDTH = winRect.right - winRect.left;     //ウィンドウ幅
+		WINDOW_HEIGHT = winRect.bottom - winRect.top;     //ウィンドウ高さ
+		SetWindowPos(hWnd, HWND_TOP, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, SWP_SHOWWINDOW);
+		//ShowWindow(hWnd, SW_SHOW);
+	}
 		return 0;
 	case WM_DESTROY:
 		PostQuitMessage(0);  //プログラム終了

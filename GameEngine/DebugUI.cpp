@@ -2,6 +2,7 @@
 #include"Engine/newSceneManager.h"
 #include "Engine/Debug.h"
 #include<psapi.h>
+#include "Engine/DirectX_11/Input.h"
 
 namespace DebugUI
 {
@@ -20,6 +21,7 @@ void DebugUI::Initialize(HWND hWnd, ID3D11Device* pDevice, ID3D11DeviceContext* 
 	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
 	ImGuiIO& io=ImGui::GetIO();
+	//io.Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\meiryo.ttc", 22.0f, NULL, io.Fonts->GetGlyphRangesJapanese());
 	(void)io;
 	ImGui::StyleColorsDark();
 	ImGui_ImplWin32_Init(hWnd);
@@ -38,7 +40,9 @@ void DebugUI::Debug(/*GameObject* object*/)
 	//objectCount_ = 0;
 	ImGui::End();
 	
-	
+	ImGui::Begin("Mouse");
+	ImGui::Text("x = %g, y = %g", XMVectorGetX(Input::GetMousePosition()), XMVectorGetY(Input::GetMousePosition()));
+	ImGui::End();
 }
 
 void DebugUI::DebugLog(GameObject* object, const std::string& message)

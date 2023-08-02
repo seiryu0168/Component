@@ -69,7 +69,7 @@ bool Image::IsHitCursor()
     float Right = (XMVectorGetX(transform_.position_) + 1) * (Direct3D::GetScreenWidth() / 2.0f) + wid;
     float Top = (-XMVectorGetY(transform_.position_) + 1) * (Direct3D::GetScreenHeight() / 2.0f) - hgt;
     float Bottom = (-XMVectorGetY(transform_.position_) + 1) * (Direct3D::GetScreenHeight() / 2.0f) + hgt;
-    if (Left <= XMVectorGetX(Input::GetMousePosition()) && XMVectorGetX(Input::GetMousePosition()) &&
+    if (Left <= XMVectorGetX(Input::GetMousePosition()) && XMVectorGetX(Input::GetMousePosition()) <= Right &&
         Top <= XMVectorGetY(Input::GetMousePosition()) && XMVectorGetY(Input::GetMousePosition()) <= Bottom)
     {
         return true;
