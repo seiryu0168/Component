@@ -70,6 +70,9 @@ namespace Direct3D
 	IDXGISwapChain* GetSwapChain();
 	int GetScreenWidth();
 	int GetScreenHeight();
+	void SetScreenWidth(int w);
+	void SetScreenHeight(int h);
+
 	HWND GetWindowHandle(); 
 	void SetDepthBufferWriteEnable(bool isWrite);
 	int GetViewPortCount();

@@ -610,6 +610,15 @@ int Direct3D::GetScreenHeight()
 {
 	return screenHeight;
 }
+void Direct3D::SetScreenWidth(int w)
+{
+	screenWidth = w;
+}
+void Direct3D::SetScreenHeight(int h)
+{
+	screenHeight = h;
+}
+
 HWND Direct3D::GetWindowHandle()
 {
 	return hWnd_;
