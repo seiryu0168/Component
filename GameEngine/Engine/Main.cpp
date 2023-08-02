@@ -249,7 +249,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		AdjustWindowRect(&winRect, WS_OVERLAPPEDWINDOW, FALSE);
 		//WINDOW_WIDTH = winRect.right - winRect.left;     //ウィンドウ幅
 		//WINDOW_HEIGHT = winRect.bottom - winRect.top;     //ウィンドウ高さ
-		SetWindowPos(hWnd, HWND_TOPMOST, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, SWP_SHOWWINDOW);
+		SetWindowPos(hWnd, HWND_TOP, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, SWP_SHOWWINDOW);
 		ShowWindow(hWnd, SW_SHOW);
 	}
 		return 0;
