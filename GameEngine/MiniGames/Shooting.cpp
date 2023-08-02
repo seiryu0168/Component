@@ -35,7 +35,7 @@ void Shooting::Update()
 	switch (state_)
 	{
 	case Shooting::PLAY_STATE::STATE_PLAY:
-		Play();
+		//Play();
 		break;
 	case Shooting::PLAY_STATE::STATE_FINISH:
 		break;

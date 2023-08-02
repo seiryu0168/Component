@@ -248,7 +248,10 @@
     <ClCompile Include="ObjectSetter.cpp" />
     <ClCompile Include="SelectUI.cpp" />
     <ClCompile Include="Shooter.cpp" />
+    <ClCompile Include="Shooting_Bullet.cpp" />
+    <ClCompile Include="Shooting_Gun.cpp" />
     <ClCompile Include="Shooting_Table.cpp" />
+    <ClCompile Include="Sooting_Bullet.cpp" />
     <ClCompile Include="TestObject.cpp" />
     <ClCompile Include="TestObjectChild.cpp" />
     <ClCompile Include="Title.cpp" />
@@ -336,7 +339,9 @@
     <ClInclude Include="EngineTime.h" />
     <ClInclude Include="SelectUI.h" />
     <ClInclude Include="Shooter.h" />
+    <ClInclude Include="Shooting_Gun.h" />
     <ClInclude Include="Shooting_Table.h" />
+    <ClInclude Include="Shooting_Bullet.h" />
     <ClInclude Include="TestObject.h" />
     <ClInclude Include="TestObjectChild.h" />
     <ClInclude Include="Title.h" />

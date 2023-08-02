@@ -42,6 +42,11 @@ void DebugUI::Debug(/*GameObject* object*/)
 	
 	ImGui::Begin("Mouse");
 	ImGui::Text("x = %g, y = %g", XMVectorGetX(Input::GetMousePosition()), XMVectorGetY(Input::GetMousePosition()));
+
+
+
+
+
 	ImGui::End();
 }
 

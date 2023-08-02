@@ -229,17 +229,21 @@ namespace Input
 
 	float GetLStick_X(int padID)
 	{
-		if (fabs(Controller_[padID].Gamepad.sThumbLX) >= XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE)
+		INT tilt = Controller_[padID].Gamepad.sThumbLX;
+		if (fabs(tilt) >= XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE)
 		{
-			return Controller_[padID].Gamepad.sThumbLX / TILT_MAX;
+			return (powf(tilt, 2) - (XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE * fabs(tilt))) / (tilt * TILT_MAX);
+			/*(fabs(tilt)/tilt)*((fabs(tilt)- XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE)*/
 		}
 		return 0;
 	}
 	float GetLStick_Y(int padID)
 	{
-		if (fabs(Controller_[padID].Gamepad.sThumbLY) >= XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE)
+		INT tilt = Controller_[padID].Gamepad.sThumbLY;
+		if (fabs(tilt) >= XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE)
 		{
-			return Controller_[padID].Gamepad.sThumbLY / TILT_MAX;
+			return (powf(tilt, 2) - (XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE * fabs(tilt))) / (tilt * TILT_MAX);
+				/*(fabs(tilt)/tilt)*((fabs(tilt)- XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE)*/
 		}
 		return 0;
 	}

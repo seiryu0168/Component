@@ -288,6 +288,15 @@
     <ClCompile Include="Shooting_Table.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Shooting_Gun.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Sooting_Bullet.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Shooting_Bullet.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ImGui\imstb_truetype.h">
@@ -530,9 +539,6 @@
     <ClInclude Include="Debug_SceneChanger.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Title.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Debug.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
@@ -545,7 +551,16 @@
     <ClInclude Include="Shooter.h">
       <Filter>ソース ファイル\MiniGames</Filter>
     </ClInclude>
+    <ClInclude Include="Title.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
     <ClInclude Include="Shooting_Table.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Shooting_Gun.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Shooting_Bullet.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
