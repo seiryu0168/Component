@@ -80,7 +80,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	HWND hWnd = CreateWindow(
 		WIN_CLASS_NAME,         //ウィンドウクラス名
 		WIN_TITLE_NAME,     //タイトルバーに表示する内容
-		WS_OVERLAPPEDWINDOW /*^ WS_THICKFRAME*/ | WS_MAXIMIZE/* | WS_VISIBLE*/, //スタイル（普通のウィンドウ）
+		WS_OVERLAPPEDWINDOW | WS_MAXIMIZE ^ WS_THICKFRAME ^ WS_CAPTION/* | WS_VISIBLE*/, //スタイル（普通のウィンドウ）
 		CW_USEDEFAULT,       //表示位置左（おまかせ）
 		CW_USEDEFAULT,       //表示位置上（おまかせ）
 		WINDOW_WIDTH,                 //ウィンドウ幅
@@ -238,7 +238,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		Input::SetMousePosition(LOWORD(lParam), HIWORD(lParam));
 		return 0;
 
-	case WM_GETMINMAXINFO:
+	case WM_CREATE:
 	{
 		//SetWindowLong(hWnd, GWL_EXSTYLE, WS_POPUP);
 		RECT r;
@@ -248,9 +248,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 		RECT winRect = { 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT };
 		AdjustWindowRect(&winRect, WS_OVERLAPPEDWINDOW, FALSE);
 		//WINDOW_WIDTH = winRect.right - winRect.left;     //ウィンドウ幅
-		WINDOW_HEIGHT = winRect.bottom - winRect.top;     //ウィンドウ高さ
-		SetWindowPos(hWnd, HWND_TOP, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, SWP_SHOWWINDOW);
-		//ShowWindow(hWnd, SW_SHOW);
+		//WINDOW_HEIGHT = winRect.bottom - winRect.top;     //ウィンドウ高さ
+		SetWindowPos(hWnd, HWND_TOPMOST, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, SWP_SHOWWINDOW);
+		ShowWindow(hWnd, SW_SHOW);
 	}
 		return 0;
 	case WM_DESTROY:
