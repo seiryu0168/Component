@@ -4,6 +4,7 @@
 #include"../Shooter.h"
 #include"../Shooting_Table.h"
 #include"../TestObject.h"
+#include"../Shooting_TergetGift.h"
 
 Shooting::Shooting(Object* parent)
 	:Framework(parent,"Shooting"),state_(PLAY_STATE::STATE_PLAY)
@@ -25,6 +26,7 @@ void Shooting::Initialize()
 {
 	Instantiate<Shooting_Table>(this);
 	Instantiate<Shooter>(this);
+	Instantiate<Shooting_TergetGift>(this);
 	//Instantiate<TestObject>(this);
 
 

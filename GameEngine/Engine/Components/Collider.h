@@ -75,6 +75,8 @@ public:
 	//
 	bool IsKill() const { return isKill_; }
 
+	void Release();
+
 	/// <summary>
 	/// コライダーの形を設定
 	/// </summary>

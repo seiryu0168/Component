@@ -22,6 +22,21 @@ Collider::~Collider()
 {
 }
 
+void Collider::Release()
+{
+	switch (colliderType_)
+	{
+	case ColliderType::BOX_COLLIDER:
+		Coordinator::RemoveComponent<HitBox>(colliderEntity_);
+		break;
+	case ColliderType::SPHERE_COLLIDER:
+		Coordinator::RemoveComponent<HitSphere>(colliderEntity_);
+		break;
+	default:
+		break;
+	}
+}
+
 
 void Collider::SetCollisionType(const std::string& name)
 {

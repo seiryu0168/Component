@@ -251,6 +251,7 @@
     <ClCompile Include="Shooting_Bullet.cpp" />
     <ClCompile Include="Shooting_Gun.cpp" />
     <ClCompile Include="Shooting_Table.cpp" />
+    <ClCompile Include="Shooting_TergetGift.cpp" />
     <ClCompile Include="Sooting_Bullet.cpp" />
     <ClCompile Include="TestObject.cpp" />
     <ClCompile Include="TestObjectChild.cpp" />
@@ -342,6 +343,7 @@
     <ClInclude Include="Shooting_Gun.h" />
     <ClInclude Include="Shooting_Table.h" />
     <ClInclude Include="Shooting_Bullet.h" />
+    <ClInclude Include="Shooting_TergetGift.h" />
     <ClInclude Include="TestObject.h" />
     <ClInclude Include="TestObjectChild.h" />
     <ClInclude Include="Title.h" />

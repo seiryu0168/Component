@@ -153,12 +153,16 @@ void Object::ReleaseSub()
 {
 	for (auto itr = childList_.begin();itr != childList_.end();)
 	{
+			(*itr)->ReleaseSub();
 		if ((*itr)->IsDead())
 		{
-			(*itr)->ReleaseSub();
 			//SAFE_DELETE(*itr)
 			itr = childList_.erase(itr);
 		}
+		//else if ((*itr)->childList_.empty() != false)
+		//{
+		//	(*itr)->ReleaseSub();
+		//}
 		else
 			itr++;
 
