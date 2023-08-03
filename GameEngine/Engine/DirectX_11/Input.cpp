@@ -249,17 +249,21 @@ namespace Input
 	}
 	float GetRStick_X(int padID)
 	{
-		if (fabs(Controller_[padID].Gamepad.sThumbRX) >= XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE)
+		INT tilt = Controller_[padID].Gamepad.sThumbRY;
+		if (fabs(tilt) >= XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE)
 		{
-			return Controller_[padID].Gamepad.sThumbRX / TILT_MAX;
+			return (powf(tilt, 2) - (XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE * fabs(tilt))) / (tilt * TILT_MAX);
+			/*(fabs(tilt)/tilt)*((fabs(tilt)- XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE)*/
 		}
 		return 0;
 	}
 	float GetRStick_Y(int padID)
 	{
-		if (fabs(Controller_[padID].Gamepad.sThumbRY) >= XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE)
+		INT tilt = Controller_[padID].Gamepad.sThumbRY;
+		if (fabs(tilt) >= XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE)
 		{
-			return Controller_[padID].Gamepad.sThumbRY / TILT_MAX;
+			return (powf(tilt, 2) - (XINPUT_GAMEPAD_RIGHT_THUMB_DEADZONE * fabs(tilt))) / (tilt * TILT_MAX);
+			/*(fabs(tilt)/tilt)*((fabs(tilt)- XINPUT_GAMEPAD_LEFT_THUMB_DEADZONE)*/
 		}
 		return 0;
 	}
@@ -268,7 +272,7 @@ namespace Input
 	{
 		if (Controller_[padID].Gamepad.bLeftTrigger >= XINPUT_GAMEPAD_TRIGGER_THRESHOLD)
 		{
-			return Controller_[padID].Gamepad.bLeftTrigger / TRIGGER_MAX;
+			return (Controller_[padID].Gamepad.bLeftTrigger- XINPUT_GAMEPAD_TRIGGER_THRESHOLD) / TRIGGER_MAX;
 		}
 		return 0;
 	}
@@ -276,7 +280,7 @@ namespace Input
 	{
 		if (Controller_[padID].Gamepad.bLeftTrigger >= XINPUT_GAMEPAD_TRIGGER_THRESHOLD && prevController_[padID].Gamepad.bLeftTrigger< XINPUT_GAMEPAD_TRIGGER_THRESHOLD)
 		{
-			return Controller_[padID].Gamepad.bLeftTrigger / TRIGGER_MAX;
+			return (Controller_[padID].Gamepad.bLeftTrigger- XINPUT_GAMEPAD_TRIGGER_THRESHOLD) / TRIGGER_MAX;
 		}
 		return 0;
 	}
@@ -284,7 +288,7 @@ namespace Input
 	{
 		if (Controller_[padID].Gamepad.bLeftTrigger < XINPUT_GAMEPAD_TRIGGER_THRESHOLD && prevController_[padID].Gamepad.bLeftTrigger >= XINPUT_GAMEPAD_TRIGGER_THRESHOLD)
 		{
-			return Controller_[padID].Gamepad.bLeftTrigger / TRIGGER_MAX;
+			return (Controller_[padID].Gamepad.bLeftTrigger- XINPUT_GAMEPAD_TRIGGER_THRESHOLD) / TRIGGER_MAX;
 		}
 		return 0;
 	}
@@ -294,7 +298,7 @@ namespace Input
 	{
 		if (Controller_[padID].Gamepad.bRightTrigger >= XINPUT_GAMEPAD_TRIGGER_THRESHOLD)
 		{
-			return Controller_[padID].Gamepad.bRightTrigger / TRIGGER_MAX;
+			return (Controller_[padID].Gamepad.bRightTrigger- XINPUT_GAMEPAD_TRIGGER_THRESHOLD) / TRIGGER_MAX;
 		}
 		return 0;
 	}
@@ -302,7 +306,7 @@ namespace Input
 	{
 		if (Controller_[padID].Gamepad.bRightTrigger >= XINPUT_GAMEPAD_TRIGGER_THRESHOLD && prevController_[padID].Gamepad.bRightTrigger< XINPUT_GAMEPAD_TRIGGER_THRESHOLD)
 		{
-			return Controller_[padID].Gamepad.bRightTrigger / TRIGGER_MAX;
+			return (Controller_[padID].Gamepad.bRightTrigger- XINPUT_GAMEPAD_TRIGGER_THRESHOLD) / TRIGGER_MAX;
 		}
 		return 0;
 	}
@@ -310,7 +314,7 @@ namespace Input
 	{
 		if (Controller_[padID].Gamepad.bRightTrigger < XINPUT_GAMEPAD_TRIGGER_THRESHOLD && prevController_[padID].Gamepad.bRightTrigger >= XINPUT_GAMEPAD_TRIGGER_THRESHOLD)
 		{
-			return Controller_[padID].Gamepad.bRightTrigger / TRIGGER_MAX;
+			return (Controller_[padID].Gamepad.bRightTrigger- XINPUT_GAMEPAD_TRIGGER_THRESHOLD) / TRIGGER_MAX;
 		}
 		return 0;
 	}

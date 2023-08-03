@@ -30,7 +30,7 @@ void Shooter::Update()
 {
 	transform_->RotateEular({ -Input::GetLStick_Y(playerNum_) * 30.0f, Input::GetLStick_X(playerNum_) * 30.0f, 0 });
 	XMVECTOR dir = XMVector3Rotate(target_, transform_->rotate_);
-	if (Input::GetLTrigger(playerNum_) >= TRIGGER_SHOT)
+	if (Input::GetRTriggerDown(playerNum_))
 	{
 		((Shooting_Gun*)FindChild("Shooting_Gun"))->Shot(dir);
 	}
