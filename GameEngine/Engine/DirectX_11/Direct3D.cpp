@@ -602,6 +602,10 @@ IDXGISwapChain* Direct3D::GetSwapChain()
 {
 	return pSwapChain;
 }
+void Direct3D::FullScreen(BOOL isFullScreen)
+{
+	pSwapChain->SetFullscreenState(isFullScreen, NULL);
+}
 int Direct3D::GetScreenWidth()
 {
 	return screenWidth;

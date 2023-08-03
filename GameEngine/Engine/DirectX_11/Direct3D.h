@@ -68,6 +68,7 @@ namespace Direct3D
 	ID3D11Device* GetDevice();
 	ID3D11DeviceContext* GetContext();
 	IDXGISwapChain* GetSwapChain();
+	void FullScreen(BOOL isFullScreen);
 	int GetScreenWidth();
 	int GetScreenHeight();
 	void SetScreenWidth(int w);
