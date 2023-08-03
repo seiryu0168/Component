@@ -70,6 +70,8 @@ FbxParts::~FbxParts()
 		}
 			//SAFE_DELETE_ARRAY(pWeightArray_);
 	}
+	if(pSkinInfo_)
+	pSkinInfo_->Destroy();
 	
 }
 
@@ -90,6 +92,7 @@ HRESULT FbxParts::Init(FbxNode* pNode)
 	InitMaterial(pNode);
 	InitSkelton(mesh);
 	//mesh->Destroy();
+	//pSkinInfo_;
 	return S_OK;
 }
 
@@ -423,12 +426,12 @@ HRESULT FbxParts::CreateConstantBuffer()
 
 HRESULT FbxParts::InitSkelton(FbxMesh* pMesh)
 {
-	FbxDeformer* pDeformer = pMesh->GetDeformer(0);
-	if (pDeformer == nullptr)
+	pSkinInfo_ = (FbxSkin*)pMesh->GetDeformer(0);
+	if (pSkinInfo_ == nullptr)
 	{
 		return S_OK;
 	}
-	pSkinInfo_ = (FbxSkin*)pDeformer;
+	//pSkinInfo_ = (FbxSkin*)pDeformer;
 
 	struct POLY_INDEX
 	{
@@ -531,7 +534,7 @@ HRESULT FbxParts::InitSkelton(FbxMesh* pMesh)
 		pBoneArray_[i].bindPose = XMLoadFloat4x4(&pose);
 	}
 
-	pSkinInfo_->Destroy();
+	//pSkinInfo_->Destroy();
 	////ˆê“I‚Éæ‚Á‚Ä‚¨‚¢‚½ƒƒ‚ƒŠŠJ•ú
 	//for (int i = 0; i < vertexCount_; i++)
 	//{

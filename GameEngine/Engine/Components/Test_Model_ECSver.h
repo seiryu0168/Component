@@ -27,6 +27,8 @@ public:
 	void RayCast(RayCastData& rayData);
 	//シェーダータイプ設定
 	void SetShaderType(SHADER_TYPE type) { type_ = type; }
+
+	const XMVECTOR& GetBone(const std::string& boneName);
 	//アタッチされているオブジェクトを返す
 	GameObject* GetAttachedObject() { return attachObject_; }
 	//描画

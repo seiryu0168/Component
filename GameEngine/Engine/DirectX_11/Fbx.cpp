@@ -81,8 +81,8 @@ HRESULT Fbx::Load(const std::string& fileName)
 	//ディレクトリを元に戻す
 	SetCurrentDirectory(def.c_str());
 
-	pFbxScene_->Destroy();
-	pFbxManager_->Destroy();
+	
+	
 	return S_OK;
 }
 
@@ -501,7 +501,7 @@ void Fbx::RayCast(RayCastData& ray, Transform& transform)
 	//}
 }
 
-XMFLOAT3 Fbx::GetBonePosition(const std::string& boneName)
+XMFLOAT3& Fbx::GetBonePosition(const std::string& boneName)
 {
 	static XMFLOAT3 position = { 0,0,0 };
 	for (auto&& itr : parts_)
@@ -526,4 +526,6 @@ void Fbx::Release()
 		SAFE_DELETE(parts_[i]);
 	}*/
 	parts_.clear();
+	pFbxScene_->Destroy();
+	pFbxManager_->Destroy();
 }

@@ -62,7 +62,7 @@ HRESULT Direct3D::Initialize(int winW, int winH, HWND hWnd)
 	scDesc.BufferDesc.RefreshRate.Denominator = 1;
 
 	//その他
-	scDesc.Windowed = FALSE;			//ウィンドウモードかフルスクリーンか
+	scDesc.Windowed = TRUE;			//ウィンドウモードかフルスクリーンか
 	scDesc.OutputWindow = hWnd;		//ウィンドウハンドル
 	scDesc.BufferCount = 1;			//バックバッファの枚数
 	scDesc.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;	//バックバッファの使い道＝画面に描画するために

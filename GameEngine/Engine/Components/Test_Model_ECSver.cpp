@@ -25,6 +25,12 @@ void Test_Model_ECSver::RayCast(RayCastData& rayData)
 	fbx_->RayCast(rayData, *attachObject_->GetTransform());
 }
 
+const XMVECTOR& Test_Model_ECSver::GetBone(const std::string& boneName)
+{
+	XMVECTOR pos= XMLoadFloat3(&fbx_->GetBonePosition(boneName));
+	return pos * attachObject_->GetTransform()->GetWorldMatrix();
+}
+
 void Test_Model_ECSver::Draw()
 {
 	fbx_->Draw(*attachObject_->GetTransform(), type_, animationFrame_);

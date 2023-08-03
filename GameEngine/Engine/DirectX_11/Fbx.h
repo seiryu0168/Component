@@ -76,7 +76,7 @@ public:
 	~Fbx();
 	HRESULT Load(const std::string& fileName);
 	void RayCast(RayCastData& ray, Transform& transform);
-	XMFLOAT3 GetBonePosition(const std::string& boneName);
+	XMFLOAT3& GetBonePosition(const std::string& boneName);
 	std::string GetModelName() const;
 	void    Draw(Transform& transform, SHADER_TYPE shaderType,int frame);
 	void	DrawOutLine(Transform& transform, int frame, XMFLOAT4 lineColor = {0,0,0,1});
