@@ -246,10 +246,13 @@
     <ClCompile Include="Scenes\Scene_Play.cpp" />
     <ClCompile Include="Scenes\Scene_Title.cpp" />
     <ClCompile Include="ObjectSetter.cpp" />
+    <ClCompile Include="ScoreManager.cpp" />
     <ClCompile Include="SelectUI.cpp" />
     <ClCompile Include="Shooter.cpp" />
     <ClCompile Include="Shooting_Bullet.cpp" />
     <ClCompile Include="Shooting_Gun.cpp" />
+    <ClCompile Include="Shooting_ScoreManager.cpp" />
+    <ClCompile Include="Shooting_ScoreUI.cpp" />
     <ClCompile Include="Shooting_Table.cpp" />
     <ClCompile Include="Shooting_TergetGift.cpp" />
     <ClCompile Include="Sooting_Bullet.cpp" />
@@ -338,9 +341,12 @@
     <ClInclude Include="ObjectSetter.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="EngineTime.h" />
+    <ClInclude Include="ScoreManager.h" />
     <ClInclude Include="SelectUI.h" />
     <ClInclude Include="Shooter.h" />
     <ClInclude Include="Shooting_Gun.h" />
+    <ClInclude Include="Shooting_ScoreManager.h" />
+    <ClInclude Include="Shooting_ScoreUI.h" />
     <ClInclude Include="Shooting_Table.h" />
     <ClInclude Include="Shooting_Bullet.h" />
     <ClInclude Include="Shooting_TergetGift.h" />

@@ -4,7 +4,8 @@
 class Shooting_Bullet: public GameObject
 {
 	XMVECTOR dir_;
-	float startTime_;
+	unsigned short playerNum_;
+
 	std::shared_ptr<Time::Watch> time_;
 public:
 	Shooting_Bullet(Object* parent);
@@ -13,7 +14,7 @@ public:
 	void Update() override;
 	void SetDir(XMVECTOR dir) { dir_ = dir; }
 	void Release() override;
-
+	void SetPlayerNum(const unsigned short& num) { playerNum_ = num; }
 	void OnCollision(Object* target) override;
 };
 

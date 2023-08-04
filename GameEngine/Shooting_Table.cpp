@@ -19,8 +19,7 @@ void Shooting_Table::Initialize()
 
 	for (int i = 0; i<model.GetBoneCount(); i++)
 	{
-		XMVECTOR ve = model.GetBone(0, i);
-
+		//
 		Instantiate<Shooting_TergetGift>(GetParent())->GetTransform()->position_ = model.GetBone(0, i);
 	}
 }

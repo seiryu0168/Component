@@ -3,8 +3,9 @@
 #include"Engine/Systems/LineParticleSystem.h"
 #include"Engine/Systems/ColliderSystem.h"
 #include"Engine/Time.h"
+#include"MiniGames/Shooting.h"
 Shooting_Bullet::Shooting_Bullet(Object* parent)
-	:GameObject(parent,"Shooting_Bullet"),dir_(XMVectorZero()), startTime_(0)
+	:GameObject(parent,"Shooting_Bullet"),dir_(XMVectorZero())
 {
 }
 
@@ -52,5 +53,9 @@ void Shooting_Bullet::Release()
 
 void Shooting_Bullet::OnCollision(Object* target)
 {
-	KillMe();
+	if (target->GetTag() == "TargetGift")
+	{
+		KillMe();
+		((Shooting*)GetParent())->TargetHit(playerNum_, 1);
+	}
 }

@@ -9,6 +9,8 @@
 Shooting::Shooting(Object* parent)
 	:Framework(parent,"Shooting"),state_(PLAY_STATE::STATE_PLAY)
 {
+	scoreManager_.Init(1, 0);
+	ui.Init(1, "");
 	time_ = std::make_unique<Time::Watch>();
 	//time_->SetCountdown(true);
 	//time_->SetSecond(10);
@@ -27,9 +29,6 @@ void Shooting::Initialize()
 	Instantiate<Shooting_Table>(this);
 	Instantiate<Shooter>(this);
 	Instantiate<Shooting_TergetGift>(this);
-	//Instantiate<TestObject>(this);
-
-
 }
 
 void Shooting::Update()
@@ -44,6 +43,14 @@ void Shooting::Update()
 	default:
 		break;
 	}
+}
+
+void Shooting::TargetHit(const unsigned short& playerNum, int score)
+{
+	scoreManager_.ScoreUpdate(playerNum, score);
+	ui.TextUpdate(playerNum, std::to_string(scoreManager_.GetScore(playerNum)));
+
+
 }
 
 void Shooting::Play()

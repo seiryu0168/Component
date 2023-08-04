@@ -81,6 +81,7 @@ public:
 	bool IsStart() const { return startFlag_; }
 	bool IsUpdate() const { return isUpdate_; }
 	std::string GetObjectName() const { return objectName_; }
+	std::string GetTag()const { return objectTag_; }
 	Object* GetParent() const;
 	Object* GetRootObject();
 	Object* FindObject(const std::string& name);

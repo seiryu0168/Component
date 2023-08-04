@@ -25,6 +25,7 @@ void Shooting_Gun::Update()
 void Shooting_Gun::Shot(const XMVECTOR& dir)
 {
 	Shooting_Bullet* bullet = Instantiate<Shooting_Bullet>(GetParent()->GetParent());
+	bullet->SetPlayerNum(playerNum_);
 	bullet->GetTransform()->position_ = GetComponent<Test_Model_ECSver>().GetBone("Bone");
 	bullet->SetDir(dir);
 }

@@ -4,6 +4,7 @@
 Shooting_TergetGift::Shooting_TergetGift(Object* parent)
 	:GameObject(parent,"Shooting_TargetGift")
 {
+	SetTag("TargetGift");
 }
 
 Shooting_TergetGift::~Shooting_TergetGift()

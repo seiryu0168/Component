@@ -22,7 +22,7 @@ void Shooter::Initialize()
 	Image image;
 	image.Load("Assets/Image/Image_Shooting_Sight.png");
 	AddComponent<Image>(image);
-	Instantiate<Shooting_Gun>(this);
+	Instantiate<Shooting_Gun>(this)->SetPlayerNum_(playerNum_);
 	CameraManager::GetCamera(playerNum_).SetPosition(transform_->position_);
 }
 
