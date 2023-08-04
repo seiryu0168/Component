@@ -77,7 +77,9 @@ public:
 	HRESULT Load(const std::string& fileName);
 	void RayCast(RayCastData& ray, Transform& transform);
 	XMFLOAT3& GetBonePosition(const std::string& boneName);
+	XMFLOAT3& GetBonePosition(const UINT& partsNum,const UINT& num);
 	std::string GetModelName() const;
+	const UINT GetBoneCount();
 	void    Draw(Transform& transform, SHADER_TYPE shaderType,int frame);
 	void	DrawOutLine(Transform& transform, int frame, XMFLOAT4 lineColor = {0,0,0,1});
 	void	DrawToon(Transform& transform, bool isOutLine, int frame);

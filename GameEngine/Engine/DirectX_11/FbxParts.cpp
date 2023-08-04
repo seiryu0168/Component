@@ -722,6 +722,18 @@ bool FbxParts::GetBonePosition(std::string boneName, XMFLOAT3* position)
 	return false;
 }
 
+bool FbxParts::GetBonePosition(UINT num, XMFLOAT3* position)
+{
+	if(num>=boneNum_)
+	return false;
+	FbxAMatrix matrix;
+	ppCluster_[num]->GetTransformLinkMatrix(matrix);
+	position->x = (float)matrix[3][0];
+	position->y = (float)matrix[3][1];
+	position->z = (float)matrix[3][2];
+	return true;
+}
+
 void FbxParts::RayCast(RayCastData& rayData, Transform& transform)
 {
 

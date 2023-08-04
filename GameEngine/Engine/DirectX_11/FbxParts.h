@@ -105,6 +105,8 @@ public:
 	//void DrawMeshAnime(Transform& transform, FbxTime time, FbxScene* scene);
 	FbxSkin* GetSkinInfo() { return pSkinInfo_; }
 	bool GetBonePosition(std::string boneName, XMFLOAT3* position);
+	bool GetBonePosition(UINT num, XMFLOAT3* position);
+	const UINT& GetBoneCount() { return boneNum_; }
 	void RayCast(RayCastData& rayData, Transform& transform);
 };
 

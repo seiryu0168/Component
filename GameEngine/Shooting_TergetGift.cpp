@@ -15,7 +15,7 @@ void Shooting_TergetGift::Initialize()
 	Test_Model_ECSver model(this);
 	model.Load("Assets/Model/Mark.fbx");
 	AddComponent<Test_Model_ECSver>(model);
-	transform_->position_ = XMVectorSet(0, 0, 20, 0);
+	//transform_->position_ = XMVectorSet(0, 0, 20, 0);
 	HitSphere colShape = {1.0f};
 
 	Collider collision({ 0,0,0 }, colShape);

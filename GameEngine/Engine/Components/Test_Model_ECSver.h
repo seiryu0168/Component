@@ -29,6 +29,8 @@ public:
 	void SetShaderType(SHADER_TYPE type) { type_ = type; }
 
 	const XMVECTOR& GetBone(const std::string& boneName);
+	const XMVECTOR& GetBone(const UINT& partsNum,const UINT& num);
+	const UINT& GetBoneCount();
 	//アタッチされているオブジェクトを返す
 	GameObject* GetAttachedObject() { return attachObject_; }
 	//描画

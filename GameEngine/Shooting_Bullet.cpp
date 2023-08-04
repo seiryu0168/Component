@@ -40,10 +40,10 @@ void Shooting_Bullet::Update()
 {
 	transform_->position_ += dir_ * 0.1f;
 
-	//if ( time_->GetSeconds<float>() >= 5.0f)
-	//{
-	//	KillMe();
-	//}
+	if ( time_->GetSeconds<float>() >= 5.0f)
+	{
+		KillMe();
+	}
 }
 
 void Shooting_Bullet::Release()

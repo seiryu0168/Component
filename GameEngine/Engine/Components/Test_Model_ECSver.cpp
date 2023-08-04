@@ -31,6 +31,17 @@ const XMVECTOR& Test_Model_ECSver::GetBone(const std::string& boneName)
 	return pos * attachObject_->GetTransform()->GetWorldMatrix();
 }
 
+const XMVECTOR& Test_Model_ECSver::GetBone(const UINT& partsNum, const UINT& num)
+{
+	XMVECTOR pos = XMLoadFloat3(&fbx_->GetBonePosition(partsNum, num));
+	return pos * attachObject_->GetTransform()->GetWorldMatrix();
+}
+
+const UINT& Test_Model_ECSver::GetBoneCount()
+{
+	return fbx_->GetBoneCount();
+}
+
 void Test_Model_ECSver::Draw()
 {
 	fbx_->Draw(*attachObject_->GetTransform(), type_, animationFrame_);

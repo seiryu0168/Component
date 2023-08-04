@@ -514,9 +514,27 @@ XMFLOAT3& Fbx::GetBonePosition(const std::string& boneName)
 	return position;
 }
 
+XMFLOAT3& Fbx::GetBonePosition(const UINT& partsNum, const UINT& num)
+{
+	static XMFLOAT3 position = { 0,0,0 };
+	parts_[partsNum]->GetBonePosition(num,&position);
+	return position;
+	// TODO: return ステートメントをここに挿入します
+}
+
 std::string Fbx::GetModelName() const
 {
 	return modelName_;
+}
+
+const UINT Fbx::GetBoneCount()
+{
+	UINT count=0;
+	for (auto&& part : parts_)
+	{
+		count += part->GetBoneCount();
+	}
+	return count;
 }
 
 void Fbx::Release()
