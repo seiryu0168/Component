@@ -19,7 +19,8 @@ void Shooting_Table::Initialize()
 
 	for (int i = 0; i<model.GetBoneCount(); i++)
 	{
-		//
+		//台モデルのボーン数に応じて景品を生成
+		XMVECTOR ve = model.GetBone(0, i);
 		Instantiate<Shooting_TergetGift>(GetParent())->GetTransform()->position_ = model.GetBone(0, i);
 	}
 }

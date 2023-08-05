@@ -27,7 +27,18 @@ void Shooting_Gun::Shot(const XMVECTOR& dir)
 	Shooting_Bullet* bullet = Instantiate<Shooting_Bullet>(GetParent()->GetParent());
 	bullet->SetPlayerNum(playerNum_);
 	bullet->GetTransform()->position_ = GetComponent<Test_Model_ECSver>().GetBone("Bone");
+	bullet->GetTransform()->rotate_ = ((GameObject*)GetParent())->GetTransform()->rotate_;
 	bullet->SetDir(dir);
+}
+
+XMVECTOR Shooting_Gun::GetShotPos()
+{
+	return GetComponent<Test_Model_ECSver>().GetBone("Bone");
+}
+
+void Shooting_Gun::SetDraw(bool isDraw)
+{
+	GetComponent<Test_Model_ECSver>().SetDraw(isDraw);
 }
 
 void Shooting_Gun::Release()

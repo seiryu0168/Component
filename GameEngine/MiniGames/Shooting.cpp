@@ -28,7 +28,6 @@ void Shooting::Initialize()
 {
 	Instantiate<Shooting_Table>(this);
 	Instantiate<Shooter>(this);
-	Instantiate<Shooting_TergetGift>(this);
 }
 
 void Shooting::Update()

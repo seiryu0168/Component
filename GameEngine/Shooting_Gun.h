@@ -10,6 +10,8 @@ public:
 	void Initialize() override;
 	void Update() override;
 	void Shot(const XMVECTOR& dir);
+	XMVECTOR GetShotPos();
+	void SetDraw(bool isDraw);
 	void SetPlayerNum_(const unsigned short& num) { playerNum_ = num; }
 	void Release() override;
 };

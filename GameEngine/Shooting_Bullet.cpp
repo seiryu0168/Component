@@ -27,7 +27,7 @@ void Shooting_Bullet::Initialize()
 	//lineParticle.SetLineParameter(data);
 	//AddComponent<LineParticle>(lineParticle);
 	Test_Model_ECSver model(this);
-	model.Load("Assets/Model/AAA.fbx");
+	model.Load("Assets/Model/Shooting_Bullet.fbx");
 	AddComponent<Test_Model_ECSver>(model);
 
 	HitSphere colShape = { 1.0f };

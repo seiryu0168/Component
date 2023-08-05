@@ -9,7 +9,7 @@ Test_Model_ECSver::Test_Model_ECSver(GameObject* object)
 	:attachObject_(object),
 	type_(SHADER_TYPE::SHADER_3D),
 	animationFrame_(0),
-	hModel_(-1),
+	isDraw_(true),
 	meshEntity_(0)
 {
 }
@@ -44,5 +44,6 @@ const UINT& Test_Model_ECSver::GetBoneCount()
 
 void Test_Model_ECSver::Draw()
 {
+	if(isDraw_)
 	fbx_->Draw(*attachObject_->GetTransform(), type_, animationFrame_);
 }

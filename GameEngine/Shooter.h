@@ -3,6 +3,7 @@
 class Shooter : public GameObject
 {
 	unsigned int playerNum_;
+	bool aimMode_;
 	XMFLOAT2 rotate_;
 	XMVECTOR target_;
 public:
@@ -11,6 +12,7 @@ public:
 	void Initialize() override;
 	void Update() override;
 	void SetPlayerNumber(unsigned int num) { playerNum_ = num; }
+	void ModeChange();
 	void Release() override;
 };
 

@@ -44,6 +44,10 @@ public:
 	XMMATRIX GetWorldRotateMatrix();
 	XMMATRIX GetWorldScaleMatrix();
 
+	const XMVECTOR& GetWorldFrontVector();
+	const XMVECTOR& GetLocalFrontVector();
+
+
 	static XMFLOAT3 Float3Add(const XMVECTOR& add1, const XMVECTOR& add2)
 	{
 		return StoreFloat3(add1 + add2);

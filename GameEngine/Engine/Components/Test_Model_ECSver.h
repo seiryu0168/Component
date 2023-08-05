@@ -10,7 +10,7 @@
 class Test_Model_ECSver// : public Draw3DComponent
 {
 private:
-	int hModel_;
+	bool isDraw_;
 	SHADER_TYPE type_;
 	int animationFrame_;
 	std::shared_ptr<Fbx> fbx_;
@@ -31,6 +31,8 @@ public:
 	const XMVECTOR& GetBone(const std::string& boneName);
 	const XMVECTOR& GetBone(const UINT& partsNum,const UINT& num);
 	const UINT& GetBoneCount();
+	const bool& IsDraw() { return isDraw_; }
+	void SetDraw(bool isDraw) { isDraw_ = isDraw; }
 	//アタッチされているオブジェクトを返す
 	GameObject* GetAttachedObject() { return attachObject_; }
 	//描画
