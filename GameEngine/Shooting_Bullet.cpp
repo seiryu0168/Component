@@ -4,6 +4,7 @@
 #include"Engine/Systems/ColliderSystem.h"
 #include"Engine/Time.h"
 #include"MiniGames/Shooting.h"
+#include"Shooting_TergetGift.h"
 Shooting_Bullet::Shooting_Bullet(Object* parent)
 	:GameObject(parent,"Shooting_Bullet"),dir_(XMVectorZero())
 {
@@ -56,6 +57,6 @@ void Shooting_Bullet::OnCollision(Object* target)
 	if (target->GetTag() == "TargetGift")
 	{
 		KillMe();
-		((Shooting*)GetParent())->TargetHit(playerNum_, 1);
+		((Shooting*)GetParent())->ScoreUpdate(playerNum_, ((Shooting_TergetGift*)target)->GetScore());
 	}
 }

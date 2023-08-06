@@ -15,8 +15,9 @@ void Shooting_ScoreUI::Init(const unsigned short& playerCount, std::string initT
 	{
 		Entity entity=Coordinator::CreateEntity();
 		uiEntities_.push_back(entity);
-		Text text;
-		text.SetText(initText);
+		Text text;// ("", "‚è‚¢‚Ä‚ª‚«•M", { 0,0,10,500 });
+		text.SetText("“¾“_ 0");
+		text.SetFont("‚è‚¢‚Ä‚ª‚«•M");
 		Coordinator::AddComponent<Text>(entity, text);
 	}
 }
@@ -24,5 +25,9 @@ void Shooting_ScoreUI::Init(const unsigned short& playerCount, std::string initT
 void Shooting_ScoreUI::TextUpdate(const unsigned short& playerNum, std::string text)
 {
 	if (playerNum < uiEntities_.size())
-		Coordinator::GetComponent<Text>(uiEntities_[playerNum]).SetText(text);
+	{
+		std::string&& str = "“¾“_ " + text;
+		Coordinator::GetComponent<Text>(uiEntities_[playerNum]).SetText(str);
+		Coordinator::GetComponent<Text>(uiEntities_[playerNum]).SetFont("‚è‚¢‚Ä‚ª‚«•M", 0, str.length());
+	}
 }

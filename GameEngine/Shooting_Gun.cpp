@@ -1,8 +1,16 @@
 #include "Shooting_Gun.h"
 #include"Engine/Systems/ModelSystem.h"
+#include"Engine/Systems/ImageSystem.h"
+#include"Engine/Systems/TextSystem.h"
 #include"Shooting_Bullet.h"
+
+namespace
+{
+	 static const int MAX_BULLET = 10;
+}
+
 Shooting_Gun::Shooting_Gun(Object* parent)
-	:GameObject(parent,"Shooting_Gun")
+	:GameObject(parent,"Shooting_Gun"), bulletCount_(MAX_BULLET)
 {
 }
 
@@ -16,6 +24,18 @@ void Shooting_Gun::Initialize()
 	Test_Model_ECSver model(this);
 	model.Load("Assets/Model/Shooting_Gun.fbx");
 	AddComponent<Test_Model_ECSver>(model);
+
+	Text text("", "りいてがき筆", { 0,0,500,50 });
+	text.SetText("X"+std::to_string(MAX_BULLET));
+	text.SetTextSize(40);
+	text.SetPosition({ 220,-140 });
+	textNum_ = AddComponent<Text>(text);
+
+	Image image;
+	image.Load("Assets/Image/Shooting_CorkBullet.png");
+	image.SetSize({ 0.3f,0.3f,0 });
+	image.SetPositionAtPixel({ 170,-170,0 });
+	AddComponent<Image>(image);
 }
 
 void Shooting_Gun::Update()
@@ -24,11 +44,15 @@ void Shooting_Gun::Update()
 
 void Shooting_Gun::Shot(const XMVECTOR& dir)
 {
+	if (bulletCount_ == 0)
+		return;
 	Shooting_Bullet* bullet = Instantiate<Shooting_Bullet>(GetParent()->GetParent());
 	bullet->SetPlayerNum(playerNum_);
 	bullet->GetTransform()->position_ = GetComponent<Test_Model_ECSver>().GetBone("Bone");
 	bullet->GetTransform()->rotate_ = ((GameObject*)GetParent())->GetTransform()->rotate_;
 	bullet->SetDir(dir);
+	bulletCount_--;
+	GetComponent<Text>(textNum_).SetText("X"+std::to_string(bulletCount_));
 }
 
 XMVECTOR Shooting_Gun::GetShotPos()
@@ -39,6 +63,18 @@ XMVECTOR Shooting_Gun::GetShotPos()
 void Shooting_Gun::SetDraw(bool isDraw)
 {
 	GetComponent<Test_Model_ECSver>().SetDraw(isDraw);
+}
+
+int Shooting_Gun::GetShotCount()
+{
+	return (MAX_BULLET - bulletCount_);
+	// TODO: return ステートメントをここに挿入します
+}
+
+void Shooting_Gun::Reload()
+{
+	bulletCount_ = MAX_BULLET;
+	GetComponent<Text>(textNum_).SetText("X"+std::to_string(bulletCount_));
 }
 
 void Shooting_Gun::Release()

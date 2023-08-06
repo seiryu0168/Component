@@ -101,7 +101,7 @@ public:
 	virtual void DebugMode() {}								//デバッグモードで操作すること
 
 	template <typename T>
-	void AddComponent(const T& component)
+	size_t AddComponent(const T& component)
 	{
 		std::string typeName = typeid(T).name();
 			Entity entity = Coordinator::CreateEntity();
@@ -117,6 +117,7 @@ public:
 				entityList_.find(typeName)->second.push_back(entity);
 
 			Coordinator::AddComponent<T>(entity,component);
+			return entityList_.find(typeName)->second.size()-1;
 	}
 
 	template <typename T>

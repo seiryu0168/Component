@@ -20,7 +20,7 @@ public:
 
 	void Initialize() override;
 	void Update() override;
-	void TargetHit(const unsigned short& playernum, int score);
+	void ScoreUpdate(const unsigned short& playernum, int score);
 	void Play();
 	void Finish();
 	void Release() override;

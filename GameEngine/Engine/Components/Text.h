@@ -38,6 +38,7 @@ private:
 public:
 	TEXT_POSITION				  transform2D;		//ç¿ïW
 	Text();
+	Text(const std::string& text, const std::string& fontName, const TEXT_RECT& rect, const DWRITE_FONT_WEIGHT& wight= DWRITE_FONT_WEIGHT_NORMAL,const DWRITE_FONT_STYLE& style= DWRITE_FONT_STYLE_NORMAL,const DWRITE_FONT_STRETCH& stretch = DWRITE_FONT_STRETCH_NORMAL,const ALINMENT_TYPE& type =LEFT_TOP);
 	//Text(std::string text);
 	~Text();
 	int Load(const std::string& text, const std::string& fontName, const TEXT_RECT& rect, const ALINMENT_TYPE& type);
@@ -46,7 +47,7 @@ public:
 	void SetAlinmentType(const ALINMENT_TYPE& type);
 	void SetColor(const XMFLOAT4& color);
 	HRESULT SetFont(const FontData& data);
-	HRESULT SetFont(const std::string& fontName, const UINT32& startPos, const UINT32& length);
+	HRESULT SetFont(const std::string& fontName, const UINT32& startPos = 0, const UINT32& length=UINT32_MAX);
 	HRESULT SetText(const std::string& text);
 	HRESULT SetTextSize(float size,UINT32 startPos,UINT32 length);
 	HRESULT SetTextSize(float size);

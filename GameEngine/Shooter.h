@@ -13,6 +13,7 @@ public:
 	void Update() override;
 	void SetPlayerNumber(unsigned int num) { playerNum_ = num; }
 	void ModeChange();
+	void Reload();
 	void Release() override;
 };
 

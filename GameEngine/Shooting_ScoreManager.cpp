@@ -25,7 +25,11 @@ void Shooting_ScoreManager::Init(const unsigned short& playerCount, int initScor
 void Shooting_ScoreManager::ScoreUpdate(const unsigned short& playerNum, int score)
 {
 	if (playerNum < playerScores_.size())
+	{
 		playerScores_[playerNum] += score;
+		playerScores_[playerNum] = std::max<int>(0, playerScores_[playerNum]);
+	}
+
 }
 
 int Shooting_ScoreManager::GetScore(const unsigned short& playerNum)

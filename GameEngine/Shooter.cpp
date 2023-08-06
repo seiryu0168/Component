@@ -3,6 +3,7 @@
 #include"Engine/GameObject/CameraManager.h"
 #include"Engine/DirectX_11/Input.h"
 #include"Shooting_Gun.h"
+#include"MiniGames/Shooting.h"
 namespace
 {
 	const float TRIGGER_SHOT = 0.7f;
@@ -42,6 +43,8 @@ void Shooter::Update()
 	{
 		((Shooting_Gun*)FindChild("Shooting_Gun"))->Shot(dir);
 	}
+	if (Input::IsPadButtonDown(XINPUT_GAMEPAD_Y))
+		Reload();
 	CameraManager::GetCamera(playerNum_).SetTarget(CAMERA_POS[aimMode_] +dir);
 }
 
@@ -56,6 +59,14 @@ void Shooter::ModeChange()
 	else
 		CameraManager::GetCamera(playerNum_).SetPosition(CAMERA_POS[aimMode_]);
 
+}
+
+void Shooter::Reload()
+{
+	Shooting_Gun* gun = (Shooting_Gun*)FindObject("Shooting_Gun");
+	int score = gun->GetShotCount();
+	gun->Reload();
+	((Shooting*)FindObject("Shooting"))->ScoreUpdate(playerNum_, -score);
 }
 
 void Shooter::Release()

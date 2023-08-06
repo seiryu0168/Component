@@ -44,7 +44,7 @@ void Shooting::Update()
 	}
 }
 
-void Shooting::TargetHit(const unsigned short& playerNum, int score)
+void Shooting::ScoreUpdate(const unsigned short& playerNum, int score)
 {
 	scoreManager_.ScoreUpdate(playerNum, score);
 	ui.TextUpdate(playerNum, std::to_string(scoreManager_.GetScore(playerNum)));

@@ -16,6 +16,57 @@ Text::Text()
 	Initialize();
 
 }
+Text::Text(const std::string& text, const std::string& fontName, const TEXT_RECT& rect, const DWRITE_FONT_WEIGHT& wight, const DWRITE_FONT_STYLE& style, const DWRITE_FONT_STRETCH& stretch, const ALINMENT_TYPE& type)
+{
+	//フォント名用の配列用意
+	size_t ret;
+	FontData data;
+	std::filesystem::path txt = text;
+	pText_ = txt.wstring();
+	std::filesystem::path font = fontName;
+	pFontName_ = font.wstring();
+	//int a = mbstowcs_s(&ret, (wchar_t*)data.fontName_.c_str(), fontName.length() + 1, fontName.c_str(), fontName.length());
+	size_t textSize;
+
+	//描画するテキスト用の配列を用意する
+	textLength_ = text.length() + 1;
+
+	//現在のロケール取得
+	std::string locale = setlocale(LC_CTYPE, NULL);
+	data.fontName_ = pFontName_;
+	data.locale_ = (wchar_t*)L"en-us";
+	data.pCollection_ = D2D::GetCollection();
+	data.fontWaight_ = DWRITE_FONT_WEIGHT_NORMAL;
+	data.fontStyle_ = DWRITE_FONT_STYLE_NORMAL;
+	data.fontStretch_ = DWRITE_FONT_STRETCH_NORMAL;
+	//ロケールを日本語に変更
+	setlocale(LC_CTYPE, "ja-jp");
+	//描画するテキストをstringからwstringに変換
+	//mbstowcs_s(&textSize, (wchar_t*)pText_.c_str(), textLength_, text.c_str(), text.length());
+	//ロケールを元に戻す
+	setlocale(LC_CTYPE, locale.c_str());
+	//変換した文字数
+	//textLength_ = textSize;
+	HRESULT hr;
+	hr=SetFont(data);
+	//アライメント設定
+	SetAlinmentType(type);
+	//描画のためのブラシ作成
+	hr = D2D::GetRenderTarget()->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White), &pColorBrush_);
+	if (FAILED(hr))
+	{
+		MessageBox(nullptr, L"カラーブラシの作成に失敗:Text.cpp", L"OK", MB_OK);
+	}
+	//テキスト表示の領域設定
+	layoutRect_ = rect;
+
+	//テキストレイアウト作成
+	hr = D2D::GetDWriteFactory()->CreateTextLayout(pText_.c_str(), (UINT32)textLength_, pTextFormat_, (layoutRect_.right - layoutRect_.left), (layoutRect_.bottom - layoutRect_.top), &pLayout_);
+	if (FAILED(hr))
+	{
+		MessageBox(nullptr, L"テキストレイアウトの作成に失敗:Text.cpp", L"OK", MB_OK);
+	}
+}
 Text::~Text()
 {
 	//Release();
@@ -45,7 +96,7 @@ int Text::Load(const std::string& text, const std::string& fontName, const TEXT_
 	textLength_ = text.length()+1;
 
 	//現在のロケール取得
-	std::string locale= setlocale(LC_CTYPE, NULL);
+	std::string locale = setlocale(LC_CTYPE, NULL);
 	
 	data.locale_ = (wchar_t*)L"en-us";
 	//ロケールを日本語に変更
@@ -110,9 +161,6 @@ void Text::Initialize()
 	data.fontWaight_ = DWRITE_FONT_WEIGHT_NORMAL;
 	data.fontStyle_ = DWRITE_FONT_STYLE_NORMAL;
 	data.fontStretch_=DWRITE_FONT_STRETCH_NORMAL;
-
-	//HRESULT hr = DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED, __uuidof(IDWriteFactory), reinterpret_cast<IUnknown**>(&pWriteFactory_));
-	//assert(FAILED(hr) == false);
 	
 	HRESULT hr;
 	//テキストフォーマットにフォントを設定
@@ -219,7 +267,7 @@ HRESULT Text::SetTextSize(float size, UINT32 startPos, UINT32 length)
 HRESULT Text::SetTextSize(float size)
 {
 	HRESULT hr;
-	UINT32 fontNameSize = pTextFormat_->GetFontFamilyNameLength() * 2;
+	UINT32 fontNameSize = pFontName_.length()*2;//pTextFormat_->GetFontFamilyNameLength() * 2;
 	UINT32 localeSize = pTextFormat_->GetLocaleNameLength() * 2;
 
 	//フォントデータ作成
@@ -234,6 +282,12 @@ HRESULT Text::SetTextSize(float size)
 	hr = pTextFormat_->GetLocaleName((WCHAR*)data.locale_.c_str(), localeSize);
 	if (FAILED(hr))
 		return hr;
+	hr = pTextFormat_->GetFontCollection(&data.pCollection_);
+	if (FAILED(hr))
+		return hr;
+	data.fontStretch_ = pTextFormat_->GetFontStretch();
+	data.fontStyle_ = pTextFormat_->GetFontStyle();
+	data.fontWaight_ = pTextFormat_->GetFontWeight();
 	//書式設定
 	SAFE_RELEASE(pTextFormat_);
 	hr = D2D::GetDWriteFactory()->CreateTextFormat((WCHAR*)data.fontName_.c_str(), data.pCollection_, data.fontWaight_, data.fontStyle_, data.fontStretch_, data.fontSize_, data.locale_.c_str(), &pTextFormat_);
