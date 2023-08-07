@@ -1,6 +1,7 @@
 #include "Direct2D.h"
 #include"../SAFE_DELETE_RELEASE.h"
 #include<fileSystem>
+#include<vector>
 
 namespace D2D
 {
@@ -10,7 +11,7 @@ namespace D2D
 	IDWriteFontCollection*  pSystemFontCollection_ = nullptr;
 	IDWriteFontSet*			pFontSet_		 = nullptr;
 	IDWriteFontCollection1* pFontCollection_ = nullptr;
-	ID2D1RenderTarget*		pRenderTarget_   = nullptr; //レンダーターゲット
+	std::vector<ID2D1RenderTarget*>	renderTargets_; //レンダーターゲット
 	std::vector<IDWriteFontFile*> fontFileList;
 	//ID2D1SolidColorBrush*  pColorBrush_   = nullptr;	//ブラシ	
 	//IDWriteFactory*		   pWriteFactory_ = nullptr;	//文字描画のファクトリ
@@ -68,11 +69,6 @@ HRESULT D2D::Initialize(int winW, int winH, HWND hWnd)
 	//name->GetString(0, fontNameArray, length + 1);
 	//hr = pFontFile_->Analyze(&isSupport, &fileType, &faceType, &count);
 
-
-
-	
-	
-	
 	IDXGISurface* pBackBuffer;	
 	Direct3D::GetSwapChain()->GetBuffer(0, IID_PPV_ARGS(&pBackBuffer));
 	//hr = DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED,__uuidof(IDWriteFactory),reinterpret_cast<IUnknown**>(&pWriteFactory_));
@@ -113,13 +109,16 @@ HRESULT D2D::Initialize(int winW, int winH, HWND hWnd)
 	dpiScaleX_ = (float)GetDpiForWindow(hWnd);
 	dpiScaleY_ = (float)GetDpiForWindow(hWnd);
 	//D2D1_SIZE_U size = D2D1::Size<UINT>(rect.right, rect.bottom);
-	D2D1_RENDER_TARGET_PROPERTIES prop = D2D1::RenderTargetProperties(D2D1_RENDER_TARGET_TYPE_DEFAULT, D2D1::PixelFormat(DXGI_FORMAT_UNKNOWN, D2D1_ALPHA_MODE_PREMULTIPLIED), dpiScaleX_, dpiScaleY_);
-	hr = pFactory_->CreateDxgiSurfaceRenderTarget(pBackBuffer,prop , &pRenderTarget_);
-	if (FAILED(hr))
-	{
-		MessageBox(nullptr, L"Direct2D : レンダーターゲットの作成に失敗", L"エラー", MB_OK);
-		return hr;
-	}
+	//D2D1_RENDER_TARGET_PROPERTIES prop = D2D1::RenderTargetProperties(D2D1_RENDER_TARGET_TYPE_DEFAULT, D2D1::PixelFormat(DXGI_FORMAT_UNKNOWN, D2D1_ALPHA_MODE_PREMULTIPLIED), dpiScaleX_, dpiScaleY_);
+	//ID2D1RenderTarget* pRenderTarget = nullptr;
+	//hr = pFactory_->CreateDxgiSurfaceRenderTarget(pBackBuffer,prop , &pRenderTarget);
+	
+	//if (FAILED(hr))
+	//{
+	//	MessageBox(nullptr, L"Direct2D : レンダーターゲットの作成に失敗", L"エラー", MB_OK);
+	//	return hr;
+	//}
+	//renderTargets_.push_back(pRenderTarget);
 
 	//hr = pRenderTarget_->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White),&pColorBrush_);
 	//if (FAILED(hr))
@@ -208,29 +207,56 @@ IDWriteFontCollection1* D2D::GetCollection()
 {
 	return pFontCollection_;
 }
-
-ID2D1RenderTarget* D2D::GetRenderTarget()
+void D2D::CreateRenderTarget(const XMINT2 dpiScale, D2D1_RENDER_TARGET_TYPE type, DXGI_FORMAT format, D2D1_ALPHA_MODE mode)
 {
-	return pRenderTarget_;
-}
+	HRESULT hr;
+	IDXGISurface* pBackBuffer;
+	Direct3D::GetSwapChain()->GetBuffer(0, IID_PPV_ARGS(&pBackBuffer));
+	D2D1_RENDER_TARGET_PROPERTIES prop = D2D1::RenderTargetProperties(D2D1_RENDER_TARGET_TYPE_DEFAULT, D2D1::PixelFormat(DXGI_FORMAT_UNKNOWN, D2D1_ALPHA_MODE_PREMULTIPLIED), dpiScaleX_, dpiScaleY_);
+	ID2D1RenderTarget* pRenderTarget = nullptr;
+	hr = pFactory_->CreateDxgiSurfaceRenderTarget(pBackBuffer, prop, &pRenderTarget);
 
+	if (FAILED(hr))
+	{
+		MessageBox(nullptr, L"Direct2D : レンダーターゲットの作成に失敗", L"エラー", MB_OK);
+		return;
+	}
+	renderTargets_.push_back(pRenderTarget);
+}
+const int& D2D::GetRenderTargetCount()
+{
+	return renderTargets_.size();
+}
+ID2D1RenderTarget* D2D::GetRenderTarget(int num)
+{
+	return renderTargets_[num];
+}
+void D2D::AllRemoveRenderTarget()
+{
+	for (auto target : renderTargets_)
+		SAFE_RELEASE(target);
+	renderTargets_.clear();
+
+}
 void D2D::Release()
 {
 	SAFE_RELEASE(pFactory_);
-	SAFE_RELEASE(pRenderTarget_);
+	for(auto target : renderTargets_)
+	SAFE_RELEASE(target);
+	renderTargets_.clear();
 }
 
 void D2D::RenderTest()
 {
-	HRESULT hr;
-	ID2D1SolidColorBrush* pGreenBrush=nullptr;
-	
-	hr = pRenderTarget_->CreateSolidColorBrush(D2D1::ColorF(1.0f, 1.0f, 0.0f), &pGreenBrush);
-	if (FAILED(hr))
-	{
-		MessageBox(nullptr, L"Direct2D : テスト失敗", L"エラー", MB_OK);
-		//return hr;
-	}
+	//HRESULT hr;
+	//ID2D1SolidColorBrush* pGreenBrush=nullptr;
+	//
+	//hr = pRenderTarget_->CreateSolidColorBrush(D2D1::ColorF(1.0f, 1.0f, 0.0f), &pGreenBrush);
+	//if (FAILED(hr))
+	//{
+	//	MessageBox(nullptr, L"Direct2D : テスト失敗", L"エラー", MB_OK);
+	//	//return hr;
+	//}
 	
 	//D2D1_ELLIPSE ell = D2D1::Ellipse(D2D1::Point2F(1120.0f, 120.0f), 100.0f, 100.0f);
 	//pRenderTarget_->DrawEllipse(ell, pGreenBrush, 10.0f);
@@ -238,13 +264,13 @@ void D2D::RenderTest()
 	
 
 
-	SAFE_RELEASE(pGreenBrush);
+	//SAFE_RELEASE(pGreenBrush);
 }
 
 void D2D::BeginDraw()
 {
 	//pRenderTarget_->Clear();
-	pRenderTarget_->BeginDraw();
+	//pRenderTarget_->BeginDraw();
 }
 
 //void D2D::Draw()
@@ -256,7 +282,7 @@ void D2D::BeginDraw()
 
 void D2D::EndDraw()
 {
-	pRenderTarget_->EndDraw();
+	//pRenderTarget_->EndDraw();
 }
 
 int D2D::GetdpiX()

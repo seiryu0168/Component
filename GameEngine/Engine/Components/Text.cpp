@@ -1,8 +1,9 @@
 #include "Text.h"
 #include<locale.h>
 #include<filesystem>
+#include"../GameObject/CameraManager.h"
 
-Text::Text()
+Text::Text(const int& renderTargetNum)
 {
 	textLength_	   = 0;
 	transform2D = { 0,0 };
@@ -13,11 +14,19 @@ Text::Text()
 	//pWriteFactory_ = nullptr;
 	pTextFormat_   = nullptr;
 	pLayout_	   = nullptr;
+		if (renderTargetNum<D2D::GetRenderTargetCount() &&renderTargetNum>=0)
+			renderTargetNum_ = renderTargetNum;
+		else
+			renderTargetNum_ = 0;
 	Initialize();
 
 }
-Text::Text(const std::string& text, const std::string& fontName, const TEXT_RECT& rect, const DWRITE_FONT_WEIGHT& wight, const DWRITE_FONT_STYLE& style, const DWRITE_FONT_STRETCH& stretch, const ALINMENT_TYPE& type)
+Text::Text(const std::string& text, const std::string& fontName, const TEXT_RECT& rect, int renderTargetNum, const DWRITE_FONT_WEIGHT& wight, const DWRITE_FONT_STYLE& style, const DWRITE_FONT_STRETCH& stretch, const ALINMENT_TYPE& type)
 {
+	if (renderTargetNum < D2D::GetRenderTargetCount() && renderTargetNum >= 0)
+		renderTargetNum_ = renderTargetNum;
+	else
+		renderTargetNum_ = 0;
 	//フォント名用の配列用意
 	size_t ret;
 	FontData data;
@@ -52,7 +61,7 @@ Text::Text(const std::string& text, const std::string& fontName, const TEXT_RECT
 	//アライメント設定
 	SetAlinmentType(type);
 	//描画のためのブラシ作成
-	hr = D2D::GetRenderTarget()->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White), &pColorBrush_);
+	hr = D2D::GetRenderTarget(renderTargetNum_)->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White), &pColorBrush_);
 	if (FAILED(hr))
 	{
 		MessageBox(nullptr, L"カラーブラシの作成に失敗:Text.cpp", L"OK", MB_OK);
@@ -66,6 +75,9 @@ Text::Text(const std::string& text, const std::string& fontName, const TEXT_RECT
 	{
 		MessageBox(nullptr, L"テキストレイアウトの作成に失敗:Text.cpp", L"OK", MB_OK);
 	}
+	defaultPos_ = { CameraManager::GetCamera(renderTargetNum_).GetViewPort().TopLeftX,CameraManager::GetCamera(renderTargetNum_).GetViewPort().TopLeftY };
+	transform2D.x = defaultPos_.x + transform2D.x;
+	transform2D.y = transform2D.y + defaultPos_.y;
 }
 Text::~Text()
 {
@@ -134,7 +146,7 @@ int Text::Load(const std::string& text, const std::string& fontName, const TEXT_
 	{
 		return hr;
 	}
-
+	SetPosition({ 0, 0 });
 	return 0;
 }
 
@@ -169,7 +181,7 @@ void Text::Initialize()
 	//アライメント設定
 	SetAlinmentType(LEFT_TOP);
 	//描画のためのブラシ作成
-	hr = D2D::GetRenderTarget()->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White), &pColorBrush_);
+	hr = D2D::GetRenderTarget(renderTargetNum_)->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White), &pColorBrush_);
 	assert(FAILED(hr) == false);
 	//テキスト表示の領域設定
 	layoutRect_ = {0,0,500,100};
@@ -177,6 +189,10 @@ void Text::Initialize()
 	//テキストレイアウト作成
 	hr = D2D::GetDWriteFactory()->CreateTextLayout(pText_.c_str(), (UINT32)textLength_, pTextFormat_, (layoutRect_.right - layoutRect_.left), (layoutRect_.bottom - layoutRect_.top), &pLayout_);
 	assert(FAILED(hr) == false);
+
+	defaultPos_ = { CameraManager::GetCamera(renderTargetNum_).GetViewPort().TopLeftX,CameraManager::GetCamera(renderTargetNum_).GetViewPort().TopLeftY };
+	transform2D.x = defaultPos_.x + transform2D.x;
+	transform2D.y =  transform2D.y+ defaultPos_.y;
 }
 
 void Text::Draw()
@@ -199,14 +215,15 @@ void Text::SetColor(const XMFLOAT4& color)
 }
 void Text::SetRatio(float ratioX, float ratioY)
 {
-	transform2D.x = Direct3D::GetScreenWidth() * ratioX;
-	transform2D.y = Direct3D::GetScreenHeight() * ratioY;
+	//画面の割合に応じて移動させ、defaultos_で
+	transform2D.x = (CameraManager::GetCamera(renderTargetNum_).GetViewPort().Width * ratioX) + ( float)defaultPos_.x;
+	transform2D.y = (CameraManager::GetCamera(renderTargetNum_).GetViewPort().Height * ratioY)+(float)defaultPos_.y;
 }
 
 void Text::SetPosition(const XMFLOAT2& position)
 {
-	transform2D.x = 0.5f*position.x+0.5f*Direct3D::GetScreenWidth();
-	transform2D.y = -(0.5f * position.y)+ 0.5f * Direct3D::GetScreenHeight();
+	transform2D.x = (0.5f*position.x)+defaultPos_.x;
+	transform2D.y = (-(0.5f * position.y)) + defaultPos_.y;
 }
 
 void Text::SetTextLayout()

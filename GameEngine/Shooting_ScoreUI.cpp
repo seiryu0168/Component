@@ -1,6 +1,11 @@
 #include "Shooting_ScoreUI.h"
 #include"Engine/Systems/TextSystem.h"
 #include"Engine/Coordinator.h"
+namespace
+{
+	const XMFLOAT2 MODE_SINGLE = { 0,0 };
+}
+
 Shooting_ScoreUI::Shooting_ScoreUI()
 {
 }
@@ -15,7 +20,7 @@ void Shooting_ScoreUI::Init(const unsigned short& playerCount, std::string initT
 	{
 		Entity entity=Coordinator::CreateEntity();
 		uiEntities_.push_back(entity);
-		Text text;// ("", "‚è‚¢‚Ä‚ª‚«•M", { 0,0,10,500 });
+		Text text(i);// ("", "‚è‚¢‚Ä‚ª‚«•M", { 0,0,10,500 });
 		text.SetText("“¾“_ 0");
 		text.SetFont("‚è‚¢‚Ä‚ª‚«•M");
 		Coordinator::AddComponent<Text>(entity, text);

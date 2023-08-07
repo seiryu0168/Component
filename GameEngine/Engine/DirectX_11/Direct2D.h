@@ -22,7 +22,7 @@ namespace D2D
 {
 	
 	extern ID2D1Factory* pFactory_;
-	extern ID2D1RenderTarget* pRenderTarget_;
+	//extern ID2D1RenderTarget* pRenderTarget_;
 	extern IDWriteFontSetBuilder1* pFontSetBuilder_;
 
 	HRESULT Initialize(int winW, int winH, HWND hWnd);
@@ -31,7 +31,10 @@ namespace D2D
 	ID2D1Factory* Get2DFactory();
 	IDWriteFactory5* GetDWriteFactory();
 	IDWriteFontCollection1* GetCollection();
-	ID2D1RenderTarget* GetRenderTarget();
+	void CreateRenderTarget(const XMINT2 dpiScale, D2D1_RENDER_TARGET_TYPE type= D2D1_RENDER_TARGET_TYPE_DEFAULT,DXGI_FORMAT format= DXGI_FORMAT_UNKNOWN,D2D1_ALPHA_MODE mode= D2D1_ALPHA_MODE_PREMULTIPLIED);
+	const int& GetRenderTargetCount();
+	ID2D1RenderTarget* GetRenderTarget(int num=0);
+	void AllRemoveRenderTarget();
 	void Release();
 	void RenderTest();
 	void BeginDraw();

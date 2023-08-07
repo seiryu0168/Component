@@ -12,7 +12,7 @@ private:
 	int drawTargetNumber_;
 	Transform transform_;
 public:
-	Image();
+	Image(int cameraNum = -1);
 	~Image();
 	//‰æ‘œƒ[ƒh
 	bool Load(const std::string& name);

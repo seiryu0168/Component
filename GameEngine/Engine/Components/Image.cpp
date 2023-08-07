@@ -1,15 +1,17 @@
 #include "Image.h"
 #include"../ResourceManager/ImageManager_ECSver.h"
 #include"../DirectX_11/Direct3D.h"
+#include"../GameObject/CameraManager.h"
 #include "../DirectX_11/Input.h"
-Image::Image()
+
+Image::Image(int cameraNum)
 	:alpha_(1.0f),
-	rect_({0,0,1,1}),
+	rect_({ 0,0,1,1 }),
 	color_(),
 	imageName_(""),
 	pSprite_(),
 	transform_(),
-	drawTargetNumber_(-1)
+	drawTargetNumber_(cameraNum)
 {
 }
 
@@ -57,7 +59,7 @@ void Image::SetRotation(const XMFLOAT3& rotate)
 
 void Image::Draw()
 {
-	if(drawTargetNumber_ == Direct3D::GetViewNumber() || drawTargetNumber_ == -1)
+	if(drawTargetNumber_ == CameraManager::GetCurrentCameraNum() || drawTargetNumber_ == -1)
 	pSprite_->Draw(transform_, rect_, color_, alpha_);
 }
 

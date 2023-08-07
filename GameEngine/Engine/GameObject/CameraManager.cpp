@@ -1,5 +1,5 @@
 #include "CameraManager.h"
-
+#include"../DirectX_11/Direct2D.h"
 
 //変数
 XMVECTOR position_;			//カメラの位置（視点）
@@ -45,7 +45,8 @@ void CameraManager::Initialize(float width,float height)
 	//defaultCamera_.SetAOV(angleOfView);
 	//defaultCamera_.SetAspectRadio(aspectRadio);
 	defaultCamera_.SetViewPort(width, height, 0.0f, 1.0f, 0, 0);
-	cameraList_.push_back(defaultCamera_);
+	AddCamera(defaultCamera_);
+	//cameraList_.push_back(defaultCamera_);
 }
 
 //更新
@@ -88,7 +89,7 @@ Camera& CameraManager::GetCamera(UINT num)
 	if (num >= cameraList_.size())
 		num = cameraList_.size() - 1;
 
-		currentViewPort_ = num;
+		//currentViewPort_ = num;
 		return cameraList_[num];
 }
 
@@ -100,6 +101,10 @@ Camera& CameraManager::GetCurrentCamera()
 
 void CameraManager::AddCamera(Camera camera)
 {
+	float a = (camera.GetViewPort().Width / (float)Direct3D::GetScreenWidth());
+	int32_t dpiX = ((int32_t)camera.GetViewPort().Width / (float)Direct3D::GetScreenWidth()) * D2D::GetdpiX();
+	int32_t dpiY = ((int32_t)camera.GetViewPort().Height / (float)Direct3D::GetScreenHeight()) * D2D::GetdpiY();
+	D2D::CreateRenderTarget({ dpiX,dpiY });
 	cameraList_.push_back(camera);
 }
 
@@ -108,10 +113,22 @@ void CameraManager::AllRmoveCamera(UINT num)
 	cameraList_.clear();
 }
 
+void CameraManager::UpdateCameraNum(int num)
+{
+	currentViewPort_ = num;
+}
+
+int CameraManager::GetCurrentCameraNum()
+{
+	return currentViewPort_;
+}
+
 void CameraManager::ResetCamera()
 {
 	cameraList_.clear();
-	cameraList_.push_back(defaultCamera_);
+	D2D::AllRemoveRenderTarget();
+	AddCamera(defaultCamera_);
+	//cameraList_.push_back(defaultCamera_);
 }
 
 UINT CameraManager::GetCameraCount()

@@ -25,13 +25,13 @@ void Shooting_Gun::Initialize()
 	model.Load("Assets/Model/Shooting_Gun.fbx");
 	AddComponent<Test_Model_ECSver>(model);
 
-	Text text("", "‚è‚¢‚Ä‚ª‚«•M", { 0,0,500,50 });
+	Text text("", "‚è‚¢‚Ä‚ª‚«•M", { 0,0,500,50 },playerNum_);
 	text.SetText("X"+std::to_string(MAX_BULLET));
 	text.SetTextSize(40);
-	text.SetPosition({ 220,-140 });
+	text.SetRatio( 0.6f,0.6f );
 	textNum_ = AddComponent<Text>(text);
 
-	Image image;
+	Image image(playerNum_);
 	image.Load("Assets/Image/Shooting_CorkBullet.png");
 	image.SetSize({ 0.3f,0.3f,0 });
 	image.SetPositionAtPixel({ 170,-170,0 });

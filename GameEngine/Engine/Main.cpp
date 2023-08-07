@@ -182,6 +182,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 				CameraManager::Update();
 				for (int i = 0; i < CameraManager::GetCameraCount(); i++)
 				{
+					CameraManager::UpdateCameraNum(i);
 					Direct3D::SetViewPort(CameraManager::GetCamera(i).GetViewPort());
 
 				

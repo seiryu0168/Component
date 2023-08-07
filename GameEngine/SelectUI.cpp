@@ -32,7 +32,7 @@ void SelectUI::Initialize()
 	{
 		Text text1;
 		text1.SetText("チキンレース");
-		XMFLOAT3 pos = { -900,0.0f,0 };
+		XMFLOAT3 pos = { 900,0.0f,0 };
 		basePosList_.push_back(pos);
 		text1.SetPosition({ pos.x, pos.y });
 		text1.SetAlinmentType(LEFT_CENTER);
@@ -45,7 +45,7 @@ void SelectUI::Initialize()
 	{
 		Text text2;
 		text2.SetText("Stage02");
-		XMFLOAT3 pos = { -900.0f,-500.0f,0 };
+		XMFLOAT3 pos = { 900.0f,-500.0f,0 };
 		basePosList_.push_back(pos);
 		text2.SetPosition({ pos.x, pos.y });
 		text2.SetAlinmentType(LEFT_CENTER);
@@ -57,7 +57,7 @@ void SelectUI::Initialize()
 	{
 		Text text3;
 		text3.SetText("Stage03");
-		XMFLOAT3 pos = { -900.0f,-1000.0f,0 };
+		XMFLOAT3 pos = { 900.0f,-1000.0f,0 };
 		basePosList_.push_back(pos);
 		text3.SetPosition({ pos.x, pos.y });
 		AddComponent<Text>(text3);
@@ -67,7 +67,7 @@ void SelectUI::Initialize()
 		Image image1;
 		image1.Load("Assets\\Image\\Image_Stage1.png");
 
-		image1.SetPositionAtPixel({ basePosList_[0].x + IMAGE_OFFSET,
+		image1.SetPositionAtPixel({ -basePosList_[0].x + IMAGE_OFFSET,
 									basePosList_[0].y * IMAGE_RATIO,
 									basePosList_[0].z });
 		AddComponent<Image>(image1);
@@ -78,7 +78,7 @@ void SelectUI::Initialize()
 		Image image2;
 		image2.Load("Assets\\Image\\Image_Stage2.png");
 		
-		image2.SetPositionAtPixel({ basePosList_[1].x + IMAGE_OFFSET,
+		image2.SetPositionAtPixel({ -basePosList_[1].x + IMAGE_OFFSET,
 								    basePosList_[1].y * IMAGE_RATIO,
 								    basePosList_[1].z });
 		AddComponent<Image>(image2);
@@ -89,7 +89,7 @@ void SelectUI::Initialize()
 		Image image3;
 		image3.Load("Assets\\Image\\Image_Stage3.png");
 		
-		image3.SetPositionAtPixel({ basePosList_[2].x + IMAGE_OFFSET,
+		image3.SetPositionAtPixel({ -basePosList_[2].x + IMAGE_OFFSET,
 									basePosList_[2].y * IMAGE_RATIO,
 									basePosList_[2].z });
 		AddComponent<Image>(image3);
@@ -189,7 +189,7 @@ void SelectUI::MoveButton(float ratio)
 	for (Entity& entity : GetComponentList<Image>())
 	{
 		Coordinator::GetComponent<Image>(entity).
-				     SetPositionAtPixel({ basePosList_[i].x + IMAGE_OFFSET,
+				     SetPositionAtPixel({ -basePosList_[i].x + IMAGE_OFFSET,
 										  (basePosList_[i].y + delta)*IMAGE_RATIO,
 										  basePosList_[i].z });
 		i++;

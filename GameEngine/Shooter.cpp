@@ -24,7 +24,7 @@ void Shooter::Initialize()
 {
 	transform_->position_ = CAMERA_DEFAULT_POS;
 	//transform_->position_ = CAMERA_DEFAULT_POS;
-	Image image;
+	Image image(playerNum_);
 	image.Load("Assets/Image/Image_Shooting_Sight.png");
 	AddComponent<Image>(image);
 	Instantiate<Shooting_Gun>(this)->SetPlayerNum_(playerNum_);
@@ -36,14 +36,14 @@ void Shooter::Update()
 {
 	transform_->RotateEular({ -Input::GetLStick_Y(playerNum_) * 30.0f, Input::GetLStick_X(playerNum_) * 30.0f, 0 });
 	XMVECTOR dir = XMVector3Rotate(target_, transform_->rotate_);
-	if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A))
+	if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A, playerNum_))
 		ModeChange();
 
 	if (Input::GetRTriggerDown(playerNum_))
 	{
 		((Shooting_Gun*)FindChild("Shooting_Gun"))->Shot(dir);
 	}
-	if (Input::IsPadButtonDown(XINPUT_GAMEPAD_Y))
+	if (Input::IsPadButtonDown(XINPUT_GAMEPAD_Y, playerNum_))
 		Reload();
 	CameraManager::GetCamera(playerNum_).SetTarget(CAMERA_POS[aimMode_] +dir);
 }

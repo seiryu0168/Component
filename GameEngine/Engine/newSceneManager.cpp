@@ -78,6 +78,7 @@ namespace newSceneManager
 			ModelManager_ECSver::Release();
 			ImageManager_ECSver::Release();
 			TextureManager::Release();
+			//D2D::
 
 			CameraManager::ResetCamera();
 			currentScene_ = sceneList_[nextSceneName_];

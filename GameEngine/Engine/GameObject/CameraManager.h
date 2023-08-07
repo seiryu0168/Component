@@ -19,7 +19,9 @@ namespace CameraManager
 	Camera& GetCamera(UINT num);
 	Camera& GetCurrentCamera();
 	void AddCamera(Camera camera);
-	void AllRmoveCamera(UINT num);
+	void AllRmoveCamera(UINT num=0);
+	void UpdateCameraNum(int num);
+	int GetCurrentCameraNum();
 	void ResetCamera();
 	UINT GetCameraCount();
 	
