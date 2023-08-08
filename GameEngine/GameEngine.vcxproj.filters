@@ -52,6 +52,9 @@
     <Filter Include="ソース ファイル\MiniGames">
       <UniqueIdentifier>{ab83e262-d17c-4df1-b8ab-cc424200191e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\MiniGames\Shooting">
+      <UniqueIdentifier>{c6f04f9e-6715-4c38-86a2-a1341453258d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ImGui\imgui.cpp">
@@ -279,35 +282,32 @@
     <ClCompile Include="Engine\ResourceManager\JsonOperator.cpp">
       <Filter>ソース ファイル\Engine\ResourceManager</Filter>
     </ClCompile>
-    <ClCompile Include="MiniGames\Shooting.cpp">
-      <Filter>ソース ファイル\MiniGames</Filter>
-    </ClCompile>
-    <ClCompile Include="Shooter.cpp">
-      <Filter>ソース ファイル\MiniGames</Filter>
-    </ClCompile>
-    <ClCompile Include="Shooting_Table.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Shooting_Gun.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Sooting_Bullet.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Shooting_Bullet.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Shooting_TergetGift.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="ScoreManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Shooter.cpp">
+      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGames\Shooting.cpp">
+      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
+    </ClCompile>
+    <ClCompile Include="Shooting_Bullet.cpp">
+      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
+    </ClCompile>
+    <ClCompile Include="Shooting_Gun.cpp">
+      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
+    </ClCompile>
     <ClCompile Include="Shooting_ScoreManager.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
     </ClCompile>
     <ClCompile Include="Shooting_ScoreUI.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
+    </ClCompile>
+    <ClCompile Include="Shooting_Table.cpp">
+      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
+    </ClCompile>
+    <ClCompile Include="Shooting_TergetGift.cpp">
+      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -557,35 +557,35 @@
     <ClInclude Include="Engine\ResourceManager\JsonOperator.h">
       <Filter>ソース ファイル\Engine\ResourceManager</Filter>
     </ClInclude>
-    <ClInclude Include="MiniGames\Shooting.h">
-      <Filter>ソース ファイル\MiniGames</Filter>
-    </ClInclude>
-    <ClInclude Include="Shooter.h">
-      <Filter>ソース ファイル\MiniGames</Filter>
-    </ClInclude>
     <ClInclude Include="Title.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Shooting_Table.h">
-      <Filter>ソース ファイル</Filter>
+    <ClInclude Include="MiniGames\Shooting.h">
+      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
     </ClInclude>
-    <ClInclude Include="Shooting_Gun.h">
-      <Filter>ソース ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Shooting_Bullet.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Shooting_TergetGift.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="Shooter.h">
+      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
     </ClInclude>
     <ClInclude Include="ScoreManager.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Shooting_TergetGift.h">
+      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
+    </ClInclude>
+    <ClInclude Include="Shooting_Bullet.h">
+      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
+    </ClInclude>
+    <ClInclude Include="Shooting_Gun.h">
+      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
     </ClInclude>
     <ClInclude Include="Shooting_ScoreManager.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
     </ClInclude>
     <ClInclude Include="Shooting_ScoreUI.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
+    </ClInclude>
+    <ClInclude Include="Shooting_Table.h">
+      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

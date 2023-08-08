@@ -255,7 +255,6 @@
     <ClCompile Include="Shooting_ScoreUI.cpp" />
     <ClCompile Include="Shooting_Table.cpp" />
     <ClCompile Include="Shooting_TergetGift.cpp" />
-    <ClCompile Include="Sooting_Bullet.cpp" />
     <ClCompile Include="TestObject.cpp" />
     <ClCompile Include="TestObjectChild.cpp" />
     <ClCompile Include="Title.cpp" />

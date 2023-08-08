@@ -11,19 +11,23 @@ private:
 	};
 	short moveDir_;
 	SELECT_STATE state_;
-	//XMINT2 buttonLimit_;
 	int buttonCount_;
 	int buttonNum_;
+	unsigned short playCount_;
+
+	int countTextNum_;
 	int moveTime_;
 	int inputInterval_;
 	void Input();
 	void Move();
+	std::vector<int> moveUIList_;
 	std::vector<XMFLOAT3> basePosList_;
 public:
 	SelectUI(Object* parent);
 	~SelectUI();
 	void Initialize() override;
 	void Update() override;
+	void PlayerCount(const int& padButton);
 	void MoveButton(float ratio);
 	void PushedButton(int buttonNum);
 	void Release() override;
