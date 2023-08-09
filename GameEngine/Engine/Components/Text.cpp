@@ -285,19 +285,18 @@ HRESULT Text::SetTextSize(float size, UINT32 startPos, UINT32 length)
 HRESULT Text::SetTextSize(float size)
 {
 	HRESULT hr;
-	UINT32 fontNameSize = pFontName_.length()*2;//pTextFormat_->GetFontFamilyNameLength() * 2;
-	UINT32 localeSize = pTextFormat_->GetLocaleNameLength() * 2;
+	//UINT32 localeSize = pTextFormat_->GetLocaleNameLength() * 2;
 
 	//フォントデータ作成
 	FontData data;
 
 	data.fontSize_ = size;
 	
-	hr = pTextFormat_->GetFontFamilyName((WCHAR*)pFontName_.c_str(), fontNameSize);
+	hr = pTextFormat_->GetFontFamilyName((WCHAR*)data.fontName_.c_str(), pTextFormat_->GetFontFamilyNameLength()+1);
 	if (FAILED(hr))
 		return hr;
 
-	hr = pTextFormat_->GetLocaleName((WCHAR*)data.locale_.c_str(), localeSize);
+	hr = pTextFormat_->GetLocaleName((WCHAR*)data.locale_.c_str(), pTextFormat_->GetLocaleNameLength()+1);
 	if (FAILED(hr))
 		return hr;
 	hr = pTextFormat_->GetFontCollection(&data.pCollection_);
@@ -308,7 +307,7 @@ HRESULT Text::SetTextSize(float size)
 	data.fontWaight_ = pTextFormat_->GetFontWeight();
 	//書式設定
 	SAFE_RELEASE(pTextFormat_);
-	hr = D2D::GetDWriteFactory()->CreateTextFormat((WCHAR*)pFontName_.c_str(), data.pCollection_, data.fontWaight_, data.fontStyle_, data.fontStretch_, data.fontSize_, data.locale_.c_str(), &pTextFormat_);
+	hr = D2D::GetDWriteFactory()->CreateTextFormat(data.fontName_.c_str(), data.pCollection_, data.fontWaight_, data.fontStyle_, data.fontStretch_, data.fontSize_, data.locale_.c_str(), &pTextFormat_);
 	if (FAILED(hr))
 		return hr;
 	SAFE_RELEASE(pLayout_);

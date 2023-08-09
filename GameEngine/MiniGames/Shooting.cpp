@@ -6,28 +6,39 @@
 #include"../TestObject.h"
 #include"../Shooting_TergetGift.h"
 #include"../Engine/GameObject/CameraManager.h"
+#include"../InterSceneData.h"
 
 Shooting::Shooting(Object* parent)
 	:Framework(parent,"Shooting"),state_(PLAY_STATE::STATE_PLAY)
 {
-	CameraManager::AllRmoveCamera();
-	D2D::AllRemoveRenderTarget();
+	playerCount_ = InterSceneData::GetData<int>("PlayerCount");
+	switch (playerCount_)
 	{
-		Camera camera;
-		XMINT2 WH = { Direct3D::GetScreenWidth() ,Direct3D::GetScreenHeight() };
-		camera.Initialize(WH.x, WH.y, 1.0f, 500.0f);
-		camera.SetViewPort(WH.x / 2.0f, WH.y / 2.0f, 0.0f, 1.0f, 0, 0);
-		CameraManager::AddCamera(camera);
+	case 1:
+		break;
+	case 2:
+		CameraManager::AllRmoveCamera();
+		D2D::AllRemoveRenderTarget();
+		{
+			Camera camera;
+			XMINT2 WH = { Direct3D::GetScreenWidth() ,Direct3D::GetScreenHeight() };
+			camera.Initialize(WH.x, WH.y, 1.0f, 500.0f);
+			camera.SetViewPort(WH.x / 2.0f, WH.y / 2.0f, 0.0f, 1.0f, 0, 0);
+			CameraManager::AddCamera(camera);
+		}
+		{
+			Camera camera2;
+			XMINT2 WH = { Direct3D::GetScreenWidth() ,Direct3D::GetScreenHeight() };
+			camera2.Initialize(WH.x, WH.y, 1.0f, 500.0f);
+			camera2.SetViewPort(WH.x / 2.0f, WH.y / 2.0f, 0.0f, 1.0f, WH.x / 2.0f, WH.y / 2.0f);
+			CameraManager::AddCamera(camera2);
+		}
+		break;
+	default:
+		break;
 	}
-	{
-		Camera camera2;
-		XMINT2 WH = { Direct3D::GetScreenWidth() ,Direct3D::GetScreenHeight() };
-		camera2.Initialize(WH.x, WH.y, 1.0f, 500.0f);
-		camera2.SetViewPort(WH.x / 2.0f, WH.y / 2.0f, 0.0f, 1.0f, WH.x / 2.0f, WH.y / 2.0f);
-		CameraManager::AddCamera(camera2);
-	}
-	scoreManager_.Init(2, 0);
-	ui.Init(2, "");
+	scoreManager_.Init(playerCount_, 0);
+	ui.Init(playerCount_, "");
 	time_ = std::make_unique<Time::Watch>();
 	//time_->SetCountdown(true);
 	//time_->SetSecond(10);
@@ -44,8 +55,10 @@ Shooting::~Shooting()
 void Shooting::Initialize()
 {
 	Instantiate<Shooting_Table>(this);
-	Instantiate<Shooter>(this)->SetPlayerNumber(0);
-	Instantiate<Shooter>(this)->SetPlayerNumber(1);
+	for (int i = 0; i < playerCount_; i++)
+	{
+		Instantiate<Shooter>(this)->SetPlayerNumber(i);
+	}
 }
 
 void Shooting::Update()

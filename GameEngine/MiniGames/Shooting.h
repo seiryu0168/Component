@@ -13,6 +13,7 @@ class Shooting : public Framework
 	std::unique_ptr<Time::Watch> time_;
 	PLAY_STATE state_;
 	Shooting_ScoreManager scoreManager_;
+	int playerCount_;
 	Shooting_ScoreUI ui;
 public:
 	Shooting(Object* parent);

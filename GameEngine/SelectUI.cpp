@@ -4,6 +4,7 @@
 #include"Engine/DirectX_11/Input.h"
 #include"Engine/Systems/TextSystem.h"
 #include"Engine/newSceneManager.h"
+#include"InterSceneData.h"
 namespace
 {
 	const static float	MOVE = -500.0f;
@@ -238,6 +239,10 @@ void SelectUI::MoveButton(float ratio)
 
 void SelectUI::PushedButton(int buttonNum)
 {
+	InterSceneData::DeleteData<int>("PlayerCount");
+	InterSceneData::DeleteData<int>("GameNumber");
+	InterSceneData::AddData<int>("PlayerCount", playCount_);
+	InterSceneData::AddData<int>("GameNumber", buttonNum_);
 	state_ = SELECT_STATE::STATE_SELECTED;
 	newSceneManager::ChangeScene(SCENE_ID::PLAY);
 }
