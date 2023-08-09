@@ -8,9 +8,11 @@ namespace
 {
 	const static float	MOVE = -500.0f;
 	const static int	MAX_MOVE_TIME = 11;
-	const static XMINT2 MAX_SELECT = { 0,4 };
-	const static XMFLOAT2  IMAGE_OFFSET = { 900.0f,1000 };
+	//const static XMINT2 MAX_SELECT = { 0,4 };
+	const static XMFLOAT2  IMAGE_OFFSET = { 900.0f,600.0f };
 	const static float  IMAGE_RATIO = 5.0f;
+	const static int	TEXT_SIZE_DEFAULT = 54;
+	const static int	TEXT_SIZE_PICKUP = 90;
 }
 
 SelectUI::SelectUI(Object* parent)
@@ -20,7 +22,9 @@ SelectUI::SelectUI(Object* parent)
 	buttonNum_(0),
 	moveTime_(0),
 	playCount_(1),
-	countTextNum_(-1)
+	countTextNum_(-1),
+	buttonCount_(0),
+	inputInterval_(0)
 {
 }
 
@@ -34,7 +38,7 @@ void SelectUI::Initialize()
 	{
 		Text text1;
 		text1.SetText("チキンレース");
-		XMFLOAT3 pos = { 500,-1000.0f,0 };
+		XMFLOAT3 pos = { 500,-600.0f,0 };
 		basePosList_.push_back(pos);
 		text1.SetPosition({ pos.x, pos.y });
 		text1.SetAlinmentType(LEFT_CENTER);
@@ -46,7 +50,7 @@ void SelectUI::Initialize()
 	{
 		Text text2;
 		text2.SetText("Stage02");
-		XMFLOAT3 pos = { 500.0f,-1500.0f,0 };
+		XMFLOAT3 pos = { 500.0f,-1100.0f,0 };
 		basePosList_.push_back(pos);
 		text2.SetPosition({ pos.x, pos.y });
 		text2.SetAlinmentType(LEFT_CENTER);
@@ -58,7 +62,7 @@ void SelectUI::Initialize()
 	{
 		Text text3;
 		text3.SetText("Stage03");
-		XMFLOAT3 pos = { 500.0f,-2000.0f,0 };
+		XMFLOAT3 pos = { 500.0f,-1600.0f,0 };
 		basePosList_.push_back(pos);
 		text3.SetPosition({ pos.x, pos.y });
 		moveUIList_.push_back((int)AddComponent<Text>(text3));
@@ -117,24 +121,26 @@ void SelectUI::Input()
 	//上に移動
 		PlayerCount(Input::GetPadAnyDown());
 
-	if (Input::IsPadButtonDown(XINPUT_GAMEPAD_DPAD_UP))
+	if (Input::IsPadButtonDown(XINPUT_GAMEPAD_DPAD_UP) || Input::GetLStick_Y() > 0)
 	{
 		moveDir_ = 1;
 		////ボタンが
-		if (buttonNum_ > MAX_SELECT.x)
+		if (buttonNum_ > 0)
 		{
+			GetComponent<Text>(buttonNum_).SetTextSize(TEXT_SIZE_DEFAULT);
 			buttonNum_--;
 			state_ = SELECT_STATE::STATE_MOVE;
 		}
 	}
 	//下に移動
-	else if (Input::IsPadButtonDown(XINPUT_GAMEPAD_DPAD_DOWN))
+	else if (Input::IsPadButtonDown(XINPUT_GAMEPAD_DPAD_DOWN) || Input::GetLStick_Y() < 0)
 	{
 		moveDir_ = -1;
 
 		////ボタンの番号が最後尾じゃなかったら移動モードに切り替える
-		if (buttonNum_ < MAX_SELECT.y)
+		if (buttonNum_ < moveUIList_.size() - 1)
 		{
+			GetComponent<Text>(buttonNum_).SetTextSize(TEXT_SIZE_DEFAULT);
 			buttonNum_++;
 			state_ = SELECT_STATE::STATE_MOVE;
 		}
@@ -161,6 +167,7 @@ void SelectUI::Move()
 		{
 			i.y += MOVE * moveDir_;
 		}
+		GetComponent<Text>(buttonNum_).SetTextSize(TEXT_SIZE_PICKUP);
 		return;
 	}
 	//セレクト画面を動かす

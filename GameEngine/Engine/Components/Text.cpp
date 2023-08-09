@@ -158,6 +158,7 @@ void Text::Initialize()
 	std::wstring fontName= L"Arial";
 	std::wstring&& text = L"sumple";
 	//size_t textSize;
+	pFontName_ = fontName;
 	data.fontName_ = fontName;
 	data.pCollection_ = D2D::GetCollection();
 
@@ -292,7 +293,7 @@ HRESULT Text::SetTextSize(float size)
 
 	data.fontSize_ = size;
 	
-	hr = pTextFormat_->GetFontFamilyName((WCHAR*)data.fontName_.c_str(), fontNameSize);
+	hr = pTextFormat_->GetFontFamilyName((WCHAR*)pFontName_.c_str(), fontNameSize);
 	if (FAILED(hr))
 		return hr;
 
@@ -307,7 +308,7 @@ HRESULT Text::SetTextSize(float size)
 	data.fontWaight_ = pTextFormat_->GetFontWeight();
 	//‘Ž®Ý’è
 	SAFE_RELEASE(pTextFormat_);
-	hr = D2D::GetDWriteFactory()->CreateTextFormat((WCHAR*)data.fontName_.c_str(), data.pCollection_, data.fontWaight_, data.fontStyle_, data.fontStretch_, data.fontSize_, data.locale_.c_str(), &pTextFormat_);
+	hr = D2D::GetDWriteFactory()->CreateTextFormat((WCHAR*)pFontName_.c_str(), data.pCollection_, data.fontWaight_, data.fontStyle_, data.fontStretch_, data.fontSize_, data.locale_.c_str(), &pTextFormat_);
 	if (FAILED(hr))
 		return hr;
 	SAFE_RELEASE(pLayout_);

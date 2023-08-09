@@ -3,6 +3,7 @@
 #include <format>
 #include <random>
 #include "../Engine/Components/Particle.h"
+#include "../Engine/GameObject/CameraManager.h"
 
 ChickenRace::ChickenRace(Object* parent)
 	: Framework(parent, "ChickenRace") , TargetTime(0), PlayersTime_(), text_()
@@ -13,6 +14,22 @@ ChickenRace::ChickenRace(Object* parent)
 
 void ChickenRace::Initialize()
 {
+	CameraManager::AllRmoveCamera();
+	D2D::AllRemoveRenderTarget();
+	{
+		Camera camera;
+		XMINT2 WH = { Direct3D::GetScreenWidth() ,Direct3D::GetScreenHeight() };
+		camera.Initialize(WH.x, WH.y, 1.0f, 500.0f);
+		camera.SetViewPort(WH.x / 2.0f, WH.y, 0.0f, 1.0f, 0, 0);
+		CameraManager::AddCamera(camera);
+	}
+	{
+		Camera camera2;
+		XMINT2 WH = { Direct3D::GetScreenWidth() ,Direct3D::GetScreenHeight() };
+		camera2.Initialize(WH.x, WH.y, 1.0f, 500.0f);
+		camera2.SetViewPort(WH.x / 2.0f, WH.y, 0.0f, 1.0f, WH.x / 2.0f, 0);
+		CameraManager::AddCamera(camera2);
+	}
 	//‰Â•Ï‚É‚Å‚«‚é‚æ‚¤‚ÉŒã‚Å‚·‚é
 	Players_ = 2;
 
