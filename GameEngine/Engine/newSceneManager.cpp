@@ -21,9 +21,6 @@
 #include"Coordinator.h"
 #include "newSceneManager.h"
 
-#include "Debug.h"
-#include "../ImGui/imgui.h"
-
 //変数
 namespace
 {
@@ -98,22 +95,6 @@ namespace newSceneManager
 		if(changeCount_!=0)
 		changeCount_--;
 		changeCount_ = max(0, changeCount_);
-
-#if _DEBUG
-		ImGui::Begin("Images");
-		//ゲームタイムが停止しているときのみデバッグモード使用可能
-		if (!Debug::CallDebug_ && ImGui::Button("DebugMode"))
-		{
-			Debug::CallDebug_ = true;
-		}
-		else if (Debug::CallDebug_ && ImGui::Button("EndDebug"))
-		{
-			Debug::CallDebug_ = false;
-		}
-		ImGui::End();
-		Debug::BranchMode();
-#endif
-
 	}
 
 	void Draw()

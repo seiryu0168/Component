@@ -1,7 +1,6 @@
 #include "Object.h"
 #include"../Systems/PhysicsSystem.h"
 #include"../SAFE_DELETE_RELEASE.h"
-#include "../Debug.h"
 
 int objectcount = 0;
 Object::Object(Object* parent, const std::string& name)
@@ -57,17 +56,10 @@ void Object::UpdateSub()
 		isUpdate_)
 		Update();
 
-#if _DEBUG
-	DebugMode();
-	ShowGraphical();
-
-	//デバッグモードを呼び出していないとき実行
-	if (!Debug::CallDebug_)
-#endif
-		for (auto&& itr : childList_)
-		{
-			itr->UpdateSub();
-		}
+	for (auto&& itr : childList_)
+	{
+		itr->UpdateSub();
+	}
 
 	//for (auto itr = childList_.begin(); itr != childList_.end();)
 	//{

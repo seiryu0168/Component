@@ -3,6 +3,7 @@
 #include"../DirectX_11/Direct3D.h"
 #include"../GameObject/CameraManager.h"
 #include "../DirectX_11/Input.h"
+#include "../ResourceManager/ImageMediationer.h"
 
 Image::Image(int cameraNum)
 	:alpha_(1.0f),
@@ -19,7 +20,7 @@ Image::~Image()
 {
 }
 
-bool Image::Load(const std::string& name)
+bool Image::Load(const std::string& name, const std::string& tab)
 {
 	pSprite_ = ImageManager_ECSver::Load(name);
 	if(pSprite_==nullptr)
@@ -27,6 +28,10 @@ bool Image::Load(const std::string& name)
 
 	XMFLOAT3 size = pSprite_->GetSize();
 	rect_ = { 0,0,(long)size.x,(long)size.y };
+
+	if (tab != "")
+		transform_ = ImageMediationer::Load(name, tab, pSprite_.use_count());
+
 	return true;
 }
 

@@ -276,9 +276,6 @@
     <ClCompile Include="Title.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Debug.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\ResourceManager\JsonOperator.cpp">
       <Filter>ソース ファイル\Engine\ResourceManager</Filter>
     </ClCompile>
@@ -308,6 +305,9 @@
     </ClCompile>
     <ClCompile Include="Shooting_TergetGift.cpp">
       <Filter>ソース ファイル\MiniGames\Shooting</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\ResourceManager\ImageMediationer.cpp">
+      <Filter>ソース ファイル\Engine\ResourceManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -551,9 +551,6 @@
     <ClInclude Include="Debug_SceneChanger.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Debug.h">
-      <Filter>ソース ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\ResourceManager\JsonOperator.h">
       <Filter>ソース ファイル\Engine\ResourceManager</Filter>
     </ClInclude>
@@ -586,6 +583,9 @@
     </ClInclude>
     <ClInclude Include="Shooting_Table.h">
       <Filter>ソース ファイル\MiniGames\Shooting</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ResourceManager\ImageMediationer.h">
+      <Filter>ソース ファイル\Engine\ResourceManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

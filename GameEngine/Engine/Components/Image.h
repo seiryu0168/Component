@@ -15,7 +15,7 @@ public:
 	Image(int cameraNum = -1);
 	~Image();
 	//画像ロード
-	bool Load(const std::string& name);
+	bool Load(const std::string& name, const std::string& tab = "");
 	//座標設定
 	void SetPosition(const XMFLOAT3& pos);
 	//座標設定(ピクセル単位)

@@ -1,8 +1,6 @@
 #include "DebugUI.h"
 #include"Engine/newSceneManager.h"
-#include "Engine/Debug.h"
 #include<psapi.h>
-#include "Engine/DirectX_11/Input.h"
 
 namespace DebugUI
 {
@@ -38,15 +36,6 @@ void DebugUI::Debug(/*GameObject* object*/)
 	//ImGui::Text(count.c_str());
 	//ImGui::Text(object->GetObjectName().c_str());
 	//objectCount_ = 0;
-	ImGui::End();
-	
-	ImGui::Begin("Mouse");
-	ImGui::Text("x = %g, y = %g", XMVectorGetX(Input::GetMousePosition()), XMVectorGetY(Input::GetMousePosition()));
-
-
-
-
-
 	ImGui::End();
 }
 
