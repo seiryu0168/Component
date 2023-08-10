@@ -38,8 +38,8 @@ LPCWSTR WIN_CLASS_NAME = L"SampleGame";
 LPCWSTR WIN_TITLE_NAME = L"サンプルゲーム";
 
 
-int WINDOW_WIDTH = 1920;   //ウィンドウ幅
-int WINDOW_HEIGHT = 1080;	 //ウィンドウ高さ
+int WINDOW_WIDTH = 480;   //ウィンドウ幅
+int WINDOW_HEIGHT = 270;	 //ウィンドウ高さ
 //const int WINDOW_WIDTH = 1280;   //ウィンドウ幅
 //const int WINDOW_HEIGHT = 720;	 //ウィンドウ高さ
 int pxelUnit;
