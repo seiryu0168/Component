@@ -309,6 +309,12 @@
     <ClCompile Include="Engine\ResourceManager\ImageMediationer.cpp">
       <Filter>ソース ファイル\Engine\ResourceManager</Filter>
     </ClCompile>
+    <ClCompile Include="Scenes\Scene_Result.cpp">
+      <Filter>ソース ファイル\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Scenes\RootObject\RootObject_Result.cpp">
+      <Filter>ソース ファイル\Scenes\RootObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ImGui\imstb_truetype.h">
@@ -586,6 +592,12 @@
     </ClInclude>
     <ClInclude Include="Engine\ResourceManager\ImageMediationer.h">
       <Filter>ソース ファイル\Engine\ResourceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\Scene_Result.h">
+      <Filter>ソース ファイル\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Scenes\RootObject\RootObject_Result.h">
+      <Filter>ソース ファイル\Scenes\RootObjects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

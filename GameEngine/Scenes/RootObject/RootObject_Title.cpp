@@ -16,8 +16,6 @@ RootObject_Title::~RootObject_Title()
 void RootObject_Title::Initialize()
 {
 	Instantiate<Title>(this);
-	//Instantiate<TestObject>(this);
-	//Instantiate<SelectUI>(this);
 }
 
 void RootObject_Title::SetTransform()

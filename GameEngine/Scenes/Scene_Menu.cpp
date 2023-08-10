@@ -16,8 +16,6 @@ Scene_Menu::~Scene_Menu()
 void Scene_Menu::SceneInitialize()
 {
 	SetRootObject(std::make_shared<RootObject_Menu>());
-	//rootObject_ = std::make_shared<RootObject_Menu>();
-	//rootObject_->SetTransform();
 }
 
 //void Scene_Menu::AllKillObject()

@@ -326,6 +326,7 @@ HRESULT Text::SetFontCollection(IDWriteFontCollection* collection, UINT32 startP
 
 HRESULT Text::SetFont(const FontData& data)
 {
+	
 	FontData fData;
 	fData.fontName_ = data.fontName_;
 	fData.pCollection_ = data.pCollection_;
@@ -335,6 +336,8 @@ HRESULT Text::SetFont(const FontData& data)
 	fData.fontStretch_ = data.fontStretch_;
 	HRESULT hr= D2D::GetDWriteFactory()->CreateTextFormat(fData.fontName_.c_str(), fData.pCollection_, data.fontWaight_/*DWRITE_FONT_WEIGHT_REGULAR*/, data.fontStyle_/*DWRITE_FONT_STYLE_NORMAL*/, data.fontStretch_/*DWRITE_FONT_STRETCH_NORMAL*/, data.fontSize_, data.locale_.c_str(), &pTextFormat_);
 	assert(hr==S_OK);
+
+	pFontName_ = fData.fontName_;
 	return hr;
 }
 HRESULT Text::SetFont(const std::string& fontName, const UINT32& startPos, const UINT32& length)
@@ -359,6 +362,7 @@ HRESULT Text::SetFont(const std::string& fontName, const UINT32& startPos, const
 			hr = pLayout_->SetFontCollection(D2D::GetSystemFontCollection(), range);
 			//フォントとその範囲設定
 			hr = pLayout_->SetFontFamilyName(str.wstring().c_str(), range);
+			pFontName_ = str.wstring();
 			return hr;
 		}
 		//フォントが見つからない場合なんもしない
@@ -369,6 +373,7 @@ HRESULT Text::SetFont(const std::string& fontName, const UINT32& startPos, const
 	hr = pLayout_->SetFontCollection(D2D::GetCollection(),range);
 	//フォントとその範囲設定
 	hr = pLayout_->SetFontFamilyName(str.wstring().c_str(), range);
+	pFontName_ = str.wstring();
 	return hr;
 }
 void Text::SetTransform(const TEXT_POSITION& pos)

@@ -23,7 +23,8 @@ namespace
 		{-1, {500, -100}},
 		{ 0, {500, -600}},
 		{1, {500, -1100}},
-		{2, {500, -1600}}
+		{2, {500, -1600}},
+		{3, {500, -2100}}
 	};
 
 	const static XMFLOAT3 POSITION_DEFAULT = { -9999,0,0 };
@@ -51,32 +52,30 @@ void SelectUI::Initialize()
 {
 	//テキスト
 	{
-		Text text1;
-		text1.SetText("チキンレース");
+		Text text1("Game1", "りいてがき筆", { 0,0,500,50 });
 		/*XMFLOAT3 pos = { 500,-600.0f,0 };
 		basePosList_.push_back(pos);*/
 		//text1.SetPosition({ pos.x, pos.y });
-		text1.SetAlinmentType(LEFT_CENTER);
-		text1.SetFont("GAGAGAGA FREE", 0, 3);
+		//text1.SetAlinmentType(LEFT_CENTER);
 		moveUIList_.push_back((int)AddComponent<Text>(text1));
 		
 	}
 	//テキスト2
 	{
-		Text text2;
-		text2.SetText("Stage02");
+		Text text2("Game2", "りいてがき筆", { 0,0,500,50 });
+		//text2.SetText("Stage02");
 		/*XMFLOAT3 pos = { 500.0f,-1100.0f,0 };
 		basePosList_.push_back(pos);*/
 		//text2.SetPosition({ pos.x, pos.y });
-		text2.SetAlinmentType(LEFT_CENTER);
-		text2.SetFontStyle(DWRITE_FONT_STYLE_ITALIC, 0, 3);
-		text2.SetFontWeight(DWRITE_FONT_WEIGHT_BOLD, 0, 5);
+		//text2.SetAlinmentType(LEFT_CENTER);
+		//text2.SetFontStyle(DWRITE_FONT_STYLE_ITALIC, 0, 3);
+		//text2.SetFontWeight(DWRITE_FONT_WEIGHT_BOLD, 0, 5);
 		moveUIList_.push_back((int)AddComponent<Text>(text2));
 	}
 	//テキスト3
 	{
-		Text text3;
-		text3.SetText("Stage03");
+		Text text3("Game3", "りいてがき筆", { 0,0,500,50 });
+		//text3.SetText("Stage03");
 		/*XMFLOAT3 pos = { 500.0f,-1600.0f,0 };
 		basePosList_.push_back(pos);*/
 		//text3.SetPosition({ pos.x, pos.y });
@@ -84,8 +83,8 @@ void SelectUI::Initialize()
 	}
 	//テキスト2
 	{
-		Text text2;
-		text2.SetText("Stage04");
+		Text text2("Game4", "りいてがき筆", { 0,0,500,50 });
+		//text2.SetText("Stage04");
 		/*XMFLOAT3 pos = { 500.0f,-1100.0f,0 };
 		basePosList_.push_back(pos);*/
 		//text2.SetPosition({ pos.x, pos.y });
@@ -96,8 +95,8 @@ void SelectUI::Initialize()
 	}
 	//テキスト3
 	{
-		Text text3;
-		text3.SetText("Stage05");
+		Text text3("Game5", "りいてがき筆", { 0,0,500,50 });
+		//text3.SetText("Stage05");
 		/*XMFLOAT3 pos = { 500.0f,-1600.0f,0 };
 		basePosList_.push_back(pos);*/
 		//text3.SetPosition({ pos.x, pos.y });
@@ -105,12 +104,21 @@ void SelectUI::Initialize()
 	}
 	//テキスト3
 	{
-		Text text3;
+		Text text3("Game6", "りいてがき筆", { 0,0,500,50 });
 		text3.SetText("Stage06");
 		/*XMFLOAT3 pos = { 500.0f,-1600.0f,0 };
 		basePosList_.push_back(pos);*/
 		//text3.SetPosition({ pos.x, pos.y });
 		moveUIList_.push_back((int)AddComponent<Text>(text3));
+	}
+	//テキスト4
+	{
+		Text text4("Game7", "りいてがき筆", { 0,0,500,50 });
+		//text3.SetText("Stage06");
+		/*XMFLOAT3 pos = { 500.0f,-1600.0f,0 };
+		basePosList_.push_back(pos);*/
+		//text3.SetPosition({ pos.x, pos.y });
+		moveUIList_.push_back((int)AddComponent<Text>(text4));
 	}
 
 	//プレイヤーのカウントテキスト
@@ -187,10 +195,22 @@ void SelectUI::Initialize()
 									basePosList_[2].z });*/
 		AddComponent<Image>(image3);
 	}
+	//画像3
+	{
+
+		Image image3;
+		image3.Load("Assets\\Image\\Parrot.jpg");
+
+		/*image3.SetPositionAtPixel({ -basePosList_[2].x + IMAGE_OFFSET.x,
+									(basePosList_[2].y + IMAGE_OFFSET.y) * IMAGE_RATIO,
+									basePosList_[2].z });*/
+		AddComponent<Image>(image3);
+	}
 	
 	for (int i = 0; i < moveUIList_.size(); i++)
 	{
 		GetComponent<Text>(i).SetPosition(Position.at(2));
+		GetComponent<Text>(i).SetTextSize(TEXT_SIZE_DEFAULT);
 		GetComponent<Image>(i).SetPosition(POSITION_DEFAULT);
 		basePosList_.push_back(POSITION_DEFAULT);
 	}
@@ -200,7 +220,11 @@ void SelectUI::Initialize()
 	Selection_[0] = moveUIList_.begin();
 	Selection_[1] = Selection_[0] + 1;
 	Selection_[2] = Selection_[1] + 1;
+	Selection_[3] = Selection_[2] + 1;
 	buttonNum_ = *Selection_[0];
+	
+	GetComponent<Text>(buttonNum_).SetTextSize(TEXT_SIZE_PICKUP);
+
 
 	UIPositioning();
 }
@@ -350,6 +374,7 @@ void SelectUI::Release()
 
 void SelectUI::ItrIncrement()
 {
+	Selection_[3] = Selection_[2];
 	Selection_[2] = Selection_[1];
 	Selection_[1] = Selection_[0];
 	Selection_[0] = Selection_[-1];
@@ -367,20 +392,21 @@ void SelectUI::ItrDecrement()
 	Selection_[-1] = Selection_[0];
 	Selection_[0] = Selection_[1];
 	Selection_[1] = Selection_[2];
-	if (++Selection_[2] == end(moveUIList_))
-		Selection_[2] = moveUIList_.begin();
+	Selection_[2] = Selection_[3];
+	if (++Selection_[3] == end(moveUIList_))
+		Selection_[3] = moveUIList_.begin();
 
 	buttonNum_ = *Selection_[0];
 }
 
 void SelectUI::UIPositioning()
 {
-	for (int i = -2; i <= 2; i++)
+	for (int i = -2; i <= 3; i++)
 	{
 		GetComponent<Text>(*Selection_[i]).SetPosition(Position.at(i));
 		basePosList_[*Selection_[i]] = { Position.at(i).x, Position.at(i).y, 0 };
 		GetComponent<Image>(*Selection_[i]).
 			SetPositionAtPixel({ -Position.at(i).x + IMAGE_OFFSET.x,
-								 (Position.at(i).y + IMAGE_OFFSET.y ) * IMAGE_RATIO, 0 });
+								 (Position.at(i).y + IMAGE_OFFSET.y) * IMAGE_RATIO, 0 });
 	}
 }

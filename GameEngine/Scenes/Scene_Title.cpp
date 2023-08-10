@@ -16,8 +16,6 @@ Scene_Title::~Scene_Title()
 void Scene_Title::SceneInitialize()
 {
 	SetRootObject(std::make_shared<RootObject_Title>());
-	//rootObject_ = std::make_shared<RootObject_Title>();
-	//rootObject_->SetTransform();
 }
 
 //void Scene_Title::AllKillObject()
