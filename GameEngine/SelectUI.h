@@ -1,5 +1,7 @@
 #pragma once
 #include"Engine/GameObject/GameObject.h"
+#include <map>
+
 class SelectUI : public GameObject
 {
 private:
@@ -22,6 +24,13 @@ private:
 	void Move();
 	std::vector<int> moveUIList_;
 	std::vector<XMFLOAT3> basePosList_;
+
+	std::map<int, std::vector<int>::iterator> Selection_;
+
+	void ItrIncrement();
+	void ItrDecrement();
+	void UIPositioning();
+
 public:
 	SelectUI(Object* parent);
 	~SelectUI();
