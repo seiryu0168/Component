@@ -3,10 +3,15 @@
 #include"../Engine/newSceneManager.h"
 #include"../Shooter.h"
 #include"../Shooting_Table.h"
-#include"../TestObject.h"
-#include"../Shooting_TergetGift.h"
+#include"../Engine/Systems/TextSystem.h"
 #include"../Engine/GameObject/CameraManager.h"
 #include"../InterSceneData.h"
+#include<format>
+
+namespace 
+{
+	const float COUNT = 60.0f;
+}
 
 Shooting::Shooting(Object* parent)
 	:Framework(parent,"Shooting"),state_(PLAY_STATE::STATE_PLAY)
@@ -40,8 +45,8 @@ Shooting::Shooting(Object* parent)
 	scoreManager_.Init(playerCount_, 0);
 	ui.Init(playerCount_, "");
 	time_ = std::make_unique<Time::Watch>();
-	//time_->SetCountdown(true);
-	//time_->SetSecond(10);
+	time_->SetCountdown(true);
+	time_->SetSecond(COUNT);
 	time_->UnLock();
 	Transform transform;
 	AddComponent<Transform>(transform);
@@ -54,11 +59,15 @@ Shooting::~Shooting()
 
 void Shooting::Initialize()
 {
+
 	Instantiate<Shooting_Table>(this);
 	for (int i = 0; i < playerCount_; i++)
 	{
 		Instantiate<Shooter>(this)->SetPlayerNumber(i);
 	}
+	Text countText("Žc‚èŽžŠÔ" + std::to_string(COUNT), "‚è‚¢‚Ä‚ª‚«•M", { 0,0,450,50 });
+	countText.SetPosition({ 1500,0 });
+	AddComponent<Text>(countText);
 }
 
 void Shooting::Update()
@@ -66,7 +75,7 @@ void Shooting::Update()
 	switch (state_)
 	{
 	case Shooting::PLAY_STATE::STATE_PLAY:
-		//Play();
+		Play();
 		break;
 	case Shooting::PLAY_STATE::STATE_FINISH:
 		break;
@@ -85,8 +94,11 @@ void Shooting::ScoreUpdate(const unsigned short& playerNum, int score)
 
 void Shooting::Play()
 {
-	if (time_->GetSeconds<float>() >= 10.0f)
+	GetComponent<Text>().SetText(std::format("Žc‚èŽžŠÔ{:.2f} •b" ,time_->GetSeconds<float>()));
+
+	if (time_->GetSeconds<float>() <=0)
 	{
+		GetComponent<Text>().SetText("Žc‚èŽžŠÔ 0.00");
 		newSceneManager::ChangeScene(SCENE_ID::MENU, 60);
 		state_ = PLAY_STATE::STATE_FINISH;
 	}

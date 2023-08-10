@@ -24,13 +24,16 @@ Collider::~Collider()
 
 void Collider::Release()
 {
+	//コライダータイプによって消す
 	switch (colliderType_)
 	{
 	case ColliderType::BOX_COLLIDER:
 		Coordinator::RemoveComponent<HitBox>(colliderEntity_);
+		Coordinator::DestroyEntity(colliderEntity_);
 		break;
 	case ColliderType::SPHERE_COLLIDER:
 		Coordinator::RemoveComponent<HitSphere>(colliderEntity_);
+		Coordinator::DestroyEntity(colliderEntity_);
 		break;
 	default:
 		break;

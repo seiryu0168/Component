@@ -35,6 +35,7 @@ void ColliderSystem::Release()
 	std::set<Entity> subEntity = entities_;
 	for (Entity entity : subEntity)
 	{
+		Coordinator::GetComponent<Collider>(entity).Release();
 		Coordinator::RemoveComponent<Collider>(entity);
 		Coordinator::DestroyEntity(entity);
 	}
@@ -47,6 +48,7 @@ void ColliderSystem::CheckRemove()
 	{
 		if (Coordinator::GetComponent<Collider>(entity).GetAttachedObject()->IsDead())
 		{
+		Coordinator::GetComponent<Collider>(entity).Release();
 			Coordinator::GetComponent<Collider>(entity).Release();
 			Coordinator::RemoveComponent<Collider>(entity);
 		}

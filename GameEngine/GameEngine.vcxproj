@@ -237,6 +237,8 @@
     <ClCompile Include="MiniGames\P_CommandMemory.cpp" />
     <ClCompile Include="MiniGames\P_FindDifference.cpp" />
     <ClCompile Include="MiniGames\Shooting.cpp" />
+    <ClCompile Include="Result_Shooting.cpp" />
+    <ClCompile Include="Result_Single.cpp" />
     <ClCompile Include="Scenes\RootObject\RootObject.cpp" />
     <ClCompile Include="Scenes\RootObject\RootObject_Menu.cpp" />
     <ClCompile Include="Scenes\RootObject\RootObject_Play.cpp" />
@@ -248,7 +250,6 @@
     <ClCompile Include="Scenes\Scene_Result.cpp" />
     <ClCompile Include="Scenes\Scene_Title.cpp" />
     <ClCompile Include="ObjectSetter.cpp" />
-    <ClCompile Include="ScoreManager.cpp" />
     <ClCompile Include="SelectUI.cpp" />
     <ClCompile Include="Shooter.cpp" />
     <ClCompile Include="Shooting_Bullet.cpp" />
@@ -331,6 +332,8 @@
     <ClInclude Include="MiniGames\P_CommandMemory.h" />
     <ClInclude Include="MiniGames\P_FindDifference.h" />
     <ClInclude Include="MiniGames\Shooting.h" />
+    <ClInclude Include="Result_Shooting.h" />
+    <ClInclude Include="Result_Single.h" />
     <ClInclude Include="Scenes\RootObject\RootObject.h" />
     <ClInclude Include="Scenes\RootObject\RootObject_Menu.h" />
     <ClInclude Include="Scenes\RootObject\RootObject_Play.h" />

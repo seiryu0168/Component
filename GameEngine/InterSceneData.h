@@ -40,11 +40,13 @@ namespace InterSceneData
 		for (auto itr=interScenedatas_.begin();itr!=interScenedatas_.end();)
 		{
 			//‚ ‚Á‚½‚ç‚»‚Ìƒf[ƒ^‚ğ‘‚«Š·‚¦‚é
-			if (itr->dataName_ == dataName && typeid(itr->value_).name() == typeid(T).name())
+			if (itr->dataName_ == dataName)
 			{
-				itr=interScenedatas_.erase(itr);
+				itr = interScenedatas_.erase(itr);
 				break;
 			}
+			else
+				itr++;
 		}
 	}
 	//void DataInput()
