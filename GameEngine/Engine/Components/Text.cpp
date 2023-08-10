@@ -223,7 +223,7 @@ void Text::SetRatio(float ratioX, float ratioY)
 
 void Text::SetPosition(const XMFLOAT2& position)
 {
-	transform2D.x = (0.5f*position.x)+defaultPos_.x;
+	transform2D.x = (0.5f * position.x) + defaultPos_.x;
 	transform2D.y = (-(0.5f * position.y)) + defaultPos_.y;
 }
 

@@ -73,6 +73,7 @@ namespace Direct3D
 	int GetScreenHeight();
 	void SetScreenWidth(int w);
 	void SetScreenHeight(int h);
+	XMINT2 GetDisplaySize();
 
 	HWND GetWindowHandle(); 
 	void SetDepthBufferWriteEnable(bool isWrite);
