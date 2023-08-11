@@ -10,7 +10,7 @@
 
 namespace 
 {
-	const float COUNT = 60.0f;
+	const float COUNT = 10.0f;
 }
 
 Shooting::Shooting(Object* parent)
@@ -86,10 +86,8 @@ void Shooting::Update()
 
 void Shooting::ScoreUpdate(const unsigned short& playerNum, int score)
 {
-	scoreManager_.ScoreUpdate(playerNum, score);
+	scoreManager_.ScoreUpdate(playerNum, 1);
 	ui.TextUpdate(playerNum, std::to_string(scoreManager_.GetScore(playerNum)));
-
-
 }
 
 void Shooting::Play()
@@ -99,7 +97,8 @@ void Shooting::Play()
 	if (time_->GetSeconds<float>() <=0)
 	{
 		GetComponent<Text>().SetText("Žc‚èŽžŠÔ 0.00");
-		newSceneManager::ChangeScene(SCENE_ID::MENU, 60);
+		InterSceneData::AddData<int>("ResultData",scoreManager_.GetScore(0));
+		newSceneManager::ChangeScene(SCENE_ID::RESULT, 60);
 		state_ = PLAY_STATE::STATE_FINISH;
 	}
 }

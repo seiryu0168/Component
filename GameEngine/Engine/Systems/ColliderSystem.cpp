@@ -48,7 +48,6 @@ void ColliderSystem::CheckRemove()
 	{
 		if (Coordinator::GetComponent<Collider>(entity).GetAttachedObject()->IsDead())
 		{
-		Coordinator::GetComponent<Collider>(entity).Release();
 			Coordinator::GetComponent<Collider>(entity).Release();
 			Coordinator::RemoveComponent<Collider>(entity);
 		}
