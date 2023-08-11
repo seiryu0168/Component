@@ -3,7 +3,7 @@
 #include <format>
 #include <random>
 #include "../Engine/Components/Particle.h"
-#include "../Engine/GameObject/CameraManager.h"
+#include "../Engine/Components/Image.h"
 
 ChickenRace::ChickenRace(Object* parent)
 	: Framework(parent, "ChickenRace") , TargetTime(0), PlayersTime_(), text_()
@@ -14,22 +14,6 @@ ChickenRace::ChickenRace(Object* parent)
 
 void ChickenRace::Initialize()
 {
-	CameraManager::AllRmoveCamera();
-	D2D::AllRemoveRenderTarget();
-	{
-		Camera camera;
-		XMINT2 WH = { Direct3D::GetScreenWidth() ,Direct3D::GetScreenHeight() };
-		camera.Initialize(WH.x, WH.y, 1.0f, 500.0f);
-		camera.SetViewPort(WH.x / 2.0f, WH.y, 0.0f, 1.0f, 0, 0);
-		CameraManager::AddCamera(camera);
-	}
-	{
-		Camera camera2;
-		XMINT2 WH = { Direct3D::GetScreenWidth() ,Direct3D::GetScreenHeight() };
-		camera2.Initialize(WH.x, WH.y, 1.0f, 500.0f);
-		camera2.SetViewPort(WH.x / 2.0f, WH.y, 0.0f, 1.0f, WH.x / 2.0f, 0);
-		CameraManager::AddCamera(camera2);
-	}
 	//‰Â•Ï‚É‚Å‚«‚é‚æ‚¤‚ÉŒã‚Å‚·‚é
 	Players_ = 2;
 
@@ -48,12 +32,17 @@ void ChickenRace::Initialize()
 	}
 
 	Text text;
-	std::string str = "–Ú•WŽžŠÔ : " + std::to_string(TargetTime) + "•b";
-	text.SetText(str);
-	text.SetPosition({ -500,1000 });
+	text.SetText(std::format("{:d}•bƒMƒŠƒMƒŠ‚ÅŽ~‚ß‚ë!", TargetTime));
+	text.SetRatio(0.3f,0);
 	AddComponent<Text>(text);
 
 	text_ = &GetComponent<Text>();
+
+	Image i;
+	i.Load("Assets\\Image\\Timer.png", "ChickenRace");
+	AddComponent(i);
+	i.Load("Assets\\Image\\Timer.png", "ChickenRace");
+	AddComponent(i);
 }
 
 void ChickenRace::Update()
@@ -76,27 +65,6 @@ void ChickenRace::SendTime(Object* target, float time)
 		if (itr.get() == target)
 		{
 			PlayersTime_[element] = time;
-			if (time > TargetTime)
-			{
-				Failed((GameObject*)itr.get());
-			}
-			else
-			{
-				Text text;
-				text.SetText(std::format("Player{:d} : {:g}•b", element + 1 ,PlayersTime_[element]));
-				switch (element)
-				{
-				case 0:
-					text.SetRatio(0.15f, 0.5f);
-					break;
-				case 1:
-					text.SetRatio(0.65f, 0.5f);
-					break;
-				default:
-					break;
-				}
-				AddComponent<Text>(text);
-			}
 		}
 		++element;
 	}
@@ -122,30 +90,4 @@ void ChickenRace::Finish()
 	{
 		text_->SetText("Player1 Win!");
 	}
-	//text_->SetText(std::format("Player1 : {:g}•b  Player2 : {:g}•b", PlayersTime_[0], PlayersTime_[1]));
-}
-
-void ChickenRace::Failed(GameObject* obj)
-{
-	//‰Î‰Ô
-	Particle particle(obj);
-	EmitterData data;
-	data.position = StoreFloat3(obj->GetTransform()->position_);
-	data.delay = 0;
-	data.number = 400;
-	data.lifeTime = 200;
-	data.dir = XMFLOAT3(0, 1, 0);
-	data.dirErr = XMFLOAT3(150, 150, 90);
-	data.gravity = 0.001f;
-	data.speedErr = 5;
-	data.size = XMFLOAT2(1, 1);
-	data.sizeErr = XMFLOAT2(0.4f, 0.4f);
-	data.scale = XMFLOAT2(1, 1);
-	data.color = XMFLOAT4(1, 1, 0.1f, 1);
-	data.deltaColor = XMFLOAT4(0, -1.0f / 20, 0, -1.0f / 20);
-	data.textureFileName = "Assets\\Image\\Cloud.png";
-	data.firstSpeed = 0.5f;
-	data.blendMode = BLEND_MODE::BLEND_ADD;
-	particle.SetData(data);
-	AddComponent<Particle>(particle);
 }

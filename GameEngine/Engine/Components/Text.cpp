@@ -342,7 +342,6 @@ HRESULT Text::SetFont(const FontData& data)
 }
 HRESULT Text::SetFont(const std::string& fontName, const UINT32& startPos, const UINT32& length)
 {
-	std::filesystem::path str = fontName;
 	DWRITE_TEXT_RANGE range;
 	range.startPosition = startPos;
 	range.length = length;
@@ -361,8 +360,8 @@ HRESULT Text::SetFont(const std::string& fontName, const UINT32& startPos, const
 			//フォントコレクション設定
 			hr = pLayout_->SetFontCollection(D2D::GetSystemFontCollection(), range);
 			//フォントとその範囲設定
-			hr = pLayout_->SetFontFamilyName(str.wstring().c_str(), range);
-			pFontName_ = str.wstring();
+			hr = pLayout_->SetFontFamilyName(name.wstring().c_str(), range);
+			pFontName_ = name.wstring();
 			return hr;
 		}
 		//フォントが見つからない場合なんもしない
@@ -372,8 +371,8 @@ HRESULT Text::SetFont(const std::string& fontName, const UINT32& startPos, const
 	//フォントコレクション設定
 	hr = pLayout_->SetFontCollection(D2D::GetCollection(),range);
 	//フォントとその範囲設定
-	hr = pLayout_->SetFontFamilyName(str.wstring().c_str(), range);
-	pFontName_ = str.wstring();
+	hr = pLayout_->SetFontFamilyName(name.wstring().c_str(), range);
+	pFontName_ = name.wstring();
 	return hr;
 }
 void Text::SetTransform(const TEXT_POSITION& pos)
