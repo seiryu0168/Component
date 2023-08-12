@@ -23,10 +23,9 @@ private:
 	void Input();
 	void Move();
 	std::vector<int> moveUIList_;
+	std::vector<int> playerCountList_;
 	std::vector<XMFLOAT3> basePosList_;
-
 	std::map<int, std::vector<int>::iterator> Selection_;
-
 	void ItrIncrement();
 	void ItrDecrement();
 	void UIPositioning();

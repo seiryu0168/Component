@@ -33,12 +33,13 @@ void Result_Shooting::Initialize()
 	AddComponent<Text>(text);
 
 	score_ = InterSceneData::GetData<int>("ResultData");
-	Text scoreText("0", "‚è‚¢‚Ä‚ª‚«•M", {0,0,200,50});
-	scoreText.SetPosition({ 1500,-1000 });
+	Text scoreText("—‚Æ‚µ‚½” 0", "‚è‚¢‚Ä‚ª‚«•M", {0,0,500,50});
+	scoreText.SetPosition({ 1000,-1000 });
 	resultTextNum_ = AddComponent<Text>(scoreText);
 
 	Image image;
 	image.Load("Assets/Image/Buttons/BTN_A.png");
+	image.SetPosition({ 0,-0.5,0 });
 	image.SetAlpha(0);
 	buttonImageNum_ = AddComponent<Image>(image);
 
@@ -70,18 +71,18 @@ void Result_Shooting::Stay()
 
 void Result_Shooting::ShowResult()
 {
-	if (count_ >= score_)
-	{
-		GetComponent<Text>(resultTextNum_).SetText(std::to_string(score_));
-		GetComponent<Image>(buttonImageNum_).SetAlpha(1.0f);
-		time_->Lock();
-		status_ = CountStatus::FINISH;
-	}
 
 	if ((interval_ * count_) <= time_->GetSeconds<float>()-1.0f)
 	{
 		count_++;
-		GetComponent<Text>(resultTextNum_).SetText(std::to_string(count_));
+		GetComponent<Text>(resultTextNum_).SetText("—‚Æ‚µ‚½” " + std::to_string(count_));
+	}
+	if (count_ > score_)
+	{
+		GetComponent<Text>(resultTextNum_).SetText("—‚Æ‚µ‚½” " + std::to_string(score_));
+		GetComponent<Image>(buttonImageNum_).SetAlpha(1.0f);
+		time_->Lock();
+		status_ = CountStatus::FINISH;
 	}
 }
 

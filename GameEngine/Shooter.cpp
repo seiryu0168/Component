@@ -66,7 +66,7 @@ void Shooter::Reload()
 	Shooting_Gun* gun = (Shooting_Gun*)FindChild("Shooting_Gun");
 	int score = gun->GetShotCount();
 	gun->Reload();
-	((Shooting*)FindObject("Shooting"))->ScoreUpdate(playerNum_, -score);
+	//((Shooting*)FindObject("Shooting"))->ScoreUpdate(playerNum_, -score);
 }
 
 void Shooter::Release()

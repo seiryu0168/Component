@@ -5,6 +5,7 @@
 #include"Engine/Systems/TextSystem.h"
 #include"Engine/newSceneManager.h"
 #include"InterSceneData.h"
+#include"Engine/ResourceManager/CsvReader.h"
 
 #include "ImGui/imgui.h"
 namespace
@@ -48,55 +49,63 @@ SelectUI::~SelectUI()
 
 void SelectUI::Initialize()
 {
-	//テキスト
-	{
-		Text text1("Game1", "りいてがき筆", { 0,0,500,50 });
-		moveUIList_.push_back((int)AddComponent<Text>(text1));
 
-	}
-	//テキスト2
+	CsvReader reader("Assets/GameDatas/GameData.csv");
+	for (int i = 0; i < reader.GetLines(); i++)
 	{
-		Text text2("Game2", "りいてがき筆", { 0,0,500,50 });
-		moveUIList_.push_back((int)AddComponent<Text>(text2));
+		Text text(reader.GetString(i,0), "りいてがき筆", {0,0,500,50});
+		moveUIList_.push_back((int)AddComponent<Text>(text));
+		playerCountList_.push_back(reader.GetInt(i, 1));
 	}
-	//テキスト3
-	{
-		Text text3("Game3", "りいてがき筆", { 0,0,500,50 });
-		moveUIList_.push_back((int)AddComponent<Text>(text3));
-	}
-	//テキスト2
-	{
-		Text text2("Game4", "りいてがき筆", { 0,0,500,50 });
-		text2.SetAlinmentType(LEFT_CENTER);
-		text2.SetFontStyle(DWRITE_FONT_STYLE_ITALIC, 0, 3);
-		text2.SetFontWeight(DWRITE_FONT_WEIGHT_BOLD, 0, 5);
-		moveUIList_.push_back((int)AddComponent<Text>(text2));
-	}
-	//テキスト3
-	{
-		Text text3("Game5", "りいてがき筆", { 0,0,500,50 });
-		moveUIList_.push_back((int)AddComponent<Text>(text3));
-	}
-	//テキスト3
-	{
-		Text text3("Game6", "りいてがき筆", { 0,0,500,50 });
-		text3.SetText("Stage06");
-		moveUIList_.push_back((int)AddComponent<Text>(text3));
-	}
-	//テキスト4
-	{
-		Text text4("Game7", "りいてがき筆", { 0,0,500,50 });
-		moveUIList_.push_back((int)AddComponent<Text>(text4));
-	}
+	////テキスト
+	//{
+	//	Text text1("Game1", "りいてがき筆", { 0,0,500,50 });
+	//	moveUIList_.push_back((int)AddComponent<Text>(text1));
+	//
+	//}
+	////テキスト2
+	//{
+	//	Text text2("Game2", "りいてがき筆", { 0,0,500,50 });
+	//	moveUIList_.push_back((int)AddComponent<Text>(text2));
+	//}
+	////テキスト3
+	//{
+	//	Text text3("Game3", "りいてがき筆", { 0,0,500,50 });
+	//	moveUIList_.push_back((int)AddComponent<Text>(text3));
+	//}
+	////テキスト2
+	//{
+	//	Text text2("Game4", "りいてがき筆", { 0,0,500,50 });
+	//	text2.SetAlinmentType(LEFT_CENTER);
+	//	text2.SetFontStyle(DWRITE_FONT_STYLE_ITALIC, 0, 3);
+	//	text2.SetFontWeight(DWRITE_FONT_WEIGHT_BOLD, 0, 5);
+	//	moveUIList_.push_back((int)AddComponent<Text>(text2));
+	//}
+	////テキスト3
+	//{
+	//	Text text3("Game5", "りいてがき筆", { 0,0,500,50 });
+	//	moveUIList_.push_back((int)AddComponent<Text>(text3));
+	//}
+	////テキスト3
+	//{
+	//	Text text3("Game6", "りいてがき筆", { 0,0,500,50 });
+	//	text3.SetText("Stage06");
+	//	moveUIList_.push_back((int)AddComponent<Text>(text3));
+	//}
+	////テキスト4
+	//{
+	//	Text text4("Game7", "りいてがき筆", { 0,0,500,50 });
+	//	moveUIList_.push_back((int)AddComponent<Text>(text4));
+	//}
 
-	//プレイヤーのカウントテキスト
-	{
-		Text countText("", "りいてがき筆", { 0,0,500,50 });
-		countText.SetText("< " + std::to_string(playCount_) + " >");
-		countText.SetPosition({ 2400,-1600 });
-		countTextNum_ = (int)AddComponent<Text>(countText);
-
-	}
+	////プレイヤーのカウントテキスト
+	//{
+	//	Text countText("", "りいてがき筆", { 0,0,500,50 });
+	//	countText.SetText("< " + std::to_string(playCount_) + " >");
+	//	countText.SetPosition({ 2400,-1600 });
+	//	countTextNum_ = (int)AddComponent<Text>(countText);
+	//
+	//}
 
 	//画像1
 	{
@@ -118,28 +127,21 @@ void SelectUI::Initialize()
 		image3.Load("Assets\\Image\\Image_Stage3.png");
 		AddComponent<Image>(image3);
 	}
-	//画像2
+	//画像4
 	{
 
 		Image image2;
 		image2.Load("Assets\\Image\\Parrot.jpg");
 		AddComponent<Image>(image2);
 	}
-	//画像3
+	//画像5
 	{
 
 		Image image3;
 		image3.Load("Assets\\Image\\Parrot.jpg");
 		AddComponent<Image>(image3);
 	}
-	//画像3
-	{
-
-		Image image3;
-		image3.Load("Assets\\Image\\Parrot.jpg");
-		AddComponent<Image>(image3);
-	}
-	//画像3
+	//画像6
 	{
 
 		Image image3;
@@ -172,9 +174,9 @@ void SelectUI::Input()
 	//ボタンの処理
 	moveDir_ = 0;
 	//上に移動
-	PlayerCount(Input::GetPadAnyDown());
+	//PlayerCount(Input::GetPadAnyDown());
 
-	if (Input::IsPadButtonDown(XINPUT_GAMEPAD_DPAD_UP) || Input::GetLStick_Y() > 0)
+	if (Input::IsPadButton(XINPUT_GAMEPAD_DPAD_UP) || Input::GetLStick_Y() > 0)
 	{
 		moveDir_ = 1;
 
@@ -184,7 +186,7 @@ void SelectUI::Input()
 		ItrIncrement();
 	}
 	//下に移動
-	else if (Input::IsPadButtonDown(XINPUT_GAMEPAD_DPAD_DOWN) || Input::GetLStick_Y() < 0)
+	else if (Input::IsPadButton(XINPUT_GAMEPAD_DPAD_DOWN) || Input::GetLStick_Y() < 0)
 	{
 		moveDir_ = -1;
 
@@ -242,28 +244,28 @@ void SelectUI::Update()
 	}
 }
 
-void SelectUI::PlayerCount(const int& padButton)
-{
-	switch (padButton)
-	{
-	case XINPUT_GAMEPAD_DPAD_LEFT:
-		if (playCount_ > 0)
-		{
-			playCount_--;
-			GetComponent<Text>(countTextNum_).SetText("< " + std::to_string(playCount_) + " >");
-		}
-		break;
-	case XINPUT_GAMEPAD_DPAD_RIGHT:
-		if (playCount_ < Input::GetConnectedControllerCount())
-		{
-			playCount_++;
-			GetComponent<Text>(countTextNum_).SetText("< " + std::to_string(playCount_) + " >");
-		}
-		break;
-	default:
-		break;
-	}
-}
+//void SelectUI::PlayerCount(const int& padButton)
+//{
+//	switch (padButton)
+//	{
+//	case XINPUT_GAMEPAD_DPAD_LEFT:
+//		if (playCount_ > 0)
+//		{
+//			playCount_--;
+//			GetComponent<Text>(countTextNum_).SetText("< " + std::to_string(playCount_) + " >");
+//		}
+//		break;
+//	case XINPUT_GAMEPAD_DPAD_RIGHT:
+//		if (playCount_ < Input::GetConnectedControllerCount())
+//		{
+//			playCount_++;
+//			GetComponent<Text>(countTextNum_).SetText("< " + std::to_string(playCount_) + " >");
+//		}
+//		break;
+//	default:
+//		break;
+//	}
+//}
 
 void SelectUI::MoveButton(float ratio)
 {
@@ -300,7 +302,7 @@ void SelectUI::PushedButton(int buttonNum)
 {
 	InterSceneData::DeleteData<int>("PlayerCount");
 	InterSceneData::DeleteData<int>("GameNumber");
-	InterSceneData::AddData<int>("PlayerCount", playCount_);
+	InterSceneData::AddData<int>("PlayerCount", playerCountList_[buttonNum_]);
 	InterSceneData::AddData<int>("GameNumber", buttonNum_);
 	state_ = SELECT_STATE::STATE_SELECTED;
 	newSceneManager::ChangeScene(SCENE_ID::PLAY);

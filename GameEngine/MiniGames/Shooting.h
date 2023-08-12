@@ -7,7 +7,8 @@ class Shooting : public Framework
 {
 	enum class PLAY_STATE
 	{
-		STATE_PLAY=0,
+		STATE_STAY = 0,
+		STATE_PLAY,
 		STATE_FINISH,
 	};
 	std::unique_ptr<Time::Watch> time_;
@@ -22,6 +23,7 @@ public:
 	void Initialize() override;
 	void Update() override;
 	void ScoreUpdate(const unsigned short& playernum, int score);
+	void Stay();
 	void Play();
 	void Finish();
 	void Release() override;
