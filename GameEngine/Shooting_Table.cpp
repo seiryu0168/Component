@@ -38,10 +38,13 @@ void Shooting_Table::Initialize()
 		//台モデルのボーン数に応じて景品を生成
 		XMVECTOR ve = model.GetBone(0, i);
 		int targetNum = rand5(mt);
+		//オブジェクト生成
 		Shooting_TergetGift* gift = Instantiate<Shooting_TergetGift>(GetParent());
+		//乱数によるモデル読み込み
 		Test_Model_ECSver mdl(gift);
 		mdl.Load(jsonReader["Shooting_TargetModel"][targetNum]["ModelName"]);
 		gift->AddComponent<Test_Model_ECSver>(mdl);
+		//当たり判定設定
 		XMFLOAT3 colSize = {};
 		colSize.x = jsonReader["Shooting_TargetModel"][targetNum]["CollisionSize"][0];
 		colSize.y = jsonReader["Shooting_TargetModel"][targetNum]["CollisionSize"][1];
@@ -50,6 +53,7 @@ void Shooting_Table::Initialize()
 		Collider col({0,0,0}, box);
 		col.SetAttachObject(gift);
 		gift->AddComponent<Collider>(col);
+		//オブジェクトの位置設定
 		gift->GetTransform()->scale_ = colSize;
 		gift->GetTransform()->position_ = model.GetBone(0, i) + XMVectorSet(0, colSize.y, 0, 0);
 		gift->SetScore(i+1);

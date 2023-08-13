@@ -1,6 +1,6 @@
 #include "Shooting_TergetGift.h"
-#include"Engine/Systems/ModelSystem.h"
-#include"Engine/Systems/ColliderSystem.h"
+//#include"Engine/Systems/ModelSystem.h"
+//#include"Engine/Systems/ColliderSystem.h"
 Shooting_TergetGift::Shooting_TergetGift(Object* parent)
 	:GameObject(parent,"Shooting_TargetGift")
 {
