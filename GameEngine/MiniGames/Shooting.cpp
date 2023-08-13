@@ -17,6 +17,7 @@ namespace
 	const float STAYSIZE = 500.0f;
 	const float COUNTSIZE = 72.0f;
 	const XMVECTOR STAYPLAYERPOS = XMVectorSet(0, 50, -100, 0);
+	const XMVECTOR STAYPLAYETARGET = XMVectorSet(0, 50, 0, 0);
 }
 
 Shooting::Shooting(Object* parent)
@@ -55,7 +56,7 @@ Shooting::Shooting(Object* parent)
 	ui.Init(playerCount_, "");
 	Transform transform;
 	AddComponent<Transform>(transform);
-
+	
 }
 
 Shooting::~Shooting()
@@ -65,6 +66,7 @@ Shooting::~Shooting()
 void Shooting::Initialize()
 {
 	CameraManager::GetCamera(0).SetPosition(STAYPLAYERPOS);
+	CameraManager::GetCamera(0).SetTarget(STAYPLAYETARGET);
 	Instantiate<Shooting_Table>(this);
 	//for (int i = 0; i < playerCount_; i++)
 	//{

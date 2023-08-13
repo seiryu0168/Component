@@ -1,0 +1,16 @@
+{
+  "Shooting_TargetModel": [
+    {
+      "ModelName": "Assets/Model/Shooting_Target_Box01.fbx",
+      "CollisionSize": [ 3.3, 1.7, 1.0 ]
+    },
+    {
+      "ModelName": "Assets/Model/Shooting_Target_Box02.fbx",
+      "CollisionSize": [ 0.982, 0.364, 1.306 ]
+    },
+    {
+      "ModelName": "Assets/Model/Shooting_Target_Box03.fbx",
+      "CollisionSize": [ 1.2, 1.2, 3.0 ]
+    }
+  ]
+}

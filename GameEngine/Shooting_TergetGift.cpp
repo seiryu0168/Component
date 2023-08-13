@@ -13,15 +13,19 @@ Shooting_TergetGift::~Shooting_TergetGift()
 
 void Shooting_TergetGift::Initialize()
 {
-	Test_Model_ECSver model(this);
-	model.Load("Assets/Model/AAA.fbx");
-	AddComponent<Test_Model_ECSver>(model);
-	
-	HitBox colShape({ 2.0f, 2.0f, 2.0f });
 
-	Collider collision({ 0,0,0 }, colShape);
-	collision.SetAttachObject(this);
-	AddComponent<Collider>(collision);
+	//XMVECTOR pos = transform_->position_;
+	//pos += XMVectorSet(0, transform_->scale_.y, 0, 0);
+	//transform_->position_ = pos;
+	//Test_Model_ECSver model(this);
+	//model.Load("Assets/Model/AAA.fbx");
+	//AddComponent<Test_Model_ECSver>(model);
+	
+	//HitBox colShape({ 5.0f, 5.0f, 5.0f });
+
+	//Collider collision({ 0,0,0 }, colShape);
+	//collision.SetAttachObject(this);
+	//AddComponent<Collider>(collision);
 
 }
 
