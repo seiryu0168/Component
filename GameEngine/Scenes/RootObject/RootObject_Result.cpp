@@ -24,10 +24,6 @@ void RootObject_Result::Initialize()
 	}
 }
 
-void RootObject_Result::SetTransform()
-{
-}
-
 void RootObject_Result::Release()
 {
 }

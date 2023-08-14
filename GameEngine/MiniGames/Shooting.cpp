@@ -54,8 +54,6 @@ Shooting::Shooting(Object* parent)
 
 	scoreManager_.Init(playerCount_, 0);
 	ui.Init(playerCount_, "");
-	Transform transform;
-	AddComponent<Transform>(transform);
 	
 }
 

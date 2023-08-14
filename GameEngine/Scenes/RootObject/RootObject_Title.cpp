@@ -18,11 +18,6 @@ void RootObject_Title::Initialize()
 	Instantiate<Title>(this);
 }
 
-void RootObject_Title::SetTransform()
-{
-	
-}
-
 void RootObject_Title::Release()
 {
 }

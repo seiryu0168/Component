@@ -17,8 +17,3 @@ void Scene_Title::SceneInitialize()
 {
 	SetRootObject(std::make_shared<RootObject_Title>());
 }
-
-//void Scene_Title::AllKillObject()
-//{
-//	//rootObject_->KillAllChildren();
-//}

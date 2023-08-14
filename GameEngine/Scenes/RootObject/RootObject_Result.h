@@ -6,7 +6,6 @@ public:
 	RootObject_Result();
 	~RootObject_Result();
 	void Initialize() override;
-	void SetTransform();
 	void Release() override;
 };
 
