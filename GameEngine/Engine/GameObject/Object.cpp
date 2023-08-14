@@ -15,10 +15,14 @@ Object::Object(Object* parent, const std::string& name)
 	objectID_(-1),
 	time_(0),
 	pScene_(nullptr),
-	physicsSystem_(nullptr),
 	childList_()
 {
-	
+	Transform transform;// = new Transform;
+	if (parent != nullptr)
+		transform.pParent_ = &parent->GetComponent<Transform>();
+
+	AddComponent<Transform>(transform);
+	transform_ = &GetComponent<Transform>();
 	//Coordinator::RegisterComponent<Gravity>();
 	//Coordinator::RegisterComponent<TransformData>();
 	//Coordinator::RegisterComponent<RigidBody>();
@@ -36,6 +40,12 @@ Object::Object(Object* parent, const std::string& name)
 
 Object::Object(Object* parent) : Object(parent, "")
 {
+	Transform transform;// = new Transform;
+	if (parent != nullptr)
+		transform.pParent_ = &parent->GetComponent<Transform>();
+
+	AddComponent<Transform>(transform);
+	transform_ = &GetComponent<Transform>();
 }
 
 Object::~Object()
@@ -148,13 +158,8 @@ void Object::ReleaseSub()
 			(*itr)->ReleaseSub();
 		if ((*itr)->IsDead())
 		{
-			//SAFE_DELETE(*itr)
 			itr = childList_.erase(itr);
 		}
-		//else if ((*itr)->childList_.empty() != false)
-		//{
-		//	(*itr)->ReleaseSub();
-		//}
 		else
 			itr++;
 
@@ -164,22 +169,6 @@ void Object::ReleaseSub()
 
 	Release();
 }
-
-//void Object::DelCollider(const Object& obj)
-//{
-//	for (auto itr = colliderList_.begin(); itr != colliderList_.end();)
-//	{
-//		if ((*itr)->GetpColObject() == &obj)
-//		{
-//			itr = colliderList_.erase(itr);
-//		}
-//		if (itr == colliderList_.end())
-//		{
-//			break;
-//		}
-//		itr++;
-//	}
-//}
 
 void Object::KillMe()
 {
@@ -253,6 +242,11 @@ Object* Object::GetScene()
 {
 	auto itr = GetRootObject()->GetChildList()->begin();
 	return (*itr)->GetChildList()->begin()->get();
+}
+
+Transform* Object::GetTransform() const
+{
+	return this->transform_;
 }
 
 void Object::KillAllChildren()

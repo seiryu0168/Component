@@ -14,8 +14,6 @@ class GameObject : public Object
 protected:
 
 	bool drawFlag_;						//描画するかどうか
-	Transform* transform_;
-	//std::list<Component*> componentList_;
 
 public:
 	GameObject();
@@ -37,12 +35,12 @@ public:
 ///////////////////////////各セッターゲッター//////////////////////////////////////
 	void SetTag(const std::string& tagName) { objectTag_ = tagName; }
 	void SetActive(bool status);
-	void SetUpdate(bool status) { isUpdate_ = status; };
-	void SetStart(bool status) { startFlag_ = status; }
-	void SetParent(GameObject* parent);
-	std::string GetTag() const { return objectTag_; }
+	//void SetUpdate(bool status) { isUpdate_ = status; };
+	//void SetStart(bool status) { startFlag_ = status; }
+	//void SetParent(GameObject* parent);
+	//std::string GetTag() const { return objectTag_; }
 
-	Transform* GetTransform() const;
+	//Transform* GetTransform() const;
 	/*XMFLOAT3  GetPosition();
 	XMFLOAT3  GetRotate();
 	XMFLOAT3  GetScale();*/

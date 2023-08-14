@@ -5,8 +5,8 @@
 #include"../../Title.h"
 RootObject_Title::RootObject_Title()
 {
-	Transform transform;
-	AddComponent<Transform>(transform);
+	//Transform transform;
+	//AddComponent<Transform>(transform);
 }
 
 RootObject_Title::~RootObject_Title()

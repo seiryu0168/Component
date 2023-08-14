@@ -13,11 +13,11 @@ void RootObject::Initialize()
 {
 }
 
-void RootObject::SetTransform()
-{
-	Transform transform;
-	AddComponent<Transform>(transform);
-}
+//void RootObject::SetTransform()
+//{
+//	Transform transform;
+//	AddComponent<Transform>(transform);
+//}
 
 void RootObject::Release()
 {

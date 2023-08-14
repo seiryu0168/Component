@@ -20,8 +20,8 @@ void RootObject_Menu::Initialize()
 
 void RootObject_Menu::SetTransform()
 {
-	Transform transform;
-	AddComponent<Transform>(transform);
+	//Transform transform;
+	//AddComponent<Transform>(transform);
 }
 
 void RootObject_Menu::Release()
