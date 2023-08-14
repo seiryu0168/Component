@@ -6,6 +6,13 @@
 #include<variant>
 using json = nlohmann::json;
 
+enum class GAME_ID : int
+{
+	SHOOTING = 0,
+	CHICKENRACE,
+	COMMANDMEMORY
+};
+
 namespace InterSceneData
 {
 	extern struct Data

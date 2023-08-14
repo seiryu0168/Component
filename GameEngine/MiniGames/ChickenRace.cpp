@@ -8,8 +8,6 @@
 ChickenRace::ChickenRace(Object* parent)
 	: Framework(parent, "ChickenRace") , TargetTime(0), PlayersTime_(), text_()
 {
-	Transform transform;
-	AddComponent<Transform>(transform);
 }
 
 void ChickenRace::Initialize()
