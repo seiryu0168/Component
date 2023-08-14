@@ -54,7 +54,7 @@ void Shooting_Table::Initialize()
 		col.SetAttachObject(gift);
 		gift->AddComponent<Collider>(col);
 		//オブジェクトの位置設定
-		gift->GetTransform()->scale_ = colSize;
+		//gift->GetTransform()->scale_ = colSize;
 		gift->GetTransform()->position_ = model.GetBone(0, i) + XMVectorSet(0, colSize.y, 0, 0);
 		gift->SetScore(i+1);
 	}

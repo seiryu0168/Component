@@ -9,10 +9,11 @@ namespace
 	const float TRIGGER_SHOT = 0.7f;
 	XMVECTOR CAMERA_POS[2] = { XMVectorSet(0, 0, -20, 0),XMVectorSet(0, 45, -100, 0) };
 	XMVECTOR CAMERA_DEFAULT_POS = XMVectorSet(0, 50, -100, 0);
+	const XMFLOAT2 ROTATE_LIMIT = { 45,30 };
 }
 Shooter::Shooter(Object* parent)
 	:GameObject(parent,"Shooter"),target_(XMVectorSet(0,0,30,0)),playerNum_(0),
-	aimMode_(false)
+	aimMode_(false), rotate_({0,0})
 {
 }
 
@@ -22,6 +23,7 @@ Shooter::~Shooter()
 
 void Shooter::Initialize()
 {
+
 	transform_->position_ = CAMERA_DEFAULT_POS;
 	//transform_->position_ = CAMERA_DEFAULT_POS;
 	Image image(playerNum_);
@@ -33,8 +35,12 @@ void Shooter::Initialize()
 }
 
 void Shooter::Update()
-{
-	transform_->RotateEular({ -Input::GetLStick_Y(playerNum_) * 30.0f, Input::GetLStick_X(playerNum_) * 30.0f, 0 });
+{	
+	rotate_.x += -Input::GetLStick_Y(playerNum_);
+	rotate_.y += Input::GetLStick_X(playerNum_);
+	rotate_.x = Clamp<float>(rotate_.x, -ROTATE_LIMIT.x, ROTATE_LIMIT.x);
+	rotate_.y = Clamp<float>(rotate_.y, -ROTATE_LIMIT.y, ROTATE_LIMIT.y);
+	transform_->RotateEular({ rotate_.x,rotate_.y , 0 });
 	XMVECTOR dir = XMVector3Rotate(target_, transform_->rotate_);
 	if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A, playerNum_))
 		ModeChange();
