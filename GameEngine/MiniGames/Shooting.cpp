@@ -10,7 +10,7 @@
 
 namespace 
 {
-	const float COUNT = 10.0f;
+	const float COUNT = 30.0f;
 	const float STAYCOUNT = 4.0f;
 	const XMFLOAT2 COUNTPOS = { 1500,0 };
 	const XMFLOAT2 STAYPOS = { 1600,-800 };
@@ -66,10 +66,6 @@ void Shooting::Initialize()
 	CameraManager::GetCamera(0).SetPosition(STAYPLAYERPOS);
 	CameraManager::GetCamera(0).SetTarget(STAYPLAYETARGET);
 	Instantiate<Shooting_Table>(this);
-	//for (int i = 0; i < playerCount_; i++)
-	//{
-	//	Instantiate<Shooter>(this)->SetPlayerNumber(i);
-	//}
 	Text countText(std::to_string(STAYCOUNT), "‚è‚¢‚Ä‚ª‚«•M", { 0,0,450,50 });
 	countText.SetPosition(STAYPOS);
 	countText.SetTextSize(STAYSIZE);

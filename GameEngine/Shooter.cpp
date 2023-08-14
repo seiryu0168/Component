@@ -40,7 +40,7 @@ void Shooter::Update()
 	rotate_.y += Input::GetLStick_X(playerNum_);
 	rotate_.x = Clamp<float>(rotate_.x, -ROTATE_LIMIT.x, ROTATE_LIMIT.x);
 	rotate_.y = Clamp<float>(rotate_.y, -ROTATE_LIMIT.y, ROTATE_LIMIT.y);
-	transform_->RotateEular({ rotate_.x,rotate_.y , 0 });
+	transform_->RotateEular({ -Input::GetLStick_Y(playerNum_) * 30.0f,Input::GetLStick_X(playerNum_)*45.0f , 0 });
 	XMVECTOR dir = XMVector3Rotate(target_, transform_->rotate_);
 	if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A, playerNum_))
 		ModeChange();

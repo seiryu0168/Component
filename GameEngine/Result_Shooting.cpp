@@ -2,13 +2,15 @@
 #include"InterSceneData.h"
 #include"Engine/Systems/TextSystem.h"
 #include"Engine/Systems/ImageSystem.h"
-
+#include"Engine/ResourceManager/json.hpp"
+#include<fstream>
 #include"Engine/DirectX_11/Input.h"
 #include"Engine/newSceneManager.h"
 
 namespace
 {
 	const float SHOWTIME = 3.0f;
+	const XMFLOAT2 RETURN_TEXT_POS = { 1500,-1550 };
 }
 
 Result_Shooting::Result_Shooting(Object* parent)
@@ -36,13 +38,19 @@ void Result_Shooting::Initialize()
 	Text scoreText("óéÇ∆ÇµÇΩêî 0", "ÇËÇ¢ÇƒÇ™Ç´ïM", {0,0,500,50});
 	scoreText.SetPosition({ 1000,-1000 });
 	resultTextNum_ = AddComponent<Text>(scoreText);
+	{
+		Image image;
+		image.Load("Assets/Image/Shooting_ResultBackGroundImage.jpg");
+		AddComponent<Image>(image);
+	}
+	{
 
-	Image image;
-	image.Load("Assets/Image/Buttons/BTN_A.png");
-	image.SetPosition({ 0,-0.5,0 });
-	image.SetAlpha(0);
-	buttonImageNum_ = AddComponent<Image>(image);
-
+		Image image;
+		image.Load("Assets/Image/Buttons/BTN_A.png");
+		image.SetPosition({ 0,-0.5,0 });
+		image.SetAlpha(0);
+		buttonImageNum_ = AddComponent<Image>(image);
+	}
 
 	interval_ = Clamp<float>((SHOWTIME / (float)score_),0.2f,1.0f);
 }
@@ -82,6 +90,9 @@ void Result_Shooting::ShowResult()
 		GetComponent<Text>(resultTextNum_).SetText("óéÇ∆ÇµÇΩêî " + std::to_string(score_));
 		GetComponent<Image>(buttonImageNum_).SetAlpha(1.0f);
 		time_->Lock();
+		Text text("ñﬂÇÈ", "ÇËÇ¢ÇƒÇ™Ç´ïM", { 0,0,500,50 });
+		text.SetPosition(RETURN_TEXT_POS);
+		AddComponent<Text>(text);
 		status_ = CountStatus::FINISH;
 	}
 }
