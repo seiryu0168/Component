@@ -118,7 +118,7 @@ void FbxParts::Draw(Transform& transform,XMFLOAT4 lineColor)
 		cb.ambient = materialList_[i].GetAmbient();
 		cb.speculer = materialList_[i].GetSpeculer();
 		cb.shininess = materialList_[i].GetShininess();
-		cb.customColor = lineColor;
+		cb.customColor = materialList_[i].GetCustomColor();
 
 		D3D11_MAPPED_SUBRESOURCE pdata;
 		Direct3D::pContext->Map(pConstantBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &pdata); //GPUからのデータアクセスを止める
@@ -732,6 +732,13 @@ bool FbxParts::GetBonePosition(UINT num, XMFLOAT3* position)
 	position->y = (float)matrix[3][1];
 	position->z = (float)matrix[3][2];
 	return true;
+}
+
+void FbxParts::SetColor(int materialNum, const XMFLOAT4& color)
+{
+	if (materialNum >= materialCount_)
+		materialNum = 0;
+	materialList_[materialNum].SetCustomColor(color);
 }
 
 void FbxParts::RayCast(RayCastData& rayData, Transform& transform)

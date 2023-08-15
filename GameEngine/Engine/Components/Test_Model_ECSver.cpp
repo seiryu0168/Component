@@ -42,6 +42,11 @@ const UINT& Test_Model_ECSver::GetBoneCount()
 	return fbx_->GetBoneCount();
 }
 
+void Test_Model_ECSver::SetCustomColor(int partsNum, int materialNum, const XMFLOAT4& color)
+{
+	fbx_->SetColor(partsNum, materialNum, color);
+}
+
 void Test_Model_ECSver::Draw()
 {
 	if(isDraw_)

@@ -60,7 +60,7 @@ struct RayCastData
 	 class FbxParts;
 class Fbx
 {
-	std::vector<std::unique_ptr<FbxParts>> parts_;
+	std::vector<std::shared_ptr<FbxParts>> parts_;
 
 	FbxManager* pFbxManager_;
 	FbxScene* pFbxScene_;
@@ -69,7 +69,7 @@ class Fbx
 	int startFrame_;
 	int endFrame_;
 	std::string modelName_;
-	HRESULT CheckNode(FbxNode* pNode, std::vector<std::unique_ptr<FbxParts>>* pPartsList);
+	HRESULT CheckNode(FbxNode* pNode, std::vector<std::shared_ptr<FbxParts>>* pPartsList);
 public:
 
 	Fbx();
@@ -79,7 +79,9 @@ public:
 	XMFLOAT3& GetBonePosition(const std::string& boneName);
 	XMFLOAT3& GetBonePosition(const UINT& partsNum,const UINT& num);
 	std::string GetModelName() const;
+	std::shared_ptr<FbxParts>& GetFbxParts(int partsNum = 0);
 	const UINT GetBoneCount();
+	void SetColor(int partsNum, int materialNum, const XMFLOAT4& color);
 	void    Draw(Transform& transform, SHADER_TYPE shaderType,int frame);
 	void	DrawOutLine(Transform& transform, int frame, XMFLOAT4 lineColor = {0,0,0,1});
 	void	DrawToon(Transform& transform, bool isOutLine, int frame);

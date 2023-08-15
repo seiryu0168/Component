@@ -58,6 +58,7 @@ void Shooting_Table::Initialize()
 		gift->GetTransform()->position_ = model.GetBone(0, i) + XMVectorSet(0, colSize.y, 0, 0);
 		gift->SetScore(i+1);
 	}
+
 }
 
 void Shooting_Table::Load(const std::string& fileName)

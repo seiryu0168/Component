@@ -10,7 +10,8 @@ enum class GAME_ID : int
 {
 	SHOOTING = 0,
 	CHICKENRACE,
-	COMMANDMEMORY
+	COMMANDMEMORY,
+	SNOWCONE,
 };
 
 namespace InterSceneData

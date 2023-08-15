@@ -134,12 +134,12 @@ float4 PS(VS_OUT inData) : SV_Target
 	if (g_isTexture == true)
 	{
 		//テクスチャから情報取ってくる
-		diffuse = g_texture.Sample(g_sampler, inData.uv);
+		diffuse = g_texture.Sample(g_sampler, inData.uv)* g_customColor;
 	}
 	//使わないなら
 	else
 	{
-		diffuse = g_diffuseColor;
+		diffuse = g_diffuseColor* g_customColor;
 	}
 	
 	//環境光(アンビエント)

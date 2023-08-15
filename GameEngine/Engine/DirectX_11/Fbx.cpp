@@ -86,14 +86,14 @@ HRESULT Fbx::Load(const std::string& fileName)
 	return S_OK;
 }
 
-HRESULT Fbx::CheckNode(FbxNode* pNode, std::vector<std::unique_ptr<FbxParts>>* pPartsList)
+HRESULT Fbx::CheckNode(FbxNode* pNode, std::vector<std::shared_ptr<FbxParts>>* pPartsList)
 {
 	HRESULT hr;
 	FbxNodeAttribute* attr = pNode->GetNodeAttribute();
 	if (attr != nullptr && attr->GetAttributeType() == FbxNodeAttribute::eMesh)
 	{
 		//パーツインスタンス作って追加
-		std::unique_ptr<FbxParts> pParts = std::make_unique<FbxParts>();
+		std::shared_ptr<FbxParts> pParts = std::make_shared<FbxParts>();
 		hr = pParts->Init(pNode);
 		if (FAILED(hr))
 		{
@@ -527,6 +527,14 @@ std::string Fbx::GetModelName() const
 	return modelName_;
 }
 
+std::shared_ptr<FbxParts>& Fbx::GetFbxParts(int partsNum)
+{
+	if (partsNum >= parts_.size())
+		partsNum = 0;
+	return parts_[partsNum];
+	// TODO: return ステートメントをここに挿入します
+}
+
 const UINT Fbx::GetBoneCount()
 {
 	UINT count=0;
@@ -535,6 +543,13 @@ const UINT Fbx::GetBoneCount()
 		count += part->GetBoneCount();
 	}
 	return count;
+}
+
+void Fbx::SetColor(int partsNum, int materialNum, const XMFLOAT4& color)
+{
+	if (partsNum >= parts_.size())
+		partsNum = 0;
+	return parts_[partsNum]->SetColor(materialNum, color);
 }
 
 void Fbx::Release()

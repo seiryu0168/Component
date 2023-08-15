@@ -237,6 +237,7 @@
     <ClCompile Include="MiniGames\P_CommandMemory.cpp" />
     <ClCompile Include="MiniGames\P_FindDifference.cpp" />
     <ClCompile Include="MiniGames\Shooting.cpp" />
+    <ClCompile Include="MiniGames\SnowConeMaking.cpp" />
     <ClCompile Include="Result_Shooting.cpp" />
     <ClCompile Include="Result_Single.cpp" />
     <ClCompile Include="Scenes\RootObject\RootObject.cpp" />
@@ -258,6 +259,7 @@
     <ClCompile Include="Shooting_ScoreUI.cpp" />
     <ClCompile Include="Shooting_Table.cpp" />
     <ClCompile Include="Shooting_TergetGift.cpp" />
+    <ClCompile Include="SnowConeMaker.cpp" />
     <ClCompile Include="TestObject.cpp" />
     <ClCompile Include="TestObjectChild.cpp" />
     <ClCompile Include="Title.cpp" />
@@ -332,6 +334,7 @@
     <ClInclude Include="MiniGames\P_CommandMemory.h" />
     <ClInclude Include="MiniGames\P_FindDifference.h" />
     <ClInclude Include="MiniGames\Shooting.h" />
+    <ClInclude Include="MiniGames\SnowConeMaking.h" />
     <ClInclude Include="Result_Shooting.h" />
     <ClInclude Include="Result_Single.h" />
     <ClInclude Include="Scenes\RootObject\RootObject.h" />
@@ -356,6 +359,7 @@
     <ClInclude Include="Shooting_Table.h" />
     <ClInclude Include="Shooting_Bullet.h" />
     <ClInclude Include="Shooting_TergetGift.h" />
+    <ClInclude Include="SnowConeMaker.h" />
     <ClInclude Include="TestObject.h" />
     <ClInclude Include="TestObjectChild.h" />
     <ClInclude Include="Title.h" />

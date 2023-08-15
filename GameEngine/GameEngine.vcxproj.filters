@@ -55,6 +55,9 @@
     <Filter Include="ソース ファイル\MiniGames\Shooting">
       <UniqueIdentifier>{c6f04f9e-6715-4c38-86a2-a1341453258d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\MiniGames\SnowConeMaking">
+      <UniqueIdentifier>{5bc3ec02-ae18-4b4c-8a1e-68f1bac07e0e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ImGui\imgui.cpp">
@@ -316,6 +319,12 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Result_Shooting.cpp">
+      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGames\SnowConeMaking.cpp">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
+    </ClCompile>
+    <ClCompile Include="SnowConeMaker.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -603,9 +612,15 @@
       <Filter>ソース ファイル\Scenes\RootObjects</Filter>
     </ClInclude>
     <ClInclude Include="Result_Single.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Result_Shooting.h">
+      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGames\SnowConeMaking.h">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
+    </ClInclude>
+    <ClInclude Include="SnowConeMaker.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

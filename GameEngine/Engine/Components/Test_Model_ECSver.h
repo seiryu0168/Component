@@ -23,8 +23,10 @@ public:
 
 	//モデルのロード
 	bool Load(const std::string& fileName);
+
 	//レイキャスト(未検証)
 	void RayCast(RayCastData& rayData);
+
 	//シェーダータイプ設定
 	void SetShaderType(SHADER_TYPE type) { type_ = type; }
 
@@ -33,6 +35,7 @@ public:
 	const UINT& GetBoneCount();
 	const bool& IsDraw() { return isDraw_; }
 	void SetDraw(bool isDraw) { isDraw_ = isDraw; }
+	void SetCustomColor(int partsNum,int materialNum,const XMFLOAT4& color);
 	//アタッチされているオブジェクトを返す
 	GameObject* GetAttachedObject() { return attachObject_; }
 	//描画

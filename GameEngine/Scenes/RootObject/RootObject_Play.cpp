@@ -2,6 +2,7 @@
 #include "../../MiniGames/ChickenRace.h"
 #include "../../MiniGames/Commandmemory.h"
 #include"../../MiniGames/Shooting.h"
+#include"../../MiniGames/SnowConeMaking.h"
 #include"../../InterSceneData.h"
 RootObject_Play::RootObject_Play()
 {
@@ -26,6 +27,9 @@ void RootObject_Play::Initialize()
 
 	case (int)COMMANDMEMORY:
 		Instantiate<CommandMemory>(this);
+		break;
+	case (int)SNOWCONE:
+		Instantiate<SnowConeMaking>(this);
 		break;
 	default:
 		break;
