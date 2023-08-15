@@ -324,7 +324,13 @@
     <ClCompile Include="MiniGames\SnowConeMaking.cpp">
       <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
     </ClCompile>
-    <ClCompile Include="SnowConeMaker.cpp">
+    <ClCompile Include="SnowConeMaker_Shave.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="SnowConeMaker_Topping.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="SnowCone_Table.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -620,7 +626,13 @@
     <ClInclude Include="MiniGames\SnowConeMaking.h">
       <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
     </ClInclude>
-    <ClInclude Include="SnowConeMaker.h">
+    <ClInclude Include="SnowConeMaker_Shave.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="SnowConeMaker_Topping.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="SnowCone_Table.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

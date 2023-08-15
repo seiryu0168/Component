@@ -1,13 +1,11 @@
 #pragma once
 #include"Engine/GameObject/GameObject.h"
-class SnowConeMaker : public GameObject
+class SnowCone_Table : public GameObject
 {
 private:
-
 public:
-	SnowConeMaker(Object* parent);
-	~SnowConeMaker();
-
+	SnowCone_Table(Object* parent);
+	~SnowCone_Table();
 	void Initialize() override;
 	void Release() override;
 };

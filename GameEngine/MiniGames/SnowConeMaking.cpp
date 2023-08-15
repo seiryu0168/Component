@@ -1,6 +1,8 @@
 #include "SnowConeMaking.h"
 #include"../Engine/GameObject/CameraManager.h"
-#include"../SnowConeMaker.h"
+#include"../SnowConeMaker_Shave.h"
+#include"../SnowConeMaker_Topping.h"
+#include"../SnowCone_Table.h"
 SnowConeMaking::SnowConeMaking(Object* parent)
 	:Framework(parent,"SnowConeMaking")
 {
@@ -29,7 +31,10 @@ void SnowConeMaking::Initialize()
 		camera.SetViewPort(WH.x / 2.0f, WH.y / 2.0f, 0.0f, 1.0f, WH.x/2.0f, WH.y / 4.0f);
 		CameraManager::AddCamera(camera);
 	}
-	Instantiate<SnowConeMaker>(this);
+
+	Instantiate<SnowCone_Table>(this);
+	Instantiate<SnowConeMaker_Shave>(this)->SetPlayerNumber(0);
+	Instantiate<SnowConeMaker_Topping>(this)->SetPlayerNumber(1);
 }
 
 

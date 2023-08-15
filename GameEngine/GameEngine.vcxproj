@@ -259,7 +259,9 @@
     <ClCompile Include="Shooting_ScoreUI.cpp" />
     <ClCompile Include="Shooting_Table.cpp" />
     <ClCompile Include="Shooting_TergetGift.cpp" />
-    <ClCompile Include="SnowConeMaker.cpp" />
+    <ClCompile Include="SnowConeMaker_Shave.cpp" />
+    <ClCompile Include="SnowConeMaker_Topping.cpp" />
+    <ClCompile Include="SnowCone_Table.cpp" />
     <ClCompile Include="TestObject.cpp" />
     <ClCompile Include="TestObjectChild.cpp" />
     <ClCompile Include="Title.cpp" />
@@ -359,7 +361,9 @@
     <ClInclude Include="Shooting_Table.h" />
     <ClInclude Include="Shooting_Bullet.h" />
     <ClInclude Include="Shooting_TergetGift.h" />
-    <ClInclude Include="SnowConeMaker.h" />
+    <ClInclude Include="SnowConeMaker_Shave.h" />
+    <ClInclude Include="SnowConeMaker_Topping.h" />
+    <ClInclude Include="SnowCone_Table.h" />
     <ClInclude Include="TestObject.h" />
     <ClInclude Include="TestObjectChild.h" />
     <ClInclude Include="Title.h" />
