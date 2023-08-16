@@ -261,6 +261,8 @@
     <ClCompile Include="Shooting_TergetGift.cpp" />
     <ClCompile Include="SnowConeMaker_Shave.cpp" />
     <ClCompile Include="SnowConeMaker_Topping.cpp" />
+    <ClCompile Include="SnowCone_Cup.cpp" />
+    <ClCompile Include="SnowCone_Ice.cpp" />
     <ClCompile Include="SnowCone_Table.cpp" />
     <ClCompile Include="TestObject.cpp" />
     <ClCompile Include="TestObjectChild.cpp" />
@@ -363,6 +365,8 @@
     <ClInclude Include="Shooting_TergetGift.h" />
     <ClInclude Include="SnowConeMaker_Shave.h" />
     <ClInclude Include="SnowConeMaker_Topping.h" />
+    <ClInclude Include="SnowCone_Cup.h" />
+    <ClInclude Include="SnowCone_Ice.h" />
     <ClInclude Include="SnowCone_Table.h" />
     <ClInclude Include="TestObject.h" />
     <ClInclude Include="TestObjectChild.h" />

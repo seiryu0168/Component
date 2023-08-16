@@ -1,5 +1,6 @@
 #include "SnowCone_Table.h"
 #include"Engine/Systems/ModelSystem.h"
+#include"SnowCone_Cup.h"
 
 SnowCone_Table::SnowCone_Table(Object* parent)
 	:GameObject(parent,"SnoeCone_Table")
@@ -12,9 +13,7 @@ SnowCone_Table::~SnowCone_Table()
 
 void SnowCone_Table::Initialize()
 {
-	Test_Model_ECSver model(this);
-	model.Load("Assets/Model/AAA.fbx");
-	AddComponent<Test_Model_ECSver>(model);
+	//Instantiate<SnowCone_Cup>(GetParent());
 
 }
 
