@@ -7,7 +7,6 @@
 #include"InterSceneData.h"
 #include"Engine/ResourceManager/CsvReader.h"
 
-#include "ImGui/imgui.h"
 namespace
 {
 	const static float	MOVE = 0.35f;
@@ -199,10 +198,6 @@ void SelectUI::Input()
 	{
 		PushedButton(buttonNum_);
 	}
-
-	ImGui::Begin("Select");
-	ImGui::Text(std::to_string(buttonNum_).c_str());
-	ImGui::End();
 }
 
 void SelectUI::Move()
