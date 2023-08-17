@@ -38,7 +38,7 @@ Text::Text(const std::string& text, const std::string& fontName, const TEXT_RECT
 	size_t textSize;
 
 	//描画するテキスト用の配列を用意する
-	textLength_ = text.length() + 1;
+	textLength_ = pText_.length();// +1;
 
 	//現在のロケール取得
 	std::string locale = setlocale(LC_CTYPE, NULL);

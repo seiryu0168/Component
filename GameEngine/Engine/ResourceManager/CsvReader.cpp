@@ -3,15 +3,13 @@
 #include <assert.h>
 #include "../SAFE_DELETE_RELEASE.h"
 
-
-
 //コンストラクタ
 CsvReader::CsvReader(std::string filename)
 {
     all.clear();
 
     std::ifstream ifs(filename);
-    if (!ifs) return;
+    if (!ifs.is_open()) return;
 
     // BOM Skipする
     unsigned char BOMS[] = { 0xEF, 0xBB, 0xBF };
@@ -76,7 +74,7 @@ CsvReader::CsvReader()
 //デストラクタ
 CsvReader::~CsvReader()
 {
-    for (auto rec : all)
+    for (auto& rec : all)
         rec.record.clear();
     all.clear();
 }

@@ -58,21 +58,6 @@
     <Filter Include="ソース ファイル\MiniGames\SnowConeMaking">
       <UniqueIdentifier>{5bc3ec02-ae18-4b4c-8a1e-68f1bac07e0e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\MiniGames\CommandMemory">
-      <UniqueIdentifier>{c9a335f6-7bf7-4baf-acd7-710b89c1514a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\MiniGames\ChickenRace">
-      <UniqueIdentifier>{a720119f-4118-4d34-97f3-95ac789fcdfa}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Result">
-      <UniqueIdentifier>{2c974b6a-e992-4b6e-95ff-a93a38578c05}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Debug">
-      <UniqueIdentifier>{84dca412-5c51-4d8c-89e3-db97bbfd6e77}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\Test">
-      <UniqueIdentifier>{682bc341-b1f4-4228-81fd-530502a1655b}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ImGui\imgui.cpp">
@@ -97,6 +82,9 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Easing.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugUI.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="InterSceneData.cpp">
@@ -146,6 +134,12 @@
     </ClCompile>
     <ClCompile Include="Engine\ResourceManager\CsvReader.cpp">
       <Filter>ソース ファイル\Engine\ResourceManager</Filter>
+    </ClCompile>
+    <ClCompile Include="TestObject.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="TestObjectChild.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="ObjectSetter.cpp">
       <Filter>ソース ファイル</Filter>
@@ -258,14 +252,29 @@
     <ClCompile Include="MiniGames\Framework.cpp">
       <Filter>ソース ファイル\MiniGames</Filter>
     </ClCompile>
+    <ClCompile Include="MiniGames\ChickenRace.cpp">
+      <Filter>ソース ファイル\MiniGames</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGames\Player_ChickenRace.cpp">
+      <Filter>ソース ファイル\MiniGames</Filter>
+    </ClCompile>
     <ClCompile Include="SelectUI.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGames\CommandMemory.cpp">
+      <Filter>ソース ファイル\MiniGames</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGames\P_CommandMemory.cpp">
+      <Filter>ソース ファイル\MiniGames</Filter>
     </ClCompile>
     <ClCompile Include="MiniGames\P_FindDifference.cpp">
       <Filter>ソース ファイル\MiniGames</Filter>
     </ClCompile>
     <ClCompile Include="MiniGames\FindDifference.cpp">
       <Filter>ソース ファイル\MiniGames</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug_SceneChanger.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Title.cpp">
       <Filter>ソース ファイル</Filter>
@@ -306,6 +315,9 @@
     <ClCompile Include="Scenes\RootObject\RootObject_Result.cpp">
       <Filter>ソース ファイル\Scenes\RootObjects</Filter>
     </ClCompile>
+    <ClCompile Include="Result_Single.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
     <ClCompile Include="Result_Shooting.cpp">
       <Filter>ソース ファイル\MiniGames\Shooting</Filter>
     </ClCompile>
@@ -327,35 +339,11 @@
     <ClCompile Include="SnowCone_Cup.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="MiniGames\CommandMemory.cpp">
-      <Filter>ソース ファイル\MiniGames\CommandMemory</Filter>
-    </ClCompile>
-    <ClCompile Include="MiniGames\P_CommandMemory.cpp">
-      <Filter>ソース ファイル\MiniGames\CommandMemory</Filter>
-    </ClCompile>
-    <ClCompile Include="MiniGames\ChickenRace.cpp">
-      <Filter>ソース ファイル\MiniGames\ChickenRace</Filter>
-    </ClCompile>
-    <ClCompile Include="MiniGames\Player_ChickenRace.cpp">
-      <Filter>ソース ファイル\MiniGames\ChickenRace</Filter>
-    </ClCompile>
     <ClCompile Include="Result_Multi.cpp">
-      <Filter>ソース ファイル\Result</Filter>
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Result_Single.cpp">
-      <Filter>ソース ファイル\Result</Filter>
-    </ClCompile>
-    <ClCompile Include="Debug_SceneChanger.cpp">
-      <Filter>ソース ファイル\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="DebugUI.cpp">
-      <Filter>ソース ファイル\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="TestObject.cpp">
-      <Filter>ソース ファイル\Test</Filter>
-    </ClCompile>
-    <ClCompile Include="TestObjectChild.cpp">
-      <Filter>ソース ファイル\Test</Filter>
+    <ClCompile Include="Select_StaticUI.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -431,6 +419,9 @@
     <ClInclude Include="Engine\ResourceManager\CsvReader.h">
       <Filter>ソース ファイル\Engine\ResourceManager</Filter>
     </ClInclude>
+    <ClInclude Include="DebugUI.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
     <ClInclude Include="Easing.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
@@ -444,6 +435,12 @@
       <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="TestObject.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="TestObjectChild.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Systems\ColliderSystem.h">
@@ -563,17 +560,32 @@
     <ClInclude Include="MiniGames\Framework.h">
       <Filter>ソース ファイル\MiniGames</Filter>
     </ClInclude>
+    <ClInclude Include="MiniGames\ChickenRace.h">
+      <Filter>ソース ファイル\MiniGames</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGames\Player_ChickenRace.h">
+      <Filter>ソース ファイル\MiniGames</Filter>
+    </ClInclude>
     <ClInclude Include="SelectUI.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Components\Collider.h">
       <Filter>ソース ファイル\Engine\Component</Filter>
     </ClInclude>
+    <ClInclude Include="MiniGames\CommandMemory.h">
+      <Filter>ソース ファイル\MiniGames</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGames\P_CommandMemory.h">
+      <Filter>ソース ファイル\MiniGames</Filter>
+    </ClInclude>
     <ClInclude Include="MiniGames\P_FindDifference.h">
       <Filter>ソース ファイル\MiniGames</Filter>
     </ClInclude>
     <ClInclude Include="MiniGames\FindDifference.h">
       <Filter>ソース ファイル\MiniGames</Filter>
+    </ClInclude>
+    <ClInclude Include="Debug_SceneChanger.h">
+      <Filter>ソース ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Engine\ResourceManager\JsonOperator.h">
       <Filter>ソース ファイル\Engine\ResourceManager</Filter>
@@ -617,6 +629,9 @@
     <ClInclude Include="Scenes\RootObject\RootObject_Result.h">
       <Filter>ソース ファイル\Scenes\RootObjects</Filter>
     </ClInclude>
+    <ClInclude Include="Result_Single.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
     <ClInclude Include="Result_Shooting.h">
       <Filter>ソース ファイル\MiniGames\Shooting</Filter>
     </ClInclude>
@@ -638,35 +653,11 @@
     <ClInclude Include="SnowCone_Cup.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="MiniGames\CommandMemory.h">
-      <Filter>ソース ファイル\MiniGames\CommandMemory</Filter>
-    </ClInclude>
-    <ClInclude Include="MiniGames\P_CommandMemory.h">
-      <Filter>ソース ファイル\MiniGames\CommandMemory</Filter>
-    </ClInclude>
-    <ClInclude Include="MiniGames\ChickenRace.h">
-      <Filter>ソース ファイル\MiniGames\ChickenRace</Filter>
-    </ClInclude>
-    <ClInclude Include="MiniGames\Player_ChickenRace.h">
-      <Filter>ソース ファイル\MiniGames\ChickenRace</Filter>
-    </ClInclude>
-    <ClInclude Include="Result_Single.h">
-      <Filter>ソース ファイル\Result</Filter>
-    </ClInclude>
     <ClInclude Include="Result_Multi.h">
-      <Filter>ソース ファイル\Result</Filter>
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Debug_SceneChanger.h">
-      <Filter>ソース ファイル\Debug</Filter>
-    </ClInclude>
-    <ClInclude Include="DebugUI.h">
-      <Filter>ソース ファイル\Debug</Filter>
-    </ClInclude>
-    <ClInclude Include="TestObject.h">
-      <Filter>ソース ファイル\Test</Filter>
-    </ClInclude>
-    <ClInclude Include="TestObjectChild.h">
-      <Filter>ソース ファイル\Test</Filter>
+    <ClInclude Include="Select_StaticUI.h">
+      <Filter>ソース ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

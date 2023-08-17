@@ -52,9 +52,15 @@ void SelectUI::Initialize()
 	CsvReader reader("Assets/GameDatas/GameData.csv");
 	for (int i = 0; i < reader.GetLines(); i++)
 	{
-		Text text(reader.GetString(i,0), "‚è‚¢‚Ä‚ª‚«•M", {0,0,500,50});
+		Text text(reader.GetString(i, 0), "‚è‚¢‚Ä‚ª‚«•M", {0,0,500,50});
+		//text.SetText(reader.GetString(i, 0));
 		moveUIList_.push_back((int)AddComponent<Text>(text));
-		playerCountList_.push_back(reader.GetInt(i, 1));
+		playerCountList_.push_back(reader.GetInt(i, 2));
+
+		Image image;
+		image.Load("Assets\\Image\\"+reader.GetString(i,1));
+		AddComponent<Image>(image);
+
 	}
 	////ƒeƒLƒXƒg
 	//{
@@ -106,47 +112,47 @@ void SelectUI::Initialize()
 	//
 	//}
 
-	//‰æ‘œ1
-	{
-		Image image1;
-		image1.Load("Assets\\Image\\Image_Stage1.png");
-		AddComponent<Image>(image1);
-	}
-	//‰æ‘œ2
-	{
-
-		Image image2;
-		image2.Load("Assets\\Image\\Image_Stage2.png");
-		AddComponent<Image>(image2);
-	}
-	//‰æ‘œ3
-	{
-
-		Image image3;
-		image3.Load("Assets\\Image\\Image_Stage3.png");
-		AddComponent<Image>(image3);
-	}
-	//‰æ‘œ4
-	{
-
-		Image image2;
-		image2.Load("Assets\\Image\\Parrot.jpg");
-		AddComponent<Image>(image2);
-	}
-	//‰æ‘œ5
-	{
-
-		Image image3;
-		image3.Load("Assets\\Image\\Parrot.jpg");
-		AddComponent<Image>(image3);
-	}
-	//‰æ‘œ6
-	{
-
-		Image image3;
-		image3.Load("Assets\\Image\\Parrot.jpg");
-		AddComponent<Image>(image3);
-	}
+	////‰æ‘œ1
+	//{
+	//	Image image1;
+	//	image1.Load("Assets\\Image\\Shooting_ExplanationImage.png");
+	//	AddComponent<Image>(image1);
+	//}
+	////‰æ‘œ2
+	//{
+	//
+	//	Image image2;
+	//	image2.Load("Assets\\Image\\Image_Stage2.png");
+	//	AddComponent<Image>(image2);
+	//}
+	////‰æ‘œ3
+	//{
+	//
+	//	Image image3;
+	//	image3.Load("Assets\\Image\\Image_Stage3.png");
+	//	AddComponent<Image>(image3);
+	//}
+	////‰æ‘œ4
+	//{
+	//
+	//	Image image2;
+	//	image2.Load("Assets\\Image\\Parrot.jpg");
+	//	AddComponent<Image>(image2);
+	//}
+	////‰æ‘œ5
+	//{
+	//
+	//	Image image3;
+	//	image3.Load("Assets\\Image\\Parrot.jpg");
+	//	AddComponent<Image>(image3);
+	//}
+	////‰æ‘œ6
+	//{
+	//
+	//	Image image3;
+	//	image3.Load("Assets\\Image\\Parrot.jpg");
+	//	AddComponent<Image>(image3);
+	//}
 
 	for (int i = 0; i < moveUIList_.size(); i++)
 	{

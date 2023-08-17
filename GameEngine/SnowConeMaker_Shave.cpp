@@ -53,6 +53,8 @@ void SnowConeMaker_Shave::Update()
 	{
 		snowCone_->KillMe();
 		snowCone_ = Instantiate<SnowCone_Cup>(GetParent());
+		snowConeSize_ = 0.0f;
+		GetComponent<Image>().SetSize({ 0.5f,snowConeSize_,0 });
 	}
 	
 
@@ -68,7 +70,7 @@ void SnowConeMaker_Shave::Shave()
 	GameObject* obj = (GameObject*)snowCone_->FindChild("SnowCone_Ice");
 	if (obj)
 	{
-		obj->GetTransform()->scale_.y += SNOWCONE_SIZE_DELTA;
+		obj->GetTransform()->scale_.y += SNOWCONE_SIZE_DELTA*0.3f;
 		snowConeSize_ += SNOWCONE_SIZE_DELTA;
 		GetComponent<Image>().SetSize({ 0.5f,snowConeSize_,0 });
 	}
