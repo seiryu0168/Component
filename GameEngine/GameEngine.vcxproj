@@ -238,6 +238,7 @@
     <ClCompile Include="MiniGames\P_FindDifference.cpp" />
     <ClCompile Include="MiniGames\Shooting.cpp" />
     <ClCompile Include="MiniGames\SnowConeMaking.cpp" />
+    <ClCompile Include="Result_Multi.cpp" />
     <ClCompile Include="Result_Shooting.cpp" />
     <ClCompile Include="Result_Single.cpp" />
     <ClCompile Include="Scenes\RootObject\RootObject.cpp" />
@@ -339,6 +340,7 @@
     <ClInclude Include="MiniGames\P_FindDifference.h" />
     <ClInclude Include="MiniGames\Shooting.h" />
     <ClInclude Include="MiniGames\SnowConeMaking.h" />
+    <ClInclude Include="Result_Multi.h" />
     <ClInclude Include="Result_Shooting.h" />
     <ClInclude Include="Result_Single.h" />
     <ClInclude Include="Scenes\RootObject\RootObject.h" />

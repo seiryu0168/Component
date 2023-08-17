@@ -70,9 +70,10 @@ void CommandMemory::Initialize()
 	text_ = &GetComponent<Text>(0);
 	ImageLoad();
 
-	text.SetText(Choices);
-	text.SetRatio(0.25f, 0.25f);
-	AddComponent<Text>(text);
+	Text t;
+	t.SetText(Choices);
+	t.SetRatio(0.25f, 0.25f);
+	AddComponent<Text>(t);
 	RemainingText_ = &GetComponent<Text>(1);
 }
 
@@ -118,8 +119,8 @@ void CommandMemory::sendCommand(int Button, int Playerid)
 			itr_ = cmList_.begin();
 
 			//プレイヤーの操作権を変更
-			if (++NowPlayer_ + 1 >= Players_)
-				NowPlayer_ = (Players_ - 1);
+			if (++NowPlayer_ >= Players_)
+				NowPlayer_ = (Players_ - 2);
 
 			text_->SetText(std::format("プレイヤー{:d}の番", NowPlayer_ + 1));
 			RemainingText_->SetText(std::format("あと{:d}コマンド", cmList_.size()));

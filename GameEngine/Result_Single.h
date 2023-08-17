@@ -6,9 +6,9 @@ class Result_Single : public GameObject
 protected:
 	T score_;
 public:
-	Result_Single(Object* parent, std::string name)
+	Result_Single(Object* parent, const std::string& name)
 		:GameObject(parent, name) {}
-	~Result_Single() {};
+	virtual ~Result_Single() {};
 
 };
 

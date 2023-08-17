@@ -1,9 +1,11 @@
 #include "ChickenRace.h"
-#include "Player_ChickenRace.h"
 #include <format>
 #include <random>
+#include "Player_ChickenRace.h"
 #include "../Engine/Components/Particle.h"
 #include "../Engine/Components/Image.h"
+#include "../Engine/newSceneManager.h"
+#include "../InterSceneData.h"
 
 ChickenRace::ChickenRace(Object* parent)
 	: Framework(parent, "ChickenRace") , TargetTime(0), PlayersTime_(), text_()
@@ -76,16 +78,22 @@ void ChickenRace::SendTime(Object* target, float time)
 
 void ChickenRace::Finish()
 {
+	int winner;
 	if ((PlayersTime_[0] > TargetTime && PlayersTime_[1] > TargetTime) || PlayersTime_[0] == PlayersTime_[1])
 	{
-		text_->SetText("Draw");
+		winner = -1;
+		//text_->SetText("Draw");
 	}
 	else if (PlayersTime_[0] > TargetTime || PlayersTime_[1] > PlayersTime_[0])
 	{
-		text_->SetText("Player2 Win!");
+		winner = 0;
+		//text_->SetText("Player2 Win!");
 	}
 	else
 	{
-		text_->SetText("Player1 Win!");
+		winner = 1;
+		//text_->SetText("Player1 Win!");
 	}
+	InterSceneData::AddData("ResultData", winner);
+	newSceneManager::ChangeScene(SCENE_ID::RESULT);
 }

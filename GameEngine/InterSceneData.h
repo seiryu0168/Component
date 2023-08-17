@@ -16,14 +16,14 @@ enum class GAME_ID : int
 
 namespace InterSceneData
 {
-	extern struct Data
+	struct Data
 	{
 		std::variant<bool, std::string, short, int, float > value_;
 		std::string dataName_;
 	};
 	extern std::vector<Data> interScenedatas_;
 	template<typename T>
-	void AddData(std::string dataName, T num)
+	void AddData(const std::string& dataName, T num)
 	{
 		//同じ名前のデータを検索
 		for (Data& data : interScenedatas_)
@@ -42,7 +42,7 @@ namespace InterSceneData
 		interScenedatas_.push_back(data);
 	}
 	template<typename T>
-	void DeleteData(std::string dataName)
+	void DeleteData(const std::string& dataName)
 	{
 		//同じ名前のデータを検索
 		for (auto itr=interScenedatas_.begin();itr!=interScenedatas_.end();)
