@@ -44,13 +44,13 @@ void Result_Multi::Initialize()
 
 void Result_Multi::Update()
 {
-	switch (Input::GetPadAnyButton())
+	switch (Input::GetPadAnyDown())
 	{
 	case XINPUT_GAMEPAD_A:
-		newSceneManager::ChangeScene(SCENE_ID::PLAY);
+		newSceneManager::ChangeScene(SCENE_ID::MENU);
 		break;
 	case XINPUT_GAMEPAD_B:
-		newSceneManager::ChangeScene(SCENE_ID::MENU);
+		newSceneManager::ChangeScene(SCENE_ID::PLAY);
 		break;
 	default:
 		break;

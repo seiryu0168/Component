@@ -1,8 +1,10 @@
 #include "CommandMemory.h"
 #include "P_CommandMemory.h"
 #include "../Engine/Components/Image.h"
+#include "../InterSceneData.h"
 #include <format>
 #include <Xinput.h>
+#include "../Engine/newSceneManager.h"
 
 namespace
 {
@@ -113,6 +115,8 @@ void CommandMemory::sendCommand(int Button, int Playerid)
 			moveCount_ = 0;
 			prev_ = now_;
 			now_ = Button;
+			Images_[prev_]->SetAlpha(0);
+			Images_[prev_]->SetSize({ ImageSize,ImageSize,1 });
 
 			//要素を追加し、イテレータを初期位置に戻す
 			cmList_.push_back(Button);
@@ -140,7 +144,10 @@ void CommandMemory::sendCommand(int Button, int Playerid)
 			}
 			else
 			{
-				KillAllChildren();
+				if (++NowPlayer_ >= Players_)
+					NowPlayer_ = (Players_ - 2);
+				InterSceneData::AddData("ResultData", NowPlayer_);
+				newSceneManager::ChangeScene(SCENE_ID::RESULT);
 			}
 		}
 	}
