@@ -83,9 +83,9 @@ void CommandMemory::Update()
 {
 	if (choiced_)
 	{
-		float size = std::lerp(ImageSize, MaxSize, ++moveCount_ / MaxMove);
+		float size = (float)std::lerp(ImageSize, MaxSize, ++moveCount_ / MaxMove);
 		Images_[now_]->SetSize({ size, size, 1 });
-		float alpha = std::lerp(1, 0, moveCount_ / MaxMove);
+		float alpha = (float)std::lerp(1, 0, moveCount_ / MaxMove);
 		Images_[now_]->SetAlpha(alpha);
 
 		if (moveCount_ >= MaxMove)
