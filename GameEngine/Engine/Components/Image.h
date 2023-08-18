@@ -22,6 +22,9 @@ public:
 	void SetPositionAtPixel(XMFLOAT3 pos);
 	//透明度設定
 	void SetAlpha(float alpha);
+	//色設定
+	void SetColor(const float color) noexcept;
+	void SetColor(const XMFLOAT3& color) noexcept;
 	//画像サイズ設定
 	void SetSize(const XMFLOAT3& size);
 	//画像回転

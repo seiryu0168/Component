@@ -6,7 +6,7 @@
 #include"Engine/newSceneManager.h"
 #include"InterSceneData.h"
 #include"Engine/ResourceManager/CsvReader.h"
-
+#include <numbers>
 namespace
 {
 	const static float	MOVE = 0.35f;
@@ -17,7 +17,7 @@ namespace
 	const static int	TEXT_SIZE_PICKUP = 90;
 
 	//それぞれのテキストの位置
-	const std::map<int, XMFLOAT2> Position = {
+	const static std::map<int, XMFLOAT2> Position = {
 		{-2, {0.15f, -0.2f}},
 		{-1, {0.15f, 0.15f}},
 		{ 0, {0.15f, 0.5f}},
@@ -26,6 +26,14 @@ namespace
 	};
 
 	const static XMFLOAT3 POSITION_DEFAULT = { -9999,-9999,0 };
+	const static std::vector<XMFLOAT3> Arrow_Position = {
+		{-0.5f, -0.8f, 1},
+		{-0.5f, 0.8f, 1}
+	};
+
+	//矢印の動きの周期
+	const static int Arrow_Period = 90;
+	const static float ARROW_DEFAULT_ALPHA = 0.5f;
 }
 
 SelectUI::SelectUI(Object* parent)
@@ -38,7 +46,9 @@ SelectUI::SelectUI(Object* parent)
 	countTextNum_(-1),
 	buttonCount_(0),
 	inputInterval_(0),
-	Selection_()
+	Selection_(),
+	ArrowFrame_(0),
+	ArrowId_()
 {
 }
 
@@ -169,8 +179,14 @@ void SelectUI::Initialize()
 	Selection_[2] = Selection_[1] + 1;
 	buttonNum_ = *Selection_[0];
 
+	int num = InterSceneData::GetData<int>("GameNumber");
+
+	while (*Selection_[0] != num)
+		ItrIncrement();
+
 	GetComponent<Text>(buttonNum_).SetTextSize(TEXT_SIZE_PICKUP);
 
+	ArrowLoad();
 
 	UIPositioning();
 }
@@ -188,6 +204,9 @@ void SelectUI::Input()
 		GetComponent<Text>(buttonNum_).SetTextSize(TEXT_SIZE_DEFAULT);
 		state_ = SELECT_STATE::STATE_MOVE;
 
+		//矢印を明るくする
+		GetComponent<Image>(ArrowId_[1]).SetAlpha(1);
+		
 		ItrIncrement();
 	}
 	//下に移動
@@ -197,6 +216,9 @@ void SelectUI::Input()
 
 		GetComponent<Text>(buttonNum_).SetTextSize(TEXT_SIZE_DEFAULT);
 		state_ = SELECT_STATE::STATE_MOVE;
+
+		//矢印を明るくする
+		GetComponent<Image>(ArrowId_[0]).SetAlpha(1);
 
 		ItrDecrement();
 	}
@@ -221,6 +243,10 @@ void SelectUI::Move()
 			i.y += MOVE * moveDir_;
 		}
 		GetComponent<Text>(buttonNum_).SetTextSize(TEXT_SIZE_PICKUP);
+
+		for (int i = 0; i < std::size(ArrowId_); i++)
+			GetComponent<Image>(ArrowId_[i]).SetAlpha(ARROW_DEFAULT_ALPHA);
+
 		UIPositioning();
 		return;
 	}
@@ -230,6 +256,8 @@ void SelectUI::Move()
 
 void SelectUI::Update()
 {
+	ArrowMove();
+
 	switch (state_)
 	{
 	case SELECT_STATE::STATE_INPUT:
@@ -348,4 +376,34 @@ void SelectUI::UIPositioning()
 			SetPosition({ -Position.at(i).x + IMAGE_OFFSET.x,
 								 (Position.at(i).y + IMAGE_OFFSET.y) * IMAGE_RATIO, 0 });
 	}
+}
+
+void SelectUI::ArrowLoad()
+{
+	Image i;
+	i.Load("Assets\\Image\\Select_Arrow.png");
+	i.SetPosition(Arrow_Position[0]);
+	i.SetAlpha(ARROW_DEFAULT_ALPHA);
+	ArrowId_[0] = (int)AddComponent<Image>(i);
+
+	Image image;
+	image.Load("Assets\\Image\\Select_Arrow.png");
+	image.SetPosition(Arrow_Position[1]);
+	image.SetRotation({ 0,0,180 });
+	image.SetAlpha(ARROW_DEFAULT_ALPHA);
+	ArrowId_[1] = (int)AddComponent<Image>(image);
+}
+
+void SelectUI::ArrowMove()
+{
+	if (++ArrowFrame_ > Arrow_Period)
+		ArrowFrame_ -= Arrow_Period;
+	float y = std::sinf(ArrowFrame_ * std::numbers::pi_v<float> / Arrow_Period) * 0.05f;
+	XMFLOAT3 pos = Arrow_Position[0];
+	pos.y -= y;
+	GetComponent<Image>(ArrowId_[0]).SetPosition(pos);
+
+	pos = Arrow_Position[1];
+	pos.y += y;
+	GetComponent<Image>(ArrowId_[1]).SetPosition(pos);
 }

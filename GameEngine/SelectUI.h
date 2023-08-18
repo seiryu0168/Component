@@ -20,6 +20,9 @@ private:
 	int countTextNum_;
 	int moveTime_;
 	int inputInterval_;
+
+	int ArrowFrame_;	//–îˆó‚ğ“®‚©‚·‚½‚ß‚ÌƒtƒŒ[ƒ€”
+	int ArrowId_[2];
 	void Input();
 	void Move();
 	std::vector<int> moveUIList_;
@@ -30,6 +33,8 @@ private:
 	void ItrDecrement();
 	void UIPositioning();
 
+	void ArrowLoad();
+	void ArrowMove();
 public:
 	SelectUI(Object* parent);
 	~SelectUI();

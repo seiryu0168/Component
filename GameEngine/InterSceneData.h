@@ -59,7 +59,7 @@ namespace InterSceneData
 	}
 	//void DataInput()
 	template<typename T>
-	T& GetData(const std::string& dataName)
+	T GetData(const std::string& dataName)
 	{
 		//同じ名前のデータを検索
 		for (Data& data : interScenedatas_)
@@ -67,12 +67,13 @@ namespace InterSceneData
 			//あったらそのデータを書き換える
 			if (data.dataName_ == dataName)
 			{
-				T& a= std::get<T>(data.value_);
+				T a= std::get<T>(data.value_);
 				return a;
 				//return data.value_;
 			}
 		}
-		
+		T not_found{};
+		return not_found;
 		//return rtn;
 	}
 

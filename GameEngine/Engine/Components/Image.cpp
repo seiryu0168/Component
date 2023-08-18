@@ -52,6 +52,18 @@ void Image::SetAlpha(float alpha)
 	alpha_ = alpha;
 }
 
+void Image::SetColor(const float color) noexcept
+{
+	SetColor({ color, color, color });
+}
+
+void Image::SetColor(const XMFLOAT3& color) noexcept
+{
+	color_.x = color.x;
+	color_.y = color.y;
+	color_.z = color.z;
+}
+
 void Image::SetSize(const XMFLOAT3& size)
 {
 	transform_.scale_ = size;
