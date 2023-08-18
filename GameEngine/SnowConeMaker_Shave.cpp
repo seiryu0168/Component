@@ -2,6 +2,7 @@
 #include"Engine/GameObject/CameraManager.h"
 #include"Engine/DirectX_11/Input.h"
 #include"SnowCone_Cup.h"
+#include"MiniGames/SnowConeMaking.h"
 #include"Engine/Systems/ImageSystem.h"
 namespace
 {
@@ -48,21 +49,54 @@ void SnowConeMaker_Shave::Initialize()
 
 void SnowConeMaker_Shave::Update()
 {
+	//V‚µ‚¢‚©‚«•X‚ðì¬(Œ³X‚ ‚Á‚½‚©‚«•X‚Í”jŠü)
 
-	if (Input::IsPadButtonDown(XINPUT_GAMEPAD_X))
+	switch (Input::GetPadAnyDown(playerNum_))
 	{
-		snowCone_->KillMe();
+	case XINPUT_GAMEPAD_X:
+		if (snowCone_)
+			snowCone_->KillMe();
+
 		snowCone_ = Instantiate<SnowCone_Cup>(GetParent());
 		snowConeSize_ = 0.0f;
 		GetComponent<Image>().SetSize({ 0.5f,snowConeSize_,0 });
-	}
-	
+		break;
+	case XINPUT_GAMEPAD_A:
+		if (snowCone_)
+		{
+			((SnowConeMaking*)GetParent())->AddCup(snowCone_);
+			snowCone_ = nullptr;
+		}
+		break;
 
-	if (Input::IsPadButton(XINPUT_GAMEPAD_A)&&snowCone_&& snowConeSize_<SNOWCONE_SIZE_LIMIT)
-	{
-		Shave();
+	default:
+		if (Input::IsPadButton(XINPUT_GAMEPAD_B) && snowCone_ && snowConeSize_ < SNOWCONE_SIZE_LIMIT)
+		{
+			Shave();
+		}
+		break;
 	}
-
+	//if (Input::IsPadButtonDown(XINPUT_GAMEPAD_X))
+	//{
+	//	if(snowCone_)
+	//	snowCone_->KillMe();
+	//
+	//	snowCone_ = Instantiate<SnowCone_Cup>(GetParent());
+	//	snowConeSize_ = 0.0f;
+	//	GetComponent<Image>().SetSize({ 0.5f,snowConeSize_,0 });
+	//}
+	//
+	//
+	//if (Input::IsPadButton(XINPUT_GAMEPAD_B)&&snowCone_&& snowConeSize_<SNOWCONE_SIZE_LIMIT)
+	//{
+	//	Shave();
+	//}
+	//
+	//if (Input::IsPadButton(XINPUT_GAMEPAD_A) && snowCone_)
+	//{
+	//	((SnowConeMaking*)GetParent())->AddCup(snowCone_);
+	//	snowCone_ = nullptr;
+	//}
 }
 
 void SnowConeMaker_Shave::Shave()

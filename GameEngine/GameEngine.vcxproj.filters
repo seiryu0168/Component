@@ -324,26 +324,26 @@
     <ClCompile Include="MiniGames\SnowConeMaking.cpp">
       <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
     </ClCompile>
-    <ClCompile Include="SnowConeMaker_Shave.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="SnowConeMaker_Topping.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="SnowCone_Table.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="SnowCone_Ice.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="SnowCone_Cup.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="Result_Multi.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Select_StaticUI.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="SnowConeMaker_Topping.cpp">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
+    </ClCompile>
+    <ClCompile Include="SnowConeMaker_Shave.cpp">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
+    </ClCompile>
+    <ClCompile Include="SnowCone_Table.cpp">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
+    </ClCompile>
+    <ClCompile Include="SnowCone_Ice.cpp">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
+    </ClCompile>
+    <ClCompile Include="SnowCone_Cup.cpp">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -638,26 +638,26 @@
     <ClInclude Include="MiniGames\SnowConeMaking.h">
       <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
     </ClInclude>
-    <ClInclude Include="SnowConeMaker_Shave.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="SnowConeMaker_Topping.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="SnowCone_Table.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="SnowCone_Ice.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="SnowCone_Cup.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Result_Multi.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Select_StaticUI.h">
       <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="SnowCone_Table.h">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
+    </ClInclude>
+    <ClInclude Include="SnowCone_Ice.h">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
+    </ClInclude>
+    <ClInclude Include="SnowCone_Cup.h">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
+    </ClInclude>
+    <ClInclude Include="SnowConeMaker_Shave.h">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
+    </ClInclude>
+    <ClInclude Include="SnowConeMaker_Topping.h">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

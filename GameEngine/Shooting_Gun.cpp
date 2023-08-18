@@ -7,6 +7,7 @@
 namespace
 {
 	 static const int MAX_BULLET = 10;
+	 //const XMFLOAT2 
 }
 
 Shooting_Gun::Shooting_Gun(Object* parent)
@@ -28,7 +29,7 @@ void Shooting_Gun::Initialize()
 	Text text("", "‚è‚¢‚Ä‚ª‚«•M", { 0,0,500,50 },playerNum_);
 	text.SetText("X"+std::to_string(MAX_BULLET));
 	text.SetTextSize(40);
-	text.SetRatio( 0.6f,0.6f );
+	text.SetRatio( 0.57f,0.55f );
 	textNum_ = AddComponent<Text>(text);
 
 	Image image(playerNum_);

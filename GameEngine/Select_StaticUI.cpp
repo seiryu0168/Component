@@ -15,7 +15,8 @@ void Select_StaticUI::Initialize()
 
 	Text selectText("ゲームセレクト","りいてがき筆",{0,0,900,50});
 	selectText.SetTextSize(100);
-	selectText.SetPosition({610,0});
+	selectText.SetRatio(0.3f, 0.0f);
+	//selectText.SetPosition({610,0});
 	AddComponent<Text>(selectText);
 
 	Image image;

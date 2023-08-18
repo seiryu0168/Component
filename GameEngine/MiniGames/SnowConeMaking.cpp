@@ -3,6 +3,12 @@
 #include"../SnowConeMaker_Shave.h"
 #include"../SnowConeMaker_Topping.h"
 #include"../SnowCone_Table.h"
+#include"../SnowCone_Cup.h"
+
+namespace
+{
+	static const XMFLOAT3 cupPos[3] = { {-10,0,0},{0,0,0},{10,0,0} };
+}
 SnowConeMaking::SnowConeMaking(Object* parent)
 	:Framework(parent,"SnowConeMaking")
 {
@@ -36,6 +42,34 @@ void SnowConeMaking::Initialize()
 	Instantiate<SnowConeMaker_Shave>(this)->SetPlayerNumber(0);
 	Instantiate<SnowConeMaker_Topping>(this)->SetPlayerNumber(1);
 }
+
+void SnowConeMaking::AddCup(SnowCone_Cup* cup)
+{
+	if (cupList_.size() < 3)
+	{
+		cupList_.push(cup);
+		for (int i = 0; i < cupList_.size(); i++)
+		{
+			cup->GetTransform()->position_ = XMLoadFloat3(&cupPos[i]);
+		}
+	}
+	else
+		cup->KillMe();
+}
+
+SnowCone_Cup* SnowConeMaking::GetCup()
+{
+	SnowCone_Cup* cup = nullptr;
+	if (cupList_.empty() == false)
+	{
+		cup = cupList_.front();
+		cupList_.pop();
+		return cup;
+	}
+	else
+		return cup;
+}
+
 
 
 void SnowConeMaking::Release()
