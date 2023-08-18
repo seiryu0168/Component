@@ -115,8 +115,12 @@ void CommandMemory::sendCommand(int Button, int Playerid)
 			moveCount_ = 0;
 			prev_ = now_;
 			now_ = Button;
-			Images_[prev_]->SetAlpha(0);
-			Images_[prev_]->SetSize({ ImageSize,ImageSize,1 });
+
+			if (!cmList_.empty())
+			{
+				Images_[prev_]->SetAlpha(0);
+				Images_[prev_]->SetSize({ ImageSize,ImageSize,1 });
+			}
 
 			//要素を追加し、イテレータを初期位置に戻す
 			cmList_.push_back(Button);
