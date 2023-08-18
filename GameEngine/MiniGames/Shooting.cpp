@@ -13,7 +13,7 @@ namespace
 	const float COUNT = 30.0f;
 	const float STAYCOUNT = 4.0f;
 	const XMFLOAT2 COUNTPOS = { 1500,0 };
-	const XMFLOAT2 STAYPOS = { 830,480 };
+	const XMFLOAT2 STAYPOS = { 768,305 };
 	const float STAYSIZE = 500.0f;
 	const float COUNTSIZE = 72.0f;
 	const XMVECTOR STAYPLAYERPOS = XMVectorSet(0, 50, -100, 0);
@@ -67,7 +67,8 @@ void Shooting::Initialize()
 	CameraManager::GetCamera(0).SetTarget(STAYPLAYETARGET);
 	Instantiate<Shooting_Table>(this);
 	Text countText(std::to_string(STAYCOUNT), "‚è‚¢‚Ä‚ª‚«•M", { 0,0,450,50 });
-	countText.SetRatio(0.4f,0.3f);
+	countText.SetPosition(STAYPOS);
+	//countText.SetRatio(0.4f, 0.3f);
 	countText.SetTextSize(STAYSIZE);
 	AddComponent<Text>(countText);
 	time_ = std::make_unique<Time::Watch>();

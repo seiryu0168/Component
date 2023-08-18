@@ -225,8 +225,10 @@ void Text::SetPosition(const XMFLOAT2& position)
 {
 	XMFLOAT2 WH = { CameraManager::GetCamera(renderTargetNum_).GetViewPort().Width ,
 					CameraManager::GetCamera(renderTargetNum_).GetViewPort().Height };
-	transform2D.x = WH.x*(position.x / WH.x);
-	transform2D.y = WH.y*(position.y / WH.y);
+	XMFLOAT2 pos = { (position.x / WH.x),
+	(position.y / WH.y) };
+	transform2D.x = (WH.x*pos.x)+defaultPos_.x;
+	transform2D.y = (WH.y*pos.y)+defaultPos_.y;
 
 	//transform2D.x = (0.5f * position.x) + defaultPos_.x;
 	//transform2D.y = (-(0.5f * position.y)) + defaultPos_.y;
