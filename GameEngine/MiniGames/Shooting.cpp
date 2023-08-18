@@ -67,7 +67,7 @@ void Shooting::Initialize()
 	CameraManager::GetCamera(0).SetTarget(STAYPLAYETARGET);
 	Instantiate<Shooting_Table>(this);
 	Text countText(std::to_string(STAYCOUNT), "‚è‚¢‚Ä‚ª‚«•M", { 0,0,450,50 });
-	countText.SetPosition(STAYPOS);
+	countText.SetRatio(0.4f,0.3f);
 	countText.SetTextSize(STAYSIZE);
 	AddComponent<Text>(countText);
 	time_ = std::make_unique<Time::Watch>();
