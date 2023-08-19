@@ -14,7 +14,7 @@ Title::~Title()
 void Title::Initialize()
 {
 	Image image;
-	image.Load("Assets/Image/Image_Title.jpg");
+	image.Load("Assets/Image/Ennichi_TitleImage.jpg");
 	AddComponent<Image>(image);
 }
 
