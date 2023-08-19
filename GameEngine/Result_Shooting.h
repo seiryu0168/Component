@@ -24,6 +24,7 @@ public:
 	void Update() override;
 	void Stay();
 	void ShowResult();
+	void ShowCommand();
 	void Finish();
 	void Release() override;
 };

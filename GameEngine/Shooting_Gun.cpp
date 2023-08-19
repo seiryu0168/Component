@@ -49,7 +49,7 @@ void Shooting_Gun::Shot(const XMVECTOR& dir)
 		return;
 	Shooting_Bullet* bullet = Instantiate<Shooting_Bullet>(GetParent()->GetParent());
 	bullet->SetPlayerNum(playerNum_);
-	bullet->GetTransform()->position_ = GetComponent<Test_Model_ECSver>().GetBone("Bone");
+	bullet->GetTransform()->position_ = GetShotPos();
 	bullet->GetTransform()->rotate_ = ((GameObject*)GetParent())->GetTransform()->rotate_;
 	bullet->SetDir(dir);
 	bulletCount_--;

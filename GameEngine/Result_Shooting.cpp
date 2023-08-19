@@ -10,7 +10,7 @@
 namespace
 {
 	const float SHOWTIME = 3.0f;
-	const XMFLOAT2 RETURN_TEXT_POS = { 1500,-1550 };
+	const XMFLOAT2 RETURN_TEXT_POS = { 750,700 };
 }
 
 Result_Shooting::Result_Shooting(Object* parent)
@@ -30,26 +30,18 @@ void Result_Shooting::Initialize()
 	time_ = std::make_unique<Time::Watch>();
 	time_->UnLock();
 	Text text("Œ‹‰Ê", "‚è‚¢‚Ä‚ª‚«•M", { 0,0,200,50 });
-	text.SetPosition({ 1500,0 });
+	text.SetPosition({ 750,0 });
 	text.SetTextSize(100);
 	AddComponent<Text>(text);
 
 	score_ = InterSceneData::GetData<int>("ResultData");
 	Text scoreText("—‚Æ‚µ‚½” 0", "‚è‚¢‚Ä‚ª‚«•M", {0,0,500,50});
-	scoreText.SetPosition({ 1000,-1000 });
+	scoreText.SetPosition( {500,500 });
 	resultTextNum_ = AddComponent<Text>(scoreText);
 	{
 		Image image;
 		image.Load("Assets/Image/Shooting_ResultBackGroundImage.jpg");
 		AddComponent<Image>(image);
-	}
-	{
-
-		Image image;
-		image.Load("Assets/Image/Buttons/BTN_A.png");
-		image.SetPosition({ 0,-0.5,0 });
-		image.SetAlpha(0);
-		buttonImageNum_ = AddComponent<Image>(image);
 	}
 
 	interval_ = Clamp<float>((SHOWTIME / (float)score_),0.2f,1.0f);
@@ -88,13 +80,29 @@ void Result_Shooting::ShowResult()
 	if (count_ > score_)
 	{
 		GetComponent<Text>(resultTextNum_).SetText("—‚Æ‚µ‚½” " + std::to_string(score_));
-		GetComponent<Image>(buttonImageNum_).SetAlpha(1.0f);
 		time_->Lock();
-		Text text("–ß‚é", "‚è‚¢‚Ä‚ª‚«•M", { 0,0,500,50 });
-		text.SetPosition(RETURN_TEXT_POS);
-		AddComponent<Text>(text);
+		ShowCommand();
 		status_ = CountStatus::FINISH;
 	}
+}
+
+void Result_Shooting::ShowCommand()
+{
+	Text retryText("‚à‚¤ˆê“x", "‚è‚¢‚Ä‚ª‚«•M", { 0,0,500,50 });
+	retryText.SetRatio(0.7f, 0.7f);
+	retryText.SetTextSize(48);
+	AddComponent<Text>(retryText);
+
+	Text toMenuText_("ƒƒjƒ…[‚Ö", "‚è‚¢‚Ä‚ª‚«•M", { 0,0,500,50 });
+	toMenuText_.SetRatio(0.7f, 0.85f);
+	toMenuText_.SetTextSize(48);
+	AddComponent<Text>(toMenuText_);
+
+	Image image;
+	image.Load("Assets\\Image\\Buttons\\BTN_A.png", "Result_Multi");
+	AddComponent<Image>(image);
+	image.Load("Assets\\Image\\Buttons\\BTN_B.png", "Result_Multi");
+	AddComponent<Image>(image);
 }
 
 void Result_Shooting::Finish()
