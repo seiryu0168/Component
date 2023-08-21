@@ -21,7 +21,7 @@ Text::Text(const int& renderTargetNum)
 	Initialize();
 
 }
-Text::Text(const std::string& text, const std::string& fontName, const TEXT_RECT& rect, int renderTargetNum, const DWRITE_FONT_WEIGHT& wight, const DWRITE_FONT_STYLE& style, const DWRITE_FONT_STRETCH& stretch, const ALINMENT_TYPE& type)
+Text::Text(const std::string& text, const std::string& fontName, const TEXT_RECT& rect, int renderTargetNum, const DWRITE_FONT_WEIGHT& wight, const DWRITE_FONT_STYLE& style, const DWRITE_FONT_STRETCH& stretch, const ALIGNMENT_TYPE& type)
 {
 	if (renderTargetNum < D2D::GetRenderTargetCount() && renderTargetNum >= 0)
 		renderTargetNum_ = renderTargetNum;
@@ -74,7 +74,7 @@ Text::Text(const std::string& text, const std::string& fontName, const TEXT_RECT
 	{
 		MessageBox(nullptr, L"テキストレイアウトの作成に失敗:Text.cpp", L"OK", MB_OK);
 	}
-	SetAlinmentType(type);
+	SetAlignmentType(type);
 	defaultPos_ = { CameraManager::GetCamera(renderTargetNum_).GetViewPort().TopLeftX,CameraManager::GetCamera(renderTargetNum_).GetViewPort().TopLeftY };
 	transform2D.x = defaultPos_.x + transform2D.x;
 	transform2D.y = transform2D.y + defaultPos_.y;
@@ -96,7 +96,7 @@ void Text::Release()
 	//SAFE_RELEASE(pColorBrush_);
 }
 
-int Text::Load(const std::string& text, const std::string& fontName, const TEXT_RECT& rect, const ALINMENT_TYPE& type)
+int Text::Load(const std::string& text, const std::string& fontName, const TEXT_RECT& rect, const ALIGNMENT_TYPE& type)
 {
 	//フォント名用の配列用意
 	size_t ret;
@@ -130,7 +130,7 @@ int Text::Load(const std::string& text, const std::string& fontName, const TEXT_
 	//pWriteFactory_->CreateTextFormat(pFontName_, NULL, DWRITE_FONT_WEIGHT_REGULAR, DWRITE_FONT_STYLE_NORMAL, DWRITE_FONT_STRETCH_NORMAL,72.0f, L"ja-jp", &pTextFormat_);
 	//アライメント設定
 	HRESULT hr;
-	SetAlinmentType(type);
+	SetAlignmentType(type);
 	//描画のためのブラシ作成
 	hr=D2D::GetRenderTarget()->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White), &pColorBrush_);
 	if (FAILED(hr))
@@ -189,7 +189,7 @@ void Text::Initialize()
 	//テキストレイアウト作成
 	hr = D2D::GetDWriteFactory()->CreateTextLayout(pText_.c_str(), (UINT32)textLength_, pTextFormat_, (layoutRect_.right - layoutRect_.left), (layoutRect_.bottom - layoutRect_.top), &pLayout_);
 	assert(FAILED(hr) == false);
-	SetAlinmentType(LEFT_TOP);
+	SetAlignmentType(LEFT_TOP);
 
 	defaultPos_ = { CameraManager::GetCamera(renderTargetNum_).GetViewPort().TopLeftX,CameraManager::GetCamera(renderTargetNum_).GetViewPort().TopLeftY };
 	transform2D.x = defaultPos_.x + transform2D.x;
@@ -399,7 +399,7 @@ void Text::SetRect(const TEXT_RECT& rect)
 {	
 	layoutRect_ = rect;
 }
-void Text::SetAlinmentType(const ALINMENT_TYPE& type)
+void Text::SetAlignmentType(const ALIGNMENT_TYPE& type)
 {
 
 	switch (type)

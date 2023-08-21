@@ -12,7 +12,8 @@ Player_ChickenRace::Player_ChickenRace(Object* parent)
 void Player_ChickenRace::Initialize()
 {
 	Text text("", "ninepin", { 0,0,500, 50 });
-	text.SetRatio(0.18f + Playerid_ * 0.49f, 0.61f);
+	text.SetAlignmentType(ALIGNMENT_TYPE::RIGHT_TOP);
+	text.SetRatio(0.08f + Playerid_ * 0.48f, 0.57f);
 	AddComponent<Text>(text);
 
 	//コンポーネントを回収し、加工可能にする

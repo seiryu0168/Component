@@ -65,16 +65,20 @@ void CommandMemory::Initialize()
 	itr_ = cmList_.begin();
 
 	Text text;
-	text.SetText(std::format("プレイヤー{:d}の番", NowPlayer_ + 1));
-	text.SetRatio(0.25f,0);
+	text.SetAlignmentType(ALIGNMENT_TYPE::CENTER_TOP);
+	text.SetRect({ 0,0,1100,200 });
+	text.SetText(std::format("プレイヤー{:d}のターンです", NowPlayer_ + 1));
+	text.SetRatio(0.2f,0);
 	AddComponent<Text>(text);
 
 	text_ = &GetComponent<Text>(0);
 	ImageLoad();
 
 	Text t;
+	t.SetAlignmentType(ALIGNMENT_TYPE::CENTER_TOP);
+	t.SetRect({ 0,0,1100,200 });
 	t.SetText(Choices);
-	t.SetRatio(0.25f, 0.25f);
+	t.SetRatio(0.2f, 0.25f);
 	AddComponent<Text>(t);
 	RemainingText_ = &GetComponent<Text>(1);
 }
@@ -130,7 +134,7 @@ void CommandMemory::sendCommand(int Button, int Playerid)
 			if (++NowPlayer_ >= Players_)
 				NowPlayer_ = (Players_ - 2);
 
-			text_->SetText(std::format("プレイヤー{:d}の番", NowPlayer_ + 1));
+			text_->SetText(std::format("プレイヤー{:d}のターンです", NowPlayer_ + 1));
 			RemainingText_->SetText(std::format("あと{:d}コマンド", cmList_.size()));
 		}
 		else

@@ -32,8 +32,10 @@ void ChickenRace::Initialize()
 	}
 
 	Text text;
+	text.SetAlignmentType(ALIGNMENT_TYPE::CENTER_TOP);
+	text.SetRect({ 0,0,1100,200 });
+	text.SetRatio(0.2f,0);
 	text.SetText(std::format("{:d}•bƒMƒŠƒMƒŠ‚ÅŽ~‚ß‚ë!", TargetTime));
-	text.SetRatio(0.3f,0);
 	AddComponent<Text>(text);
 
 	text_ = &GetComponent<Text>();

@@ -19,7 +19,7 @@ void Title::Initialize()
 	AddComponent<Image>(image);
 	
 	Text messageText("ƒ{ƒ^ƒ“‚ð‰Ÿ‚µ‚Ä‚­‚¾‚³‚¢\nPush Any Button", "‚è‚¢‚Ä‚ª‚«•M", {0,0,1100,200});
-	messageText.SetAlinmentType(ALINMENT_TYPE::CENTER_TOP);
+	messageText.SetAlignmentType(ALIGNMENT_TYPE::CENTER_TOP);
 	messageText.SetRatio(0.23f, 0.72f);
 	messageText.SetTextSize(100);
 	AddComponent<Text>(messageText);

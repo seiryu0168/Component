@@ -25,13 +25,13 @@ void Result_Multi::Initialize()
 
 	Text t;
 	t.SetText("‚à‚¤ˆê“x");
-	t.SetRatio(0.7f, 0.7f);
+	t.SetRatio(0.75f, 0.65f);
 	t.SetTextSize(48);
 	AddComponent<Text>(t);
 
 	Text text_;
 	text_.SetText("ƒƒjƒ…[‚Ö");
-	text_.SetRatio(0.7f, 0.85f);
+	text_.SetRatio(0.75f, 0.78f);
 	text_.SetTextSize(48);
 	AddComponent<Text>(text_);
 
