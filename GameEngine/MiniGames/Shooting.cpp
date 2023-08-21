@@ -12,8 +12,8 @@ namespace
 {
 	const float COUNT = 30.0f;
 	const float STAYCOUNT = 4.0f;
-	const XMFLOAT2 COUNTPOS = { 1500,0 };
-	const XMFLOAT2 STAYPOS = { 768,305 };
+	const XMFLOAT2 COUNTPOS = { 800,0 };
+	const XMFLOAT2 STAYPOS = {800,400 };
 	const float STAYSIZE = 500.0f;
 	const float COUNTSIZE = 72.0f;
 	const XMVECTOR STAYPLAYERPOS = XMVectorSet(0, 50, -100, 0);
