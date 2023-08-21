@@ -9,6 +9,7 @@ enum class SCENE_ID
 	TITLE = 0,
 	MENU,
 	PLAY,
+	RESULT,
 	//MAX,
 };
 

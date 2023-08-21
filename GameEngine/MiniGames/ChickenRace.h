@@ -11,7 +11,6 @@ private:
 	Text* text_;
 
 	void Finish();
-	void Failed(GameObject* obj);
 public:
 	ChickenRace(Object* parent);
 	~ChickenRace() {}

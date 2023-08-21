@@ -11,46 +11,42 @@ Player_ChickenRace::Player_ChickenRace(Object* parent)
 
 void Player_ChickenRace::Initialize()
 {
-	Text text;
+	Text text("", "ninepin", { 0,0,500, 50 });
+	text.SetRatio(0.18f + Playerid_ * 0.49f, 0.61f);
 	AddComponent<Text>(text);
 
 	//コンポーネントを回収し、加工可能にする
 	text_ = &GetComponent<Text>();
-
-	//目標時間を取得
-	ChickenRace* c = (ChickenRace*)GetParent();
-	TargetTime_ = c->GetTarget();
 }
 
 void Player_ChickenRace::Update()
 {
-	float f = watch_.GetSeconds<float>();
-
-	//余計な桁を表示しない
-	text_->SetText(std::format("{:g}", f));
-
-	if (Input::GetPadOnlyDown(Playerid_) && !CallFin_)
+	if (!CallFin_)
 	{
-		if (watch_.IsLock())
+		float f = watch_.GetSeconds<float>();
+
+		//余計な桁を表示しない
+		text_->SetText(std::format("{:g}", f));
+
+		if (Input::GetPadOnlyDown(Playerid_))
 		{
-			watch_.UnLock();
-			CreateParticle();
+			if (watch_.IsLock())
+			{
+				watch_.UnLock();
+				CreateParticle();
+			}
+			else
+			{
+				Finish();
+				return;
+			}
 		}
-		else
+
+		//1秒かけて時間を見えなくする
+		if (f >= 2)
 		{
-			Finish();
+			text_->SetColor({ 1,1,1, std::lerp(1.0f, 0.0f, f - 2) });
 		}
-	}
-
-	//1秒かけて時間を見えなくする
-	if (f >= 2)
-	{
-		text_->SetColor({ 1,1,1, std::lerp(1.0f, 0.0f, f - 2)});
-	}
-
-	if (!CallFin_ && f > TargetTime_)
-	{
-		Finish();
 	}
 }
 
@@ -90,6 +86,8 @@ void Player_ChickenRace::CreateParticle()
 void Player_ChickenRace::Finish()
 {
 	watch_.Lock();
+	text_->SetColor({ 1,1,1,1 });
+	text_->SetText(std::format("{:g}", watch_.GetSeconds<float>()));
 	ChickenRace* c = (ChickenRace*)GetParent();
 	c->SendTime(this, watch_.GetSeconds<float>());
 	RemoveComponent<Particle>();

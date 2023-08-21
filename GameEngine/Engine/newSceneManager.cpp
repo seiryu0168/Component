@@ -1,6 +1,7 @@
 #include"../Scenes/Scene_Title.h"
 #include"../Scenes/Scene_Menu.h"
 #include"../Scenes/Scene_Play.h"
+#include"../Scenes/Scene_Result.h"
 
 #include"ResourceManager/ModelManager_ECSver.h"
 #include"ResourceManager/ImageManager_ECSver.h"
@@ -20,9 +21,6 @@
 
 #include"Coordinator.h"
 #include "newSceneManager.h"
-
-#include "Debug.h"
-#include "../ImGui/imgui.h"
 
 //変数
 namespace
@@ -78,6 +76,7 @@ namespace newSceneManager
 			ModelManager_ECSver::Release();
 			ImageManager_ECSver::Release();
 			TextureManager::Release();
+			//D2D::
 
 			CameraManager::ResetCamera();
 			currentScene_ = sceneList_[nextSceneName_];
@@ -97,22 +96,6 @@ namespace newSceneManager
 		if(changeCount_!=0)
 		changeCount_--;
 		changeCount_ = max(0, changeCount_);
-
-#if _DEBUG
-		ImGui::Begin("Images");
-		//ゲームタイムが停止しているときのみデバッグモード使用可能
-		if (!Debug::CallDebug_ && ImGui::Button("DebugMode"))
-		{
-			Debug::CallDebug_ = true;
-		}
-		else if (Debug::CallDebug_ && ImGui::Button("EndDebug"))
-		{
-			Debug::CallDebug_ = false;
-		}
-		ImGui::End();
-		Debug::BranchMode();
-#endif
-
 	}
 
 	void Draw()
@@ -221,5 +204,6 @@ namespace newSceneManager
 		sceneList_.insert({ SCENE_ID::TITLE, std::make_unique<Scene_Title>("Title") });
 		sceneList_.insert({ SCENE_ID::MENU, std::make_unique<Scene_Menu>("Menu") });
 		sceneList_.insert({ SCENE_ID::PLAY, std::make_unique<Scene_Play>("Play") });
+		sceneList_.insert({ SCENE_ID::RESULT, std::make_unique<Scene_Result>("Result") });
 	}
 }

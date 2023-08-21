@@ -3,7 +3,7 @@
 //#include"Engine\Collider/SphereCollider.h"
 //#include"Engine\Collider/OBBCollider.h"
 #include"../Coordinator.h"
-//#include"../Component.h"
+#include"../Components/Transform.h"
 #include<string>
 #include<list>
 
@@ -29,11 +29,8 @@ private:
 	float time_;
 protected:
 
-	std::list<std::shared_ptr<Object>> childList_;
-	//std::list<Component*> componentList_;
-	//std::list<Collider*> colliderList_; //コライダーリスト	
+	std::list<std::shared_ptr<Object>> childList_;	
 	std::unordered_map<std::string, std::vector<Entity>> entityList_;
-	//std::vector<Entity> entityList_;
 	Object* pParent_;
 	Object* pScene_;
 	std::string	objectName_;			//名前
@@ -44,7 +41,7 @@ protected:
 	bool isUpdate_;
 	bool drawFlag_;						//描画するかどうか
 	bool startFlag_;					//一回もアクティブになってない場合false
-	PhysicsSystem* physicsSystem_;
+	Transform* transform_;
 public:
 	Object(Object* parent,const std::string& name);
 	Object(Object* parent = nullptr);
@@ -61,7 +58,6 @@ public:
 	virtual void Release() = 0;
 
 	void UpdateSub();
-	void ComponentUpdate();
 	void FixedUpdateSub();
 	void DrawSub();
 	void SecondDrawSub();
@@ -69,10 +65,6 @@ public:
 	void ReleaseSub();
 
 	virtual void OnCollision(Object* pTarget) {};
-	//void Collision(Object* pTarget);
-	//void AddCollider(Collider* collider);
-	//void DelCollider(const Object& obj);
-
 
 	void KillMe();
 	bool IsDead() { return killFlag_; }
@@ -81,6 +73,7 @@ public:
 	bool IsStart() const { return startFlag_; }
 	bool IsUpdate() const { return isUpdate_; }
 	std::string GetObjectName() const { return objectName_; }
+	std::string GetTag()const { return objectTag_; }
 	Object* GetParent() const;
 	Object* GetRootObject();
 	Object* FindObject(const std::string& name);
@@ -91,16 +84,13 @@ public:
 
 	Object* GetScene();
 	std::list<std::shared_ptr<Object>>* GetChildList() { return &childList_; }
-
+	Transform* GetTransform() const;
 	void KillAllChildren();
 	void KillObjectSub(Object* pTarget);
 	void PushBackChild(const std::shared_ptr<Object>& pTarget);
 
-	virtual void ShowGraphical() {}							//ImGui表示
-	virtual void DebugMode() {}								//デバッグモードで操作すること
-
 	template <typename T>
-	void AddComponent(const T& component)
+	size_t AddComponent(const T& component)
 	{
 		std::string typeName = typeid(T).name();
 			Entity entity = Coordinator::CreateEntity();
@@ -116,6 +106,7 @@ public:
 				entityList_.find(typeName)->second.push_back(entity);
 
 			Coordinator::AddComponent<T>(entity,component);
+			return entityList_.find(typeName)->second.size()-1;
 	}
 
 	template <typename T>

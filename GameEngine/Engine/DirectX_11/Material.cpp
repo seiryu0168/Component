@@ -6,6 +6,7 @@ Material::Material()
 	diffuse_({0,0,0,0}),
 	ambient_({0,0,0,0}),
 	speculer_({0,0,0,0}),
+	customColor_({1,1,1,1}),
 	shininess_(0)
 {
 }
@@ -48,6 +49,11 @@ void Material::SetAmbient(const XMFLOAT4& amb)
 void Material::SetSpeculer(const XMFLOAT4& spec)
 {
 	speculer_ = spec;
+}
+
+void Material::SetCustomColor(const XMFLOAT4& color)
+{
+	customColor_ = color;
 }
 
 void Material::SetShininess(float shin)

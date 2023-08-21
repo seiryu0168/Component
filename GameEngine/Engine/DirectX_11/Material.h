@@ -12,6 +12,7 @@ private:
 	XMFLOAT4 diffuse_;	  //ディフューズ(マテリアルの色)
 	XMFLOAT4 ambient_;	  //アンビエント
 	XMFLOAT4 speculer_;    //スペキュラー(ツルツルを表現する奴)
+	XMFLOAT4 customColor_;//プログラム側で変える色
 	float shininess_;	  //ハイライトの強さ
 
 public:
@@ -24,6 +25,7 @@ public:
 	void SetDiffuse(const XMFLOAT4& diff);
 	void SetAmbient(const XMFLOAT4& amb);
 	void SetSpeculer(const XMFLOAT4& spec);
+	void SetCustomColor(const XMFLOAT4& color);
 	void SetShininess(float shin);
 
 	//////////////////ゲッター/////////////////////
@@ -32,6 +34,7 @@ public:
 	const XMFLOAT4& GetDiffuse() const { return diffuse_; }
 	const XMFLOAT4& GetAmbient() const { return ambient_; }
 	const XMFLOAT4& GetSpeculer() const { return speculer_; }
+	const XMFLOAT4& GetCustomColor() const { return customColor_; }
 	const float& GetShininess() const { return shininess_; }
 };
 

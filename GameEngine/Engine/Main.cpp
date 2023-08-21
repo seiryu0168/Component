@@ -38,8 +38,10 @@ LPCWSTR WIN_CLASS_NAME = L"SampleGame";
 LPCWSTR WIN_TITLE_NAME = L"サンプルゲーム";
 
 
-const int WINDOW_WIDTH = 1920;   //ウィンドウ幅
-const int WINDOW_HEIGHT = 1080;	 //ウィンドウ高さ
+int WINDOW_WIDTH = 1920;   //ウィンドウ幅
+int WINDOW_HEIGHT = 1080;	 //ウィンドウ高さ
+//const int WINDOW_WIDTH = 1280;   //ウィンドウ幅
+//const int WINDOW_HEIGHT = 720;	 //ウィンドウ高さ
 int pxelUnit;
 //プロトタイプ宣言
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
@@ -65,28 +67,29 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	wc.cbClsExtra = 0;
 	wc.cbWndExtra = 0;
 	wc.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH); //背景（白）
+	
 	RegisterClassEx(&wc);  //クラスを登録
 
 	//ウィンドウサイズの計算
 	RECT winRect = { 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT };
 	AdjustWindowRect(&winRect, WS_OVERLAPPEDWINDOW, FALSE);
-	int winW = winRect.right - winRect.left;     //ウィンドウ幅
-	int winH = winRect.bottom - winRect.top;     //ウィンドウ高さ
-	//ウィンドウ作成
+	WINDOW_WIDTH = winRect.right - winRect.left;     //ウィンドウ幅
+	WINDOW_HEIGHT = winRect.bottom - winRect.top;     //ウィンドウ高さ
+	
+	//ダミーのウィンドウ作成
 	HWND hWnd = CreateWindow(
 		WIN_CLASS_NAME,         //ウィンドウクラス名
 		WIN_TITLE_NAME,     //タイトルバーに表示する内容
-		WS_OVERLAPPEDWINDOW, //スタイル（普通のウィンドウ）
+		WS_OVERLAPPED | WS_MAXIMIZE| WS_MINIMIZEBOX | WS_MAXIMIZEBOX |  WS_SYSMENU | WS_VISIBLE, //スタイル
 		CW_USEDEFAULT,       //表示位置左（おまかせ）
 		CW_USEDEFAULT,       //表示位置上（おまかせ）
-		winW,                 //ウィンドウ幅
-		winH,                 //ウィンドウ高さ
+		WINDOW_WIDTH,                 //ウィンドウ幅
+		WINDOW_HEIGHT,                 //ウィンドウ高さ
 		NULL,                //親ウインドウ（なし）
 		NULL,                //メニュー（なし）
 		hInstance,           //インスタンス
 		NULL                 //パラメータ（なし）
 	);
-
 
 	//ウィンドウ表示
 	ShowWindow(hWnd, nCmdShow);
@@ -179,6 +182,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 				CameraManager::Update();
 				for (int i = 0; i < CameraManager::GetCameraCount(); i++)
 				{
+					CameraManager::UpdateCameraNum(i);
 					Direct3D::SetViewPort(CameraManager::GetCamera(i).GetViewPort());
 
 				
@@ -230,10 +234,41 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
 	switch (msg)
 	{
-
 	case WM_MOUSEMOVE:
 		Input::SetMousePosition(LOWORD(lParam), HIWORD(lParam));
 		return 0;
+
+	case WM_CREATE:
+	{
+		RECT r;
+		GetWindowRect(hWnd, &r);
+		WINDOW_WIDTH = r.right + r.left;
+		WINDOW_HEIGHT = r.bottom + r.top;
+		RECT winRect = { 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT };
+		AdjustWindowRect(&winRect, WS_OVERLAPPEDWINDOW, FALSE);
+		SetWindowPos(hWnd, HWND_TOP, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, SWP_SHOWWINDOW);
+		WINDOW_WIDTH = winRect.right + winRect.left;     //ウィンドウ幅
+		WINDOW_HEIGHT = winRect.bottom + winRect.top;     //ウィンドウ高さ
+		ShowWindow(hWnd, SW_SHOW);
+		
+	}
+		return 0;
+
+	case WM_SIZE:
+	{
+		RECT r;
+		GetWindowRect(hWnd, &r);
+		WINDOW_WIDTH = r.right + r.left;
+		WINDOW_HEIGHT = r.bottom + r.top;
+		RECT winRect = { 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT };
+		AdjustWindowRect(&winRect, WS_OVERLAPPEDWINDOW, FALSE);
+		WINDOW_WIDTH = winRect.right + winRect.left;     //ウィンドウ幅
+		WINDOW_HEIGHT = winRect.bottom + winRect.top;     //ウィンドウ高さ
+		Direct3D::SetScreenWidth(WINDOW_WIDTH);
+		Direct3D::SetScreenHeight(WINDOW_HEIGHT);
+	}
+	return 0;
+
 	case WM_DESTROY:
 		PostQuitMessage(0);  //プログラム終了
 		return 0;

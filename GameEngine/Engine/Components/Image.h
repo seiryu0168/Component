@@ -12,16 +12,19 @@ private:
 	int drawTargetNumber_;
 	Transform transform_;
 public:
-	Image();
+	Image(int cameraNum = -1);
 	~Image();
 	//画像ロード
-	bool Load(const std::string& name);
+	bool Load(const std::string& name, const std::string& tab = "");
 	//座標設定
 	void SetPosition(const XMFLOAT3& pos);
 	//座標設定(ピクセル単位)
 	void SetPositionAtPixel(XMFLOAT3 pos);
 	//透明度設定
 	void SetAlpha(float alpha);
+	//色設定
+	void SetColor(const float color) noexcept;
+	void SetColor(const XMFLOAT3& color) noexcept;
 	//画像サイズ設定
 	void SetSize(const XMFLOAT3& size);
 	//画像回転

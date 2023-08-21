@@ -93,3 +93,17 @@ XMFLOAT3 Math::PixelToTransform(const XMINT3& pixel)
 {
 	return PixelToTransform(XMFLOAT3{ (float)pixel.x, (float)pixel.y, (float)pixel.z });
 }
+
+float Math::Wavelet(float Incli, float Coord)
+{
+	//-1‚©‚ç1‚Éû‚ß‚é
+	Coord = std::clamp(Coord, -1.0f, 1.0f);
+
+	//ˆêŸŠÖ”y = ax
+	float y = Incli * Coord;
+	//ŒÜŸŠÖ”C(t) = 1 - (6(|t|^5) -15(t^4) + 10(|t|^3))
+	float C = 1 - (6 * fabsf(powf(Coord, 5))) - 15 * (powf(Coord, 4)) + (10 * fabsf(powf(Coord, 3)));
+
+	//“ñ‚Â‚ÌŠÖ”‚ğŠ|‚¯‚½’l‚ª“š‚¦
+	return y * C;
+}

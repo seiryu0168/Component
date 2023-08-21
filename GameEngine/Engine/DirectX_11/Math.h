@@ -43,6 +43,12 @@ namespace Math
 	//画像のピクセルをTransformに変換
 	XMFLOAT3 PixelToTransform(const XMFLOAT3& pixel);
 	XMFLOAT3 PixelToTransform(const XMINT3& pixel);
+
+	/// <summary>ウェーブレット関数を生成して指定した位置の値を返す関数</summary>
+	/// <param name="Incli">傾き</param>
+	/// <param name="Coord">取得したい値の座標</param>
+	/// <returns>指定した値の座標</returns>
+	float Wavelet(float Incli, float Coord);
 }
 
 template <typename T>

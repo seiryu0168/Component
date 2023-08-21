@@ -1,8 +1,9 @@
 #include "Text.h"
 #include<locale.h>
 #include<filesystem>
+#include"../GameObject/CameraManager.h"
 
-Text::Text()
+Text::Text(const int& renderTargetNum)
 {
 	textLength_	   = 0;
 	transform2D = { 0,0 };
@@ -13,8 +14,70 @@ Text::Text()
 	//pWriteFactory_ = nullptr;
 	pTextFormat_   = nullptr;
 	pLayout_	   = nullptr;
+		if (renderTargetNum<D2D::GetRenderTargetCount() &&renderTargetNum>=0)
+			renderTargetNum_ = renderTargetNum;
+		else
+			renderTargetNum_ = 0;
 	Initialize();
 
+}
+Text::Text(const std::string& text, const std::string& fontName, const TEXT_RECT& rect, int renderTargetNum, const DWRITE_FONT_WEIGHT& wight, const DWRITE_FONT_STYLE& style, const DWRITE_FONT_STRETCH& stretch, const ALINMENT_TYPE& type)
+{
+	if (renderTargetNum < D2D::GetRenderTargetCount() && renderTargetNum >= 0)
+		renderTargetNum_ = renderTargetNum;
+	else
+		renderTargetNum_ = 0;
+	//フォント名用の配列用意
+	size_t ret;
+	FontData data;
+	std::filesystem::path txt = text;
+	pText_ = txt.wstring();
+	std::filesystem::path font = fontName;
+	pFontName_ = font.wstring();
+	//int a = mbstowcs_s(&ret, (wchar_t*)data.fontName_.c_str(), fontName.length() + 1, fontName.c_str(), fontName.length());
+	size_t textSize;
+
+	//描画するテキスト用の配列を用意する
+	textLength_ = pText_.length();// +1;
+
+	//現在のロケール取得
+	std::string locale = setlocale(LC_CTYPE, NULL);
+	data.fontName_ = pFontName_;
+	data.locale_ = (wchar_t*)L"en-us";
+	data.pCollection_ = D2D::GetCollection();
+	data.fontWaight_ = DWRITE_FONT_WEIGHT_NORMAL;
+	data.fontStyle_ = DWRITE_FONT_STYLE_NORMAL;
+	data.fontStretch_ = DWRITE_FONT_STRETCH_NORMAL;
+	//ロケールを日本語に変更
+	setlocale(LC_CTYPE, "ja-jp");
+	//描画するテキストをstringからwstringに変換
+	//mbstowcs_s(&textSize, (wchar_t*)pText_.c_str(), textLength_, text.c_str(), text.length());
+	//ロケールを元に戻す
+	setlocale(LC_CTYPE, locale.c_str());
+	//変換した文字数
+	//textLength_ = textSize;
+	HRESULT hr;
+	hr=SetFont(data);
+	//アライメント設定
+	//描画のためのブラシ作成
+	hr = D2D::GetRenderTarget(renderTargetNum_)->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White), &pColorBrush_);
+	if (FAILED(hr))
+	{
+		MessageBox(nullptr, L"カラーブラシの作成に失敗:Text.cpp", L"OK", MB_OK);
+	}
+	//テキスト表示の領域設定
+	layoutRect_ = rect;
+
+	//テキストレイアウト作成
+	hr = D2D::GetDWriteFactory()->CreateTextLayout(pText_.c_str(), (UINT32)textLength_, pTextFormat_, (layoutRect_.right - layoutRect_.left), (layoutRect_.bottom - layoutRect_.top), &pLayout_);
+	if (FAILED(hr))
+	{
+		MessageBox(nullptr, L"テキストレイアウトの作成に失敗:Text.cpp", L"OK", MB_OK);
+	}
+	SetAlinmentType(type);
+	defaultPos_ = { CameraManager::GetCamera(renderTargetNum_).GetViewPort().TopLeftX,CameraManager::GetCamera(renderTargetNum_).GetViewPort().TopLeftY };
+	transform2D.x = defaultPos_.x + transform2D.x;
+	transform2D.y = transform2D.y + defaultPos_.y;
 }
 Text::~Text()
 {
@@ -45,7 +108,7 @@ int Text::Load(const std::string& text, const std::string& fontName, const TEXT_
 	textLength_ = text.length()+1;
 
 	//現在のロケール取得
-	std::string locale= setlocale(LC_CTYPE, NULL);
+	std::string locale = setlocale(LC_CTYPE, NULL);
 	
 	data.locale_ = (wchar_t*)L"en-us";
 	//ロケールを日本語に変更
@@ -83,7 +146,7 @@ int Text::Load(const std::string& text, const std::string& fontName, const TEXT_
 	{
 		return hr;
 	}
-
+	SetPosition({ 0, 0 });
 	return 0;
 }
 
@@ -95,6 +158,7 @@ void Text::Initialize()
 	std::wstring fontName= L"Arial";
 	std::wstring&& text = L"sumple";
 	//size_t textSize;
+	pFontName_ = fontName;
 	data.fontName_ = fontName;
 	data.pCollection_ = D2D::GetCollection();
 
@@ -110,18 +174,14 @@ void Text::Initialize()
 	data.fontWaight_ = DWRITE_FONT_WEIGHT_NORMAL;
 	data.fontStyle_ = DWRITE_FONT_STYLE_NORMAL;
 	data.fontStretch_=DWRITE_FONT_STRETCH_NORMAL;
-
-	//HRESULT hr = DWriteCreateFactory(DWRITE_FACTORY_TYPE_SHARED, __uuidof(IDWriteFactory), reinterpret_cast<IUnknown**>(&pWriteFactory_));
-	//assert(FAILED(hr) == false);
 	
 	HRESULT hr;
 	//テキストフォーマットにフォントを設定
 	hr = SetFont(data);
 	assert(FAILED(hr) == false);
 	//アライメント設定
-	SetAlinmentType(LEFT_TOP);
 	//描画のためのブラシ作成
-	hr = D2D::GetRenderTarget()->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White), &pColorBrush_);
+	hr = D2D::GetRenderTarget(renderTargetNum_)->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::White), &pColorBrush_);
 	assert(FAILED(hr) == false);
 	//テキスト表示の領域設定
 	layoutRect_ = {0,0,500,100};
@@ -129,6 +189,11 @@ void Text::Initialize()
 	//テキストレイアウト作成
 	hr = D2D::GetDWriteFactory()->CreateTextLayout(pText_.c_str(), (UINT32)textLength_, pTextFormat_, (layoutRect_.right - layoutRect_.left), (layoutRect_.bottom - layoutRect_.top), &pLayout_);
 	assert(FAILED(hr) == false);
+	SetAlinmentType(LEFT_TOP);
+
+	defaultPos_ = { CameraManager::GetCamera(renderTargetNum_).GetViewPort().TopLeftX,CameraManager::GetCamera(renderTargetNum_).GetViewPort().TopLeftY };
+	transform2D.x = defaultPos_.x + transform2D.x;
+	transform2D.y =  transform2D.y+ defaultPos_.y;
 }
 
 void Text::Draw()
@@ -151,14 +216,22 @@ void Text::SetColor(const XMFLOAT4& color)
 }
 void Text::SetRatio(float ratioX, float ratioY)
 {
-	transform2D.x = Direct3D::GetScreenWidth() * ratioX;
-	transform2D.y = Direct3D::GetScreenHeight() * ratioY;
+	//画面の割合に応じて移動させ、defaultos_で
+	transform2D.x = (CameraManager::GetCamera(renderTargetNum_).GetViewPort().Width * ratioX) + ( float)defaultPos_.x;
+	transform2D.y = (CameraManager::GetCamera(renderTargetNum_).GetViewPort().Height * ratioY)+(float)defaultPos_.y;
 }
 
 void Text::SetPosition(const XMFLOAT2& position)
 {
-	transform2D.x = 0.5f*position.x+0.5f*Direct3D::GetScreenWidth();
-	transform2D.y = -(0.5f * position.y)+ 0.5f * Direct3D::GetScreenHeight();
+	XMFLOAT2 WH = { CameraManager::GetCamera(renderTargetNum_).GetViewPort().Width ,
+					CameraManager::GetCamera(renderTargetNum_).GetViewPort().Height };
+	XMFLOAT2 pos = { (position.x / WH.x),
+	(position.y / WH.y) };
+	transform2D.x = (WH.x*pos.x)+defaultPos_.x;
+	transform2D.y = (WH.y*pos.y)+defaultPos_.y;
+
+	//transform2D.x = (0.5f * position.x) + defaultPos_.x;
+	//transform2D.y = (-(0.5f * position.y)) + defaultPos_.y;
 }
 
 void Text::SetTextLayout()
@@ -219,29 +292,42 @@ HRESULT Text::SetTextSize(float size, UINT32 startPos, UINT32 length)
 HRESULT Text::SetTextSize(float size)
 {
 	HRESULT hr;
-	UINT32 fontNameSize = pTextFormat_->GetFontFamilyNameLength() * 2;
-	UINT32 localeSize = pTextFormat_->GetLocaleNameLength() * 2;
+	//UINT32 localeSize = pTextFormat_->GetLocaleNameLength() * 2;
 
 	//フォントデータ作成
 	FontData data;
 
 	data.fontSize_ = size;
 	
-	hr = pTextFormat_->GetFontFamilyName((WCHAR*)data.fontName_.c_str(), fontNameSize);
+	hr = pTextFormat_->GetFontFamilyName((WCHAR*)data.fontName_.c_str(), pTextFormat_->GetFontFamilyNameLength()+1);
 	if (FAILED(hr))
 		return hr;
 
-	hr = pTextFormat_->GetLocaleName((WCHAR*)data.locale_.c_str(), localeSize);
+	hr = pTextFormat_->GetLocaleName((WCHAR*)data.locale_.c_str(), pTextFormat_->GetLocaleNameLength()+1);
 	if (FAILED(hr))
 		return hr;
+	hr = pTextFormat_->GetFontCollection(&data.pCollection_);
+	if (FAILED(hr))
+		return hr;
+	DWRITE_TEXT_ALIGNMENT textAlignment = pTextFormat_->GetTextAlignment();
+	DWRITE_PARAGRAPH_ALIGNMENT paraAlignment = pTextFormat_->GetParagraphAlignment();
+	data.fontStretch_ = pTextFormat_->GetFontStretch();
+	data.fontStyle_ = pTextFormat_->GetFontStyle();
+	data.fontWaight_ = pTextFormat_->GetFontWeight();
+	
 	//書式設定
 	SAFE_RELEASE(pTextFormat_);
-	hr = D2D::GetDWriteFactory()->CreateTextFormat((WCHAR*)data.fontName_.c_str(), data.pCollection_, data.fontWaight_, data.fontStyle_, data.fontStretch_, data.fontSize_, data.locale_.c_str(), &pTextFormat_);
+	hr = D2D::GetDWriteFactory()->CreateTextFormat(data.fontName_.c_str(), data.pCollection_, data.fontWaight_, data.fontStyle_, data.fontStretch_, data.fontSize_, data.locale_.c_str(), &pTextFormat_);
 	if (FAILED(hr))
 		return hr;
 	SAFE_RELEASE(pLayout_);
 	hr = D2D::GetDWriteFactory()->CreateTextLayout(pText_.c_str(), (UINT32)textLength_, pTextFormat_, (layoutRect_.right - layoutRect_.left), (layoutRect_.bottom - layoutRect_.top), &pLayout_);
+	if (FAILED(hr))
 		return hr;
+		
+		pLayout_->SetTextAlignment(textAlignment);
+		pLayout_->SetParagraphAlignment(paraAlignment);
+	return hr;
 }
 
 HRESULT Text::SetFontCollection(IDWriteFontCollection* collection, UINT32 startPos, UINT32 length)
@@ -255,6 +341,7 @@ HRESULT Text::SetFontCollection(IDWriteFontCollection* collection, UINT32 startP
 
 HRESULT Text::SetFont(const FontData& data)
 {
+	
 	FontData fData;
 	fData.fontName_ = data.fontName_;
 	fData.pCollection_ = data.pCollection_;
@@ -264,11 +351,12 @@ HRESULT Text::SetFont(const FontData& data)
 	fData.fontStretch_ = data.fontStretch_;
 	HRESULT hr= D2D::GetDWriteFactory()->CreateTextFormat(fData.fontName_.c_str(), fData.pCollection_, data.fontWaight_/*DWRITE_FONT_WEIGHT_REGULAR*/, data.fontStyle_/*DWRITE_FONT_STYLE_NORMAL*/, data.fontStretch_/*DWRITE_FONT_STRETCH_NORMAL*/, data.fontSize_, data.locale_.c_str(), &pTextFormat_);
 	assert(hr==S_OK);
+
+	pFontName_ = fData.fontName_;
 	return hr;
 }
 HRESULT Text::SetFont(const std::string& fontName, const UINT32& startPos, const UINT32& length)
 {
-	std::filesystem::path str = fontName;
 	DWRITE_TEXT_RANGE range;
 	range.startPosition = startPos;
 	range.length = length;
@@ -287,7 +375,8 @@ HRESULT Text::SetFont(const std::string& fontName, const UINT32& startPos, const
 			//フォントコレクション設定
 			hr = pLayout_->SetFontCollection(D2D::GetSystemFontCollection(), range);
 			//フォントとその範囲設定
-			hr = pLayout_->SetFontFamilyName(str.wstring().c_str(), range);
+			hr = pLayout_->SetFontFamilyName(name.wstring().c_str(), range);
+			pFontName_ = name.wstring();
 			return hr;
 		}
 		//フォントが見つからない場合なんもしない
@@ -297,7 +386,8 @@ HRESULT Text::SetFont(const std::string& fontName, const UINT32& startPos, const
 	//フォントコレクション設定
 	hr = pLayout_->SetFontCollection(D2D::GetCollection(),range);
 	//フォントとその範囲設定
-	hr = pLayout_->SetFontFamilyName(str.wstring().c_str(), range);
+	hr = pLayout_->SetFontFamilyName(name.wstring().c_str(), range);
+	pFontName_ = name.wstring();
 	return hr;
 }
 void Text::SetTransform(const TEXT_POSITION& pos)
@@ -316,59 +406,79 @@ void Text::SetAlinmentType(const ALINMENT_TYPE& type)
 	{
 	case LEFT_TOP:
 		//原点左上
+		//pLayout_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_LEADING);
+		//pLayout_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_NEAR);
 		pTextFormat_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_LEADING);
 		pTextFormat_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_NEAR);
 		break;
 
 	case LEFT_CENTER:
 		//原点左
+		//pLayout_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_LEADING);
+		//pLayout_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
 		pTextFormat_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_LEADING);
 		pTextFormat_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
 		break;
 	
 	case LEFT_BOTTOM:
 		//原点左下
+		//pLayout_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_LEADING);
+		//pLayout_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_FAR);
 		pTextFormat_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_LEADING);
 		pTextFormat_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_FAR);
 		break;
 
 	case CENTER_TOP:
 		//原点上
+		//pLayout_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER);
+		//pLayout_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_NEAR);
 		pTextFormat_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER);
 		pTextFormat_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_NEAR);
 		break;
 	
 	case CENTER_CENTER:
 		//原点中央
+		//pLayout_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER);
+		//pLayout_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
 		pTextFormat_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER);
 		pTextFormat_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
 		break;
 	
 	case CENTER_BOTTOM:
 		//原点下
+		//pLayout_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER);
+		//pLayout_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_FAR);
 		pTextFormat_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER);
 		pTextFormat_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_FAR);
 		break;
 
 	case RIGHT_TOP:
 		//原点右上
+		//pLayout_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_TRAILING);
+		//pLayout_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_NEAR);
 		pTextFormat_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_TRAILING);
 		pTextFormat_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_NEAR);
 		break;
 	case RIGHT_CENTER:
 		//原点右
+		//pLayout_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_TRAILING);
+		//pLayout_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
 		pTextFormat_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_TRAILING);
 		pTextFormat_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
 		break;
 
 	case RIGHT_BOTTOM:
 		//原点右下
+		//pLayout_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_TRAILING);
+		//pLayout_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_FAR);
 		pTextFormat_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_TRAILING);
 		pTextFormat_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_FAR);
 		break;
 
 	default:
 		//デフォルト
+		//pLayout_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_LEADING);
+		//pLayout_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_NEAR);
 		pTextFormat_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_LEADING);
 		pTextFormat_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_NEAR);
 		break;

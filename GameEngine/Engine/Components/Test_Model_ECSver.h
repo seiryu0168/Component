@@ -10,7 +10,7 @@
 class Test_Model_ECSver// : public Draw3DComponent
 {
 private:
-	int hModel_;
+	bool isDraw_;
 	SHADER_TYPE type_;
 	int animationFrame_;
 	std::shared_ptr<Fbx> fbx_;
@@ -23,10 +23,19 @@ public:
 
 	//モデルのロード
 	bool Load(const std::string& fileName);
+
 	//レイキャスト(未検証)
 	void RayCast(RayCastData& rayData);
+
 	//シェーダータイプ設定
 	void SetShaderType(SHADER_TYPE type) { type_ = type; }
+
+	const XMVECTOR& GetBone(const std::string& boneName);
+	const XMVECTOR& GetBone(const UINT& partsNum,const UINT& num);
+	const UINT& GetBoneCount();
+	const bool& IsDraw() { return isDraw_; }
+	void SetDraw(bool isDraw) { isDraw_ = isDraw; }
+	void SetCustomColor(int partsNum,int materialNum,const XMFLOAT4& color);
 	//アタッチされているオブジェクトを返す
 	GameObject* GetAttachedObject() { return attachObject_; }
 	//描画

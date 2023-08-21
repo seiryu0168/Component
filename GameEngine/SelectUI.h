@@ -1,5 +1,7 @@
 #pragma once
 #include"Engine/GameObject/GameObject.h"
+#include <map>
+
 class SelectUI : public GameObject
 {
 private:
@@ -11,19 +13,34 @@ private:
 	};
 	short moveDir_;
 	SELECT_STATE state_;
-	//XMINT2 buttonLimit_;
 	int buttonCount_;
 	int buttonNum_;
+	unsigned short playCount_;
+
+	int countTextNum_;
 	int moveTime_;
 	int inputInterval_;
+
+	int ArrowFrame_;	//–îˆó‚ğ“®‚©‚·‚½‚ß‚ÌƒtƒŒ[ƒ€”
+	int ArrowId_[2];
 	void Input();
 	void Move();
+	std::vector<int> moveUIList_;
+	std::vector<int> playerCountList_;
 	std::vector<XMFLOAT3> basePosList_;
+	std::map<int, std::vector<int>::iterator> Selection_;
+	void ItrIncrement();
+	void ItrDecrement();
+	void UIPositioning();
+
+	void ArrowLoad();
+	void ArrowMove();
 public:
 	SelectUI(Object* parent);
 	~SelectUI();
 	void Initialize() override;
 	void Update() override;
+	void PlayerCount(const int& padButton);
 	void MoveButton(float ratio);
 	void PushedButton(int buttonNum);
 	void Release() override;

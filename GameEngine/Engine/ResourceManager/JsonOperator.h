@@ -50,7 +50,7 @@ namespace JsonOperator
 	{
 		if (auto itr = data.find(key); itr != data.end())
 		{
-			return GetData(*itr, Spare, std::forward<const std::string>(args)...);
+			return GetData(*itr, Spare, std::forward<Args>(args)...);
 		}
 
 		return Spare;
@@ -71,7 +71,7 @@ namespace JsonOperator
 
 		if (auto itr = GetData(file.stem().string()); itr != false)
 		{
-			return GetData(itr.at(key), Spare, std::forward<const std::string>(args)...);
+			return GetData(itr.at(key), Spare, std::forward<Args>(args)...);
 		}
 
 		return Spare;

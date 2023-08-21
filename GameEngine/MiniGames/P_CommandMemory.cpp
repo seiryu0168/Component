@@ -17,9 +17,16 @@ void P_CommandMemory::Initialize()
 
 void P_CommandMemory::Update()
 {
-	if (WORD button = Input::GetPadOnlyDown(Playerid_); button != NULL)
+	//スタートとバックボタンは対象外にする
+	switch (WORD button = Input::GetPadOnlyDown(Playerid_); button)
 	{
+	case NULL:
+	case XINPUT_GAMEPAD_START:
+	case XINPUT_GAMEPAD_BACK:
+		break;
+	default:
 		memory_->sendCommand(button, Playerid_);
+		break;
 	}
 }
 

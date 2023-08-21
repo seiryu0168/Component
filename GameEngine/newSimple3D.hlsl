@@ -78,7 +78,7 @@ VS_OUT VS(float4 pos : POSITION, float4 uv : TEXCOORD, float4 normal : NORMAL, f
 	tangent = normalize(tangent);
 
 	//接空間におけるライトの向きをライトベクトルと各ベクトルで求める
-	float4 light = float4(0, -1, 0, 0);
+	float4 light = float4(-1, -1, 1, 0);
 	//outData.light.x = dot(light, tangent);
 	//outData.light.y = dot(light, biNormal);
 	//outData.light.z = dot(light, normal);
@@ -134,12 +134,12 @@ float4 PS(VS_OUT inData) : SV_Target
 	if (g_isTexture == true)
 	{
 		//テクスチャから情報取ってくる
-		diffuse = g_texture.Sample(g_sampler, inData.uv);
+		diffuse = g_texture.Sample(g_sampler, inData.uv)* g_customColor;
 	}
 	//使わないなら
 	else
 	{
-		diffuse = g_diffuseColor;
+		diffuse = g_diffuseColor* g_customColor;
 	}
 	
 	//環境光(アンビエント)

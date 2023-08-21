@@ -1,7 +1,6 @@
 #include "Object.h"
 #include"../Systems/PhysicsSystem.h"
 #include"../SAFE_DELETE_RELEASE.h"
-#include "../Debug.h"
 
 int objectcount = 0;
 Object::Object(Object* parent, const std::string& name)
@@ -16,10 +15,14 @@ Object::Object(Object* parent, const std::string& name)
 	objectID_(-1),
 	time_(0),
 	pScene_(nullptr),
-	physicsSystem_(nullptr),
 	childList_()
 {
-	
+	Transform transform;// = new Transform;
+	if (parent != nullptr)
+		transform.pParent_ = &parent->GetComponent<Transform>();
+
+	AddComponent<Transform>(transform);
+	transform_ = &GetComponent<Transform>();
 	//Coordinator::RegisterComponent<Gravity>();
 	//Coordinator::RegisterComponent<TransformData>();
 	//Coordinator::RegisterComponent<RigidBody>();
@@ -37,6 +40,12 @@ Object::Object(Object* parent, const std::string& name)
 
 Object::Object(Object* parent) : Object(parent, "")
 {
+	Transform transform;// = new Transform;
+	if (parent != nullptr)
+		transform.pParent_ = &parent->GetComponent<Transform>();
+
+	AddComponent<Transform>(transform);
+	transform_ = &GetComponent<Transform>();
 }
 
 Object::~Object()
@@ -57,17 +66,10 @@ void Object::UpdateSub()
 		isUpdate_)
 		Update();
 
-#if _DEBUG
-	DebugMode();
-	ShowGraphical();
-
-	//デバッグモードを呼び出していないとき実行
-	if (!Debug::CallDebug_)
-#endif
-		for (auto&& itr : childList_)
-		{
-			itr->UpdateSub();
-		}
+	for (auto&& itr : childList_)
+	{
+		itr->UpdateSub();
+	}
 
 	//for (auto itr = childList_.begin(); itr != childList_.end();)
 	//{
@@ -153,10 +155,9 @@ void Object::ReleaseSub()
 {
 	for (auto itr = childList_.begin();itr != childList_.end();)
 	{
+			(*itr)->ReleaseSub();
 		if ((*itr)->IsDead())
 		{
-			(*itr)->ReleaseSub();
-			//SAFE_DELETE(*itr)
 			itr = childList_.erase(itr);
 		}
 		else
@@ -168,22 +169,6 @@ void Object::ReleaseSub()
 
 	Release();
 }
-
-//void Object::DelCollider(const Object& obj)
-//{
-//	for (auto itr = colliderList_.begin(); itr != colliderList_.end();)
-//	{
-//		if ((*itr)->GetpColObject() == &obj)
-//		{
-//			itr = colliderList_.erase(itr);
-//		}
-//		if (itr == colliderList_.end())
-//		{
-//			break;
-//		}
-//		itr++;
-//	}
-//}
 
 void Object::KillMe()
 {
@@ -257,6 +242,11 @@ Object* Object::GetScene()
 {
 	auto itr = GetRootObject()->GetChildList()->begin();
 	return (*itr)->GetChildList()->begin()->get();
+}
+
+Transform* Object::GetTransform() const
+{
+	return this->transform_;
 }
 
 void Object::KillAllChildren()

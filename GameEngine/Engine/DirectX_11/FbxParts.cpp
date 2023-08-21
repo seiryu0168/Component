@@ -70,6 +70,8 @@ FbxParts::~FbxParts()
 		}
 			//SAFE_DELETE_ARRAY(pWeightArray_);
 	}
+	if(pSkinInfo_)
+	pSkinInfo_->Destroy();
 	
 }
 
@@ -90,6 +92,7 @@ HRESULT FbxParts::Init(FbxNode* pNode)
 	InitMaterial(pNode);
 	InitSkelton(mesh);
 	//mesh->Destroy();
+	//pSkinInfo_;
 	return S_OK;
 }
 
@@ -115,7 +118,7 @@ void FbxParts::Draw(Transform& transform,XMFLOAT4 lineColor)
 		cb.ambient = materialList_[i].GetAmbient();
 		cb.speculer = materialList_[i].GetSpeculer();
 		cb.shininess = materialList_[i].GetShininess();
-		cb.customColor = lineColor;
+		cb.customColor = materialList_[i].GetCustomColor();
 
 		D3D11_MAPPED_SUBRESOURCE pdata;
 		Direct3D::pContext->Map(pConstantBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &pdata); //GPUからのデータアクセスを止める
@@ -423,12 +426,12 @@ HRESULT FbxParts::CreateConstantBuffer()
 
 HRESULT FbxParts::InitSkelton(FbxMesh* pMesh)
 {
-	FbxDeformer* pDeformer = pMesh->GetDeformer(0);
-	if (pDeformer == nullptr)
+	pSkinInfo_ = (FbxSkin*)pMesh->GetDeformer(0);
+	if (pSkinInfo_ == nullptr)
 	{
 		return S_OK;
 	}
-	pSkinInfo_ = (FbxSkin*)pDeformer;
+	//pSkinInfo_ = (FbxSkin*)pDeformer;
 
 	struct POLY_INDEX
 	{
@@ -531,7 +534,7 @@ HRESULT FbxParts::InitSkelton(FbxMesh* pMesh)
 		pBoneArray_[i].bindPose = XMLoadFloat4x4(&pose);
 	}
 
-	pSkinInfo_->Destroy();
+	//pSkinInfo_->Destroy();
 	////一時的に取っておいたメモリ開放
 	//for (int i = 0; i < vertexCount_; i++)
 	//{
@@ -717,6 +720,25 @@ bool FbxParts::GetBonePosition(std::string boneName, XMFLOAT3* position)
 		}
 	}
 	return false;
+}
+
+bool FbxParts::GetBonePosition(UINT num, XMFLOAT3* position)
+{
+	if(num>=boneNum_)
+	return false;
+	FbxAMatrix matrix;
+	ppCluster_[num]->GetTransformLinkMatrix(matrix);
+	position->x = (float)matrix[3][0];
+	position->y = (float)matrix[3][1];
+	position->z = (float)matrix[3][2];
+	return true;
+}
+
+void FbxParts::SetColor(int materialNum, const XMFLOAT4& color)
+{
+	if (materialNum >= materialCount_)
+		materialNum = 0;
+	materialList_[materialNum].SetCustomColor(color);
 }
 
 void FbxParts::RayCast(RayCastData& rayData, Transform& transform)

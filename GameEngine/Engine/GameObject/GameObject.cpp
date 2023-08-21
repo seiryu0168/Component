@@ -9,12 +9,12 @@ GameObject::GameObject(Object* parent, const std::string& name)
 	drawFlag_(true)
 {
 	//Entity transformEntity = Coordinator::CreateEntity();
-	Transform transform;// = new Transform;
-	if (parent != nullptr)
-		transform.pParent_ = &((GameObject*)parent)->GetComponent<Transform>();
-	
-	AddComponent<Transform>(transform);
-	transform_ = &GetComponent<Transform>();
+	//Transform transform;// = new Transform;
+	//if (parent != nullptr)
+	//	transform.pParent_ = &((GameObject*)parent)->GetComponent<Transform>();
+	//
+	//AddComponent<Transform>(transform);
+	//transform_ = &GetComponent<Transform>();
 }
 
 //void GameObject::UpdateSub()
@@ -348,28 +348,9 @@ void GameObject::SetActive(bool status)
 	this->activeFlag_ = status;
 }
 
-void GameObject::SetParent(GameObject* parent)
-{
-	pParent_ = parent;
-	GetParent()->PushBackChild(std::shared_ptr<Object>(pParent_));
-}
-
-Transform* GameObject::GetTransform() const
-{
-	return this->transform_;
-}
-
-//XMFLOAT3  GameObject::GetPosition()
+//Transform* GameObject::GetTransform() const
 //{
-//	return this->transform_->position_;
-//}
-//XMFLOAT3  GameObject::GetRotate()
-//{
-//	return this->transform_->rotate_;
-//}
-//XMFLOAT3  GameObject::GetScale()
-//{
-//	return this->transform_->scale_;
+//	return this->transform_;
 //}
 
 XMMATRIX GameObject::LookAtMatrix(const XMFLOAT3& target, const XMVECTOR& frontVec, const XMVECTOR& upVector)

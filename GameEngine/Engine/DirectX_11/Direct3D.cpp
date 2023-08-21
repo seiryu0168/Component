@@ -28,6 +28,8 @@ namespace Direct3D
 	int screenWidth;
 	int screenHeight;
 
+	XMINT2 displaySize;
+
 	D3D11_VIEWPORT vp;
 
 	std::vector<D3D11_VIEWPORT> viewPortList_;
@@ -42,7 +44,11 @@ namespace Direct3D
 HRESULT Direct3D::Initialize(int winW, int winH, HWND hWnd)
 {
 	hWnd_ = hWnd;
-
+	RECT desctopSize;
+	HWND desctopWnd=GetDesktopWindow();
+	GetWindowRect(desctopWnd, &desctopSize);
+	displaySize.x = desctopSize.right - desctopSize.left;
+	displaySize.y = desctopSize.bottom - desctopSize.top;
 	screenWidth = winW;
 	screenHeight = winH;
 	///////////////////////////‚¢‚ë‚¢‚ë€”õ‚·‚é‚½‚ß‚ÌÝ’è///////////////////////////////
@@ -602,6 +608,10 @@ IDXGISwapChain* Direct3D::GetSwapChain()
 {
 	return pSwapChain;
 }
+void Direct3D::FullScreen(BOOL isFullScreen)
+{
+	pSwapChain->SetFullscreenState(isFullScreen, NULL);
+}
 int Direct3D::GetScreenWidth()
 {
 	return screenWidth;
@@ -610,6 +620,20 @@ int Direct3D::GetScreenHeight()
 {
 	return screenHeight;
 }
+void Direct3D::SetScreenWidth(int w)
+{
+	screenWidth = w;
+}
+void Direct3D::SetScreenHeight(int h)
+{
+	screenHeight = h;
+}
+
+XMINT2 Direct3D::GetDisplaySize()
+{
+	return displaySize;
+}
+
 HWND Direct3D::GetWindowHandle()
 {
 	return hWnd_;

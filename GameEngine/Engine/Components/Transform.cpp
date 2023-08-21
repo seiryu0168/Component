@@ -127,3 +127,13 @@ XMMATRIX Transform::GetWorldScaleMatrix()
 	}
 	return matScale_;
 }
+
+const XMVECTOR& Transform::GetWorldFrontVector()
+{
+	return baseVec_ * GetWorldRotateMatrix();
+}
+
+const XMVECTOR& Transform::GetLocalFrontVector()
+{
+	return baseVec_ * GetLocalRotateMatrix();
+}

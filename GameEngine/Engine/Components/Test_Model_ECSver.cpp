@@ -9,7 +9,7 @@ Test_Model_ECSver::Test_Model_ECSver(GameObject* object)
 	:attachObject_(object),
 	type_(SHADER_TYPE::SHADER_3D),
 	animationFrame_(0),
-	hModel_(-1),
+	isDraw_(true),
 	meshEntity_(0)
 {
 }
@@ -25,7 +25,30 @@ void Test_Model_ECSver::RayCast(RayCastData& rayData)
 	fbx_->RayCast(rayData, *attachObject_->GetTransform());
 }
 
+const XMVECTOR& Test_Model_ECSver::GetBone(const std::string& boneName)
+{
+	XMVECTOR pos= XMLoadFloat3(&fbx_->GetBonePosition(boneName));
+	return pos * attachObject_->GetTransform()->GetWorldMatrix();
+}
+
+const XMVECTOR& Test_Model_ECSver::GetBone(const UINT& partsNum, const UINT& num)
+{
+	XMVECTOR pos = XMLoadFloat3(&fbx_->GetBonePosition(partsNum, num));
+	return pos * attachObject_->GetTransform()->GetWorldMatrix();
+}
+
+const UINT& Test_Model_ECSver::GetBoneCount()
+{
+	return fbx_->GetBoneCount();
+}
+
+void Test_Model_ECSver::SetCustomColor(int partsNum, int materialNum, const XMFLOAT4& color)
+{
+	fbx_->SetColor(partsNum, materialNum, color);
+}
+
 void Test_Model_ECSver::Draw()
 {
+	if(isDraw_)
 	fbx_->Draw(*attachObject_->GetTransform(), type_, animationFrame_);
 }

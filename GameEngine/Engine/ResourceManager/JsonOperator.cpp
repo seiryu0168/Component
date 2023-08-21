@@ -71,10 +71,14 @@ namespace JsonOperator
 	nlohmann::json GetData(const std::string& filename)
 	{
 		std::filesystem::path file = filename;
+
+		Load(filename);
+
 		if (auto itr = std::find(SetList.begin(), SetList.end(), file.stem().string()); itr != end(SetList))
 		{
 			return itr->Data;
 		}
+		
 		return false;
 	}
 
