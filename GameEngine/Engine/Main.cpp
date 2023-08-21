@@ -40,6 +40,9 @@ LPCWSTR WIN_TITLE_NAME = L"サンプルゲーム";
 
 int WINDOW_WIDTH = 1920;   //ウィンドウ幅
 int WINDOW_HEIGHT = 1080;	 //ウィンドウ高さ
+
+UINT APP_WINDOW_WIDTH = 1920;
+UINT APP_WINDOW_HEIGHT = 1080;
 //const int WINDOW_WIDTH = 1280;   //ウィンドウ幅
 //const int WINDOW_HEIGHT = 720;	 //ウィンドウ高さ
 int pxelUnit;
@@ -96,7 +99,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
 	CoInitialize(nullptr);
 
-	if (FAILED(Direct3D::Initialize(WINDOW_WIDTH, WINDOW_HEIGHT, hWnd)))
+	if (FAILED(Direct3D::Initialize(APP_WINDOW_WIDTH, APP_WINDOW_HEIGHT, hWnd)))
 	{
 		PostQuitMessage(0);
 	}
@@ -109,7 +112,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	DebugUI::Initialize(hWnd, Direct3D::GetDevice(), Direct3D::GetContext());
 	Input::Initialize(hWnd);
 	//ModelManager::Initialize();
-	CameraManager::Initialize(WINDOW_WIDTH, WINDOW_HEIGHT);
+	CameraManager::Initialize(APP_WINDOW_WIDTH, APP_WINDOW_HEIGHT);
 	Audio::Initialize();
 	Coordinator::Init();
 

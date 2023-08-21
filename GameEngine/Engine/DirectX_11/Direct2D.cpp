@@ -106,11 +106,12 @@ HRESULT D2D::Initialize(int winW, int winH, HWND hWnd)
 	RECT rect;
 	GetClientRect(hWnd, &rect);
 	
-	//dpiScaleX_ = (float)GetDpiForWindow(hWnd)*((float)Direct3D::GetDisplaySize().x/(float)Direct3D::GetScreenWidth());
-	//dpiScaleY_ = (float)GetDpiForWindow(hWnd) * ((float)Direct3D::GetDisplaySize().y/(float)Direct3D::GetScreenHeight());
-	
-	dpiScaleX_ = (float)GetDpiForWindow(hWnd) * ((float)Direct3D::GetScreenWidth()/ (float)Direct3D::GetDisplaySize().x );
-	dpiScaleY_ = (float)GetDpiForWindow(hWnd) * ( (float)Direct3D::GetScreenHeight()/(float)Direct3D::GetDisplaySize().y);
+	dpiScaleX_ = (float)GetDpiForWindow(hWnd)*((float)Direct3D::GetDisplaySize().x/(float)Direct3D::GetScreenWidth());
+	dpiScaleY_ = (float)GetDpiForWindow(hWnd) * ((float)Direct3D::GetDisplaySize().y/(float)Direct3D::GetScreenHeight());
+	UINT X = GetDpiForWindow(hWnd);
+
+	//dpiScaleX_ = (float)GetDpiForWindow(hWnd) * ((float)Direct3D::GetScreenWidth()/ (float)Direct3D::GetDisplaySize().x );
+	//dpiScaleY_ = (float)GetDpiForWindow(hWnd) * ( (float)Direct3D::GetScreenHeight()/(float)Direct3D::GetDisplaySize().y);
 
 	//D2D1_SIZE_U size = D2D1::Size<UINT>(rect.right, rect.bottom);
 	//D2D1_RENDER_TARGET_PROPERTIES prop = D2D1::RenderTargetProperties(D2D1_RENDER_TARGET_TYPE_DEFAULT, D2D1::PixelFormat(DXGI_FORMAT_UNKNOWN, D2D1_ALPHA_MODE_PREMULTIPLIED), dpiScaleX_, dpiScaleY_);
