@@ -4,6 +4,7 @@
 #include"../SnowConeMaker_Topping.h"
 #include"../SnowCone_Table.h"
 #include"../SnowCone_Cup.h"
+#include"../Engine/Systems/ImageSystem.h"
 
 namespace
 {
@@ -28,6 +29,7 @@ void SnowConeMaking::Initialize()
 		camera.Initialize(WH.x, WH.y, 1.0f, 500.0f);
 		camera.SetViewPort(WH.x / 2.0f, WH.y / 2.0f, 0.0f, 1.0f, 0, WH.y / 4.0f);
 		CameraManager::AddCamera(camera);
+		
 	}
 
 	{
@@ -36,6 +38,13 @@ void SnowConeMaking::Initialize()
 		camera.Initialize(WH.x, WH.y, 1.0f, 500.0f);
 		camera.SetViewPort(WH.x / 2.0f, WH.y / 2.0f, 0.0f, 1.0f, WH.x/2.0f, WH.y / 4.0f);
 		CameraManager::AddCamera(camera);
+	}
+
+	for(int i=0;i<2;i++)
+	{
+		Image image(i);
+		image.Load("\Assets/Image/MultiWindowFrame.png");
+		AddComponent<Image>(image);
 	}
 
 	Instantiate<SnowCone_Table>(this);

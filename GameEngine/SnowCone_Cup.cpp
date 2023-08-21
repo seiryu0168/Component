@@ -23,6 +23,17 @@ void SnowCone_Cup::Initialize()
 
 void SnowCone_Cup::SetColor(const XMFLOAT4& color)
 {
+	((SnowCone_Ice*)FindChild("SnowCone_Ice"))->SetColor(color);
+}
+
+void SnowCone_Cup::SetTopping(int topNum)
+{
+	((SnowCone_Ice*)FindChild("SnowCone_Ice"))->SetTopping(0);
+}
+
+void SnowCone_Cup::RemoveIce()
+{
+	((SnowCone_Ice*)FindChild("SnowCone_Ice"))->RemoveTopping();
 }
 
 void SnowCone_Cup::Release()

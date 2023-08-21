@@ -9,5 +9,7 @@ public:
 
 	void Initialize() override;
 	void SetColor(const XMFLOAT4& color);
+	void SetTopping(int topNum);
+	void RemoveIce();
 	void Release() override;
 };

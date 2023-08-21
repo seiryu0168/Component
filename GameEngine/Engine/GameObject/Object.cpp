@@ -158,6 +158,7 @@ void Object::ReleaseSub()
 			(*itr)->ReleaseSub();
 		if ((*itr)->IsDead())
 		{
+			(*itr)->Release();
 			itr = childList_.erase(itr);
 		}
 		else
@@ -167,7 +168,7 @@ void Object::ReleaseSub()
 	
 	}
 
-	Release();
+	//Release();
 }
 
 void Object::KillMe()

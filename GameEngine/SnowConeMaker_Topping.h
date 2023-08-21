@@ -13,6 +13,7 @@ public:
 
 	void Initialize() override;
 	void Update() override;
+	void SetTopping();
 	void SetPlayerNumber(int num) { playerNum_ = num; }
 	void Release() override;
 
