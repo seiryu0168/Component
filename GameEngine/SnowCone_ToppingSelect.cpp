@@ -1,11 +1,14 @@
 #include "SnowCone_ToppingSelect.h"
 #include"Engine/Systems/ImageSystem.h"
+#include"Engine/Systems/TextSystem.h"
 #include"Engine/DirectX_11/Input.h"
+#include"SnowCone_ToppingUI.h"
 
 namespace
 {
-	const XMFLOAT3 IMAGEPOS[] = { {1000,500,0},{1000,0,0},{1000,-500,0} };
+	const XMFLOAT3 IMAGEPOS[] = { {1400,500,0},{1400,0,0},{1400,-500,0} };
 	const int SYRUP_LIMIT = 3;
+	const int CAMERANUM = 2;
 }
 
 SnowCone_ToppingSelect::SnowCone_ToppingSelect(Object* parent)
@@ -20,22 +23,29 @@ SnowCone_ToppingSelect::~SnowCone_ToppingSelect()
 
 void SnowCone_ToppingSelect::Initialize()
 {
+	Text selectText("トッピング", "りいてがき筆", { 0,0,200,50 }, CAMERANUM);
+	selectText.SetPosition({ 730,10 });
+	selectText.SetTextSize(40);
+	AddComponent<Text>(selectText);
 	{
-		Image image(1);
+		Image image(CAMERANUM);
 		image.Load("Assets/Image/SnowCone_Topping_Adzuki.png");
+		image.SetPositionAtPixel(IMAGEPOS[0]);
 		AddComponent<Image>(image);
 	}
 
 	{
-		Image image(1);
+		Image image(CAMERANUM);
 		image.Load("Assets/Image/SnowCone_Toppin_Blueberry.png");
+		image.SetPositionAtPixel(IMAGEPOS[1]);
 		AddComponent<Image>(image);
 	}
 
 	{
-		Image image(1);
+		Image image(CAMERANUM);
 		image.Load("Assets/Image/SnowCone_SelectImage.png");
-		AddComponent<Image>(image);
+		image.SetPositionAtPixel(IMAGEPOS[0]);
+		selectFrame_ = AddComponent<Image>(image);
 	}
 }
 
@@ -86,9 +96,10 @@ void SnowCone_ToppingSelect::Input()
 		state_ = SELECT_STATE::MOVE;
 		time_->UnLock();
 	}
-	else if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A))
+	else if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A,1))
 	{
-
+		state_ = SELECT_STATE::STAY;
+		((SnowCone_ToppingUI*)GetParent())->ModeChange(SELECT_MODE::MODE_COMPLETE);
 	}
 }
 

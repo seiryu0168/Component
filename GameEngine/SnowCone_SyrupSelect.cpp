@@ -1,11 +1,14 @@
 #include "SnowCone_SyrupSelect.h"
 #include"Engine/Systems/ImageSystem.h"
+#include"Engine/Systems/TextSystem.h"
 #include"Engine/DirectX_11/Input.h"
+#include"SnowCone_ToppingUI.h"
 
 namespace
 {
-	const XMFLOAT3 IMAGEPOS[] = { {-1000,500,0},{-1000,0,0},{-1000,-500,0} };
+	const XMFLOAT3 IMAGEPOS[] = { {-1400,500,0},{-1400,0,0},{-1400,-500,0} };
 	const int SYRUP_LIMIT = 3;
+	const int CAMERANUM = 2;
 }
 
 SnowCone_SyrupSelect::SnowCone_SyrupSelect(Object* parent)
@@ -20,22 +23,28 @@ SnowCone_SyrupSelect::~SnowCone_SyrupSelect()
 
 void SnowCone_SyrupSelect::Initialize()
 {
+	Text selectText("ÉVÉçÉbÉv", "ÇËÇ¢ÇƒÇ™Ç´ïM", { 0,0,200,50 }, CAMERANUM);
+	selectText.SetPosition({ 50,10 });
+	selectText.SetTextSize(40);
+	AddComponent<Text>(selectText);
 	{
-		Image image(1);
+		Image image(CAMERANUM);
 		image.Load("Assets/Image/SnowCone_Syrup_Red.png");
 		image.SetPositionAtPixel(IMAGEPOS[0]);
 		AddComponent<Image>(image);
 	}
 	{
-		Image image(1);
+		Image image(CAMERANUM);
 		image.Load("Assets/Image/SnowCone_Syrup_Blue.png");
 		image.SetPositionAtPixel(IMAGEPOS[1]);
 		AddComponent<Image>(image);
 	}
-	Image image(1);
-	image.Load("Assets/Image/SnowCone_SelectImage.png");
-	image.SetPositionAtPixel(IMAGEPOS[0]);
-	selectFrame_ = AddComponent<Image>(image);
+	{
+		Image image(CAMERANUM);
+		image.Load("Assets/Image/SnowCone_SelectImage.png");
+		image.SetPositionAtPixel(IMAGEPOS[0]);
+		selectFrame_ = AddComponent<Image>(image);
+	}
 }
 
 void SnowCone_SyrupSelect::Update()
@@ -86,9 +95,10 @@ void SnowCone_SyrupSelect::Input()
 		state_ = SELECT_STATE::MOVE;
 		time_->UnLock();
 	}
-	else if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A))
+	else if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A,1))
 	{
-
+		state_ = SELECT_STATE::STAY;
+		((SnowCone_ToppingUI*)GetParent())->ModeChange(SELECT_MODE::MODE_TOPPING);
 	}
 }
 

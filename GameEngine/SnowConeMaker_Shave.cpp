@@ -24,13 +24,13 @@ SnowConeMaker_Shave::~SnowConeMaker_Shave()
 void SnowConeMaker_Shave::Initialize()
 {
 	transform_->position_ = DEFAULT_POS;
-	CameraManager::GetCamera(playerNum_).SetPosition(transform_->position_);
+	CameraManager::GetCamera(playerNum_+1).SetPosition(transform_->position_);
 	snowCone_ = Instantiate<SnowCone_Cup>(GetParent());// = std::make_shared<SnowCone_Cup>(GetParent());
-	CameraManager::GetCamera(playerNum_).SetTarget(XMVectorSet(-40,0,-30,0));
+	CameraManager::GetCamera(playerNum_+1).SetTarget(XMVectorSet(-40,0,-30,0));
 
 	{
 
-		Image image(playerNum_);
+		Image image(playerNum_+1);
 		image.Load("Assets/Image/SnowCone_ShaveMeterImage.png");
 		image.SetPositionAtPixel({ 1700,-512,0 });
 		image.SetSize({ 0.5f,snowConeSize_,0 });
@@ -38,7 +38,7 @@ void SnowConeMaker_Shave::Initialize()
 	}
 	{
 
-		Image image(playerNum_);
+		Image image(playerNum_+1);
 		image.Load("Assets/Image/SnowCone_ShaveMeterFrameImage.png");
 		image.SetPositionAtPixel({ 1700,0,0 });
 		image.SetSize({ 0.5f,1.0f,0 });

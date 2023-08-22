@@ -28,8 +28,8 @@ void SnowConeMaker_Topping::Initialize()
 	
 	transform_->position_ = DEFAULT_POS;
 
-	CameraManager::GetCamera(playerNum_).SetPosition(transform_->position_);
-	CameraManager::GetCamera(playerNum_).SetTarget(TARGET_POS);
+	CameraManager::GetCamera(playerNum_+1).SetPosition(transform_->position_);
+	CameraManager::GetCamera(playerNum_+1).SetTarget(TARGET_POS);
 	Instantiate<SnowCone_ToppingUI>(this);
 }
 
@@ -49,13 +49,6 @@ void SnowConeMaker_Topping::Update()
 
 		if (snowCone_)
 			snowCone_->GetTransform()->position_ = TARGET_POS;
-		break;
-
-	case XINPUT_GAMEPAD_A:
-		if (snowCone_)
-		{
-			snowCone_->SetTopping(0);
-		}
 		break;
 	default:
 		break;

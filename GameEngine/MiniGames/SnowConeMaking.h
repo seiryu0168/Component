@@ -11,6 +11,7 @@ public:
 	~SnowConeMaking();
 	void Initialize() override;
 	void AddCup(SnowCone_Cup* cup);
+	void Evaluation(float size,int syrup,int topping);
 	SnowCone_Cup* GetCup();
 	void Release()override;
 };

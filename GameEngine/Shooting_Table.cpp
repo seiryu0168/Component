@@ -22,7 +22,7 @@ void Shooting_Table::Initialize()
 {
 	std::random_device rnd;
 	std::mt19937 mt(rnd());
-	std::uniform_int_distribution<int> rand5(0, 2);
+	std::uniform_int_distribution<int> rand3(0, 2);
 	
 	transform_->position_ = XMVectorSet(0, 0, 30, 0);
 	Test_Model_ECSver model(this);
@@ -37,7 +37,7 @@ void Shooting_Table::Initialize()
 	{
 		//台モデルのボーン数に応じて景品を生成
 		XMVECTOR ve = model.GetBone(0, i);
-		int targetNum = rand5(mt);
+		int targetNum = rand3(mt);
 		//オブジェクト生成
 		Shooting_TergetGift* gift = Instantiate<Shooting_TergetGift>(GetParent());
 		//乱数によるモデル読み込み
