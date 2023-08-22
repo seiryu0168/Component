@@ -1,14 +1,18 @@
 #pragma once
-#include"Engine/GameObject/GameObject.h"
-class SnowCone_SyrupSelect : public GameObject
+#include"SnowCone_ToppingMenu.h"
+class SnowCone_SyrupSelect : public SnowCone_ToppingMenu
 {
 private:
+	int selectFrame_;
 public:
 	SnowCone_SyrupSelect(Object* parent);
 	~SnowCone_SyrupSelect();
 
 	void Initialize() override;
 	void Update() override;
+	void Move();
+	void Input();
+	void Stay();
 	void Release() override;
 };
 
