@@ -57,6 +57,13 @@ public:
 	virtual void BeforeDeath() {};
 	virtual void Release() = 0;
 
+	//isUpdate_がSetUpdate関数によってfalseに変更されたときに子オブジェクトのこの関数を呼びだす
+	virtual void NotifiedUpdateF() {};
+	//isUpdate_がSetUpdate関数によってtrueに変更されたときに子オブジェクトのこの関数を呼びだす
+	virtual void NotifiedUpdateT() {};
+
+	void NotifiedUpdateSub(bool updateFlag);
+
 	void UpdateSub();
 	void StaticUpdateSub();
 	void DrawSub();
@@ -72,7 +79,7 @@ public:
 	bool IsActive() const { return activeFlag_; }
 	bool IsStart() const { return startFlag_; }
 	bool IsUpdate() const { return isUpdate_; }
-	void SetUpdate(bool updateFlag) { isUpdate_ = updateFlag; }
+	void SetUpdate(bool updateFlag);
 	std::string GetObjectName() const { return objectName_; }
 	std::string GetTag()const { return objectTag_; }
 	Object* GetParent() const;

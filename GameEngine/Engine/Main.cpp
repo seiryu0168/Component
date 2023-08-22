@@ -131,22 +131,22 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 		else
 		{
 			//FPS制限
-			static DWORD countFps = 0;					 //画面更新回数
-			static DWORD startTime = timeGetTime();		 //起動時刻取得(ミリ秒)							//ミリ秒＝10^-3
+			//static DWORD countFps = 0;					 //画面更新回数
+			//static DWORD startTime = timeGetTime();		 //起動時刻取得(ミリ秒)							//ミリ秒＝10^-3
 			DWORD nowTime = timeGetTime();				 //今の時刻取得(ミリ秒)							//1000ミリ秒＝1秒
 			static DWORD lastUpdateTime = nowTime;		 //最後に更新した時刻(ミリ秒) : Update
 			static DWORD lastFixedUpdateTime = nowTime;  //最後に更新した時刻(ミリ秒) : FixedUpdate
 
 			//今の時刻と起動時刻の差が1000ミリ秒超えたら
 			//countFpsとstartTimeをリセット
-			if (nowTime - startTime >= 1000)
-			{
-				/*WCHAR str[16];
-				wsprintf(str, L"%u", countFps);
-				SetWindowText(hWnd, str);*/
-				countFps = 0;
-				startTime = nowTime;//
-			}
+			//if (nowTime - startTime >= 1000)
+			//{
+			//	/*WCHAR str[16];
+			//	wsprintf(str, L"%u", countFps);
+			//	SetWindowText(hWnd, str);*/
+			//	countFps = 0;
+			//	startTime = nowTime;//
+			//}
 
 			//今の時刻と最後に更新した時刻の差*60が1000以上であれば
 			if ((nowTime - lastUpdateTime) * 60.0f >= 1000.0f)
@@ -159,7 +159,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 				Input::Update();
 
 				lastUpdateTime = nowTime;
-				countFps++;
+				//countFps++;
 				newSceneManager::Update();
 				//pRootJob->UpdateSub();
 				CameraManager::Update();

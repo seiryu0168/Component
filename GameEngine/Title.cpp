@@ -59,8 +59,7 @@ void Title::Waiting()
 	if (Input::IsPadAnyButtonDown())
 	{
 		State_ = STATE::PUSHED;
-		return;
-		//newSceneManager::ChangeScene(SCENE_ID::MENU);
+		newSceneManager::ChangeScene(SCENE_ID::MENU, TO_SCENE_CHANGE);
 	}
 
 	GetComponent<Text>().SetColor({ 0,0,0,(sinf(time_->GetSeconds<float>() * 2) * 0.5f) + 0.5f });
@@ -68,8 +67,5 @@ void Title::Waiting()
 
 void Title::Pushed()
 {
-	if (++Frame_ > TO_SCENE_CHANGE)
-		newSceneManager::ChangeScene(SCENE_ID::MENU);
-
-	GetComponent<Text>().SetColor({ 0,0,0, (float)((Frame_ % TO_TEXT_CHANGE + 5) / TO_TEXT_CHANGE) });
+	GetComponent<Text>().SetColor({ 0,0,0, (float)((++Frame_ % TO_TEXT_CHANGE + 5) / TO_TEXT_CHANGE) });
 }

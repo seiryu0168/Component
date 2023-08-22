@@ -27,5 +27,8 @@ public:
 	void Play();
 	void Finish();
 	void Release() override;
+	void StaticUpdate() override;
+	void NotifiedUpdateT() override;
+	void NotifiedUpdateF() override;
 };
 

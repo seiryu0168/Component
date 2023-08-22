@@ -33,6 +33,11 @@ namespace Input
 	bool IsPadButtonDown(int buttonCode, int padID = 0);
 	bool IsPadButtonUp(int buttonCode, int padID = 0);
 	
+	/// <summary>いずれかのゲームパッドの指定したボタンが押されたか返す関数</summary>
+	/// <param name="buttonCode">検証するボタンのビットマスク</param>
+	/// <returns>押されていればtrue,それ以外ならfalse</returns>
+	bool IsAnyPadDown(int buttonCode) noexcept;
+
 	/// <summary>
 	/// どのボタンが押されたか返す関数
 	/// </summary>

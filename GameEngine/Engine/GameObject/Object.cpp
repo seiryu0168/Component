@@ -52,6 +52,21 @@ Object::~Object()
 {
 }
 
+void Object::NotifiedUpdateSub(bool updateFlag)
+{
+	if (updateFlag)
+	{
+		NotifiedUpdateT();
+	}
+	else
+	{
+		NotifiedUpdateF();
+	}
+
+	for (auto&& itr : childList_)
+		itr->NotifiedUpdateSub(updateFlag);
+}
+
 void Object::UpdateSub()
 {
 	/////////アップデート/////////
@@ -174,6 +189,16 @@ void Object::KillMe()
 	for (auto&& itr = childList_.begin(); itr != childList_.end(); itr++)
 	{
 		(*itr)->KillMe();
+	}
+}
+
+void Object::SetUpdate(bool updateFlag)
+{
+	if (isUpdate_ != updateFlag)
+	{
+		isUpdate_ = updateFlag;
+		
+		NotifiedUpdateSub(isUpdate_);
 	}
 }
 

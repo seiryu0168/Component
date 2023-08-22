@@ -1,10 +1,10 @@
 #include "CommandMemory.h"
 #include "P_CommandMemory.h"
 #include "../Engine/Components/Image.h"
-#include "../InterSceneData.h"
-#include <format>
-#include <Xinput.h>
 #include "../Engine/newSceneManager.h"
+#include "../InterSceneData.h"
+#include <Xinput.h>
+#include <format>
 
 namespace
 {
@@ -106,6 +106,11 @@ void CommandMemory::Draw()
 
 void CommandMemory::Release()
 {
+}
+
+void CommandMemory::StaticUpdate()
+{
+	Pause();
 }
 
 void CommandMemory::sendCommand(int Button, int Playerid)

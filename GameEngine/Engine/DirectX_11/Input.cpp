@@ -168,6 +168,16 @@ namespace Input
 		return false;
 	}
 
+	bool IsAnyPadDown(int buttonCode) noexcept
+	{
+		for (int i = 0; i < PAD_MAX; i++)
+		{
+			if (IsPadButtonDown(buttonCode, i))
+				return true;
+		}
+		return false;
+	}
+
 	WORD GetPadAnyButton(int padID)
 	{
 		return Controller_[padID].Gamepad.wButtons;

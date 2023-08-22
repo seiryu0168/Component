@@ -20,6 +20,9 @@ protected:
 			p->SetID(i);
 		}
 	}
+
+	//StaticUpdate‚ÅŒÄ‚Ño‚·‚Æpauseˆ—‚ª‰Â”\‚É‚È‚é
+	void Pause();
 public:
 	Framework(Object* parent, const std::string& name);
 	virtual ~Framework();

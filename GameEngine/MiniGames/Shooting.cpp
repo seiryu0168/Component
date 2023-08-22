@@ -130,3 +130,18 @@ void Shooting::Play()
 void Shooting::Release()
 {
 }
+
+void Shooting::StaticUpdate()
+{
+	Pause();
+}
+
+void Shooting::NotifiedUpdateT()
+{
+	time_->UnLock();
+}
+
+void Shooting::NotifiedUpdateF()
+{
+	time_->Lock();
+}

@@ -44,7 +44,6 @@ void RootObject_Play::Update()
 
 void RootObject_Play::StaticUpdate()
 {
-	
 }
 
 

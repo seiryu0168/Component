@@ -29,10 +29,9 @@ public:
 	void Update() override;
 	void Draw() override;
 	void Release() override;
+	void StaticUpdate() override;
 
 	//‘—‚ç‚ê‚½ƒ{ƒ^ƒ“‚Ìid‚ª‡‚Á‚Ä‚¢‚é‚©ŒŸØ‚·‚é
 	void sendCommand(int Button, int Playerid);
-
-
 };
 
