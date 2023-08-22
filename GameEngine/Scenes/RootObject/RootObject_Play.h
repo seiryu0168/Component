@@ -6,6 +6,7 @@ public:
 	RootObject_Play();
 	~RootObject_Play();
 	void Initialize() override;
-	void Update() override {};
+	void Update() override;
+	void StaticUpdate() override;
 	void Release() override;
 };

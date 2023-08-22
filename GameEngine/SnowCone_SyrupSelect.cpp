@@ -9,7 +9,8 @@ namespace
 }
 
 SnowCone_SyrupSelect::SnowCone_SyrupSelect(Object* parent)
-	:SnowCone_ToppingMenu(parent,"SnowCone_SyrupSelect")
+	:SnowCone_ToppingMenu(parent,"SnowCone_SyrupSelect"),
+	selectFrame_(0)
 {
 }
 

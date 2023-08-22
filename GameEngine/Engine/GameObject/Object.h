@@ -50,7 +50,7 @@ public:
 
 	virtual void Initialize() = 0;
 	virtual void Update() {};
-	virtual void FixedUpdate() {};
+	virtual void StaticUpdate() {};
 	virtual void Draw() {};
 	virtual void SecondDraw() {};
 	virtual void ThirdDraw() {};
@@ -58,7 +58,7 @@ public:
 	virtual void Release() = 0;
 
 	void UpdateSub();
-	void FixedUpdateSub();
+	void StaticUpdateSub();
 	void DrawSub();
 	void SecondDrawSub();
 	void ThirdDrawSub();
@@ -72,6 +72,7 @@ public:
 	bool IsActive() const { return activeFlag_; }
 	bool IsStart() const { return startFlag_; }
 	bool IsUpdate() const { return isUpdate_; }
+	void SetUpdate(bool updateFlag) { isUpdate_ = updateFlag; }
 	std::string GetObjectName() const { return objectName_; }
 	std::string GetTag()const { return objectTag_; }
 	Object* GetParent() const;

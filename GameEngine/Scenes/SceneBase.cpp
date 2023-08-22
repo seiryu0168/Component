@@ -49,6 +49,11 @@ void SceneBase::Update()
 	rootObject_->UpdateSub();
 }
 
+void SceneBase::StaticUpdate()
+{
+	rootObject_->StaticUpdateSub();
+}
+
 void SceneBase::CheckKillObject()
 {
 	rootObject_->ReleaseSub();

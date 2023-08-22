@@ -65,10 +65,13 @@ void Object::UpdateSub()
 		activeFlag_ &&
 		isUpdate_)
 		Update();
-
-	for (auto&& itr : childList_)
+	if (isUpdate_)
 	{
-		itr->UpdateSub();
+
+		for (auto&& itr : childList_)
+		{
+			itr->UpdateSub();
+		}
 	}
 
 	//for (auto itr = childList_.begin(); itr != childList_.end();)
@@ -92,27 +95,21 @@ void Object::UpdateSub()
 //	}
 //}
 
-void Object::FixedUpdateSub()
+void Object::StaticUpdateSub()
 {
-	FixedUpdate();
-	for (auto&& itr : childList_)
+	if (startFlag_ == false && activeFlag_)
 	{
-		itr->FixedUpdateSub();
+		//Object* p = GetRootObject();
+		this->Initialize();
+		this->startFlag_ = true;
 	}
+	else if (startFlag_ && activeFlag_)
+		StaticUpdate();
 
-	for (auto itr = childList_.begin(); itr != childList_.end();)
-	{
-		if ((*itr)->killFlag_ == true)
+		for (auto&& itr : childList_)
 		{
-			(*itr)->ReleaseSub();
-			itr = childList_.erase(itr);
+			itr->StaticUpdateSub();
 		}
-		/*else
-		{
-			(*itr)->Collision(GetParent());
-			itr++;
-		}*/
-	}
 }
 void Object::DrawSub()
 {

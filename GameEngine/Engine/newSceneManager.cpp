@@ -88,6 +88,7 @@ namespace newSceneManager
 		}
 		pColliderSystem_.get()->Update();
 		currentScene_->Update();
+		currentScene_->StaticUpdate();
 
 		pModelSyatem_->Update();
 		pParticleSystem_->Update();
@@ -144,6 +145,14 @@ namespace newSceneManager
 		isSceneChange_ = true;
 		nextSceneName_ = sceneId;
 		changeCount_ = countDown;
+	}
+	void ChangeScene(const SCENE_ID& sceneId, float countDown)
+	{
+		if (sceneList_.find(sceneId) == sceneList_.end())
+			return;
+		isSceneChange_ = true;
+		nextSceneName_ = sceneId;
+		changeCount_ = countDown*60.0f;
 	}
 
 	void ECSInitialize()

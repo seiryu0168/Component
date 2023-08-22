@@ -31,6 +31,7 @@ namespace newSceneManager
 	//void ChangeScene(SCENE_ID next, int countDown = 0);
 	//シーン切り替え
 	void ChangeScene(const SCENE_ID& sceneId, int countDown = 0);
+	void ChangeScene(const SCENE_ID& sceneId, float countDown);
 	//ECSアーキテクチャの初期化
 	void ECSInitialize();
 

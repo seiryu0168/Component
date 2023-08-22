@@ -7,7 +7,9 @@ namespace
 }
 
 SnowCone_ToppingUI::SnowCone_ToppingUI(Object* parent)
-	:GameObject(parent,"SnowCone_ToppingUI")
+	:GameObject(parent,"SnowCone_ToppingUI"),
+	syrupSelect_(nullptr),
+	toppingSelect_(nullptr)
 {
 }
 

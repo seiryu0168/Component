@@ -19,6 +19,7 @@ public:
 	void ObjectSet();
 	void SetFile(const std::string& name);
 	void Update();
+	void StaticUpdate();
 	void CheckKillObject();
 
 	void AllKillObject();
