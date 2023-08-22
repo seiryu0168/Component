@@ -34,8 +34,8 @@
 
 
 //定数宣言
-LPCWSTR WIN_CLASS_NAME = L"SampleGame";
-LPCWSTR WIN_TITLE_NAME = L"サンプルゲーム";
+const LPCWSTR WIN_CLASS_NAME = L"Festival";
+const LPCWSTR WIN_TITLE_NAME = L"Festival";
 
 
 const int WINDOW_WIDTH = 1920;   //ウィンドウ幅
@@ -141,9 +141,9 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 			//countFpsとstartTimeをリセット
 			if (nowTime - startTime >= 1000)
 			{
-				WCHAR str[16];
+				/*WCHAR str[16];
 				wsprintf(str, L"%u", countFps);
-				SetWindowText(hWnd, str);
+				SetWindowText(hWnd, str);*/
 				countFps = 0;
 				startTime = nowTime;//
 			}

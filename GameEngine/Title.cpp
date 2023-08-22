@@ -3,8 +3,15 @@
 #include"Engine/Systems/ImageSystem.h"
 #include"Engine/newSceneManager.h"
 #include"Engine/Systems/TextSystem.h"
+
+namespace
+{
+	const static int TO_SCENE_CHANGE = 30;	//押されてから画面遷移までのフレーム数
+	const static int TO_TEXT_CHANGE = 10;	//文字を点滅させるスパン
+}
+
 Title::Title(Object* parent)
-	:GameObject(parent,"Title")
+	:GameObject(parent,"Title"), State_(STATE::WAIT), time_(nullptr), Frame_(0)
 {
 }
 
@@ -30,14 +37,39 @@ void Title::Initialize()
 
 void Title::Update()
 {
-	if (Input::IsPadAnyButtonDown())
+	switch (State_)
 	{
-		newSceneManager::ChangeScene(SCENE_ID::MENU);
+	case Title::STATE::WAIT:
+		Waiting();
+		break;
+	case Title::STATE::PUSHED:
+		Pushed();
+		break;
+	default:
+		break;
 	}
-	
-	GetComponent<Text>().SetColor({ 0,0,0,(sinf(time_->GetSeconds<float>())*0.5f)+0.5f });
 }
 
 void Title::Release()
 {
+}
+
+void Title::Waiting()
+{
+	if (Input::IsPadAnyButtonDown())
+	{
+		State_ = STATE::PUSHED;
+		return;
+		//newSceneManager::ChangeScene(SCENE_ID::MENU);
+	}
+
+	GetComponent<Text>().SetColor({ 0,0,0,(sinf(time_->GetSeconds<float>() * 2) * 0.5f) + 0.5f });
+}
+
+void Title::Pushed()
+{
+	if (++Frame_ > TO_SCENE_CHANGE)
+		newSceneManager::ChangeScene(SCENE_ID::MENU);
+
+	GetComponent<Text>().SetColor({ 0,0,0, (float)((Frame_ % TO_TEXT_CHANGE + 5) / TO_TEXT_CHANGE) });
 }

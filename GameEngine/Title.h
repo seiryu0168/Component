@@ -4,7 +4,16 @@
 class Title : public GameObject
 {
 private:
+	enum class STATE
+	{
+		WAIT,
+		PUSHED
+	} State_;
+	int Frame_;
+
 	std::unique_ptr<Time::Watch> time_;
+	void Waiting();
+	void Pushed();
 public:
 	Title(Object* parent);
 	~Title();
