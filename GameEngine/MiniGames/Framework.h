@@ -26,5 +26,8 @@ protected:
 public:
 	Framework(Object* parent, const std::string& name);
 	virtual ~Framework();
+
+	void NotifiedUpdateT() override;
+	void NotifiedUpdateF() override;
 };
 

@@ -363,6 +363,9 @@
     <ClCompile Include="SnowCone_Order.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Brightness.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ImGui\imstb_truetype.h">
@@ -693,6 +696,9 @@
       <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
     </ClInclude>
     <ClInclude Include="SnowCone_Order.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Brightness.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
