@@ -177,6 +177,7 @@
     <ClCompile Include="Debug_SceneChanger.cpp" />
     <ClCompile Include="Easing.cpp" />
     <ClCompile Include="DebugUI.cpp" />
+    <ClCompile Include="Engine\Brightness.cpp" />
     <ClCompile Include="Engine\Components\Collider.cpp" />
     <ClCompile Include="Engine\Components\Image.cpp" />
     <ClCompile Include="Engine\Components\LineParticle.cpp" />
@@ -281,6 +282,7 @@
     <ClInclude Include="Debug_SceneChanger.h" />
     <ClInclude Include="Easing.h" />
     <ClInclude Include="DebugUI.h" />
+    <ClInclude Include="Engine\Brightness.h" />
     <ClInclude Include="Engine\Components\Collider.h" />
     <ClInclude Include="Engine\Components\Image.h" />
     <ClInclude Include="Engine\Components\LineParticle.h" />

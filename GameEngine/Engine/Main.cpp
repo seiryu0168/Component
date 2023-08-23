@@ -17,6 +17,7 @@
 #include"ResourceManager/Audio.h"
 #include"newSceneManager.h"
 #include "Time.h"
+#include "Brightness.h"
 
 #ifdef _DEBUG
 #define _CRTDBG_MAP_ALLOC
@@ -111,6 +112,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	Audio::Initialize();
 	Coordinator::Init();
 
+	Brightness::Initialize();
 	Time::Initialize();
 	//pRootJob = new RootJob;
 	
