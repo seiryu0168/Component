@@ -3,7 +3,7 @@
 SnowCone_ToppingMenu::SnowCone_ToppingMenu(Object* parent, const std::string& name)
 	:GameObject(parent,name),
 	state_(SELECT_STATE::INPUT),
-	syrupNum_(0)
+	selectNum_(0)
 {
 	time_ = std::make_unique<Time::Watch>();
 }

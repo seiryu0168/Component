@@ -3,7 +3,8 @@
 #include"SnowCone_Ice.h"
 
 SnowCone_Cup::SnowCone_Cup(Object* parent)
-	:GameObject(parent, "SnowCone_Cup")
+	:GameObject(parent, "SnowCone_Cup"),
+	coneSize_(0)
 {
 }
 
@@ -21,6 +22,11 @@ void SnowCone_Cup::Initialize()
 	Instantiate<SnowCone_Ice>(this);
 }
 
+int SnowCone_Cup::GetConeSize()
+{
+	return (int)(coneSize_/1.32f);
+}
+
 void SnowCone_Cup::SetColor(const XMFLOAT4& color)
 {
 	((SnowCone_Ice*)FindChild("SnowCone_Ice"))->SetColor(color);
@@ -29,6 +35,11 @@ void SnowCone_Cup::SetColor(const XMFLOAT4& color)
 void SnowCone_Cup::SetTopping(int topNum)
 {
 	((SnowCone_Ice*)FindChild("SnowCone_Ice"))->SetTopping(0);
+}
+
+XMVECTOR SnowCone_Cup::GetIceBonePos(const std::string& boneName)
+{
+	return ((SnowCone_Ice*)FindChild("SnowCone_Ice"))->GetComponent<Test_Model_ECSver>().GetBone(boneName);
 }
 
 void SnowCone_Cup::RemoveIce()

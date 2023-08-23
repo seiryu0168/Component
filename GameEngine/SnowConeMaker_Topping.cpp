@@ -5,11 +5,13 @@
 #include"MiniGames/SnowConeMaking.h"
 #include"SnowCone_Cup.h"
 #include"SnowCone_ToppingUI.h"
+#include"SnowCone_ToppingSumple.h"
 
 namespace
 {
 	const XMVECTOR DEFAULT_POS = XMVectorSet(40, 10, -40, 0);
 	const XMVECTOR TARGET_POS = XMVectorSet(40, 0, -30, 0);
+	const XMVECTOR DEFAULT_SUMPLE_POS= XMVectorSet(0, 0, -60, 0);
 }
 
 SnowConeMaker_Topping::SnowConeMaker_Topping(Object* parent)
@@ -31,6 +33,9 @@ void SnowConeMaker_Topping::Initialize()
 	CameraManager::GetCamera(playerNum_+1).SetPosition(transform_->position_);
 	CameraManager::GetCamera(playerNum_+1).SetTarget(TARGET_POS);
 	Instantiate<SnowCone_ToppingUI>(this);
+	sumple_ = Instantiate<SnowCone_ToppingSumple>(GetParent());
+	sumple_->GetTransform()->position_ = DEFAULT_SUMPLE_POS;
+
 }
 
 void SnowConeMaker_Topping::Update()
@@ -41,14 +46,24 @@ void SnowConeMaker_Topping::Update()
 		//‚©‚«•X‚ðo‚·
 		if (snowCone_)
 		{
+			//‚©‚«•X‚Ì•]‰¿
+			SnowCone_ToppingUI* ui = (SnowCone_ToppingUI*)FindChild("SnowCone_ToppingUI");
+			((SnowConeMaking*)GetParent())->Evaluation(snowCone_->GetConeSize(),
+													   ui->GetSyrupData(),
+													   ui->GetToppingData());
+			//•]‰¿‚ªI‚í‚Á‚½‚çÁ‚·
 			snowCone_->KillMe();
 			snowCone_->RemoveIce();
 			snowCone_ = nullptr;
+			ResetSelectUI();
 		}
 		snowCone_ = ((SnowConeMaking*)GetParent())->GetCup();
 
 		if (snowCone_)
+		{
 			snowCone_->GetTransform()->position_ = TARGET_POS;
+			SetSumple();
+		}
 		break;
 	default:
 		break;
@@ -59,6 +74,18 @@ void SnowConeMaker_Topping::Update()
 void SnowConeMaker_Topping::SetTopping()
 {
 	snowCone_->SetTopping(0);
+}
+
+void SnowConeMaker_Topping::SetSumple()
+{
+	sumple_->GetTransform()->position_ = snowCone_->GetIceBonePos("Bone");
+}
+
+void SnowConeMaker_Topping::ResetSelectUI()
+{
+	sumple_->GetTransform()->position_ = DEFAULT_SUMPLE_POS;
+	sumple_->ChangeSumple(0);
+	((SnowCone_ToppingUI*)FindChild("SnowCone_ToppingUI"))->ModeChange(SELECT_MODE::MODE_SYRUP);
 }
 
 void SnowConeMaker_Topping::Release()

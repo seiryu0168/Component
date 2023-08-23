@@ -50,7 +50,6 @@ void SnowConeMaker_Shave::Initialize()
 void SnowConeMaker_Shave::Update()
 {
 	//新しいかき氷を作成(元々あったかき氷は破棄)
-
 	switch (Input::GetPadAnyDown(playerNum_))
 	{
 	case XINPUT_GAMEPAD_X:
@@ -62,8 +61,10 @@ void SnowConeMaker_Shave::Update()
 		GetComponent<Image>().SetSize({ 0.5f,snowConeSize_,0 });
 		break;
 	case XINPUT_GAMEPAD_A:
+		//かき氷をストックに移動
 		if (snowCone_)
 		{
+			snowCone_->SetConeSize(snowConeSize_);
 			((SnowConeMaking*)GetParent())->AddCup(snowCone_);
 			snowCone_ = nullptr;
 		}
@@ -76,27 +77,6 @@ void SnowConeMaker_Shave::Update()
 		}
 		break;
 	}
-	//if (Input::IsPadButtonDown(XINPUT_GAMEPAD_X))
-	//{
-	//	if(snowCone_)
-	//	snowCone_->KillMe();
-	//
-	//	snowCone_ = Instantiate<SnowCone_Cup>(GetParent());
-	//	snowConeSize_ = 0.0f;
-	//	GetComponent<Image>().SetSize({ 0.5f,snowConeSize_,0 });
-	//}
-	//
-	//
-	//if (Input::IsPadButton(XINPUT_GAMEPAD_B)&&snowCone_&& snowConeSize_<SNOWCONE_SIZE_LIMIT)
-	//{
-	//	Shave();
-	//}
-	//
-	//if (Input::IsPadButton(XINPUT_GAMEPAD_A) && snowCone_)
-	//{
-	//	((SnowConeMaking*)GetParent())->AddCup(snowCone_);
-	//	snowCone_ = nullptr;
-	//}
 }
 
 void SnowConeMaker_Shave::Shave()

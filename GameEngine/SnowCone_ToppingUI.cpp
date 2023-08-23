@@ -52,6 +52,16 @@ void SnowCone_ToppingUI::Update()
 
 }
 
+int SnowCone_ToppingUI::GetSyrupData()
+{
+	return syrupSelect_->GetSyrupNum();
+}
+
+int SnowCone_ToppingUI::GetToppingData()
+{
+	return toppingSelect_->GetToppingNum();
+}
+
 void SnowCone_ToppingUI::ModeChange(SELECT_MODE mode)
 {
 	switch (mode)

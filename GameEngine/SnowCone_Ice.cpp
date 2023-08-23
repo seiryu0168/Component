@@ -34,8 +34,8 @@ void SnowCone_Ice::SetTopping(int topNum)
 	
 	Test_Model_ECSver model(top_);
 	model.Load("Assets/Model/SnowCone_Topping_Adzuki.fbx");
-	top_->AddComponent<Test_Model_ECSver>(model);
 	top_->GetTransform()->position_ = pos;
+	top_->AddComponent<Test_Model_ECSver>(model);
 }
 
 void SnowCone_Ice::RemoveTopping()

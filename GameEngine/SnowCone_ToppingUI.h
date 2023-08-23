@@ -22,6 +22,8 @@ public:
 
 	void Initialize() override;
 	void Update() override;
+	int GetSyrupData();
+	int GetToppingData();
 	void ModeChange(SELECT_MODE mode);
 	void Release() override;
 };

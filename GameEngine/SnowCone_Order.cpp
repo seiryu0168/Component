@@ -64,7 +64,7 @@ void SnowCone_Order::CreateOrder()
 	}
 }
 
-void SnowCone_Order::Judge(float size, int syrup, int topping)
+void SnowCone_Order::Judge(int size, int syrup, int topping)
 {
 	//o‚³‚ê‚½‚©‚«•X‚ª’•¶‚Æ‡‚Á‚Ä‚é‚©‚Ç‚¤‚©
 	for(int i=0;i<orderList_.size();i++)

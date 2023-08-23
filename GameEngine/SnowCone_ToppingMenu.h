@@ -12,7 +12,7 @@ protected:
 	};
 	std::unique_ptr<Time::Watch> time_;
 	short moveDir_;
-	int syrupNum_;
+	int selectNum_;
 	SELECT_STATE state_;
 public:
 	SnowCone_ToppingMenu(Object* parent,const std::string& name);

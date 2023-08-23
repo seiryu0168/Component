@@ -271,6 +271,7 @@
     <ClCompile Include="SnowCone_Topping.cpp" />
     <ClCompile Include="SnowCone_ToppingMenu.cpp" />
     <ClCompile Include="SnowCone_ToppingSelect.cpp" />
+    <ClCompile Include="SnowCone_ToppingSumple.cpp" />
     <ClCompile Include="SnowCone_ToppingUI.cpp" />
     <ClCompile Include="TestObject.cpp" />
     <ClCompile Include="TestObjectChild.cpp" />
@@ -383,6 +384,7 @@
     <ClInclude Include="SnowCone_Topping.h" />
     <ClInclude Include="SnowCone_ToppingMenu.h" />
     <ClInclude Include="SnowCone_ToppingSelect.h" />
+    <ClInclude Include="SnowCone_ToppingSumple.h" />
     <ClInclude Include="SnowCone_ToppingUI.h" />
     <ClInclude Include="TestObject.h" />
     <ClInclude Include="TestObjectChild.h" />

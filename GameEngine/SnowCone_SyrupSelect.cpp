@@ -66,7 +66,7 @@ void SnowCone_SyrupSelect::Update()
 
 void SnowCone_SyrupSelect::Move()
 {
-	GetComponent<Image>(selectFrame_).SetPositionAtPixel(IMAGEPOS[syrupNum_]);
+	GetComponent<Image>(selectFrame_).SetPositionAtPixel(IMAGEPOS[selectNum_]);
 	if (time_->GetSeconds<float>() >= 0.3f)
 	{
 		time_->Lock();
@@ -79,19 +79,19 @@ void SnowCone_SyrupSelect::Input()
 {
 	if (Input::IsPadButtonDown(XINPUT_GAMEPAD_DPAD_DOWN,1))
 	{
-		syrupNum_++;
-		syrupNum_ = syrupNum_ % SYRUP_LIMIT;
+		selectNum_++;
+		selectNum_ = selectNum_ % SYRUP_LIMIT;
 		state_ = SELECT_STATE::MOVE;
 		time_->UnLock();
 	}
 
 	else if (Input::IsPadButtonDown(XINPUT_GAMEPAD_DPAD_UP,1))
 	{
-		syrupNum_--;
-		if (syrupNum_ < 0)
-			syrupNum_ = 2;
+		selectNum_--;
+		if (selectNum_ < 0)
+			selectNum_ = 2;
 
-		syrupNum_ = syrupNum_ % SYRUP_LIMIT;
+		selectNum_ = selectNum_ % SYRUP_LIMIT;
 		state_ = SELECT_STATE::MOVE;
 		time_->UnLock();
 	}
