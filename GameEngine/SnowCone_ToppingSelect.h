@@ -15,7 +15,6 @@ public:
 	void Input();
 	void Move();
 	int GetToppingNum() { return selectNum_; }
-
 	void Release() override;
 };
 

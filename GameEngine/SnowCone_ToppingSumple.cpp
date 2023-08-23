@@ -14,16 +14,19 @@ void SnowCone_ToppingSumple::Initialize()
 	{
 		Test_Model_ECSver model(this);
 		model.Load("Assets/Model/SnowCone_Topping_Adzuki.fbx");
+		model.SetDraw(false);
 		AddComponent<Test_Model_ECSver>(model);
 	}
 	{
 		Test_Model_ECSver model(this);
 		model.Load("Assets/Model/AAA.fbx");
+		model.SetDraw(false);
 		AddComponent<Test_Model_ECSver>(model);
 	}
 	{
 		Test_Model_ECSver model(this);
 		model.Load("Assets/Model/AAA.fbx");
+		model.SetDraw(false);
 		AddComponent<Test_Model_ECSver>(model);
 	}
 }
@@ -35,11 +38,6 @@ void SnowCone_ToppingSumple::ChangeSumple(int num)
 	
 	if (num < GetComponentList<Test_Model_ECSver>().size())
 		GetComponent<Test_Model_ECSver>(num).SetDraw(true);
-}
-
-void SnowCone_ToppingSumple::Update()
-{
-	int a = 0;
 }
 
 void SnowCone_ToppingSumple::Release()

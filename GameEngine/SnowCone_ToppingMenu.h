@@ -18,6 +18,7 @@ public:
 	SnowCone_ToppingMenu(Object* parent,const std::string& name);
 	~SnowCone_ToppingMenu();
 	void Initialize() override;
+	void Reset();
 	void Release() override;
 };
 

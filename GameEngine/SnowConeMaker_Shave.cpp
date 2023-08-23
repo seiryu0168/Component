@@ -13,7 +13,9 @@ namespace
 
 SnowConeMaker_Shave::SnowConeMaker_Shave(Object* parent)
 	:GameObject(parent, "SnowConeMaker_Shave"),
-	snowConeSize_(0.0f)
+	snowConeSize_(0.0f),
+	playerNum_(0),
+	snowCone_(nullptr)
 {
 }
 

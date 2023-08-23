@@ -360,11 +360,11 @@
     <ClCompile Include="SnowCone_ToppingSelect.cpp">
       <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
     </ClCompile>
-    <ClCompile Include="SnowCone_Order.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="SnowCone_ToppingSumple.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
+    </ClCompile>
+    <ClCompile Include="SnowCone_Order.cpp">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -695,11 +695,11 @@
     <ClInclude Include="SnowCone_ToppingSelect.h">
       <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
     </ClInclude>
-    <ClInclude Include="SnowCone_Order.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="SnowCone_ToppingSumple.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
+    </ClInclude>
+    <ClInclude Include="SnowCone_Order.h">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

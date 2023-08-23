@@ -3,7 +3,7 @@
 #include"SnowCone_Cup.h"
 
 SnowCone_Table::SnowCone_Table(Object* parent)
-	:GameObject(parent,"SnoeCone_Table")
+	:GameObject(parent,"SnowCone_Table")
 {
 }
 

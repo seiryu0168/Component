@@ -76,6 +76,7 @@ public:
 	void KillMe();
 	bool IsDead() { return killFlag_; }
 	void SetTag(const std::string& tagName) { objectTag_ = tagName; }
+	void SetActive(bool status) { activeFlag_ = status; }
 	bool IsActive() const { return activeFlag_; }
 	bool IsStart() const { return startFlag_; }
 	bool IsUpdate() const { return isUpdate_; }

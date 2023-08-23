@@ -17,7 +17,8 @@ namespace
 SnowConeMaker_Topping::SnowConeMaker_Topping(Object* parent)
 	:GameObject(parent,"SnowConeMaker_Topping"),
 	snowCone_(nullptr),
-	playerNum_(0)
+	playerNum_(0),
+	sumple_(nullptr)
 {
 }
 
@@ -85,7 +86,7 @@ void SnowConeMaker_Topping::ResetSelectUI()
 {
 	sumple_->GetTransform()->position_ = DEFAULT_SUMPLE_POS;
 	sumple_->ChangeSumple(0);
-	((SnowCone_ToppingUI*)FindChild("SnowCone_ToppingUI"))->ModeChange(SELECT_MODE::MODE_SYRUP);
+	((SnowCone_ToppingUI*)FindChild("SnowCone_ToppingUI"))->ResetUI();
 }
 
 void SnowConeMaker_Topping::Release()

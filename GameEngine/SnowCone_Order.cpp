@@ -4,7 +4,7 @@
 namespace
 {
 	const int ORDER_LIMIT = 3;
-	const XMFLOAT2 TEXTPOS[3] = { {0,0},{500,0},{1000,0} };
+	const XMFLOAT2 TEXTPOS[3] = { {400,100},{800,100},{1200,100} };
 }
 SnowCone_Order::SnowCone_Order(Object* parent)
 	:GameObject(parent,"SnowCone_Order"),

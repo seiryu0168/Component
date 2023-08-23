@@ -25,6 +25,7 @@ public:
 	int GetSyrupData();
 	int GetToppingData();
 	void ModeChange(SELECT_MODE mode);
+	void ResetUI();
 	void Release() override;
 };
 

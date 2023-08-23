@@ -20,7 +20,7 @@ void Shooting_ScoreUI::Init(const unsigned short& playerCount, std::string initT
 	{
 		Entity entity=Coordinator::CreateEntity();
 		uiEntities_.push_back(entity);
-		Text text(i);// ("", "‚è‚¢‚Ä‚ª‚«•M", { 0,0,10,500 });
+		Text text(i);
 		text.SetText("—‚Æ‚µ‚½” 0");
 		text.SetFont("‚è‚¢‚Ä‚ª‚«•M");
 		Coordinator::AddComponent<Text>(entity, text);

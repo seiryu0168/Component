@@ -16,6 +16,12 @@ void SnowCone_ToppingMenu::Initialize()
 {
 }
 
+void SnowCone_ToppingMenu::Reset()
+{
+	selectNum_ = 0;
+	state_ = SELECT_STATE::INPUT;
+}
+
 void SnowCone_ToppingMenu::Release()
 {
 }

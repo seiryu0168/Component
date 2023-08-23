@@ -343,11 +343,6 @@ void GameObject::Collision(GameObject* pTarget)
 //	return (*(*itr)->GetChildList()->begin());
 //}
 
-void GameObject::SetActive(bool status)
-{
-	this->activeFlag_ = status;
-}
-
 //Transform* GameObject::GetTransform() const
 //{
 //	return this->transform_;

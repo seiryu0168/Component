@@ -33,8 +33,8 @@ public:
 	//void DelCollider(const GameObject& obj);
 
 ///////////////////////////各セッターゲッター//////////////////////////////////////
-	void SetTag(const std::string& tagName) { objectTag_ = tagName; }
-	void SetActive(bool status);
+	//void SetTag(const std::string& tagName) { objectTag_ = tagName; }
+	//void SetActive(bool status);
 	//void SetUpdate(bool status) { isUpdate_ = status; };
 	//void SetStart(bool status) { startFlag_ = status; }
 	//void SetParent(GameObject* parent);

@@ -9,7 +9,6 @@ public:
 
 	void Initialize() override;
 	void ChangeSumple(int num);
-	void Update() override;
 	void Release() override;
 
 };
