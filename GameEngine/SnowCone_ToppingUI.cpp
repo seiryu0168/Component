@@ -43,11 +43,7 @@ void SnowCone_ToppingUI::Initialize()
 	//	image.SetPositionAtPixel(IMAGEPOS[0]);
 	//	AddComponent<Image>(image);
 	//}
-	{
-		Image image(0);
-		image.Load("Assets/Image/SnowCone_CommandImage.png");
-		AddComponent<Image>(image);
-	}
+	
 	////プレイヤー1のコマンド
 	//{
 	//	Text text("削る", "りいてがき筆", { 0,0,500,50 });
