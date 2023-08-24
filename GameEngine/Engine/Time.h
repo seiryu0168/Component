@@ -8,10 +8,9 @@ namespace Time
 	{
 		bool Lock_;		//現在の状態で固定するか
 		bool CountDown_;	//カウントダウンかカウントアップか
-
-	public:
 		int MilliSeconds_;	//経過時間
 
+	public:
 		Watch();
 		Watch(int sec);
 		~Watch();
@@ -36,6 +35,8 @@ namespace Time
 
 		int GetMinutes() const;
 		int GetHours() const;
+
+		void AddMilliSeconds(int mil);
 
 		//カウントダウンまたはカウントアップに変更
 		//true = カウントダウン, false = カウントアップ

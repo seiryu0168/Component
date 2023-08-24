@@ -59,6 +59,11 @@ void SceneBase::CheckKillObject()
 	rootObject_->ReleaseSub();
 }
 
+void SceneBase::Draw()
+{
+	rootObject_->DrawSub();
+}
+
 void SceneBase::AllKillObject()
 {
 	rootObject_->KillAllChildren();

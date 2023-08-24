@@ -46,7 +46,7 @@ const int WINDOW_HEIGHT = 1080;	 //ウィンドウ高さ
 //プロトタイプ宣言
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
-RootJob* pRootJob;
+//RootJob* pRootJob;
 
 //エントリーポイント
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, int nCmdShow)
@@ -198,7 +198,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 				//	CameraManager::Update();
 				//	newSceneManager::Draw();
 				//}
-				//pRootJob->SecondDrawSub();
+				//pRootJob->DrawSub();
 
 				//D2D::EndDraw();
 				//ImageManager::DrawUI();
