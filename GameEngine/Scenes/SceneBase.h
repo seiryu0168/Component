@@ -21,6 +21,7 @@ public:
 	void Update();
 	void StaticUpdate();
 	void CheckKillObject();
+	void Draw();
 
 	void AllKillObject();
 

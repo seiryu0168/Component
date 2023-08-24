@@ -9,6 +9,7 @@
 #include"../SAFE_DELETE_RELEASE.h"
 
 static const WORD PUSH = 0xfff0;
+static const int NO_PUSHING = -1;
 
 namespace Input
 {
@@ -35,8 +36,8 @@ namespace Input
 	
 	/// <summary>いずれかのゲームパッドの指定したボタンが押されたか返す関数</summary>
 	/// <param name="buttonCode">検証するボタンのビットマスク</param>
-	/// <returns>押されていればtrue,それ以外ならfalse</returns>
-	bool IsAnyPadDown(int buttonCode) noexcept;
+	/// <returns>押されていれば押したゲームパッドの番号,それ以外ならNO_PUSHING</returns>
+	int IsAnyPadDown(int buttonCode) noexcept;
 
 	/// <summary>
 	/// どのボタンが押されたか返す関数

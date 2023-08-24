@@ -46,7 +46,7 @@ const int WINDOW_HEIGHT = 1080;	 //ウィンドウ高さ
 //プロトタイプ宣言
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
-RootJob* pRootJob;
+//RootJob* pRootJob;
 
 //エントリーポイント
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, int nCmdShow)
@@ -54,7 +54,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 	
 	//ウィンドウクラス(設計)作成
-	WNDCLASSEX wc;
+	WNDCLASSEX wc{};
 	wc.cbSize = sizeof(WNDCLASSEX);             //この構造体のサイズ
 	wc.hInstance = hInstance;                   //インスタンスハンドル
 	wc.lpszClassName = WIN_CLASS_NAME;            //ウィンドウクラス名
@@ -198,7 +198,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 				//	CameraManager::Update();
 				//	newSceneManager::Draw();
 				//}
-				//pRootJob->SecondDrawSub();
+				//pRootJob->DrawSub();
 
 				//D2D::EndDraw();
 				//ImageManager::DrawUI();
@@ -211,6 +211,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 		}
 	}
 
+	Brightness::Release();
 	Audio::Releace();
 	DebugUI::CleanUp();
 	//ImageManager::AllRelease();

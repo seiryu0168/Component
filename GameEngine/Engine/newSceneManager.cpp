@@ -106,7 +106,7 @@ namespace newSceneManager
 		pLineParticleSystem_->Draw();
 		pImageSystem_->Draw();
 		pTextSystem_->Draw();
-		
+		currentScene_->Draw();
 	}
 
 	void AddScene(const std::string& objectFileName)

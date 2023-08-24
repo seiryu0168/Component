@@ -168,14 +168,14 @@ namespace Input
 		return false;
 	}
 
-	bool IsAnyPadDown(int buttonCode) noexcept
+	int IsAnyPadDown(int buttonCode) noexcept
 	{
 		for (int i = 0; i < PAD_MAX; i++)
 		{
 			if (IsPadButtonDown(buttonCode, i))
-				return true;
+				return i;
 		}
-		return false;
+		return NO_PUSHING;
 	}
 
 	WORD GetPadAnyButton(int padID)

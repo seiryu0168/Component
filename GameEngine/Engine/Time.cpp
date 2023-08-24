@@ -32,9 +32,9 @@ namespace Time
 			if (!itr->IsLock())
 			{
 				if(!itr->IsCountDown())
-					itr->MilliSeconds_ += (int)std::chrono::duration_cast<std::chrono::milliseconds>(Now - Prev).count();
+					itr->AddMilliSeconds((int)std::chrono::duration_cast<std::chrono::milliseconds>(Now - Prev).count());
 				else
-					itr->MilliSeconds_ -= (int)std::chrono::duration_cast<std::chrono::milliseconds>(Now - Prev).count();
+					itr->AddMilliSeconds(-(int)std::chrono::duration_cast<std::chrono::milliseconds>(Now - Prev).count());
 			}
 		}
 	}
@@ -114,6 +114,11 @@ namespace Time
 	int Watch::GetHours() const
 	{
 		return (int)std::chrono::duration_cast<std::chrono::hours>(std::chrono::milliseconds(MilliSeconds_)).count();
+	}
+
+	void Watch::AddMilliSeconds(int mil)
+	{
+		MilliSeconds_ += mil;
 	}
 
 	bool Watch::IsCountDown() const

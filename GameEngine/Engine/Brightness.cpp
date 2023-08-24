@@ -1,9 +1,8 @@
 #include "Brightness.h"
-//#include "Components/Image.h"
 #include "Components/Transform.h"
+#include "DirectX_11/Direct3D.h"
 #include "DirectX_11/Texture.h"
 #include <memory>
-#include "DirectX_11/Direct3D.h"
 
 namespace
 {
@@ -15,7 +14,7 @@ namespace
 
 	Transform transform_;
 
-	float Ratio = 1;
+	float Ratio = 0;
 
 	struct CONSTANT_BUFFER
 	{
@@ -42,6 +41,8 @@ namespace
 	static const int index[] = { 0,1,2, 0,2,3 };
 
 	static const int indexNum_ = 6;
+
+	static CONSTANT_BUFFER cb;
 }
 
 namespace Brightness
@@ -49,7 +50,7 @@ namespace Brightness
 	void CreateVB();
 	void CreateIB();
 	void CreateCB();
-	
+	void Prepare();
 }
 
 namespace Brightness
@@ -63,17 +64,13 @@ namespace Brightness
 		pTexture_ = std::make_unique<Texture>();
 		pTexture_->Load("Assets\\Image\\Filter.png");
 
-		/*Image_.Load("Assets\\Image\\Filter.png");
-		Image_.SetPositionAtPixel({ 0,0,0 });
-		Image_.SetSize({ (float)Direct3D::GetScreenWidth(), (float)Direct3D::GetScreenHeight(), 1 });
-		Image_.SetAlpha(0);*/
-		//transform_.position_ = { -1, -1,0 };
-		transform_.scale_ = { (float)Direct3D::GetScreenWidth(), (float)Direct3D::GetScreenHeight(), 1 };
+		Prepare();
 	}
 
 	void SetRatio(float ratio)
 	{
 		Ratio = ratio;
+		cb.color = XMFLOAT4(0, 0, 0, Ratio);
 	}
 
 	void Draw()
@@ -81,27 +78,7 @@ namespace Brightness
 		Direct3D::SetShader(SHADER_TYPE::SHADER_2D);
 		Direct3D::SetBlendMode(BLEND_MODE::BLEND_DEFAULT);
 		Direct3D::SetDepthBufferWriteEnable(false);
-		//コンスタントバッファに情報を渡す
-		transform_.Calclation();
-
-		float rectX = pTexture_->GetWidth();
-		float rectY = pTexture_->GetHeight();
-
-		//画面のサイズに合わせる行列
-		XMMATRIX matImageSize = XMMatrixScaling((float)(1.0f / Direct3D::GetScreenWidth()), (float)(1.0f / Direct3D::GetScreenHeight()), 1.0f);
-		//切り抜きサイズに合わせる行列
-		XMMATRIX matCut = XMMatrixScaling(rectX, rectY, 1.0f);
-		CONSTANT_BUFFER cb;
-
-		//最終的な行列
-		cb.matWorld = XMMatrixTranspose(matCut*transform_.GetWorldScaleMatrix() * /*matImageSize **/ transform_.GetWorldRotateMatrix() * transform_.GetWorldTranslateMatrix());
-
-		XMMATRIX matTexTrans = XMMatrixTranslation(0, 0, 1.0f);
-		XMMATRIX matTexScale = XMMatrixScaling(1, 1, 1.0f);
-
-		cb.matUVTrans = XMMatrixTranspose(matTexScale * matTexTrans);
-		cb.color = XMFLOAT4(0, 0, 0, Ratio);
-		cb.ChangeColor = { 0,0,0,0 };
+		
 
 		D3D11_MAPPED_SUBRESOURCE pdata;
 		Direct3D::pContext->Map(pConstantBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &pdata);	// GPUからのデータアクセスを止める
@@ -114,16 +91,12 @@ namespace Brightness
 
 		Direct3D::pContext->Unmap(pConstantBuffer_, 0);//再開
 
-		//頂点、インデックス、コンスタントバッファをセット
-
 		//頂点バッファ
 		UINT stride = sizeof(VERTEX);
 		UINT offset = 0;
 		Direct3D::pContext->IASetVertexBuffers(0, 1, &pVertexBuffer_, &stride, &offset);
 
 		// インデックスバッファーをセット
-		stride = sizeof(int);
-		offset = 0;
 		Direct3D::pContext->IASetIndexBuffer(pIndexBuffer_, DXGI_FORMAT_R32_UINT, 0);
 
 		//コンスタントバッファ
@@ -135,30 +108,37 @@ namespace Brightness
 		Direct3D::SetDepthBufferWriteEnable(true);
 	}
 
+	void Release()
+	{
+		SAFE_RELEASE(pConstantBuffer_);
+		SAFE_RELEASE(pIndexBuffer_);
+		SAFE_RELEASE(pVertexBuffer_);
+	}
+
 	void CreateVB()
 	{
-		D3D11_BUFFER_DESC bd_vertex;
+		D3D11_BUFFER_DESC bd_vertex{};
 		bd_vertex.ByteWidth = sizeof(VERTEX) * vertexNum_;
 		bd_vertex.Usage = D3D11_USAGE_DEFAULT;
 		bd_vertex.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 		bd_vertex.CPUAccessFlags = 0;
 		bd_vertex.MiscFlags = 0;
 		bd_vertex.StructureByteStride = 0;
-		D3D11_SUBRESOURCE_DATA data_vertex;
+		D3D11_SUBRESOURCE_DATA data_vertex{};
 		data_vertex.pSysMem = vertices;
 		HRESULT hr = Direct3D::pDevice->CreateBuffer(&bd_vertex, &data_vertex, &pVertexBuffer_);
 	}
 
 	void CreateIB()
 	{
-		D3D11_BUFFER_DESC   bd;
+		D3D11_BUFFER_DESC   bd{};
 		bd.Usage = D3D11_USAGE_DEFAULT;
 		bd.ByteWidth = sizeof(int) * indexNum_;
 		bd.BindFlags = D3D11_BIND_INDEX_BUFFER;
 		bd.CPUAccessFlags = 0;
 		bd.MiscFlags = 0;
 
-		D3D11_SUBRESOURCE_DATA InitData;
+		D3D11_SUBRESOURCE_DATA InitData{};
 		InitData.pSysMem = index;
 		InitData.SysMemPitch = 0;
 		InitData.SysMemSlicePitch = 0;
@@ -167,7 +147,7 @@ namespace Brightness
 
 	void CreateCB()
 	{
-		D3D11_BUFFER_DESC cb;
+		D3D11_BUFFER_DESC cb{};
 		cb.ByteWidth = sizeof(CONSTANT_BUFFER);
 		cb.Usage = D3D11_USAGE_DYNAMIC;
 		cb.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
@@ -177,5 +157,26 @@ namespace Brightness
 
 		// コンスタントバッファの作成
 		HRESULT hr = Direct3D::pDevice->CreateBuffer(&cb, nullptr, &pConstantBuffer_);
+	}
+	void Prepare()
+	{
+		float rectX = (float)pTexture_->GetWidth();
+		float rectY = (float)pTexture_->GetHeight();
+
+		//画面のサイズに合わせる行列
+		XMMATRIX matImageSize = XMMatrixScaling((float)(1.0f / Direct3D::GetScreenWidth()), (float)(1.0f / Direct3D::GetScreenHeight()), 1.0f);
+		//切り抜きサイズに合わせる行列
+		XMMATRIX matCut = XMMatrixScaling(rectX, rectY, 1.0f);
+
+
+		//最終的な行列
+		cb.matWorld = XMMatrixTranspose(matCut * transform_.GetWorldScaleMatrix() * transform_.GetWorldRotateMatrix() * transform_.GetWorldTranslateMatrix());
+
+		XMMATRIX matTexTrans = XMMatrixTranslation(0, 0, 1.0f);
+		XMMATRIX matTexScale = XMMatrixScaling(1, 1, 1.0f);
+
+		cb.color = XMFLOAT4(0, 0, 0, Ratio);
+		cb.matUVTrans = XMMatrixTranspose(matTexScale * matTexTrans);
+		cb.ChangeColor = { 0,0,0,0 };
 	}
 }
