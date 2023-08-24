@@ -36,6 +36,7 @@ private:
 	IDWriteTextFormat*	  pTextFormat_;     //テキストフォーマット
 	IDWriteTextLayout*	  pLayout_;			//テキストレイアウト
 	int renderTargetNum_;
+	int layerNum_;
 	TEXT_POSITION defaultPos_;
 public:
 	TEXT_POSITION				  transform2D;		//座標
