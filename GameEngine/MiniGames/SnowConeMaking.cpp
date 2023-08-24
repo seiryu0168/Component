@@ -15,7 +15,7 @@ namespace
 {
 	static const XMFLOAT3 cupPos[3] = { {-10,0,0},{0,0,0},{10,0,0} };
 	static const XMFLOAT2 COUNT_POS = { 900,500 };
-	static const XMFLOAT3 PROGRESS_DEFAULT = { 1,1,0 };
+	static const XMFLOAT3 PROGRESS_DEFAULT = { 2,1,0 };
 	static const float PLAY_COUNT = 60.0f;
 }
 SnowConeMaking::SnowConeMaking(Object* parent)
@@ -65,19 +65,19 @@ void SnowConeMaking::Initialize()
 	}
 
 		Image image(0);
-		image.Load("Assets/Image/SnowCone_CommandImage.png");
+		image.Load("Assets/Image/SnowCone_CommandImage2.png");
 		AddComponent<Image>(image);
 
-	Image progressFrame(0);
-	progressFrame.Load("Assets/Image/ProgressFrame_Image.png");
-	progressFrame.SetSize(PROGRESS_DEFAULT);
-	progressFrame.SetPositionAtPixel({ -876,-800,0 });
-	progressImageNum_ = AddComponent<Image>(progressFrame);
+	//Image progressFrame(0);
+	//progressFrame.Load("Assets/Image/ProgressFrame_Image.png");
+	//progressFrame.SetSize(PROGRESS_DEFAULT);
+	//progressFrame.SetPositionAtPixel({ -76,-800,0 });
+	//progressImageNum_ = AddComponent<Image>(progressFrame);
 	
 	Image progressImage(0);
 	progressImage.Load("Assets/Image/ProgressBar_Image.png");
 	progressImage.SetSize(PROGRESS_DEFAULT);
-	progressImage.SetPositionAtPixel({ -1900,-800,0 });
+	progressImage.SetPositionAtPixel({ -1920,-800,0 });
 	progressImageNum_ = AddComponent<Image>(progressImage);
 	
 

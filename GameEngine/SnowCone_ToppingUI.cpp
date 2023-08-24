@@ -6,7 +6,7 @@
 
 namespace
 {
-	const XMFLOAT2 COMMANDTEXT_POS[] = { { 150,850 },{ 150,900 } ,{ 1050,850 }, { 1450,850 },{ 1050,900 },{ 1450,900 } };
+	const XMFLOAT2 COMMANDTEXT_POS[] = { { 150,850 },{ 1150,850 } ,{ 1050,850 }, { 1450,850 },{ 1050,900 },{ 1450,900 } };
 	const XMFLOAT3 COMMANDIMAGE_POS[] = { {-1700,-675,0},{-1700,-700,0},{100,-675,0} };
 	
 }
@@ -44,12 +44,27 @@ void SnowCone_ToppingUI::Initialize()
 	//	AddComponent<Image>(image);
 	//}
 	
-	////プレイヤー1のコマンド
-	//{
-	//	Text text("削る", "りいてがき筆", { 0,0,500,50 });
-	//	text.SetPosition(COMMANDTEXT_POS[0]);
-	//	text.SetTextSize(40);
-	//	AddComponent<Text>(text);
+	//プレイヤー1のコマンド
+	{
+		std::string str = "手順\n1.かき氷を用意する  2.かき氷を削る\n3.かき氷を渡す";
+		Text text("", "りいてがき筆", { 0,0,1000,200 });
+		text.SetText(str);
+		text.SetColor({ 0,0,0,1 });
+		text.SetPosition(COMMANDTEXT_POS[0]);
+		text.SetTextSize(40);
+		text.SetTextSize(60,0,2);
+		AddComponent<Text>(text);
+	}
+	{
+		std::string str = "手順\n1.かき氷を受け取る  2.シロップを選ぶ\n3.トッピングを選ぶ  4.かき氷を出す";
+		Text text("", "りいてがき筆", { 0,0,1000,200 });
+		text.SetText(str);
+		text.SetColor({ 0,0,0,1 });
+		text.SetPosition(COMMANDTEXT_POS[1]);
+		text.SetTextSize(40);
+		text.SetTextSize(60,0,2);
+		AddComponent<Text>(text);
+	}
 	//	
 	//	Image image(0);
 	//	image.Load("Assets/Image/Buttons/BTN_B.png");
