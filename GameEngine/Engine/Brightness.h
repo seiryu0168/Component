@@ -5,5 +5,6 @@ namespace Brightness
 	void Initialize();
 	void SetRatio(float ratio);
 	void Draw();
+	void Release();
 };
 

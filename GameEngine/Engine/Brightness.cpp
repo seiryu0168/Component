@@ -1,9 +1,8 @@
 #include "Brightness.h"
-//#include "Components/Image.h"
 #include "Components/Transform.h"
+#include "DirectX_11/Direct3D.h"
 #include "DirectX_11/Texture.h"
 #include <memory>
-#include "DirectX_11/Direct3D.h"
 
 namespace
 {
@@ -109,6 +108,13 @@ namespace Brightness
 		Direct3D::pContext->DrawIndexed(indexNum_, 0, 0);
 
 		Direct3D::SetDepthBufferWriteEnable(true);
+	}
+
+	void Release()
+	{
+		SAFE_RELEASE(pConstantBuffer_);
+		SAFE_RELEASE(pIndexBuffer_);
+		SAFE_RELEASE(pVertexBuffer_);
 	}
 
 	void CreateVB()
