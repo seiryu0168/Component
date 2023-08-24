@@ -8,11 +8,11 @@ ModelSystem::ModelSystem() : System()
 //	
 //}
 
-void ModelSystem::Draw()
+void ModelSystem::Draw(int layerNum)
 {
 	for (Entity entity : entities_)
 	{
-		Coordinator::GetComponent<Test_Model_ECSver>(entity).Draw();
+		Coordinator::GetComponent<Test_Model_ECSver>(entity).Draw(layerNum);
 	}
 }
 

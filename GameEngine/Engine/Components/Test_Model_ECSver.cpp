@@ -5,12 +5,13 @@ Test_Model_ECSver::Test_Model_ECSver()
 {
 }
 
-Test_Model_ECSver::Test_Model_ECSver(GameObject* object)
+Test_Model_ECSver::Test_Model_ECSver(GameObject* object,int layerNum)
 	:attachObject_(object),
 	type_(SHADER_TYPE::SHADER_3D),
 	animationFrame_(0),
 	isDraw_(true),
-	meshEntity_(0)
+	meshEntity_(0),
+	layerNum_(layerNum)
 {
 }
 
@@ -51,4 +52,13 @@ void Test_Model_ECSver::Draw()
 {
 	if(isDraw_)
 	fbx_->Draw(*attachObject_->GetTransform(), type_, animationFrame_);
+}
+
+void Test_Model_ECSver::Draw(int layerNum)
+{
+	if (layerNum != layerNum_)
+		return;
+
+	if (isDraw_)
+		fbx_->Draw(*attachObject_->GetTransform(), type_, animationFrame_);
 }

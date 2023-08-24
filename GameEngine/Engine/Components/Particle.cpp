@@ -3,12 +3,15 @@
 
 Particle::Particle() : Particle(nullptr)
 {
+	layerNum_ = 0;
 	blendMode_ = BLEND_MODE::BLEND_ADD;
 }
 
-Particle::Particle(GameObject* object)
+Particle::Particle(GameObject* object,int layerNum)
 	:attacheObject_(object),
-	blendMode_(BLEND_MODE::BLEND_ADD)
+	blendMode_(BLEND_MODE::BLEND_ADD),
+	isStop_(false),
+	layerNum_(layerNum)
 {
 
 }
@@ -240,6 +243,31 @@ void Particle::Draw()
 		XMFLOAT3 pos = StoreFloat3(itr->nowData.position);
 		XMMATRIX matTrans = attacheObject_->GetTransform()->GetWorldMatrix()*XMMatrixTranslation(pos.x, pos.y, pos.z);
 		
+		//Šg‘ås—ñ
+		XMMATRIX matScale = XMMatrixScaling(itr->nowData.scale.x, itr->nowData.scale.y, 1.0f);
+
+		matW = matScale * CameraManager::GetCurrentCamera().GetBillBoardMatrix() * matTrans;
+		itr->pEmitter->pBillBoard->Draw(matW, itr->nowData.color);
+	}
+}
+
+void Particle::Draw(int layerNum)
+{
+
+	if (layerNum != layerNum_)
+		return;
+
+	Direct3D::SetShader(SHADER_TYPE::SHADER_EFF);
+	Direct3D::SetBlendMode(blendMode_);
+
+	for (auto&& itr : particleList_)
+	{
+		XMMATRIX matW;
+
+		//ˆÚ“®s—ñ
+		XMFLOAT3 pos = StoreFloat3(itr->nowData.position);
+		XMMATRIX matTrans = attacheObject_->GetTransform()->GetWorldMatrix() * XMMatrixTranslation(pos.x, pos.y, pos.z);
+
 		//Šg‘ås—ñ
 		XMMATRIX matScale = XMMatrixScaling(itr->nowData.scale.x, itr->nowData.scale.y, 1.0f);
 

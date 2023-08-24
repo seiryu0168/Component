@@ -39,6 +39,8 @@ namespace
 	std::shared_ptr<LineParticleSystem> pLineParticleSystem_;
 	std::shared_ptr<TextSystem> pTextSystem_;
 	std::shared_ptr<ImageSystem> pImageSystem_;
+
+	int MAX_LAYER = 4;
 }
 
 //ŠO•”‚©‚çŒ©‚¦‚È‚¢‚æ‚¤‚É‚·‚é
@@ -101,12 +103,16 @@ namespace newSceneManager
 
 	void Draw()
 	{
-		pModelSyatem_->Draw();
-		pParticleSystem_->Draw();
-		pLineParticleSystem_->Draw();
-		pImageSystem_->Draw();
-		pTextSystem_->Draw();
-		currentScene_->Draw();
+		for (int layerCount = 0; layerCount < MAX_LAYER; layerCount++)
+		{
+
+			pModelSyatem_->Draw(layerCount);
+			pParticleSystem_->Draw(layerCount);
+			pLineParticleSystem_->Draw(layerCount);
+			pImageSystem_->Draw(layerCount);
+			pTextSystem_->Draw(layerCount);
+		}
+			currentScene_->Draw();
 	}
 
 	void AddScene(const std::string& objectFileName)

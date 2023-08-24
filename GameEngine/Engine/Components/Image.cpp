@@ -5,14 +5,15 @@
 #include "../DirectX_11/Input.h"
 #include "../ResourceManager/ImageMediationer.h"
 
-Image::Image(int cameraNum)
+Image::Image(int cameraNum,int layerNum)
 	:alpha_(1.0f),
 	rect_({ 0,0,1,1 }),
 	color_(),
 	imageName_(""),
 	pSprite_(),
 	transform_(),
-	drawTargetNumber_(cameraNum)
+	drawTargetNumber_(cameraNum),
+	layerNum_(layerNum)
 {
 }
 
@@ -78,6 +79,15 @@ void Image::Draw()
 {
 	if(drawTargetNumber_ == CameraManager::GetCurrentCameraNum() || drawTargetNumber_ == -1)
 	pSprite_->Draw(transform_, rect_, color_, alpha_);
+}
+
+void Image::Draw(int layerNum)
+{
+	if (layerNum != layerNum_)
+		return;
+
+	if (drawTargetNumber_ == CameraManager::GetCurrentCameraNum() || drawTargetNumber_ == -1)
+		pSprite_->Draw(transform_, rect_, color_, alpha_);
 }
 
 bool Image::IsHitCursor()

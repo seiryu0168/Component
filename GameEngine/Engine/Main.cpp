@@ -185,9 +185,6 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 					CameraManager::UpdateCameraNum(i);
 					Direct3D::SetViewPort(CameraManager::GetCamera(i).GetViewPort());
 
-				
-					//Direct3D::SetViewPort(0);
-					////CameraManager::SetPosition(XMVectorSet(0, 10, -10, 0));
 					newSceneManager::Draw();
 				}
 				////ビューポート２

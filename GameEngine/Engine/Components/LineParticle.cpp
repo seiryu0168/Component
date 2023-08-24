@@ -6,7 +6,7 @@ LineParticle::LineParticle() : LineParticle(nullptr)
 {
 	blendMode_ = BLEND_MODE::BLEND_ADD;
 }
-LineParticle::LineParticle(GameObject* object)
+LineParticle::LineParticle(GameObject* object,int layerNum)
 	:attachObject_(object),
 	WIDTH_(0.5),
 	LENGTH_(2),
@@ -16,7 +16,8 @@ LineParticle::LineParticle(GameObject* object)
 	pVertexBuffer_(nullptr),
 	pIndexBuffer_(nullptr),
 	pConstantBuffer_(nullptr),
-	pTexture_(nullptr)
+	pTexture_(nullptr),
+	layerNum_(layerNum)
 {
 	assert(LENGTH_ >= 1);
 	endWidth_ = max(endWidth_, 0);
@@ -353,6 +354,56 @@ void LineParticle::Draw()
 
 	//頂点の並び方を指定
 	Direct3D::pContext->DrawIndexed((UINT)indexList.size()-24,0,0);
+	Direct3D::pContext->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+}
+
+void LineParticle::Draw(int layerNum)
+{
+	if (layerNum != layerNum_)
+		return;
+
+	HRESULT hr;
+	Direct3D::SetShader(SHADER_TYPE::SHADER_EFF);
+	Direct3D::SetBlendMode(blendMode_);
+	CONSTANT_BUFFER cb;
+	cb.matWVP = XMMatrixTranspose(CameraManager::GetCurrentCamera().GetViewMatrix() * CameraManager::GetCurrentCamera().GetProjectionMatrix());
+	cb.color = color_;
+
+	D3D11_MAPPED_SUBRESOURCE pdata;
+
+	//GPUからのデータアクセスを止める
+	hr = Direct3D::pContext->Map(pConstantBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &pdata);
+	if (FAILED(hr))
+	{
+		MessageBox(nullptr, L"デバイスコンテキスト失敗", L"エラー", MB_OK);
+	}
+	//データを送る
+	memcpy_s(pdata.pData, pdata.RowPitch, (void*)(&cb), sizeof(cb));
+
+	ID3D11SamplerState* pSampler = pTexture_->GetSampler();
+	Direct3D::pContext->PSSetSamplers(0, 1, &pSampler);
+
+	ID3D11ShaderResourceView* pSRV = pTexture_->GetSRV();
+	Direct3D::pContext->PSSetShaderResources(0, 1, &pSRV);
+
+	//データアクセス再開
+	Direct3D::pContext->Unmap(pConstantBuffer_, 0);
+
+	UINT stride = sizeof(VERTEX);
+	UINT offset = 0;
+
+	//頂点バッファ
+	Direct3D::pContext->IASetVertexBuffers(0, 1, &pVertexBuffer_, &stride, &offset);
+
+	//インデックスバッファ
+	Direct3D::pContext->IASetIndexBuffer(pIndexBuffer_, DXGI_FORMAT_R32_UINT, 0);
+
+	//コンスタントバッファ
+	Direct3D::pContext->VSSetConstantBuffers(0, 1, &pConstantBuffer_);//頂点シェーダー用
+	Direct3D::pContext->PSSetConstantBuffers(0, 1, &pConstantBuffer_);//ピクセルシェーダー用
+
+	//頂点の並び方を指定
+	Direct3D::pContext->DrawIndexed((UINT)indexList.size() - 24, 0, 0);
 	Direct3D::pContext->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 }
 

@@ -14,11 +14,11 @@ void ParticleSystem::Update()
 	}
 }
 
-void ParticleSystem::Draw()
+void ParticleSystem::Draw(int layerNum)
 {
 	for (Entity entity : entities_)
 	{
-		Coordinator::GetComponent<Particle>(entity).Draw();
+		Coordinator::GetComponent<Particle>(entity).Draw(layerNum);
 	}
 }
 

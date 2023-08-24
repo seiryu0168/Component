@@ -9,11 +9,11 @@ TextSystem::TextSystem() : System()
 //	
 //}
 
-void TextSystem::Draw()
+void TextSystem::Draw(int layerNum)
 {
 	for (Entity entity : entities_)
 	{
-		Coordinator::GetComponent<Text>(entity).Draw();
+		Coordinator::GetComponent<Text>(entity).Draw(layerNum);
 	}
 }
 

@@ -12,11 +12,11 @@ void LineParticleSystem::Update()
 	}
 }
 
-void LineParticleSystem::Draw()
+void LineParticleSystem::Draw(int layerNum)
 {
 	for (Entity entity : entities_)
 	{
-		Coordinator::GetComponent<LineParticle>(entity).Draw();
+		Coordinator::GetComponent<LineParticle>(entity).Draw(layerNum);
 	}
 }
 

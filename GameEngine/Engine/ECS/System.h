@@ -10,7 +10,7 @@ public:
 	~System() {};
 	virtual void Init() {};
 	virtual void Update() {};
-	virtual void Draw() {};
+	virtual void Draw(int drawLayer = 0) {};
 	virtual void CheckRemove() {};
 	virtual void Release() {};
 };

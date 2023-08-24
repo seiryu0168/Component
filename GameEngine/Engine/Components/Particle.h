@@ -83,6 +83,7 @@ private:
     GameObject* attacheObject_;
     BLEND_MODE blendMode_;
     bool isStop_;
+    int layerNum_;
 
     //パーティクルのアップデート
     void UpdateParticle();
@@ -91,7 +92,7 @@ private:
     void UpdateEmitter();
 public:
     Particle();
-    Particle(GameObject* object);
+    Particle(GameObject* object,int layerNum = 0);
 
     //デストラクタ
     ~Particle();
@@ -120,6 +121,7 @@ public:
 
     //描画
     void Draw();
+    void Draw(int layerNum);
 
     //開放
     void Release();

@@ -17,9 +17,11 @@ private:
 	std::vector<Entity> materialList_;
 	Entity meshEntity_;
 	GameObject* attachObject_;
+
+	int layerNum_;
 public:
 	Test_Model_ECSver();
-	Test_Model_ECSver(GameObject* object);
+	Test_Model_ECSver(GameObject* object, int layerNum = 0);
 
 	//ƒ‚ƒfƒ‹‚Ìƒ[ƒh
 	bool Load(const std::string& fileName);
@@ -40,6 +42,7 @@ public:
 	GameObject* GetAttachedObject() { return attachObject_; }
 	//•`‰æ
 	void Draw();
+	void Draw(int layerNum);
 
 };
 

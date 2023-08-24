@@ -7,7 +7,7 @@ public:
 	ParticleSystem();
 	~ParticleSystem() {};
 	void Update() override;
-	void Draw() override;
+	void Draw(int layerNum) override;
 	void Release() override;
 	void CheckRemove() override;
 };

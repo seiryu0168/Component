@@ -10,9 +10,10 @@ private:
 	XMFLOAT4 color_;
 	float alpha_;
 	int drawTargetNumber_;
+	int layerNum_;
 	Transform transform_;
 public:
-	Image(int cameraNum = -1);
+	Image(int cameraNum = -1,int layerNum=0);
 	~Image();
 	//‰æ‘œƒ[ƒh
 	bool Load(const std::string& name, const std::string& tab = "");
@@ -33,6 +34,7 @@ public:
 	void SetDrawTarget(int targetNum) { drawTargetNumber_ = targetNum; }
 	//•`‰æ
 	void Draw();
+	void Draw(int layerNum);
 
 	XMFLOAT3 GetPosition() const { XMFLOAT3 pos; XMStoreFloat3(&pos, transform_.position_); return pos; }
 

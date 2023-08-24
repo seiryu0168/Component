@@ -57,9 +57,10 @@ private:
 	std::list<XMFLOAT3> positionList_;
 	GameObject* attachObject_;
 	BLEND_MODE blendMode_;
+	int layerNum_;
 public:
 	LineParticle();
-	LineParticle(GameObject* object);
+	LineParticle(GameObject* object,int lauerNum=0);
 	/// <summary>
 	/// ラインの位置保存
 	/// 位置をポジションリストに追加
@@ -94,6 +95,7 @@ public:
 	/// 描画
 	/// </summary>
 	void Draw();
+	void Draw(int layerNum);
 	/// <summary>
 	/// ラインパーティクルの各パラメータ設定
 	/// </summary>

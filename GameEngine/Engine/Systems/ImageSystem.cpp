@@ -8,11 +8,11 @@ ImageSystem::ImageSystem() : System()
 //{
 //}
 
-void ImageSystem::Draw()
+void ImageSystem::Draw(int layerNum)
 {
 	for (Entity entity : entities_)
 	{
-		Coordinator::GetComponent<Image>(entity).Draw();
+		Coordinator::GetComponent<Image>(entity).Draw(layerNum);
 	}
 }
 
