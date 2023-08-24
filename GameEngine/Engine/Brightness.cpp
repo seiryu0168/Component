@@ -64,8 +64,6 @@ namespace Brightness
 		pTexture_ = std::make_unique<Texture>();
 		pTexture_->Load("Assets\\Image\\Filter.png");
 
-		transform_.scale_ = { (float)Direct3D::GetScreenWidth(), (float)Direct3D::GetScreenHeight(), 1 };
-
 		Prepare();
 	}
 
@@ -119,28 +117,28 @@ namespace Brightness
 
 	void CreateVB()
 	{
-		D3D11_BUFFER_DESC bd_vertex;
+		D3D11_BUFFER_DESC bd_vertex{};
 		bd_vertex.ByteWidth = sizeof(VERTEX) * vertexNum_;
 		bd_vertex.Usage = D3D11_USAGE_DEFAULT;
 		bd_vertex.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 		bd_vertex.CPUAccessFlags = 0;
 		bd_vertex.MiscFlags = 0;
 		bd_vertex.StructureByteStride = 0;
-		D3D11_SUBRESOURCE_DATA data_vertex;
+		D3D11_SUBRESOURCE_DATA data_vertex{};
 		data_vertex.pSysMem = vertices;
 		HRESULT hr = Direct3D::pDevice->CreateBuffer(&bd_vertex, &data_vertex, &pVertexBuffer_);
 	}
 
 	void CreateIB()
 	{
-		D3D11_BUFFER_DESC   bd;
+		D3D11_BUFFER_DESC   bd{};
 		bd.Usage = D3D11_USAGE_DEFAULT;
 		bd.ByteWidth = sizeof(int) * indexNum_;
 		bd.BindFlags = D3D11_BIND_INDEX_BUFFER;
 		bd.CPUAccessFlags = 0;
 		bd.MiscFlags = 0;
 
-		D3D11_SUBRESOURCE_DATA InitData;
+		D3D11_SUBRESOURCE_DATA InitData{};
 		InitData.pSysMem = index;
 		InitData.SysMemPitch = 0;
 		InitData.SysMemSlicePitch = 0;
@@ -149,7 +147,7 @@ namespace Brightness
 
 	void CreateCB()
 	{
-		D3D11_BUFFER_DESC cb;
+		D3D11_BUFFER_DESC cb{};
 		cb.ByteWidth = sizeof(CONSTANT_BUFFER);
 		cb.Usage = D3D11_USAGE_DYNAMIC;
 		cb.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
@@ -162,8 +160,8 @@ namespace Brightness
 	}
 	void Prepare()
 	{
-		float rectX = pTexture_->GetWidth();
-		float rectY = pTexture_->GetHeight();
+		float rectX = (float)pTexture_->GetWidth();
+		float rectY = (float)pTexture_->GetHeight();
 
 		//画面のサイズに合わせる行列
 		XMMATRIX matImageSize = XMMatrixScaling((float)(1.0f / Direct3D::GetScreenWidth()), (float)(1.0f / Direct3D::GetScreenHeight()), 1.0f);
