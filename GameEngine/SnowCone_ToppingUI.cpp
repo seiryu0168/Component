@@ -6,7 +6,9 @@
 
 namespace
 {
-	const XMFLOAT3 IMAGEPOS[] = { {-1000,500,0},{-1000,0,0} };
+	const XMFLOAT2 COMMANDTEXT_POS[] = { { 150,850 },{ 150,900 } ,{ 1050,850 }, { 1450,850 },{ 1050,900 },{ 1450,900 } };
+	const XMFLOAT3 COMMANDIMAGE_POS[] = { {-1700,-675,0},{-1700,-700,0},{100,-675,0} };
+	
 }
 
 SnowCone_ToppingUI::SnowCone_ToppingUI(Object* parent)
@@ -41,46 +43,88 @@ void SnowCone_ToppingUI::Initialize()
 	//	image.SetPositionAtPixel(IMAGEPOS[0]);
 	//	AddComponent<Image>(image);
 	//}
-
-	{
-		Text text("í‚é", "‚è‚¢‚Ä‚ª‚«•M", { 0,0,500,50 });
-		text.SetPosition({ 150,850 });
-		text.SetTextSize(40);
-		AddComponent<Text>(text);
-	}
 	{
 		Image image(0);
-		image.Load("Assets/Image/Buttons/BTN_B.png");
-		image.SetPositionAtPixel({ -1700,-675,0 });
-		image.SetSize({ 0.7f,0.7f,0 });
+		image.Load("Assets/Image/SnowCone_CommandImage.png");
 		AddComponent<Image>(image);
 	}
-
-
-	{
-		Text text("Œˆ’è", "‚è‚¢‚Ä‚ª‚«•M", { 0,0,500,50 });
-		text.SetPosition({ 1050,850 });
-		text.SetTextSize(40);
-		AddComponent<Text>(text);
-	}
-	{
-		Text text("‘I‘ğ", "‚è‚¢‚Ä‚ª‚«•M", { 0,0,500,50 });
-		text.SetPosition({ 1450,850 });
-		text.SetTextSize(40);
-		AddComponent<Text>(text);
-	}
-	{
-		Text text("‚©‚«•X‚ğo‚·", "‚è‚¢‚Ä‚ª‚«•M", { 0,0,500,50 });
-		text.SetPosition({ 1050,900 });
-		text.SetTextSize(40);
-		AddComponent<Text>(text);
-	}
-	{
-		Text text("‚©‚«•X‚ğó‚¯æ‚é", "‚è‚¢‚Ä‚ª‚«•M", { 0,0,500,50 });
-		text.SetPosition({ 1450,900 });
-		text.SetTextSize(40);
-		AddComponent<Text>(text);
-	}
+	////ƒvƒŒƒCƒ„[1‚ÌƒRƒ}ƒ“ƒh
+	//{
+	//	Text text("í‚é", "‚è‚¢‚Ä‚ª‚«•M", { 0,0,500,50 });
+	//	text.SetPosition(COMMANDTEXT_POS[0]);
+	//	text.SetTextSize(40);
+	//	AddComponent<Text>(text);
+	//	
+	//	Image image(0);
+	//	image.Load("Assets/Image/Buttons/BTN_B.png");
+	//	image.SetPositionAtPixel(COMMANDIMAGE_POS[0]);
+	//	image.SetSize({ 0.7f,0.7f,0 });
+	//	AddComponent<Image>(image);
+	//}
+	//
+	//{
+	//	Text text("‚©‚«•X‚ğ“n‚·", "‚è‚¢‚Ä‚ª‚«•M", { 0,0,500,50 });
+	//	text.SetPosition(COMMANDTEXT_POS[1]);
+	//	text.SetTextSize(40);
+	//	AddComponent<Text>(text);
+	//
+	//	Image image(0);
+	//	image.Load("Assets/Image/Buttons/BTN_A.png");
+	//	image.SetPositionAtPixel(COMMANDIMAGE_POS[1]);
+	//	image.SetSize({ 0.7f,0.7f,0 });
+	//	AddComponent<Image>(image);
+	//}
+	//
+	////ƒvƒŒƒCƒ„[2‚ÌƒRƒ}ƒ“ƒh
+	//{
+	//	Text text("Œˆ’è", "‚è‚¢‚Ä‚ª‚«•M", { 0,0,500,50 });
+	//	text.SetPosition(COMMANDTEXT_POS[2]);
+	//	text.SetTextSize(40);
+	//	AddComponent<Text>(text);
+	//
+	//	Image image(0);
+	//	image.Load("Assets/Image/Buttons/BTN_A.png");
+	//	image.SetPositionAtPixel(COMMANDIMAGE_POS[2]);
+	//	image.SetSize({ 0.7f,0.7f,0 });
+	//	AddComponent<Image>(image);
+	//}
+	//
+	//{
+	//	Text text("‘I‘ğ", "‚è‚¢‚Ä‚ª‚«•M", { 0,0,500,50 });
+	//	text.SetPosition(COMMANDTEXT_POS[3]);
+	//	text.SetTextSize(40);
+	//	AddComponent<Text>(text);
+	//
+	//	Image image(0);
+	//	image.Load("Assets/Image/Buttons/BTN_A.png");
+	//	image.SetPositionAtPixel(COMMANDIMAGE_POS[1]);
+	//	image.SetSize({ 0.7f,0.7f,0 });
+	//	AddComponent<Image>(image);
+	//}
+	//{
+	//	Text text("‚©‚«•X‚ğo‚·", "‚è‚¢‚Ä‚ª‚«•M", { 0,0,500,50 });
+	//	text.SetPosition(COMMANDTEXT_POS[4]);
+	//	text.SetTextSize(40);
+	//	AddComponent<Text>(text);
+	//
+	//	Image image(0);
+	//	image.Load("Assets/Image/Buttons/BTN_A.png");
+	//	image.SetPositionAtPixel(COMMANDIMAGE_POS[1]);
+	//	image.SetSize({ 0.7f,0.7f,0 });
+	//	AddComponent<Image>(image);
+	//}
+	//{
+	//	Text text("‚©‚«•X‚ğó‚¯æ‚é", "‚è‚¢‚Ä‚ª‚«•M", { 0,0,500,50 });
+	//	text.SetPosition(COMMANDTEXT_POS[5]);
+	//	text.SetTextSize(40);
+	//	AddComponent<Text>(text);
+	//
+	//	Image image(0);
+	//	image.Load("Assets/Image/Buttons/BTN_A.png");
+	//	image.SetPositionAtPixel(COMMANDIMAGE_POS[1]);
+	//	image.SetSize({ 0.7f,0.7f,0 });
+	//	AddComponent<Image>(image);
+	//}
 
 
 	toppingSelect_ = Instantiate<SnowCone_ToppingSelect>(this);

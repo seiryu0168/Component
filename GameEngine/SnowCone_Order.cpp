@@ -1,10 +1,12 @@
 #include "SnowCone_Order.h"
 #include"Engine/ResourceManager/CsvReader.h"
 #include"Engine/Systems/TextSystem.h"
+#include"Engine/Systems/ImageSystem.h"
 namespace
 {
 	const int ORDER_LIMIT = 3;
-	const XMFLOAT2 TEXTPOS[3] = { {400,100},{800,100},{1200,100} };
+	const XMFLOAT2 TEXTPOS[3] = { {530,100},{880,100},{1230,100} };
+	const XMFLOAT3 MENUIMAGE_POS[] = { {-600,800,0},{100,800,0},{800,800,0} };
 }
 SnowCone_Order::SnowCone_Order(Object* parent)
 	:GameObject(parent,"SnowCone_Order"),
@@ -38,6 +40,15 @@ void SnowCone_Order::Initialize()
 		CreateOrder();
 		orderTextNum_++;
 	}
+
+	for (XMFLOAT3 pos : MENUIMAGE_POS)
+	{
+		Image image(0);
+		image.Load("Assets/Image/SnowCone_MenuBackImage.png");
+		image.SetPositionAtPixel(pos);
+		image.SetSize({ 1.3f,1.3,0 });
+		AddComponent<Image>(image);
+	}
 }
 
 void SnowCone_Order::CreateOrder()
@@ -59,6 +70,7 @@ void SnowCone_Order::CreateOrder()
 		text.SetTextSize(40);
 		text.SetAlignmentType(ALIGNMENT_TYPE::CENTER_TOP);
 		text.SetPosition(TEXTPOS[orderTextNum_]);
+		text.SetColor({ 0, 0, 0, 1 });
 		AddComponent<Text>(text);
 		orderList_.push_back(order);
 	}
