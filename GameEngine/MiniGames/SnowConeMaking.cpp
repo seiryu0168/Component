@@ -79,6 +79,12 @@ void SnowConeMaking::Initialize()
 	progressImage.SetSize(PROGRESS_DEFAULT);
 	progressImage.SetPositionAtPixel({ -1920,-800,0 });
 	progressImageNum_ = AddComponent<Image>(progressImage);
+
+	Image black(-1, 1);
+	black.Load("Assets/Image/Filter.png");
+	black.SetSize({ 1920,1080,0 });
+	black.SetAlpha(0);
+	blackImageNum_ = AddComponent<Image>(black);
 	
 
 	Text countText("", "‚è‚¢‚Ä‚ª‚«•M", { 0,0,500,50 });
@@ -126,10 +132,14 @@ void SnowConeMaking::StaticUpdate()
 		SetUpdate(!isUpdate_);
 		if (IsUpdate())
 		{
+			GetComponent<Image>(blackImageNum_).SetAlpha(0);
 			time_->UnLock();
 		}
 		else
+		{
+			GetComponent<Image>(blackImageNum_).SetAlpha(1);
 			time_->Lock();
+		}
 	}
 }
 

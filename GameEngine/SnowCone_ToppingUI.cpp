@@ -47,9 +47,9 @@ void SnowCone_ToppingUI::Initialize()
 	//プレイヤー1のコマンド
 	{
 		std::string str = "手順\n1.かき氷を用意する  2.かき氷を削る\n3.かき氷を渡す";
-		Text text("", "りいてがき筆", { 0,0,1000,200 });
+		Text text("", "りいてがき筆", { 0,0,1000,200 },0);
 		text.SetText(str);
-		text.SetColor({ 0,0,0,1 });
+		text.SetColor({ 1,0,0,1 });
 		text.SetPosition(COMMANDTEXT_POS[0]);
 		text.SetTextSize(40);
 		text.SetTextSize(60,0,2);
@@ -57,9 +57,9 @@ void SnowCone_ToppingUI::Initialize()
 	}
 	{
 		std::string str = "手順\n1.かき氷を受け取る  2.シロップを選ぶ\n3.トッピングを選ぶ  4.かき氷を出す";
-		Text text("", "りいてがき筆", { 0,0,1000,200 });
+		Text text("", "りいてがき筆", { 0,0,1000,200 },0);
 		text.SetText(str);
-		text.SetColor({ 0,0,0,1 });
+		text.SetColor({ 1,0,0,1 });
 		text.SetPosition(COMMANDTEXT_POS[1]);
 		text.SetTextSize(40);
 		text.SetTextSize(60,0,2);

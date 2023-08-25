@@ -15,6 +15,7 @@ private:
 	std::unique_ptr<Time::Watch> time_;
 	PLAY_STATE state_;
 	int progressImageNum_;
+	int blackImageNum_;
 	
 
 public:

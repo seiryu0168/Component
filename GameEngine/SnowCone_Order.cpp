@@ -70,7 +70,7 @@ void SnowCone_Order::CreateOrder()
 		text.SetTextSize(40);
 		text.SetAlignmentType(ALIGNMENT_TYPE::CENTER_TOP);
 		text.SetPosition(TEXTPOS[orderTextNum_]);
-		text.SetColor({ 0, 0, 0, 1 });
+		text.SetColor({ 1, 0, 0, 1 });
 		AddComponent<Text>(text);
 		orderList_.push_back(order);
 	}

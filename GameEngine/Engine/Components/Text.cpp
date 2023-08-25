@@ -22,6 +22,7 @@ Text::Text(const int& renderTargetNum)
 	Initialize();
 
 }
+
 Text::Text(const std::string& text, const std::string& fontName, const TEXT_RECT& rect, int renderTargetNum,int layerNum, const DWRITE_FONT_WEIGHT& wight, const DWRITE_FONT_STYLE& style, const DWRITE_FONT_STRETCH& stretch, const ALIGNMENT_TYPE& type)
 	:layerNum_(layerNum)
 {
