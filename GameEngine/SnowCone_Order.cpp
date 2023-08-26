@@ -66,7 +66,7 @@ void SnowCone_Order::CreateOrder()
 		std::string orderStr = sizeTextList_[order.size_] + "\n" +
 							   syrupTextList_[order.syrup_] + "\n" +
 							   toppingTextList_[order.topping_];
-		Text text(orderStr, "‚è‚¢‚Ä‚ª‚«•M", { 0,0,500,50 }, 0);
+		Text text(orderStr, "‚è‚¢‚Ä‚ª‚«•M", { 0,0,500,50 });
 		text.SetTextSize(40);
 		text.SetAlignmentType(ALIGNMENT_TYPE::CENTER_TOP);
 		text.SetPosition(TEXTPOS[orderTextNum_]);

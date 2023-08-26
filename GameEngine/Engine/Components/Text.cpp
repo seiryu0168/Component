@@ -217,16 +217,21 @@ void Text::Draw(int layerNum)
 {
 	if (layerNum != layerNum_)
 		return;
-	Direct3D::SetDepthBufferWriteEnable(false);
-	D2D::GetRenderTarget()->BeginDraw();
-	D2D::GetRenderTarget()->DrawTextLayout(transform2D, pLayout_, pColorBrush_);
-	//D2D::GetRenderTarget()->DrawText(pText_, textLength_, pTextFormat_,
-	//							    { transform2D.x + layoutRect_.left,
-	//								  transform2D.y + layoutRect_.top,
-	//								  transform2D.x + layoutRect_.right,
-	//								  transform2D.y + layoutRect_.bottom }, pColorBrush_);
-	D2D::GetRenderTarget()->EndDraw();
-	Direct3D::SetDepthBufferWriteEnable(true);
+
+	if (renderTargetNum_ == CameraManager::GetCurrentCameraNum())
+	{
+
+		Direct3D::SetDepthBufferWriteEnable(false);
+		D2D::GetRenderTarget()->BeginDraw();
+		D2D::GetRenderTarget()->DrawTextLayout(transform2D, pLayout_, pColorBrush_);
+		//D2D::GetRenderTarget()->DrawText(pText_, textLength_, pTextFormat_,
+		//							    { transform2D.x + layoutRect_.left,
+		//								  transform2D.y + layoutRect_.top,
+		//								  transform2D.x + layoutRect_.right,
+		//								  transform2D.y + layoutRect_.bottom }, pColorBrush_);
+		D2D::GetRenderTarget()->EndDraw();
+		Direct3D::SetDepthBufferWriteEnable(true);
+	}
 }
 
 void Text::SetColor(const XMFLOAT4& color)
