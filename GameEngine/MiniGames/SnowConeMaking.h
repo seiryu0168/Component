@@ -1,6 +1,8 @@
 #pragma once
 #include"Framework.h"
 #include"../Engine/Time.h"
+#include"../SnowCone_ScoreManager.h"
+
 class SnowCone_Cup;
 class SnowConeMaking : public Framework
 {
@@ -14,6 +16,7 @@ private:
 	std::queue<SnowCone_Cup*> cupList_;
 	std::unique_ptr<Time::Watch> time_;
 	PLAY_STATE state_;
+	SnowCone_ScoreManager scoreManager_;
 	int progressImageNum_;
 	int blackImageNum_;
 	
@@ -27,6 +30,7 @@ public:
 	void Stay();
 	void Play();
 	void AddCup(SnowCone_Cup* cup);
+	void ScoreUpdate(int score);
 	void Evaluation(float size,int syrup,int topping);
 	SnowCone_Cup* GetCup();
 	void Release()override;

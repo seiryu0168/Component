@@ -6,6 +6,7 @@
 #include"SnowCone_Cup.h"
 #include"SnowCone_ToppingUI.h"
 #include"SnowCone_ToppingSumple.h"
+#include"SnowCone_SyrupSumple.h"
 
 namespace
 {
@@ -18,7 +19,7 @@ SnowConeMaker_Topping::SnowConeMaker_Topping(Object* parent)
 	:GameObject(parent,"SnowConeMaker_Topping"),
 	snowCone_(nullptr),
 	playerNum_(0),
-	sumple_(nullptr)
+	toppingSumple_(nullptr)
 {
 }
 
@@ -34,8 +35,10 @@ void SnowConeMaker_Topping::Initialize()
 	CameraManager::GetCamera(playerNum_+1).SetPosition(transform_->position_);
 	CameraManager::GetCamera(playerNum_+1).SetTarget(TARGET_POS);
 	Instantiate<SnowCone_ToppingUI>(this);
-	sumple_ = Instantiate<SnowCone_ToppingSumple>(GetParent());
-	sumple_->GetTransform()->position_ = DEFAULT_SUMPLE_POS;
+	toppingSumple_ = Instantiate<SnowCone_ToppingSumple>(GetParent());
+	toppingSumple_->GetTransform()->position_ = DEFAULT_SUMPLE_POS;
+	syrupSumple_ = Instantiate<SnowCone_SyrupSumple>(GetParent());
+	syrupSumple_->GetTransform()->position_ = DEFAULT_SUMPLE_POS;
 
 }
 
@@ -63,7 +66,9 @@ void SnowConeMaker_Topping::Update()
 		if (snowCone_)
 		{
 			snowCone_->GetTransform()->position_ = TARGET_POS;
-			SetSumple();
+			syrupSumple_->GetTransform()->scale_.y = 1+snowCone_->GetConeSize();
+			SetToppingSumple();
+			SetSyrupSumple();
 		}
 		break;
 	default:
@@ -77,15 +82,22 @@ void SnowConeMaker_Topping::SetTopping()
 	snowCone_->SetTopping(0);
 }
 
-void SnowConeMaker_Topping::SetSumple()
+void SnowConeMaker_Topping::SetToppingSumple()
 {
-	sumple_->GetTransform()->position_ = snowCone_->GetIceBonePos("Bone");
+	toppingSumple_->GetTransform()->position_ = snowCone_->GetIceBonePos("Bone");
+}
+
+void SnowConeMaker_Topping::SetSyrupSumple()
+{
+	syrupSumple_->GetTransform()->position_ = snowCone_->GetIceBonePos("Bone");
 }
 
 void SnowConeMaker_Topping::ResetSelectUI()
 {
-	sumple_->GetTransform()->position_ = DEFAULT_SUMPLE_POS;
-	sumple_->ChangeSumple(0);
+	toppingSumple_->GetTransform()->position_ = DEFAULT_SUMPLE_POS;
+	toppingSumple_->ChangeSumple(0);
+	syrupSumple_->GetTransform()->position_ = DEFAULT_SUMPLE_POS;
+	syrupSumple_->ChangeSumple(0);
 	((SnowCone_ToppingUI*)FindChild("SnowCone_ToppingUI"))->ResetUI();
 }
 

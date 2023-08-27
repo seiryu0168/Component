@@ -4,6 +4,7 @@
 #include"../Engine/Systems/ImageSystem.h"
 #include"../Engine/Systems/TextSystem.h"
 #include"../Engine/newSceneManager.h"
+#include"../InterSceneData.h"
 
 #include"../SnowConeMaker_Shave.h"
 #include"../SnowConeMaker_Topping.h"
@@ -106,7 +107,7 @@ void SnowConeMaking::Initialize()
 	time_->SetSecond(3.0f);
 	time_->UnLock();
 
-
+	scoreManager_.Init(1, 0);
 }
 
 void SnowConeMaking::Update()
@@ -167,6 +168,7 @@ void SnowConeMaking::Play()
 	if (time_->GetSeconds<float>() < 0)
 	{
 		newSceneManager::ChangeScene(SCENE_ID::RESULT, 1.0f);
+		InterSceneData::AddData<int>("ResultData", scoreManager_.GetScore());
 		state_ = PLAY_STATE::STATE_FINISH;
 	}
 }
@@ -184,6 +186,11 @@ void SnowConeMaking::AddCup(SnowCone_Cup* cup)
 	}
 	else
 		cup->KillMe();
+}
+
+void SnowConeMaking::ScoreUpdate(int score)
+{
+	scoreManager_.ScoreUpdate(score);
 }
 
 void SnowConeMaking::Evaluation(float size, int syrup, int topping)

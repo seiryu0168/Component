@@ -2,6 +2,7 @@
 #include"../../Engine/Components/Transform.h"
 #include"../../InterSceneData.h"
 #include"../../Result_Shooting.h"
+#include"../../Result_SnowCone.h"
 #include"../../Result_Multi.h"
 RootObject_Result::RootObject_Result()
 {
@@ -25,6 +26,9 @@ void RootObject_Result::Initialize()
 	case (int)CHICKENRACE:
 	case (int)COMMANDMEMORY:
 		Instantiate<Result_Multi>(this);
+		break;
+	case (int)SNOWCONE:
+		Instantiate<Result_SnowCone>(this);
 		break;
 	default:
 		break;

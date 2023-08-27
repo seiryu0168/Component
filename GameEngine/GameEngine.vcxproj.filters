@@ -31,9 +31,6 @@
     <Filter Include="ソース ファイル\Engine\DirectX_11">
       <UniqueIdentifier>{08dda351-47b3-4c47-974e-e1601ee8e962}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Engine\ResourceManager">
-      <UniqueIdentifier>{c08edbe2-834c-4fbd-ab53-e8cd5e03f960}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Engine\Component">
       <UniqueIdentifier>{62a656dc-52a1-4343-9fee-75e42a07a146}</UniqueIdentifier>
     </Filter>
@@ -57,6 +54,9 @@
     </Filter>
     <Filter Include="ソース ファイル\MiniGames\SnowConeMaking">
       <UniqueIdentifier>{5bc3ec02-ae18-4b4c-8a1e-68f1bac07e0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Engine\ResourceManager">
+      <UniqueIdentifier>{c08edbe2-834c-4fbd-ab53-e8cd5e03f960}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -367,6 +367,15 @@
       <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Brightness.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="SnowCone_SyrupSumple.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Result_SnowCone.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="SnowCone_ScoreManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -705,6 +714,15 @@
       <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Brightness.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="SnowCone_SyrupSumple.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Result_SnowCone.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="SnowCone_ScoreManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

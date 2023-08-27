@@ -242,6 +242,7 @@
     <ClCompile Include="Result_Multi.cpp" />
     <ClCompile Include="Result_Shooting.cpp" />
     <ClCompile Include="Result_Single.cpp" />
+    <ClCompile Include="Result_SnowCone.cpp" />
     <ClCompile Include="Scenes\RootObject\RootObject.cpp" />
     <ClCompile Include="Scenes\RootObject\RootObject_Menu.cpp" />
     <ClCompile Include="Scenes\RootObject\RootObject_Play.cpp" />
@@ -267,7 +268,9 @@
     <ClCompile Include="SnowCone_Cup.cpp" />
     <ClCompile Include="SnowCone_Ice.cpp" />
     <ClCompile Include="SnowCone_Order.cpp" />
+    <ClCompile Include="SnowCone_ScoreManager.cpp" />
     <ClCompile Include="SnowCone_SyrupSelect.cpp" />
+    <ClCompile Include="SnowCone_SyrupSumple.cpp" />
     <ClCompile Include="SnowCone_Table.cpp" />
     <ClCompile Include="SnowCone_Topping.cpp" />
     <ClCompile Include="SnowCone_ToppingMenu.cpp" />
@@ -353,6 +356,7 @@
     <ClInclude Include="Result_Multi.h" />
     <ClInclude Include="Result_Shooting.h" />
     <ClInclude Include="Result_Single.h" />
+    <ClInclude Include="Result_SnowCone.h" />
     <ClInclude Include="Scenes\RootObject\RootObject.h" />
     <ClInclude Include="Scenes\RootObject\RootObject_Menu.h" />
     <ClInclude Include="Scenes\RootObject\RootObject_Play.h" />
@@ -381,7 +385,9 @@
     <ClInclude Include="SnowCone_Cup.h" />
     <ClInclude Include="SnowCone_Ice.h" />
     <ClInclude Include="SnowCone_Order.h" />
+    <ClInclude Include="SnowCone_ScoreManager.h" />
     <ClInclude Include="SnowCone_SyrupSelect.h" />
+    <ClInclude Include="SnowCone_SyrupSumple.h" />
     <ClInclude Include="SnowCone_Table.h" />
     <ClInclude Include="SnowCone_Topping.h" />
     <ClInclude Include="SnowCone_ToppingMenu.h" />

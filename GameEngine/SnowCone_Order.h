@@ -27,6 +27,7 @@ public:
 
 	void Initialize() override;
 	void CreateOrder();
+	void InitOrder();
 	void Judge(int size, int syrup, int topping);
 	void Release() override;
 };

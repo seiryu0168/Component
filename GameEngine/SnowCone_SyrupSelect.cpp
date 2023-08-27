@@ -2,6 +2,7 @@
 #include"Engine/Systems/ImageSystem.h"
 #include"Engine/Systems/TextSystem.h"
 #include"Engine/DirectX_11/Input.h"
+#include"SnowCone_SyrupSumple.h"
 #include"SnowCone_ToppingUI.h"
 
 namespace
@@ -83,6 +84,8 @@ void SnowCone_SyrupSelect::Input()
 		selectNum_ = selectNum_ % SYRUP_LIMIT;
 		state_ = SELECT_STATE::MOVE;
 		time_->UnLock();
+
+		((SnowCone_SyrupSumple*)FindObject("SnowCone_SyrupSumple"))->ChangeSumple(selectNum_);
 	}
 
 	else if (Input::IsPadButtonDown(XINPUT_GAMEPAD_DPAD_UP,1))
@@ -94,6 +97,7 @@ void SnowCone_SyrupSelect::Input()
 		selectNum_ = selectNum_ % SYRUP_LIMIT;
 		state_ = SELECT_STATE::MOVE;
 		time_->UnLock();
+		((SnowCone_SyrupSumple*)FindObject("SnowCone_SyrupSumple"))->ChangeSumple(selectNum_);
 	}
 	else if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A,1))
 	{
