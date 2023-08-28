@@ -66,7 +66,8 @@ void SnowConeMaker_Shave::Update()
 		//かき氷をストックに移動
 		if (snowCone_)
 		{
-			snowCone_->SetConeSize(snowConeSize_);
+			//snowCone_->SetConeSize(snowConeSize_);
+			snowCone_->ChangeDrawTarget(2);
 			((SnowConeMaking*)GetParent())->AddCup(snowCone_);
 			snowCone_ = nullptr;
 		}
@@ -83,13 +84,9 @@ void SnowConeMaker_Shave::Update()
 
 void SnowConeMaker_Shave::Shave()
 {
-	GameObject* obj = (GameObject*)snowCone_->FindChild("SnowCone_Ice");
-	if (obj)
-	{
-		obj->GetTransform()->scale_.y += SNOWCONE_SIZE_DELTA*0.3f;
+		snowCone_->SetConeSize(SNOWCONE_SIZE_DELTA* 0.3f);
 		snowConeSize_ += SNOWCONE_SIZE_DELTA;
 		GetComponent<Image>().SetSize({ 0.5f,snowConeSize_,0 });
-	}
 }
 
 void SnowConeMaker_Shave::Release()

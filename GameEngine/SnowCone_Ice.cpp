@@ -1,10 +1,12 @@
 #include "SnowCone_Ice.h"
 #include"Engine/Systems/ModelSystem.h"
+#include"Engine/Systems/ImageSystem.h"
 #include"SnowCone_Topping.h"
 
 SnowCone_Ice::SnowCone_Ice(Object* parent)
 	:GameObject(parent,"SnowCone_Ice"),
-	top_(nullptr)
+	top_(nullptr),
+	coneSize_(1.0f)
 {
 }
 
@@ -14,6 +16,12 @@ SnowCone_Ice::~SnowCone_Ice()
 
 void SnowCone_Ice::Initialize()
 {
+	Image image(1,0);
+	image.Load("Assets/Image/SnowCone_IceImage.png");
+	image.SetPositionAtPixel({ 0,180, 0 });
+	AddComponent<Image>(image);
+
+
 	Test_Model_ECSver model(this);
 	model.Load("Assets/Model/SnowCone_Ice.fbx");
 	AddComponent<Test_Model_ECSver>(model);
@@ -36,6 +44,12 @@ void SnowCone_Ice::SetTopping(int topNum)
 	model.Load("Assets/Model/SnowCone_Topping_Adzuki.fbx");
 	top_->GetTransform()->position_ = pos;
 	top_->AddComponent<Test_Model_ECSver>(model);
+}
+
+void SnowCone_Ice::AddConeSize(float size)
+{
+	coneSize_ += size;
+	GetComponent<Image>().SetSize({ 1,coneSize_,0 });
 }
 
 void SnowCone_Ice::RemoveTopping()
