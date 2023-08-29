@@ -32,9 +32,12 @@ void SnowConeMaker_Topping::Initialize()
 	
 	transform_->position_ = DEFAULT_POS;
 
+	//カメラの設定
 	CameraManager::GetCamera(playerNum_+1).SetPosition(transform_->position_);
 	CameraManager::GetCamera(playerNum_+1).SetTarget(TARGET_POS);
+	//UI生成
 	Instantiate<SnowCone_ToppingUI>(this);
+	//各サンプルの生成、設定
 	toppingSumple_ = Instantiate<SnowCone_ToppingSumple>(GetParent());
 	toppingSumple_->GetTransform()->position_ = DEFAULT_SUMPLE_POS;
 	syrupSumple_ = Instantiate<SnowCone_SyrupSumple>(GetParent());
@@ -61,14 +64,17 @@ void SnowConeMaker_Topping::Update()
 			snowCone_ = nullptr;
 			ResetSelectUI();
 		}
+
+		//かき氷があれば取得する
 		snowCone_ = ((SnowConeMaking*)GetParent())->GetCup();
 
+		//かき氷があれば
 		if (snowCone_)
 		{
 			snowCone_->GetTransform()->position_ = TARGET_POS;
 			syrupSumple_->GetTransform()->scale_.y = 1+snowCone_->GetConeSize();
-			SetToppingSumple();
-			SetSyrupSumple();
+			syrupSumple_->SetSyrupSize(snowCone_->GetConeHeight());
+			snowCone_->ToppingSetUp();
 		}
 		break;
 	default:
@@ -97,7 +103,8 @@ void SnowConeMaker_Topping::ResetSelectUI()
 	toppingSumple_->GetTransform()->position_ = DEFAULT_SUMPLE_POS;
 	toppingSumple_->ChangeSumple(0);
 	syrupSumple_->GetTransform()->position_ = DEFAULT_SUMPLE_POS;
-	syrupSumple_->ChangeSumple(0);
+	syrupSumple_->Reset();
+	//syrupSumple_->ChangeSumple(0);
 	((SnowCone_ToppingUI*)FindChild("SnowCone_ToppingUI"))->ResetUI();
 }
 

@@ -56,7 +56,10 @@ void SnowConeMaker_Shave::Update()
 	{
 	case XINPUT_GAMEPAD_X:
 		if (snowCone_)
+		{
+			snowCone_->RemoveIce();
 			snowCone_->KillMe();
+		}
 
 		snowCone_ = Instantiate<SnowCone_Cup>(GetParent());
 		snowConeSize_ = 0.0f;

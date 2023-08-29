@@ -16,6 +16,16 @@ void ImageSystem::Draw(int layerNum)
 	}
 }
 
+void ImageSystem::CheckRemove()
+{
+	//std::set<Entity> subEntities = entities_;
+	//for (Entity entity : subEntities)
+	//{
+	//	if (Coordinator::GetComponent<Image>(entity).GetAttachedObject()->IsDead())
+	//		Coordinator::RemoveComponent<Image>(entity);
+	//}
+}
+
 void ImageSystem::Release()
 {
 	//for文内で値を消すのでコピーして回す

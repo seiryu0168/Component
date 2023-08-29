@@ -200,7 +200,7 @@ void SnowConeMaking::Evaluation(float size, int syrup, int topping)
 
 SnowCone_Cup* SnowConeMaking::GetCup()
 {
-	SnowCone_Cup* cup = nullptr;
+	SnowCone_Cup* cup;
 	if (cupList_.empty() == false)
 	{
 		cup = cupList_.front();
@@ -208,7 +208,7 @@ SnowCone_Cup* SnowConeMaking::GetCup()
 		return cup;
 	}
 	else
-		return cup;
+	return nullptr;
 }
 
 

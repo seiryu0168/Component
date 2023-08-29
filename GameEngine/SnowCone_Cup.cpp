@@ -6,7 +6,8 @@
 SnowCone_Cup::SnowCone_Cup(Object* parent)
 	:GameObject(parent, "SnowCone_Cup"),
 	coneSize_(0),
-	iceNum_(0)
+	iceNum_(0),
+	cupNum_(0)
 {
 }
 
@@ -29,7 +30,7 @@ void SnowCone_Cup::Initialize()
 	{
 		Image image(1, 0);
 		image.Load("Assets/Image/SnowCone_CupImage.png");
-		AddComponent<Image>(image);
+		cupNum_ = AddComponent<Image>(image);
 	}
 	//Test_Model_ECSver model(this);
 	//model.Load("Assets/Model/SnowCone_Cup.fbx");
@@ -41,6 +42,11 @@ void SnowCone_Cup::Initialize()
 int SnowCone_Cup::GetConeSize()
 {
 	return (int)(coneSize_/1.32f);
+}
+
+float SnowCone_Cup::GetConeHeight()
+{
+	return coneSize_;
 }
 
 void SnowCone_Cup::SetColor(const XMFLOAT4& color)
@@ -56,15 +62,21 @@ void SnowCone_Cup::SetTopping(int topNum)
 void SnowCone_Cup::SetConeSize(float size)
 {
 	coneSize_ += size;
-	GetComponent<Image>(iceNum_).SetSize({ 1,coneSize_+1,0 });
+	GetComponent<Image>(iceNum_).SetSize({ 1,1+coneSize_,0 });
 }
 
 void SnowCone_Cup::ChangeDrawTarget(int num)
 {
-	GetComponent<Image>().SetDrawTarget(num);
+	GetComponent<Image>(cupNum_).SetDrawTarget(num);
 	GetComponent<Image>(iceNum_).SetDrawTarget(num);
-	GetComponent<Image>().SetAlpha(0);
+	GetComponent<Image>(cupNum_).SetAlpha(0);
 	GetComponent<Image>(iceNum_).SetAlpha(0);
+}
+
+void SnowCone_Cup::ToppingSetUp()
+{
+	GetComponent<Image>(cupNum_).SetAlpha(1);
+	GetComponent<Image>(iceNum_).SetAlpha(1);
 }
 
 XMVECTOR SnowCone_Cup::GetIceBonePos(const std::string& boneName)
@@ -74,9 +86,11 @@ XMVECTOR SnowCone_Cup::GetIceBonePos(const std::string& boneName)
 
 void SnowCone_Cup::RemoveIce()
 {
-	((SnowCone_Ice*)FindChild("SnowCone_Ice"))->RemoveTopping();
+	RemoveComponent<Image>(cupNum_);
+	RemoveComponent<Image>(iceNum_);
 }
 
 void SnowCone_Cup::Release()
 {
+
 }

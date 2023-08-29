@@ -14,20 +14,23 @@ void SnowCone_SyrupSumple::Initialize()
 {
 
 	{
-		Image image(2, 0);
+		Image image(2, 1);
 		image.Load("Assets/Image/SnowCone_Syrup_RedImage.png");
+		image.SetPositionAtPixel({ 0,180, 0 });
 		image.SetAlpha(0);
 		AddComponent<Image>(image);
 	}
 	{
-		Image image(2, 0);
+		Image image(2, 1);
 		image.Load("Assets/Image/SnowCone_Syrup_BlueImage.png");
+		image.SetPositionAtPixel({ 0,180, 0 });
 		image.SetAlpha(0);
 		AddComponent<Image>(image);
 	}
 	{
-		Image image(2, 0);
+		Image image(2, 1);
 		image.Load("Assets/Image/SnowCone_Syrup_GreenImage.png");
+		image.SetPositionAtPixel({ 0,180, 0 });
 		image.SetAlpha(0);
 		AddComponent<Image>(image);
 	}
@@ -53,11 +56,26 @@ void SnowCone_SyrupSumple::Initialize()
 
 void SnowCone_SyrupSumple::ChangeSumple(int num)
 {
-	for (auto& modelNum : GetComponentList<Test_Model_ECSver>())
-		Coordinator::GetComponent<Test_Model_ECSver>(modelNum).SetDraw(false);
+	for (auto& imageNum : GetComponentList<Image>())
+		Coordinator::GetComponent<Image>(imageNum).SetAlpha(0);
 
-	if (num < GetComponentList<Test_Model_ECSver>().size())
-		GetComponent<Test_Model_ECSver>(num).SetDraw(true);
+	if (num < GetComponentList<Image>().size())
+		GetComponent<Image>(num).SetAlpha(1);
+}
+
+void SnowCone_SyrupSumple::SetSyrupSize(float size)
+{
+	for (auto& imageNum : GetComponentList<Image>())
+		Coordinator::GetComponent<Image>(imageNum).SetSize({ 1,1+size,0 });
+}
+
+void SnowCone_SyrupSumple::Reset()
+{
+	for (auto& imageNum : GetComponentList<Image>())
+	{
+		Coordinator::GetComponent<Image>(imageNum).SetSize({ 1,1,0 });
+		Coordinator::GetComponent<Image>(imageNum).SetAlpha(0);
+	}
 }
 
 void SnowCone_SyrupSumple::Release()

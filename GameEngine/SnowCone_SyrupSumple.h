@@ -8,6 +8,8 @@ public:
 
 	void Initialize() override;
 	void ChangeSumple(int num);
+	void SetSyrupSize(float size);
+	void Reset();
 	void Release() override;
 };
 

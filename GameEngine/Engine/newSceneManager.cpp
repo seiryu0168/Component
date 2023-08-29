@@ -132,9 +132,9 @@ namespace newSceneManager
 		pModelSyatem_->CheckRemove();
 		pParticleSystem_->CheckRemove();
 		pLineParticleSystem_->CheckRemove();
-		currentScene_->CheckKillObject();
-		//pImageSystem_->CheckRemove();
+		pImageSystem_->CheckRemove();
 		//pTextSystem_->CheckRemove();
+		currentScene_->CheckKillObject();
 	}
 
 	//void ChangeScene(SCENE_ID next, int countDown)
