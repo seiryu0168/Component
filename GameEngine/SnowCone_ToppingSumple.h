@@ -9,6 +9,8 @@ public:
 
 	void Initialize() override;
 	void ChangeSumple(int num);
+	void SetSumple(float size, float pos);
+	void Reset();
 	void Release() override;
 
 };

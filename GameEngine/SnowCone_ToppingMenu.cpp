@@ -22,6 +22,7 @@ void SnowCone_ToppingMenu::Reset()
 	state_ = SELECT_STATE::INPUT;
 }
 
+
 void SnowCone_ToppingMenu::Release()
 {
 }

@@ -28,6 +28,7 @@ void SnowCone_SyrupSelect::Initialize()
 	selectText.SetPosition({ 50,10 });
 	selectText.SetTextSize(40);
 	AddComponent<Text>(selectText);
+
 	{
 		Image image(CAMERANUM);
 		image.Load("Assets/Image/SnowCone_Syrup_Red.png");
@@ -68,7 +69,7 @@ void SnowCone_SyrupSelect::Update()
 void SnowCone_SyrupSelect::Move()
 {
 	GetComponent<Image>(selectFrame_).SetPositionAtPixel(IMAGEPOS[selectNum_]);
-	if (time_->GetSeconds<float>() >= 0.3f)
+	if (time_->GetSeconds<float>() >= 0.2f)
 	{
 		time_->Lock();
 		time_->Reset();

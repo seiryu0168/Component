@@ -81,7 +81,7 @@ void SnowConeMaking::Initialize()
 	progressImage.SetPositionAtPixel({ -1920,-800,0 });
 	progressImageNum_ = AddComponent<Image>(progressImage);
 
-	Image black(-1, 1);
+	Image black(-1, 2);
 	black.Load("Assets/Image/Filter.png");
 	black.SetSize({ 1920,1080,0 });
 	black.SetAlpha(0);
@@ -128,17 +128,20 @@ void SnowConeMaking::Update()
 
 void SnowConeMaking::StaticUpdate()
 {
+	//スタートボタンを押したときの挙動(ポーズ)
 	if (Input::IsPadButtonDown(XINPUT_GAMEPAD_START))
 	{
 		SetUpdate(!isUpdate_);
+		//ポーズ解除
 		if (IsUpdate())
 		{
 			GetComponent<Image>(blackImageNum_).SetAlpha(0);
 			time_->UnLock();
 		}
+		//ポーズ
 		else
 		{
-			GetComponent<Image>(blackImageNum_).SetAlpha(1);
+			GetComponent<Image>(blackImageNum_).SetAlpha(0.3);
 			time_->Lock();
 		}
 	}

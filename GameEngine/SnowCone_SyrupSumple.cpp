@@ -1,6 +1,11 @@
 #include "SnowCone_SyrupSumple.h"
 #include"Engine/Systems/ModelSystem.h"
 #include"Engine/Systems/ImageSystem.h"
+namespace
+{
+	const XMFLOAT3 SYRUPPOS = { 0,180, 0 };
+}
+
 SnowCone_SyrupSumple::SnowCone_SyrupSumple(Object* parent)
 	:GameObject(parent,"SnowCone_SyrupSumple")
 {
@@ -16,21 +21,21 @@ void SnowCone_SyrupSumple::Initialize()
 	{
 		Image image(2, 1);
 		image.Load("Assets/Image/SnowCone_Syrup_RedImage.png");
-		image.SetPositionAtPixel({ 0,180, 0 });
+		image.SetPositionAtPixel(SYRUPPOS);
 		image.SetAlpha(0);
 		AddComponent<Image>(image);
 	}
 	{
 		Image image(2, 1);
 		image.Load("Assets/Image/SnowCone_Syrup_BlueImage.png");
-		image.SetPositionAtPixel({ 0,180, 0 });
+		image.SetPositionAtPixel(SYRUPPOS);
 		image.SetAlpha(0);
 		AddComponent<Image>(image);
 	}
 	{
 		Image image(2, 1);
 		image.Load("Assets/Image/SnowCone_Syrup_GreenImage.png");
-		image.SetPositionAtPixel({ 0,180, 0 });
+		image.SetPositionAtPixel(SYRUPPOS);
 		image.SetAlpha(0);
 		AddComponent<Image>(image);
 	}

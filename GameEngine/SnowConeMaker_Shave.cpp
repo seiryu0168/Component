@@ -70,7 +70,8 @@ void SnowConeMaker_Shave::Update()
 		if (snowCone_)
 		{
 			//snowCone_->SetConeSize(snowConeSize_);
-			snowCone_->ChangeDrawTarget(2);
+			snowCone_->StartEasing();
+			//snowCone_->ChangeDrawTarget(2);
 			((SnowConeMaking*)GetParent())->AddCup(snowCone_);
 			snowCone_ = nullptr;
 		}

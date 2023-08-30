@@ -2,18 +2,27 @@
 #include"Engine/Systems/ModelSystem.h"
 #include"Engine/Systems/ImageSystem.h"
 #include"SnowCone_Ice.h"
+#include"Easing.h"
 
+namespace
+{
+	const XMFLOAT3 DEFAULT_POS[2] = { {0,180,0},{0,0,0} };
+	const float EASE_MAX = 1.0f;
+}
 SnowCone_Cup::SnowCone_Cup(Object* parent)
 	:GameObject(parent, "SnowCone_Cup"),
 	coneSize_(0),
 	iceNum_(0),
-	cupNum_(0)
+	cupNum_(0),
+	easingTime_(0.0f),
+	isEasing_(false)
 {
 }
 
 SnowCone_Cup::~SnowCone_Cup()
 {
 }
+
 
 void SnowCone_Cup::Initialize()
 {
@@ -23,13 +32,14 @@ void SnowCone_Cup::Initialize()
 	{
 		Image image(1, 0);
 		image.Load("Assets/Image/SnowCone_IceImage.png");
-		image.SetPositionAtPixel({ 0,180, 0 });
+		image.SetPositionAtPixel(DEFAULT_POS[0]);
 		iceNum_ = AddComponent<Image>(image);
 
 	}
 	{
 		Image image(1, 0);
 		image.Load("Assets/Image/SnowCone_CupImage.png");
+		image.SetPositionAtPixel(DEFAULT_POS[1]);
 		cupNum_ = AddComponent<Image>(image);
 	}
 	//Test_Model_ECSver model(this);
@@ -39,9 +49,25 @@ void SnowCone_Cup::Initialize()
 
 }
 
+void SnowCone_Cup::Update()
+{
+	if (isEasing_)
+	{
+		GetComponent<Image>(iceNum_).SetPositionAtPixel({1920*Easing::EaseInCubic(easingTime_),DEFAULT_POS[0].y,0});
+		GetComponent<Image>(cupNum_).SetPositionAtPixel({1920*Easing::EaseInCubic(easingTime_),DEFAULT_POS[1].y,0});
+		
+		if (easingTime_ >= EASE_MAX)
+		{
+			easingTime_ = 0.0f;
+			isEasing_ = false;
+			ChangeDrawTarget(2);
+		}
+		easingTime_ += 0.05f;
+	}
+}
 int SnowCone_Cup::GetConeSize()
 {
-	return (int)(coneSize_/1.32f);
+	return (int)(coneSize_/0.329f);
 }
 
 float SnowCone_Cup::GetConeHeight()
@@ -63,6 +89,7 @@ void SnowCone_Cup::SetConeSize(float size)
 {
 	coneSize_ += size;
 	GetComponent<Image>(iceNum_).SetSize({ 1,1+coneSize_,0 });
+	//if(coneSize_)
 }
 
 void SnowCone_Cup::ChangeDrawTarget(int num)
@@ -75,6 +102,8 @@ void SnowCone_Cup::ChangeDrawTarget(int num)
 
 void SnowCone_Cup::ToppingSetUp()
 {
+	GetComponent<Image>(cupNum_).SetPositionAtPixel(DEFAULT_POS[1]);
+	GetComponent<Image>(iceNum_).SetPositionAtPixel(DEFAULT_POS[0]);
 	GetComponent<Image>(cupNum_).SetAlpha(1);
 	GetComponent<Image>(iceNum_).SetAlpha(1);
 }

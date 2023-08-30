@@ -38,9 +38,9 @@ void SnowConeMaker_Topping::Initialize()
 	//UI生成
 	Instantiate<SnowCone_ToppingUI>(this);
 	//各サンプルの生成、設定
+	syrupSumple_ = Instantiate<SnowCone_SyrupSumple>(GetParent());
 	toppingSumple_ = Instantiate<SnowCone_ToppingSumple>(GetParent());
 	toppingSumple_->GetTransform()->position_ = DEFAULT_SUMPLE_POS;
-	syrupSumple_ = Instantiate<SnowCone_SyrupSumple>(GetParent());
 	syrupSumple_->GetTransform()->position_ = DEFAULT_SUMPLE_POS;
 
 }
@@ -62,19 +62,21 @@ void SnowConeMaker_Topping::Update()
 			snowCone_->KillMe();
 			snowCone_->RemoveIce();
 			snowCone_ = nullptr;
-			ResetSelectUI();
 		}
 
 		//かき氷があれば取得する
 		snowCone_ = ((SnowConeMaking*)GetParent())->GetCup();
 
+		ResetSelectUI();
 		//かき氷があれば
 		if (snowCone_)
 		{
 			snowCone_->GetTransform()->position_ = TARGET_POS;
+			snowCone_->ToppingSetUp();
+
 			syrupSumple_->GetTransform()->scale_.y = 1+snowCone_->GetConeSize();
 			syrupSumple_->SetSyrupSize(snowCone_->GetConeHeight());
-			snowCone_->ToppingSetUp();
+			toppingSumple_->SetSumple(snowCone_->GetConeHeight(), 0);
 		}
 		break;
 	default:
@@ -101,9 +103,11 @@ void SnowConeMaker_Topping::SetSyrupSumple()
 void SnowConeMaker_Topping::ResetSelectUI()
 {
 	toppingSumple_->GetTransform()->position_ = DEFAULT_SUMPLE_POS;
-	toppingSumple_->ChangeSumple(0);
+	toppingSumple_->Reset();
+	
 	syrupSumple_->GetTransform()->position_ = DEFAULT_SUMPLE_POS;
 	syrupSumple_->Reset();
+
 	//syrupSumple_->ChangeSumple(0);
 	((SnowCone_ToppingUI*)FindChild("SnowCone_ToppingUI"))->ResetUI();
 }
