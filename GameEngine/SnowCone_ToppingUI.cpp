@@ -182,8 +182,8 @@ void SnowCone_ToppingUI::ModeChange(SELECT_MODE mode)
 
 void SnowCone_ToppingUI::ResetUI()
 {
-	syrupSelect_->Reset();
-	toppingSelect_->Reset();
+	syrupSelect_->UIReset();
+	toppingSelect_->UIReset();
 	ModeChange(SELECT_MODE::MODE_SYRUP);
 }
 

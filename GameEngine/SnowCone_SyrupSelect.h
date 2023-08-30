@@ -12,6 +12,7 @@ public:
 	void Update() override;
 	void Move();
 	void Input();
+	void UIReset();
 	int GetSyrupNum() { return selectNum_; }
 	void Release() override;
 };

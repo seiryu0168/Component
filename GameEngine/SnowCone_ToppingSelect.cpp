@@ -8,6 +8,8 @@
 namespace
 {
 	const XMFLOAT3 IMAGEPOS[] = { {1400,500,0},{1400,0,0},{1400,-500,0} };
+	const XMFLOAT3 SELECTED_COLOR = { 0.3f,0.3f,0.3f };
+	const XMFLOAT3 DEFAULT_COLOR = { 0,0,0 };
 	const int SYRUP_LIMIT = 3;
 	const int CAMERANUM = 2;
 }
@@ -29,6 +31,11 @@ void SnowCone_ToppingSelect::Initialize()
 	selectText.SetTextSize(40);
 	AddComponent<Text>(selectText);
 	{
+		Image backImage(CAMERANUM);
+		backImage.Load("Assets/Image/SnowCone_Select_BuckGroundImage.png");
+		backImage.SetPositionAtPixel(IMAGEPOS[0]);
+		AddComponent<Image>(backImage);
+
 		Image image(CAMERANUM);
 		image.Load("Assets/Image/SnowCone_Topping_Adzuki.png");
 		image.SetPositionAtPixel(IMAGEPOS[0]);
@@ -36,9 +43,25 @@ void SnowCone_ToppingSelect::Initialize()
 	}
 
 	{
+		Image backImage(CAMERANUM);
+		backImage.Load("Assets/Image/SnowCone_Select_BuckGroundImage.png");
+		backImage.SetPositionAtPixel(IMAGEPOS[1]);
+		AddComponent<Image>(backImage);
+
 		Image image(CAMERANUM);
-		image.Load("Assets/Image/SnowCone_Toppin_Blueberry.png");
+		image.Load("Assets/Image/SnowCone_Topping_Blueberry.png");
 		image.SetPositionAtPixel(IMAGEPOS[1]);
+		AddComponent<Image>(image);
+	}
+	{
+		Image backImage(CAMERANUM);
+		backImage.Load("Assets/Image/SnowCone_Select_BuckGroundImage.png");
+		backImage.SetPositionAtPixel(IMAGEPOS[2]);
+		AddComponent<Image>(backImage);
+
+		Image image(CAMERANUM);
+		image.Load("Assets/Image/SnowCone_Topping_Raspberry.png");
+		image.SetPositionAtPixel(IMAGEPOS[2]);
 		AddComponent<Image>(image);
 	}
 
@@ -103,8 +126,18 @@ void SnowCone_ToppingSelect::Input()
 	else if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A,1))
 	{
 		state_ = SELECT_STATE::STAY;
+		GetComponent<Image>(selectFrame_).SetAlpha(0.4f);
 		((SnowCone_ToppingUI*)GetParent())->ModeChange(SELECT_MODE::MODE_COMPLETE);
+
 	}
+}
+
+void SnowCone_ToppingSelect::UIReset()
+{
+	selectNum_ = 0;
+	GetComponent<Image>(selectFrame_).SetPositionAtPixel(IMAGEPOS[selectNum_]);
+	GetComponent<Image>(selectFrame_).SetAlpha(1);
+	state_ = SELECT_STATE::INPUT;
 }
 
 void SnowCone_ToppingSelect::Release()

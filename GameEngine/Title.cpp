@@ -12,6 +12,7 @@ namespace
 
 Title::Title(Object* parent)
 	:GameObject(parent, "Title"), State_(STATE::WAIT), time_(nullptr), Frame_(0)
+{
 }
 
 Title::~Title()

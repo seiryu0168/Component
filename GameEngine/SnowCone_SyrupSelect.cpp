@@ -8,6 +8,8 @@
 namespace
 {
 	const XMFLOAT3 IMAGEPOS[] = { {-1400,500,0},{-1400,0,0},{-1400,-500,0} };
+	const XMFLOAT3 SELECTED_COLOR = { 100,100,100 };
+	const XMFLOAT3 DEFAULT_COLOR = {0,0,0};
 	const int SYRUP_LIMIT = 3;
 	const int CAMERANUM = 2;
 }
@@ -30,21 +32,46 @@ void SnowCone_SyrupSelect::Initialize()
 	AddComponent<Text>(selectText);
 
 	{
+		Image backImage(CAMERANUM);
+		backImage.Load("Assets/Image/SnowCone_Select_BuckGroundImage.png");
+		backImage.SetPositionAtPixel(IMAGEPOS[0]);
+		AddComponent<Image>(backImage);
+	
 		Image image(CAMERANUM);
-		image.Load("Assets/Image/SnowCone_Syrup_Red.png");
+		image.Load("Assets/Image/SnowCone_Syrup_RedImage.png");
 		image.SetPositionAtPixel(IMAGEPOS[0]);
 		AddComponent<Image>(image);
+
+
 	}
 	{
+		Image backImage(CAMERANUM);
+		backImage.Load("Assets/Image/SnowCone_Select_BuckGroundImage.png");
+		backImage.SetPositionAtPixel(IMAGEPOS[1]);
+		AddComponent<Image>(backImage);
+		
 		Image image(CAMERANUM);
-		image.Load("Assets/Image/SnowCone_Syrup_Blue.png");
+		image.Load("Assets/Image/SnowCone_Syrup_BlueImage.png");
 		image.SetPositionAtPixel(IMAGEPOS[1]);
+		AddComponent<Image>(image);
+
+	}
+	{
+		Image backImage(CAMERANUM);
+		backImage.Load("Assets/Image/SnowCone_Select_BuckGroundImage.png");
+		backImage.SetPositionAtPixel(IMAGEPOS[2]);
+		AddComponent<Image>(backImage);
+
+		Image image(CAMERANUM);
+		image.Load("Assets/Image/SnowCone_Syrup_GreenImage.png");
+		image.SetPositionAtPixel(IMAGEPOS[2]);
 		AddComponent<Image>(image);
 	}
 	{
 		Image image(CAMERANUM);
 		image.Load("Assets/Image/SnowCone_SelectImage.png");
 		image.SetPositionAtPixel(IMAGEPOS[0]);
+		image.SetColor(DEFAULT_COLOR);
 		selectFrame_ = AddComponent<Image>(image);
 	}
 }
@@ -103,8 +130,17 @@ void SnowCone_SyrupSelect::Input()
 	else if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A,1))
 	{
 		state_ = SELECT_STATE::STAY;
+		GetComponent<Image>(selectFrame_).SetAlpha(0.4f);
 		((SnowCone_ToppingUI*)GetParent())->ModeChange(SELECT_MODE::MODE_TOPPING);
 	}
+}
+
+void SnowCone_SyrupSelect::UIReset()
+{
+	selectNum_ = 0;
+	GetComponent<Image>(selectFrame_).SetPositionAtPixel(IMAGEPOS[selectNum_]);
+	GetComponent<Image>(selectFrame_).SetAlpha(1);
+	state_ = SELECT_STATE::INPUT;
 }
 
 void SnowCone_SyrupSelect::Release()
