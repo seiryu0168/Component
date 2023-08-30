@@ -43,8 +43,9 @@ HRESULT Sprite::Initialize()
 	return S_OK;
 }
 
-void Sprite::Draw(Transform& transform, const RECT& rect, const XMFLOAT4& changeColor,float alpha)
+void Sprite::Draw(Transform& transform, const RECT& rect, const XMFLOAT4& changeColor,float alpha,XMFLOAT2 scroll)
 {
+	// scroll_.y += 0.2f;
 	Direct3D::SetShader(SHADER_TYPE::SHADER_2D);
 	Direct3D::SetBlendMode(BLEND_MODE::BLEND_DEFAULT);
 	Direct3D::SetDepthBufferWriteEnable(false);
@@ -66,6 +67,7 @@ void Sprite::Draw(Transform& transform, const RECT& rect, const XMFLOAT4& change
 	cb.matUVTrans = XMMatrixTranspose(matTexScale * matTexTrans);
 	cb.color = XMFLOAT4(1, 1, 1, alpha);
 	cb.ChangeColor = changeColor;
+	cb.scroll = scroll;
 
 	D3D11_MAPPED_SUBRESOURCE pdata;
 	Direct3D::pContext->Map(pConstantBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &pdata);	// GPUからのデータアクセスを止める

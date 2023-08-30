@@ -18,6 +18,8 @@ cbuffer global
 	float4x4 g_matWorld;	// ワールド・ビュー・プロジェクションの合成行列
 	float4x4 g_matUVTrans;	//UV座標
 	float4	 g_color;		//合成色
+	float4	 g_changeColor;
+	float2   g_scroll;		//スクロール
 };
 
 //───────────────────────────────────────
@@ -51,6 +53,7 @@ VS_OUT VS(float4 pos : POSITION, float4 uv : TEXCOORD)
 //───────────────────────────────────────
 float4 PS(VS_OUT inData) : SV_Target
 {
-	 float4 diffuse = g_texture.Sample(g_sampler, inData.uv);
+
+	 float4 diffuse = g_texture.Sample(g_sampler, inData.uv+g_scroll);
 	 return diffuse * g_color;
 }

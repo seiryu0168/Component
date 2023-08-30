@@ -18,6 +18,7 @@ class Sprite
 		XMMATRIX matUVTrans;
 		XMFLOAT4 color;
 		XMFLOAT4 ChangeColor;
+		XMFLOAT2 scroll;
 	};
 protected:
 	ID3D11Buffer* pVertexBuffer_;	//頂点バッファ
@@ -34,7 +35,7 @@ protected:
 	HRESULT CreateVertexBuffer();
 	HRESULT CreateIndexBuffer();
 	HRESULT CreateConstantBuffer();
-
+	
 	//void ToPipeLine(const Transform& transform);
 	//void bufferSet();
 	void Release();
@@ -49,6 +50,6 @@ public:
 	
 	void SetSize(float width, float height) { size_ = { width,height, 1.0f}; }
 	XMFLOAT3 GetSize() const { return size_; }
-	void Draw(Transform& transform,const RECT& rect,const XMFLOAT4& changeColor,float alpha);
+	void Draw(Transform& transform, const RECT& rect, const XMFLOAT4& changeColor, float alpha, XMFLOAT2 scroll = {0,0});
 };
 

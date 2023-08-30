@@ -9,6 +9,7 @@ private:
 	RECT rect_;
 	XMFLOAT4 color_;
 	float alpha_;
+	XMFLOAT2 scroll_;
 	int drawTargetNumber_;
 	int layerNum_;
 	Transform transform_;
@@ -26,6 +27,8 @@ public:
 	//色設定
 	void SetColor(const float color) noexcept;
 	void SetColor(const XMFLOAT3& color) noexcept;
+	//画像のスクロール量設定
+	void SetScroll(const XMFLOAT2& scroll);
 	//画像サイズ設定
 	void SetSize(const XMFLOAT3& size);
 	//画像回転

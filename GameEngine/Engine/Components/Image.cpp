@@ -13,7 +13,8 @@ Image::Image(int cameraNum,int layerNum)
 	pSprite_(),
 	transform_(),
 	drawTargetNumber_(cameraNum),
-	layerNum_(layerNum)
+	layerNum_(layerNum),
+	scroll_({0,0})
 {
 }
 
@@ -65,6 +66,11 @@ void Image::SetColor(const XMFLOAT3& color) noexcept
 	color_.z = color.z;
 }
 
+void Image::SetScroll(const XMFLOAT2& scroll)
+{
+	scroll_ = scroll;
+}
+
 void Image::SetSize(const XMFLOAT3& size)
 {
 	transform_.scale_ = size;
@@ -78,7 +84,7 @@ void Image::SetRotation(const XMFLOAT3& rotate)
 void Image::Draw()
 {
 	if(drawTargetNumber_ == CameraManager::GetCurrentCameraNum() || drawTargetNumber_ == -1)
-	pSprite_->Draw(transform_, rect_, color_, alpha_);
+	pSprite_->Draw(transform_, rect_, color_, alpha_,scroll_);
 }
 
 void Image::Draw(int layerNum)
@@ -87,7 +93,7 @@ void Image::Draw(int layerNum)
 		return;
 
 	if (drawTargetNumber_ == CameraManager::GetCurrentCameraNum() || drawTargetNumber_ == -1)
-		pSprite_->Draw(transform_, rect_, color_, alpha_);
+		pSprite_->Draw(transform_, rect_, color_, alpha_,scroll_);
 }
 
 bool Image::IsHitCursor()

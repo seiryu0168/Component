@@ -11,8 +11,7 @@ namespace
 }
 
 Title::Title(Object* parent)
-	:GameObject(parent,"Title"), State_(STATE::WAIT), time_(nullptr), Frame_(0)
-{
+	:GameObject(parent, "Title"), State_(STATE::WAIT), time_(nullptr), Frame_(0)
 }
 
 Title::~Title()
@@ -61,7 +60,6 @@ void Title::Waiting()
 		State_ = STATE::PUSHED;
 		newSceneManager::ChangeScene(SCENE_ID::MENU, TO_SCENE_CHANGE);
 	}
-
 	GetComponent<Text>().SetColor({ 0,0,0,(sinf(time_->GetSeconds<float>() * 2) * 0.5f) + 0.5f });
 }
 
