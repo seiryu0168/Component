@@ -67,6 +67,12 @@ namespace Time
 	{
 		return WorldTime->GetHours();
 	}
+
+	void Release()
+	{
+		WorldTime.reset();
+		WatchList.clear();
+	}
 	
 
 	Watch::Watch() : Lock_(true), CountDown_(false), MilliSeconds_(0)

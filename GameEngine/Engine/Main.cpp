@@ -208,6 +208,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 		}
 	}
 
+	Time::Release();
 	Brightness::Release();
 	Audio::Releace();
 	DebugUI::CleanUp();
