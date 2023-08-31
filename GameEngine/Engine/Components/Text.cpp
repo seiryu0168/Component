@@ -277,6 +277,29 @@ HRESULT Text::SetText(const std::string& text)
 	//MultiByteToWideChar()
 	//errno_t err = mbstowcs_s(&textSize, txt, textLength_, text.c_str(), text.length()+2);
 	//std::wstring wStr(txt);
+	HRESULT hr;
+	FontData data;
+	hr = pTextFormat_->GetFontFamilyName((WCHAR*)data.fontName_.c_str(), pTextFormat_->GetFontFamilyNameLength() + 1);
+	if (FAILED(hr))
+		return hr;
+
+	hr = pTextFormat_->GetLocaleName((WCHAR*)data.locale_.c_str(), pTextFormat_->GetLocaleNameLength() + 1);
+	if (FAILED(hr))
+		return hr;
+	hr = pTextFormat_->GetFontCollection(&data.pCollection_);
+	if (FAILED(hr))
+		return hr;
+	DWRITE_TEXT_ALIGNMENT textAlignment = pTextFormat_->GetTextAlignment();
+	DWRITE_PARAGRAPH_ALIGNMENT paraAlignment = pTextFormat_->GetParagraphAlignment();
+	data.fontStretch_ = pTextFormat_->GetFontStretch();
+	data.fontStyle_ = pTextFormat_->GetFontStyle();
+	data.fontWaight_ = pTextFormat_->GetFontWeight();
+
+	//‘Ž®Ý’è
+	SAFE_RELEASE(pTextFormat_);
+	hr = D2D::GetDWriteFactory()->CreateTextFormat(data.fontName_.c_str(), data.pCollection_, data.fontWaight_, data.fontStyle_, data.fontStretch_, data.fontSize_, data.locale_.c_str(), &pTextFormat_);
+	if (FAILED(hr))
+		return hr;
 	pText_ = str.wstring();
 	setlocale(LC_CTYPE, locale.c_str());
 	textLength_ = pText_.length();

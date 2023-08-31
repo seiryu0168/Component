@@ -15,7 +15,8 @@ namespace
 
 SnowCone_ToppingSelect::SnowCone_ToppingSelect(Object* parent)
 	:SnowCone_ToppingMenu(parent,"SnowCone_ToppingSelect"),
-	selectFrame_(0)
+	selectFrame_(0),
+	toppingText_(0)
 {
 }
 

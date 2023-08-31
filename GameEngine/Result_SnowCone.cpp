@@ -109,17 +109,17 @@ void Result_SnowCone::ShowCommand()
 
 void Result_SnowCone::Create(int num)
 {
-	if (score_ >= num)
+	if (score_ <= num)
 		return;
 
 	int size = InterSceneData::GetData<std::vector<SNOWCONE_DATA>>("SuccessData")[num].size_;
 	int syrupNum = InterSceneData::GetData<std::vector<SNOWCONE_DATA>>("SuccessData")[num].syrup;
 	int toppingNum = InterSceneData::GetData<std::vector<SNOWCONE_DATA>>("SuccessData")[num].topping_;
-	XMFLOAT3 pos = { (DEFAULT_POS.x * num) - 1700,DEFAULT_POS.y * (num % 5) - 800 ,0 };
+	XMFLOAT3 pos = { (DEFAULT_POS.x * num) + 1700,DEFAULT_POS.y * (num / 5) - 500 ,0 };
 	Image iceImage(0, 0);
 	iceImage.Load(ICE_NAME);
 	iceImage.SetPositionAtPixel({ pos.x,pos.y + 180,0 });
-	iceImage.SetSize({ 0, (float)size, 0 });
+	iceImage.SetSize({ 1, 1.0f+(float)size, 0 });
 	AddComponent<Image>(iceImage);
 
 	Image cupImage(0, 0);
@@ -133,11 +133,12 @@ void Result_SnowCone::Create(int num)
 	syrupImage.SetSize({ 1, 1.0f + (float)size, 0});
 	AddComponent<Image>(syrupImage);
 
-	float toppingPosition = (pos.y+180) + (256.0f * size) - 30.0f;
+	float toppingPosition = (pos.y+180) + (256.0f * (1.0f+size)) - 30.0f;
 	Image toppingImage(0, 0);
 	toppingImage.Load(TOPPING_NAME[toppingNum]);
-	toppingImage.SetSize({1,1.0f/(1+size),0});
+	toppingImage.SetSize({1.0f/(1+size),1,0});
 	toppingImage.SetPositionAtPixel({ pos.x,toppingPosition,0 });
+	AddComponent<Image>(toppingImage);
 
 }
 

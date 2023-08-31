@@ -133,10 +133,10 @@ void ChickenRace::Countdown()
 	float timef = watch_->GetSeconds<float>();
 	int time = timef;
 
-	//text_->SetAlignmentType(ALIGNMENT_TYPE::CENTER_CENTER);
+	text_->SetAlignmentType(ALIGNMENT_TYPE::CENTER_CENTER);
 	text_->SetText(std::to_string(time + 1));
 	text_->SetTextSize(DEF_TEXT * (timef - time));
-	//text_->SetFont("‚è‚¢‚Ä‚ª‚«•M");
+	text_->SetFont("‚è‚¢‚Ä‚ª‚«•M");
 
 	if (timef <= 0)
 	{
