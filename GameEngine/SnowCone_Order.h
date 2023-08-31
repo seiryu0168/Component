@@ -1,6 +1,8 @@
 #pragma once
 #include"Engine/GameObject/GameObject.h"
 #include<random>
+
+struct SNOWCONE_DATA;
 class SnowCone_Order : public GameObject
 {
 	struct Order
@@ -10,6 +12,7 @@ class SnowCone_Order : public GameObject
 		int topping_;
 	};
 
+
 	int orderTextNum_;
 
 	std::vector<Order> orderList_;
@@ -18,7 +21,7 @@ class SnowCone_Order : public GameObject
 	std::vector<std::string> toppingTextList_;
 
 	std::vector<std::string> orderTextList_;
-
+	std::vector<SNOWCONE_DATA> successOrderList_;
 	std::random_device rnd_;
 	
 public:
@@ -29,6 +32,7 @@ public:
 	void CreateOrder();
 	void InitOrder();
 	void Judge(int size, int syrup, int topping);
+	void SendResultData();
 	void Release() override;
 };
 

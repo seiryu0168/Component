@@ -32,7 +32,6 @@ private:
 	std::wstring		  pText_;			//テキスト
 	std::wstring		  pFontName_;
 	ID2D1SolidColorBrush* pColorBrush_;		//ブラシ
-	//IDWriteFactory5*		  pWriteFactory_;	//文字描画のファクトリ
 	IDWriteTextFormat*	  pTextFormat_;     //テキストフォーマット
 	IDWriteTextLayout*	  pLayout_;			//テキストレイアウト
 	int renderTargetNum_;

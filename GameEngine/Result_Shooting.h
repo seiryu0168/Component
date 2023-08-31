@@ -10,7 +10,7 @@ class Result_Shooting : public Result_Single<int>
 		FINISH,
 	};
 	int resultTextNum_;
-	int buttonImageNum_;
+	int buttonImageNum_;	
 	int returnText_;
 	int count_;
 	float interval_;

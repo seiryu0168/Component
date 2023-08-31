@@ -2,6 +2,7 @@
 #include"Engine/ResourceManager/CsvReader.h"
 #include"Engine/Systems/TextSystem.h"
 #include"Engine/Systems/ImageSystem.h"
+#include"InterSceneData.h"
 #include"MiniGames/SnowConeMaking.h"
 namespace
 {
@@ -61,7 +62,8 @@ void SnowCone_Order::CreateOrder()
 	order.size_ = rand3(mt);
 	order.syrup_ = rand3(mt);
 	order.topping_ = rand3(mt);
-
+	
+	//オーダーがいっぱいじゃないなら
 	if (orderList_.size() <= ORDER_LIMIT)
 	{
 		std::string orderStr = sizeTextList_[order.size_] + "\n" +
@@ -87,6 +89,7 @@ void SnowCone_Order::InitOrder()
 		std::string orderStr = sizeTextList_[order.size_] + "\n" +
 			syrupTextList_[order.syrup_] + "\n" +
 			toppingTextList_[order.topping_];
+
 		Text text(orderStr, "りいてがき筆", { 0,0,500,50 });
 		text.SetTextSize(40);
 		text.SetPosition(TEXTPOS[orderTextNum_]);
@@ -108,10 +111,21 @@ void SnowCone_Order::Judge(int size, int syrup, int topping)
 			//orderList_.erase(orderList_.begin() + i);
 			orderTextNum_ = i;
 			((SnowConeMaking*)GetParent())->ScoreUpdate(1);
+			SNOWCONE_DATA data;
+			data.size_ = size;
+			data.syrup = syrup;
+			data.topping_ = topping;
+			successOrderList_.push_back(data);
 			CreateOrder();
 			return;
 		}
 	}
+}
+
+void SnowCone_Order::SendResultData()
+{
+	InterSceneData::DeleteData<std::vector<SNOWCONE_DATA>>("SuccessData");
+	InterSceneData::AddData("SuccessData", successOrderList_);
 }
 
 void SnowCone_Order::Release()

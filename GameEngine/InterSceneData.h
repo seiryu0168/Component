@@ -14,11 +14,17 @@ enum class GAME_ID : int
 	SNOWCONE,
 };
 
+struct SNOWCONE_DATA
+{
+	int size_;
+	int syrup;
+	int topping_;
+};
 namespace InterSceneData
 {
 	struct Data
 	{
-		std::variant<bool, std::string, short, int, float > value_;
+		std::variant<bool, std::string, short, int, float, std::vector<SNOWCONE_DATA>> value_;
 		std::string dataName_;
 	};
 	extern std::vector<Data> interScenedatas_;

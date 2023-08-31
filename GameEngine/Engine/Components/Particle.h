@@ -10,7 +10,7 @@ struct EmitterData
     XMFLOAT3 positionErr;           //エミッターの誤差
     XMFLOAT3 dir;                   //パーティクルの発射方向
     XMFLOAT3 dirErr;                //パーティクルの発射方向の誤差
-    float firstSpeed;                    //1フレームあたりの移動量
+    float firstSpeed;               //1フレームあたりの移動量
     float speedErr;                 //移動量の誤差
     float acceleration;             //加速度
     float gravity;                  //重力

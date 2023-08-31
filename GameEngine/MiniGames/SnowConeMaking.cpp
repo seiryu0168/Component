@@ -180,6 +180,7 @@ void SnowConeMaking::Play()
 	if (time_->GetSeconds<float>() < 0)
 	{
 		newSceneManager::ChangeScene(SCENE_ID::RESULT, 1.0f);
+		((SnowCone_Order*)FindChild("SnowCone_Order"))->SendResultData();
 		InterSceneData::AddData<int>("ResultData", scoreManager_.GetScore());
 		state_ = PLAY_STATE::STATE_FINISH;
 	}

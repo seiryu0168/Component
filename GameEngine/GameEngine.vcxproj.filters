@@ -369,13 +369,13 @@
     <ClCompile Include="Engine\Brightness.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Result_SnowCone.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="SnowCone_SyrupSumple.cpp">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
     </ClCompile>
     <ClCompile Include="SnowCone_ScoreManager.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
     </ClCompile>
-    <ClCompile Include="SnowCone_SyrupSumple.cpp">
+    <ClCompile Include="Result_SnowCone.cpp">
       <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
     </ClCompile>
   </ItemGroup>
@@ -716,13 +716,13 @@
     <ClInclude Include="Engine\Brightness.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Result_SnowCone.h">
-      <Filter>ヘッダー ファイル</Filter>
+    <ClInclude Include="SnowCone_SyrupSumple.h">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
     </ClInclude>
     <ClInclude Include="SnowCone_ScoreManager.h">
-      <Filter>ヘッダー ファイル</Filter>
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
     </ClInclude>
-    <ClInclude Include="SnowCone_SyrupSumple.h">
+    <ClInclude Include="Result_SnowCone.h">
       <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
     </ClInclude>
   </ItemGroup>
