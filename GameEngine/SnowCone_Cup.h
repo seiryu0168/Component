@@ -5,6 +5,7 @@ class SnowCone_Cup : public GameObject
 private:
 	float coneSize_;
 	int coneScore_;
+
 	int iceNum_;
 	int cupNum_;
 

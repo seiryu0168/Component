@@ -5,7 +5,7 @@ class SnowCone_ToppingSelect : public SnowCone_ToppingMenu
 {
 private:
 	int selectFrame_;
-	
+	int toppingText_;
 public:
 	SnowCone_ToppingSelect(Object* parent);
 	~SnowCone_ToppingSelect();

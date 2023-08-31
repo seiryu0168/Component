@@ -15,6 +15,7 @@
 namespace
 {
 	static const XMFLOAT3 cupPos[3] = { {-10,0,0},{0,0,0},{10,0,0} };
+	static const XMFLOAT3 STOCK_POS[3]{ {1420,850,0},{1620,850,0},{1820,850,0} };
 	static const XMFLOAT2 COUNT_POS = { 900,500 };
 	static const XMFLOAT3 PROGRESS_DEFAULT = { 2,1,0 };
 	static const float PLAY_COUNT = 60.0f;
@@ -58,6 +59,14 @@ void SnowConeMaking::Initialize()
 		CameraManager::AddCamera(camera);
 	}
 
+	for (int i = 0; i < 3; i++)
+	{
+		Image image(0, 1);
+		image.Load("Assets/Image/SnowCone_ShavedImage.png");
+		image.SetPositionAtPixel(STOCK_POS[i]);
+		image.SetAlpha(0);
+		AddComponent<Image>(image);
+	}
 	for(int i=0;i<2;i++)
 	{
 		Image image(i+1);
@@ -185,10 +194,14 @@ void SnowConeMaking::AddCup(SnowCone_Cup* cup)
 		for (int i = 0; i < cupList_.size(); i++)
 		{
 			cup->GetTransform()->position_ = XMLoadFloat3(&cupPos[i]);
+			GetComponent<Image>(i).SetAlpha(1);
 		}
 	}
 	else
+	{
 		cup->KillMe();
+		cup->RemoveIce();
+	}
 }
 
 void SnowConeMaking::ScoreUpdate(int score)
@@ -207,6 +220,7 @@ SnowCone_Cup* SnowConeMaking::GetCup()
 	if (cupList_.empty() == false)
 	{
 		cup = cupList_.front();
+		GetComponent<Image>(cupList_.size() - 1).SetAlpha(0);
 		cupList_.pop();
 		return cup;
 	}

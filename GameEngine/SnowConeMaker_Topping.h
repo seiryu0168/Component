@@ -8,6 +8,7 @@ class SnowConeMaker_Topping : public GameObject
 {
 private:
 	int playerNum_;
+	int coneSizeText_;
 	SnowCone_Cup* snowCone_;
 	SnowCone_ToppingSumple* toppingSumple_;
 	SnowCone_SyrupSumple* syrupSumple_;

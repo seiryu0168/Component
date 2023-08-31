@@ -8,8 +8,9 @@
 namespace
 {
 	const XMFLOAT3 IMAGEPOS[] = { {-1400,500,0},{-1400,0,0},{-1400,-500,0} };
-	const XMFLOAT3 SELECTED_COLOR = { 100,100,100 };
-	const XMFLOAT3 DEFAULT_COLOR = {0,0,0};
+	const XMFLOAT3 DEFAULT_COLOR  = { 100,100,100 };
+	const XMFLOAT3 SELECTED_COLOR= {0,0,0};
+	const std::string SYRUP_NAME[] = {"イチゴ","ブルーハワイ","抹茶"};
 	const int SYRUP_LIMIT = 3;
 	const int CAMERANUM = 2;
 }
@@ -30,6 +31,11 @@ void SnowCone_SyrupSelect::Initialize()
 	selectText.SetPosition({ 50,10 });
 	selectText.SetTextSize(40);
 	AddComponent<Text>(selectText);
+
+	Text currentSyrupText(SYRUP_NAME[selectNum_], "りいてがき筆", {0,0,250,50}, CAMERANUM);
+	currentSyrupText.SetTextSize(40);
+	currentSyrupText.SetPosition({ 355,430 });
+	syrupText_ = AddComponent<Text>(currentSyrupText);
 
 	{
 		Image backImage(CAMERANUM);
@@ -113,6 +119,7 @@ void SnowCone_SyrupSelect::Input()
 		state_ = SELECT_STATE::MOVE;
 		time_->UnLock();
 
+		GetComponent<Text>(syrupText_).SetText(SYRUP_NAME[selectNum_]);
 		((SnowCone_SyrupSumple*)FindObject("SnowCone_SyrupSumple"))->ChangeSumple(selectNum_);
 	}
 
@@ -125,12 +132,14 @@ void SnowCone_SyrupSelect::Input()
 		selectNum_ = selectNum_ % SYRUP_LIMIT;
 		state_ = SELECT_STATE::MOVE;
 		time_->UnLock();
+
+		GetComponent<Text>(syrupText_).SetText(SYRUP_NAME[selectNum_]);
 		((SnowCone_SyrupSumple*)FindObject("SnowCone_SyrupSumple"))->ChangeSumple(selectNum_);
 	}
 	else if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A,1))
 	{
 		state_ = SELECT_STATE::STAY;
-		GetComponent<Image>(selectFrame_).SetAlpha(0.4f);
+		GetComponent<Image>(selectFrame_).SetAlpha(1);
 		((SnowCone_ToppingUI*)GetParent())->ModeChange(SELECT_MODE::MODE_TOPPING);
 	}
 }
@@ -139,7 +148,7 @@ void SnowCone_SyrupSelect::UIReset()
 {
 	selectNum_ = 0;
 	GetComponent<Image>(selectFrame_).SetPositionAtPixel(IMAGEPOS[selectNum_]);
-	GetComponent<Image>(selectFrame_).SetAlpha(1);
+	GetComponent<Image>(selectFrame_).SetAlpha(0.4f);
 	state_ = SELECT_STATE::INPUT;
 }
 

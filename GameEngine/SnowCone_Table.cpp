@@ -13,7 +13,6 @@ SnowCone_Table::~SnowCone_Table()
 
 void SnowCone_Table::Initialize()
 {
-	//Instantiate<SnowCone_Cup>(GetParent());
 
 }
 

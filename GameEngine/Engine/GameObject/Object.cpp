@@ -76,10 +76,9 @@ void Object::UpdateSub()
 		this->Initialize();
 		this->startFlag_ = true;
 	}
-	else if (startFlag_ &&
-		activeFlag_ &&
-		isUpdate_)
+	else if (startFlag_ && activeFlag_ && isUpdate_ && killFlag_ ==false)
 		Update();
+
 	if (isUpdate_)
 	{
 

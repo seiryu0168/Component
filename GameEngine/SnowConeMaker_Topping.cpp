@@ -10,6 +10,7 @@
 
 namespace
 {
+	const std::string CONESIZE_NAME[] = { "¬·","’†·","‘å·" };
 	const XMVECTOR DEFAULT_POS = XMVectorSet(40, 10, -40, 0);
 	const XMVECTOR TARGET_POS = XMVectorSet(40, 0, -30, 0);
 	const XMVECTOR DEFAULT_SUMPLE_POS= XMVectorSet(0, 0, -60, 0);
@@ -19,7 +20,8 @@ SnowConeMaker_Topping::SnowConeMaker_Topping(Object* parent)
 	:GameObject(parent,"SnowConeMaker_Topping"),
 	snowCone_(nullptr),
 	playerNum_(0),
-	toppingSumple_(nullptr)
+	toppingSumple_(nullptr),
+	coneSizeText_(0)
 {
 }
 
@@ -43,6 +45,11 @@ void SnowConeMaker_Topping::Initialize()
 	toppingSumple_->GetTransform()->position_ = DEFAULT_SUMPLE_POS;
 	syrupSumple_->GetTransform()->position_ = DEFAULT_SUMPLE_POS;
 
+	Text text("", "‚è‚¢‚Ä‚ª‚«•M", { 0,0,250,50 }, 2);
+	text.SetPosition({ 355,380 });
+	text.SetTextSize(40);
+	coneSizeText_ = AddComponent<Text>(text);
+
 }
 
 void SnowConeMaker_Topping::Update()
@@ -62,6 +69,7 @@ void SnowConeMaker_Topping::Update()
 			snowCone_->KillMe();
 			snowCone_->RemoveIce();
 			snowCone_ = nullptr;
+			GetComponent<Text>(coneSizeText_).SetText("");
 		}
 
 		//‚©‚«•X‚ª‚ ‚ê‚ÎŽæ“¾‚·‚é
@@ -77,6 +85,7 @@ void SnowConeMaker_Topping::Update()
 			syrupSumple_->GetTransform()->scale_.y = 1+snowCone_->GetConeSize();
 			syrupSumple_->SetSyrupSize(snowCone_->GetConeHeight());
 			toppingSumple_->SetSumple(snowCone_->GetConeHeight(), 0);
+			GetComponent<Text>(coneSizeText_).SetText(CONESIZE_NAME[snowCone_->GetConeSize()]);
 		}
 		break;
 	default:

@@ -8,8 +8,7 @@
 namespace
 {
 	const XMFLOAT3 IMAGEPOS[] = { {1400,500,0},{1400,0,0},{1400,-500,0} };
-	const XMFLOAT3 SELECTED_COLOR = { 0.3f,0.3f,0.3f };
-	const XMFLOAT3 DEFAULT_COLOR = { 0,0,0 };
+	const std::string TOPPING_NAME[] = {"小豆","ブルーベリー","ラズベリー"};
 	const int SYRUP_LIMIT = 3;
 	const int CAMERANUM = 2;
 }
@@ -30,6 +29,11 @@ void SnowCone_ToppingSelect::Initialize()
 	selectText.SetPosition({ 730,10 });
 	selectText.SetTextSize(40);
 	AddComponent<Text>(selectText);
+	
+	Text currentToppingText(TOPPING_NAME[selectNum_], "りいてがき筆", {0,0,250,50}, CAMERANUM);
+	currentToppingText.SetPosition({ 355,480 });
+	currentToppingText.SetTextSize(40);
+	toppingText_ = AddComponent<Text>(currentToppingText);
 	{
 		Image backImage(CAMERANUM);
 		backImage.Load("Assets/Image/SnowCone_Select_BuckGroundImage.png");
@@ -108,8 +112,9 @@ void SnowCone_ToppingSelect::Input()
 		selectNum_ = selectNum_ % SYRUP_LIMIT;
 		state_ = SELECT_STATE::MOVE;
 		time_->UnLock();
-		((SnowCone_ToppingSumple*)FindObject("SnowCone_ToppingSumple"))->ChangeSumple(selectNum_);
 
+		GetComponent<Text>(toppingText_).SetText(TOPPING_NAME[selectNum_]);
+		((SnowCone_ToppingSumple*)FindObject("SnowCone_ToppingSumple"))->ChangeSumple(selectNum_);
 	}
 
 	else if (Input::IsPadButtonDown(XINPUT_GAMEPAD_DPAD_UP, 1))
@@ -121,14 +126,15 @@ void SnowCone_ToppingSelect::Input()
 		selectNum_ = selectNum_ % SYRUP_LIMIT;
 		state_ = SELECT_STATE::MOVE;
 		time_->UnLock();
+
+		GetComponent<Text>(toppingText_).SetText(TOPPING_NAME[selectNum_]);
 		((SnowCone_ToppingSumple*)FindObject("SnowCone_ToppingSumple"))->ChangeSumple(selectNum_);
 	}
 	else if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A,1))
 	{
 		state_ = SELECT_STATE::STAY;
-		GetComponent<Image>(selectFrame_).SetAlpha(0.4f);
+		GetComponent<Image>(selectFrame_).SetAlpha(1);
 		((SnowCone_ToppingUI*)GetParent())->ModeChange(SELECT_MODE::MODE_COMPLETE);
-
 	}
 }
 
@@ -136,7 +142,7 @@ void SnowCone_ToppingSelect::UIReset()
 {
 	selectNum_ = 0;
 	GetComponent<Image>(selectFrame_).SetPositionAtPixel(IMAGEPOS[selectNum_]);
-	GetComponent<Image>(selectFrame_).SetAlpha(1);
+	GetComponent<Image>(selectFrame_).SetAlpha(0.4f);
 	state_ = SELECT_STATE::INPUT;
 }
 
