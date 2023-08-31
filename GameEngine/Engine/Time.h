@@ -78,5 +78,7 @@ namespace Time
 	
 	int GetMinutes();
 	int GetHours();
+
+	void Release();
 };
 

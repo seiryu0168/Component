@@ -49,6 +49,8 @@ namespace Math
 	/// <param name="Coord">取得したい値の座標</param>
 	/// <returns>指定した値の座標</returns>
 	float Wavelet(float Incli, float Coord);
+
+	float Sincurve(float val);
 }
 
 template <typename T>
