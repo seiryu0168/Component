@@ -1,5 +1,7 @@
 #include "Math.h"
 #include "Direct3D.h"
+#include <cmath>
+#include <numbers>
 
 float Math::Det(XMFLOAT3 a, XMFLOAT3 b, XMFLOAT3 c)
 {
@@ -106,4 +108,9 @@ float Math::Wavelet(float Incli, float Coord)
 
 	//“ñ‚Â‚ÌŠÖ”‚ğŠ|‚¯‚½’l‚ª“š‚¦
 	return y * C;
+}
+
+float Math::Sincurve(float val)
+{
+	return std::sinf(val / std::numbers::pi_v<float>);
 }

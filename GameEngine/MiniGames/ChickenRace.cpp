@@ -21,7 +21,7 @@ void ChickenRace::Initialize()
 	{
 		std::random_device seed_gen;
 		std::mt19937 engine(seed_gen());
-		std::uniform_int_distribution tar(10, 25);
+		std::uniform_int_distribution tar(5, 15);
 		TargetTime = tar(engine);
 	}
 
