@@ -206,7 +206,7 @@ void Particle::KillEmitter(int hEmitter)
 	}
 }
 
-void Particle::SetData(const EmitterData& data)
+int Particle::SetData(const EmitterData& data)
 {
 	int handle = 0;
 	/*for (auto&& emitterCount : emitterList_)
@@ -214,18 +214,23 @@ void Particle::SetData(const EmitterData& data)
 		handle++;
 	}*/
 
-	std::unique_ptr<Emitter> pEmitter = std::make_unique<Emitter>();
+	std::shared_ptr<Emitter> pEmitter = std::make_shared<Emitter>();
 
 	pEmitter->data = data;
 	pEmitter->frameCount = 0;
 
 	pEmitter->pBillBoard = std::make_unique<BillBoard>();
 	pEmitter->pBillBoard->Load(data.textureFileName);
+	blendMode_ = data.blendMode;
+	emitterList_.push_back(pEmitter);
 	handle = (int)emitterList_.size() - 1;
 	pEmitter->hParticle = handle;
-	blendMode_ = data.blendMode;
-	emitterList_.push_back(std::move(pEmitter));
-	//return handle;
+	return handle;
+}
+
+std::shared_ptr<Particle::Emitter> Particle::GetEmitter(int handle)
+{
+	return emitterList_[handle];
 }
 
 //•`‰æ

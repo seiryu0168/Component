@@ -109,10 +109,11 @@ public:
     
     //エミッター消去
     void KillEmitter(int hEmitter);
-    void SetData(const EmitterData& data);
+    int SetData(const EmitterData& data);
 
     //アタッチされてるオブジェクトを返す
     GameObject* GetAttachedObject() { return attacheObject_; }
+    std::shared_ptr<Emitter> GetEmitter(int handle);
 
     //パーティクルの生成を止める
     void Stop() { isStop_ = true; }

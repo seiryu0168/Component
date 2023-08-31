@@ -76,9 +76,11 @@ void Player_ChickenRace::CreateParticle()
 	data.textureFileName = "Assets\\Image\\Cloud.png";
 	data.firstSpeed = 0.1f;
 	data.blendMode = BLEND_MODE::BLEND_ADD;
-	particle.SetData(data);
+	//設定したパーティクルデータの番号を取得
+	int a = particle.SetData(data);
 	int i = AddComponent<Particle>(particle);
 	Particle_ = &GetComponent<Particle>(i);
+	Particle_->GetEmitter(a)->data.color = { 0.4f,0.4f,0.4f,0.3f };
 }
 
 void Player_ChickenRace::Finish()
