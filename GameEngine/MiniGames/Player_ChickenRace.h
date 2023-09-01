@@ -1,7 +1,6 @@
 #pragma once
 #include "Player.h"
 #include "../Engine/Components/Particle.h"
-#include "../Engine/Components/Text.h"
 #include "../Engine/Time.h"
 
 class Player_ChickenRace : public Player
@@ -9,8 +8,10 @@ class Player_ChickenRace : public Player
 private:
 	Time::Watch watch_;
 
+	int parHand_;
+	float parPos_;
+
 	Particle* Particle_;
-	Text* text_;
 
 	int TargetTime_;
 
@@ -18,6 +19,8 @@ private:
 
 	//パーティクルを初期化する
 	void CreateParticle();
+
+	void CreateFireworks();
 
 	void Finish();
 public:

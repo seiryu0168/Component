@@ -47,7 +47,7 @@ void ChickenRace::Initialize()
 	}
 
 	Text text;
-	text.SetAlignmentType(ALIGNMENT_TYPE::CENTER_TOP);
+	text.SetAlignmentType(ALIGNMENT_TYPE::CENTER_CENTER);
 	text.SetRect({ 0,0,1100,200 });
 	text.SetRatio(0.2f,0.5f);
 	text.SetText(std::format("–Ú•WŽžŠÔ : {:d}•b", TargetTime));
@@ -80,9 +80,6 @@ void ChickenRace::Update()
 		break;
 	case STATE::play:
 		Play();
-		break;
-	case STATE::finish:
-		Finish();
 		break;
 	default:
 		break;
@@ -140,6 +137,7 @@ void ChickenRace::Countdown()
 
 	if (timef <= 0)
 	{
+		text_->SetText("");
 		watch_->Reset();
 		watch_->SetCountdown(false);
 		state_ = STATE::play;
@@ -159,21 +157,24 @@ void ChickenRace::Play()
 void ChickenRace::Finish()
 {
 	int winner;
-	if ((PlayersTime_[0] > TargetTime && PlayersTime_[1] > TargetTime) || PlayersTime_[0] == PlayersTime_[1])
+
+	float abs[2]{};
+	abs[0] = fabs(PlayersTime_[0] - TargetTime);
+	abs[1] = fabs(PlayersTime_[1] - TargetTime);
+
+	if (abs[0] == abs[1])
 	{
 		winner = -1;
-		//text_->SetText("Draw");
 	}
-	else if (PlayersTime_[0] > TargetTime || PlayersTime_[1] > PlayersTime_[0])
+	else if (abs[1] > abs[0])
 	{
 		winner = 0;
-		//text_->SetText("Player2 Win!");
 	}
 	else
 	{
 		winner = 1;
-		//text_->SetText("Player1 Win!");
 	}
 	InterSceneData::AddData("ResultData", winner);
-	newSceneManager::ChangeScene(SCENE_ID::RESULT);
+	newSceneManager::ChangeScene(SCENE_ID::RESULT, 90);
+	state_ = STATE::finish;
 }
