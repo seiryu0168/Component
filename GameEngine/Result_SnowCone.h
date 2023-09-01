@@ -23,6 +23,7 @@ public:
 	void Update() override;
 	void Stay();
 	void Show();
+	void Finish();
 	void ShowCommand();
 	void Create(int num);
 	void Release() override;

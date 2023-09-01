@@ -53,7 +53,7 @@ void Result_Multi::Update()
 		newSceneManager::ChangeScene(SCENE_ID::PLAY);
 		break;
 	default:
-		break;
+		break;	
 	}
 }
 
