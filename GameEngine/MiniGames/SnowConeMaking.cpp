@@ -12,11 +12,13 @@
 #include"../SnowCone_Cup.h"
 #include"../SnowCone_Order.h"
 
+#include<format>
+
 namespace
 {
 	static const XMFLOAT3 cupPos[3] = { {-10,0,0},{0,0,0},{10,0,0} };
 	static const XMFLOAT3 STOCK_POS[3]{ {1420,850,0},{1620,850,0},{1820,850,0} };
-	static const XMFLOAT2 COUNT_POS = { 900,500 };
+	static const XMFLOAT2 COUNT_POS = { 700,50 };
 	static const XMFLOAT3 PROGRESS_DEFAULT = { 2,1,0 };
 	static const float PLAY_COUNT = 60.0f;
 }
@@ -69,6 +71,10 @@ void SnowConeMaking::Initialize()
 	}
 	for(int i=0;i<2;i++)
 	{
+		Image tableImage(i + 1,0);
+		tableImage.Load("Assets/Image/plywood_diff_1k.jpg");
+		tableImage.SetSize({ 2,2,0 });
+		AddComponent<Image>(tableImage);
 		Image image(i+1);
 		image.Load("Assets/Image/MultiWindowFrame.png");
 		AddComponent<Image>(image);
@@ -77,12 +83,6 @@ void SnowConeMaking::Initialize()
 		Image image(0);
 		image.Load("Assets/Image/SnowCone_CommandImage2.png");
 		AddComponent<Image>(image);
-
-	//Image progressFrame(0);
-	//progressFrame.Load("Assets/Image/ProgressFrame_Image.png");
-	//progressFrame.SetSize(PROGRESS_DEFAULT);
-	//progressFrame.SetPositionAtPixel({ -76,-800,0 });
-	//progressImageNum_ = AddComponent<Image>(progressFrame);
 	
 	Image progressImage(0);
 	progressImage.Load("Assets/Image/ProgressBar_Image.png");
@@ -97,9 +97,11 @@ void SnowConeMaking::Initialize()
 	blackImageNum_ = AddComponent<Image>(black);
 	
 
-	Text countText("", "‚è‚¢‚Ä‚ª‚«•M", { 0,0,500,50 });
+	Text countText("", "‚è‚¢‚Ä‚ª‚«•M", { 0,0,500,50 },0,2);
 	countText.SetPosition(COUNT_POS);
-	countText.SetTextSize(100);
+	countText.SetColor({ 0, 0, 0, 1 });
+	countText.SetAlignmentType(CENTER_CENTER);
+	countText.SetTextSize(200);
 	AddComponent<Text>(countText);
 
 	Instantiate<SnowCone_Order>(this)->SetActive(false);
@@ -158,7 +160,7 @@ void SnowConeMaking::StaticUpdate()
 
 void SnowConeMaking::Stay()
 {
-	GetComponent<Text>().SetText(std::to_string(time_->GetSeconds<float>()));
+	GetComponent<Text>().SetText(std::format("{:.2f}", time_->GetSeconds<float>()));
 	if (time_->GetSeconds<float>() < 0)
 	{
 		FindChild("SnowCone_Order")->SetActive(true);
