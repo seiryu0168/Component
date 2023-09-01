@@ -266,23 +266,16 @@ void Text::SetTextLayout()
 
 HRESULT Text::SetText(const std::string& text)
 {
-	//size_t textSize;
-	//textLength_ = text.length() + 1;
-	//wchar_t* txt = nullptr;
-	//SAFE_DELETE(pText_);
-	//txt = new wchar_t[textLength_];
 	std::filesystem::path str = text;
 	std::string locale = setlocale(LC_CTYPE, NULL);
 	setlocale(LC_CTYPE, "ja-jp");
-	//MultiByteToWideChar()
-	//errno_t err = mbstowcs_s(&textSize, txt, textLength_, text.c_str(), text.length()+2);
-	//std::wstring wStr(txt);
+	
 	HRESULT hr;
 	FontData data;
 	hr = pTextFormat_->GetFontFamilyName((WCHAR*)data.fontName_.c_str(), pTextFormat_->GetFontFamilyNameLength() + 1);
 	if (FAILED(hr))
 		return hr;
-
+	data.fontSize_ = pTextFormat_->GetFontSize();
 	hr = pTextFormat_->GetLocaleName((WCHAR*)data.locale_.c_str(), pTextFormat_->GetLocaleNameLength() + 1);
 	if (FAILED(hr))
 		return hr;

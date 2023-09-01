@@ -115,7 +115,7 @@ void Result_SnowCone::Create(int num)
 	int size = InterSceneData::GetData<std::vector<SNOWCONE_DATA>>("SuccessData")[num].size_;
 	int syrupNum = InterSceneData::GetData<std::vector<SNOWCONE_DATA>>("SuccessData")[num].syrup;
 	int toppingNum = InterSceneData::GetData<std::vector<SNOWCONE_DATA>>("SuccessData")[num].topping_;
-	XMFLOAT3 pos = { (DEFAULT_POS.x * num) + 1700,DEFAULT_POS.y * (num / 5) - 500 ,0 };
+	XMFLOAT3 pos = { (DEFAULT_POS.x * num) - 1700,DEFAULT_POS.y * (num / 5) + 500 ,0 };
 	Image iceImage(0, 0);
 	iceImage.Load(ICE_NAME);
 	iceImage.SetPositionAtPixel({ pos.x,pos.y + 180,0 });
