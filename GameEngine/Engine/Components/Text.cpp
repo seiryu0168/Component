@@ -297,7 +297,14 @@ HRESULT Text::SetText(const std::string& text)
 	setlocale(LC_CTYPE, locale.c_str());
 	textLength_ = pText_.length();
 	SAFE_RELEASE(pLayout_);
-	return D2D::GetDWriteFactory()->CreateTextLayout(pText_.c_str(), (UINT32)textLength_, pTextFormat_, (layoutRect_.right - layoutRect_.left), (layoutRect_.bottom - layoutRect_.top), &pLayout_);
+	hr=D2D::GetDWriteFactory()->CreateTextLayout(pText_.c_str(), (UINT32)textLength_, pTextFormat_, (layoutRect_.right - layoutRect_.left), (layoutRect_.bottom - layoutRect_.top), &pLayout_);
+	if (FAILED(hr))
+		return hr;
+	pTextFormat_->SetTextAlignment(textAlignment);
+	pTextFormat_->SetParagraphAlignment(paraAlignment);
+	pLayout_->SetTextAlignment(textAlignment);
+	pLayout_->SetParagraphAlignment(paraAlignment);
+	return hr;
 }
 
 HRESULT Text::SetFontWeight(DWRITE_FONT_WEIGHT weightType, UINT32 startPos, UINT32 length)
@@ -332,6 +339,8 @@ HRESULT Text::SetTextSize(float size, UINT32 startPos, UINT32 length)
 }
 HRESULT Text::SetTextSize(float size)
 {
+	if (size <= 0.0f)
+		return E_FAIL;
 	HRESULT hr;
 	//UINT32 localeSize = pTextFormat_->GetLocaleNameLength() * 2;
 
@@ -366,8 +375,10 @@ HRESULT Text::SetTextSize(float size)
 	if (FAILED(hr))
 		return hr;
 		
-		pLayout_->SetTextAlignment(textAlignment);
-		pLayout_->SetParagraphAlignment(paraAlignment);
+	pTextFormat_->SetTextAlignment(textAlignment);
+	pTextFormat_->SetParagraphAlignment(paraAlignment);
+	pLayout_->SetTextAlignment(textAlignment);
+	pLayout_->SetParagraphAlignment(paraAlignment);
 	return hr;
 }
 
@@ -447,79 +458,79 @@ void Text::SetAlignmentType(const ALIGNMENT_TYPE& type)
 	{
 	case LEFT_TOP:
 		//原点左上
-		//pLayout_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_LEADING);
-		//pLayout_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_NEAR);
+		pLayout_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_LEADING);
+		pLayout_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_NEAR);
 		pTextFormat_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_LEADING);
 		pTextFormat_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_NEAR);
 		break;
 
 	case LEFT_CENTER:
 		//原点左
-		//pLayout_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_LEADING);
-		//pLayout_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
+		pLayout_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_LEADING);
+		pLayout_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
 		pTextFormat_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_LEADING);
 		pTextFormat_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
 		break;
 	
 	case LEFT_BOTTOM:
 		//原点左下
-		//pLayout_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_LEADING);
-		//pLayout_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_FAR);
+		pLayout_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_LEADING);
+		pLayout_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_FAR);
 		pTextFormat_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_LEADING);
 		pTextFormat_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_FAR);
 		break;
 
 	case CENTER_TOP:
 		//原点上
-		//pLayout_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER);
-		//pLayout_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_NEAR);
+		pLayout_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER);
+		pLayout_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_NEAR);
 		pTextFormat_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER);
 		pTextFormat_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_NEAR);
 		break;
 	
 	case CENTER_CENTER:
 		//原点中央
-		//pLayout_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER);
-		//pLayout_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
+		pLayout_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER);
+		pLayout_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
 		pTextFormat_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER);
 		pTextFormat_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
 		break;
 	
 	case CENTER_BOTTOM:
 		//原点下
-		//pLayout_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER);
-		//pLayout_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_FAR);
+		pLayout_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER);
+		pLayout_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_FAR);
 		pTextFormat_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_CENTER);
 		pTextFormat_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_FAR);
 		break;
 
 	case RIGHT_TOP:
 		//原点右上
-		//pLayout_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_TRAILING);
-		//pLayout_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_NEAR);
+		pLayout_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_TRAILING);
+		pLayout_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_NEAR);
 		pTextFormat_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_TRAILING);
 		pTextFormat_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_NEAR);
 		break;
 	case RIGHT_CENTER:
 		//原点右
-		//pLayout_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_TRAILING);
-		//pLayout_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
+		pLayout_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_TRAILING);
+		pLayout_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
 		pTextFormat_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_TRAILING);
 		pTextFormat_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_CENTER);
 		break;
 
 	case RIGHT_BOTTOM:
 		//原点右下
-		//pLayout_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_TRAILING);
-		//pLayout_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_FAR);
+		pLayout_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_TRAILING);
+		pLayout_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_FAR);
 		pTextFormat_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_TRAILING);
 		pTextFormat_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_FAR);
 		break;
 
 	default:
 		//デフォルト
-		//pLayout_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_LEADING);
-		//pLayout_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_NEAR);
+		pLayout_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_LEADING);
+		pLayout_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_NEAR);
 		pTextFormat_->SetTextAlignment(DWRITE_TEXT_ALIGNMENT_LEADING);
 		pTextFormat_->SetParagraphAlignment(DWRITE_PARAGRAPH_ALIGNMENT_NEAR);
 		break;
