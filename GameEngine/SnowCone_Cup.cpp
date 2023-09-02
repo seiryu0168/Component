@@ -8,6 +8,7 @@ namespace
 {
 	const XMFLOAT3 DEFAULT_POS[2] = { {0,180,0},{0,0,0} };
 	const float EASE_MAX = 1.0f;
+	const float SIZE_INTERVAL = 0.398f;
 }
 SnowCone_Cup::SnowCone_Cup(Object* parent)
 	:GameObject(parent, "SnowCone_Cup"),
@@ -67,7 +68,7 @@ void SnowCone_Cup::Update()
 }
 int SnowCone_Cup::GetConeSize()
 {
-	return (int)(coneSize_/0.398f);
+	return (int)(coneSize_/ SIZE_INTERVAL);
 }
 
 float SnowCone_Cup::GetConeHeight()
@@ -88,6 +89,8 @@ void SnowCone_Cup::SetTopping(int topNum)
 void SnowCone_Cup::SetConeSize(float size)
 {
 	coneSize_ += size;
+	if (coneSize_ >= SIZE_INTERVAL * 2)
+		coneSize_ = SIZE_INTERVAL * 2;
 	GetComponent<Image>(iceNum_).SetSize({ 1,1+coneSize_,0 });
 	//if(coneSize_)
 }

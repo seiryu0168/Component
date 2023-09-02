@@ -78,6 +78,7 @@ void SnowCone_SyrupSelect::Initialize()
 		image.Load("Assets/Image/SnowCone_SelectImage.png");
 		image.SetPositionAtPixel(IMAGEPOS[0]);
 		image.SetColor(DEFAULT_COLOR);
+		image.SetAlpha(0.4f);
 		selectFrame_ = AddComponent<Image>(image);
 	}
 }

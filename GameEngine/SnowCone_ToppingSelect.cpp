@@ -74,6 +74,7 @@ void SnowCone_ToppingSelect::Initialize()
 		Image image(CAMERANUM);
 		image.Load("Assets/Image/SnowCone_SelectImage.png");
 		image.SetPositionAtPixel(IMAGEPOS[0]);
+		image.SetAlpha(0.4f);
 		selectFrame_ = (int)AddComponent<Image>(image);
 	}
 }
