@@ -23,6 +23,7 @@ namespace
 	static const XMFLOAT3 PROGRESS_DEFAULT = { 2,1,0 };
 	static const std::string STOCK_TEXT[3] = { "小盛","中盛","大盛" };
 	static const float PLAY_COUNT = 60.0f;
+	static const int STOCK_LIMIT = 3;
 }
 SnowConeMaking::SnowConeMaking(Object* parent)
 	:Framework(parent,"SnowConeMaking"),
@@ -105,20 +106,19 @@ void SnowConeMaking::Initialize()
 	Image image(0);
 	image.Load("Assets/Image/SnowCone_CommandImage2.png");
 	AddComponent<Image>(image);
-	
+	//制限時間用の画像
 	Image progressImage(0);
 	progressImage.Load("Assets/Image/ProgressBar_Image.png");
 	progressImage.SetSize(PROGRESS_DEFAULT);
 	progressImage.SetPositionAtPixel({ -1920,-800,0 });
 	progressImageNum_ = AddComponent<Image>(progressImage);
-
 	Image black(-1, 2);
 	black.Load("Assets/Image/Filter.png");
 	black.SetSize({ 1920,1080,0 });
 	black.SetAlpha(0);
 	blackImageNum_ = AddComponent<Image>(black);
 	
-
+	//始まる前のカウントダウン用テキスト
 	Text countText("", "りいてがき筆", { 0,0,500,50 },0,2);
 	countText.SetPosition(COUNT_POS);
 	countText.SetColor({ 0, 0, 0, 1 });
@@ -126,20 +126,23 @@ void SnowConeMaking::Initialize()
 	countText.SetTextSize(200);
 	timeText_ = AddComponent<Text>(countText);
 
+	//注文クラスとテーブルクラスを待機させておく
 	Instantiate<SnowCone_Order>(this)->SetActive(false);
 	Instantiate<SnowCone_Table>(this)->SetActive(false);
+	//かき氷を削るクラスを生成
 	SnowConeMaker_Shave* p1 = Instantiate<SnowConeMaker_Shave>(this);
 	p1->SetPlayerNumber(0);
 	p1->SetUpdate(false);
+	//トッピングを選ぶクラスを生成
 	SnowConeMaker_Topping* p2 = Instantiate<SnowConeMaker_Topping>(this);
 	p2->SetPlayerNumber(1);
 	p2->SetUpdate(false);
-
+	//時間を初期化
 	time_ = std::make_unique<Time::Watch>();
 	time_->SetCountdown(true);
 	time_->SetSecond(3.0f);
 	time_->UnLock();
-
+	//スコアマネージャーの初期化
 	scoreManager_.Init(1, 0);
 }
 
@@ -182,15 +185,19 @@ void SnowConeMaking::StaticUpdate()
 
 void SnowConeMaking::Stay()
 {
+	//ゲーム開始までのカウントダウンを行う
 	GetComponent<Text>(timeText_).SetText(std::format("{:.2f}", time_->GetSeconds<float>()));
+	
+	//カウントダウンが終わったら各オブジェクトを動かす
 	if (time_->GetSeconds<float>() < 0)
 	{
 		FindChild("SnowCone_Order")->SetActive(true);
 		FindChild("SnowCone_Table")->SetActive(true);
 		FindChild("SnowConeMaker_Shave")->SetUpdate(true);
 		FindChild("SnowConeMaker_Topping")->SetUpdate(true);
-
+		//カウントダウン用テキストを削除
 		RemoveComponent<Text>(timeText_);
+		//時間を設定
 		time_->SetSecond<float>(PLAY_COUNT);
 		state_ = PLAY_STATE::STATE_PLAY;
 	}
@@ -213,7 +220,7 @@ void SnowConeMaking::Play()
 void SnowConeMaking::AddCup(SnowCone_Cup* cup)
 {
 	//かき氷をストックする
-	if (cupList_.size() < 3)
+	if (cupList_.size() < STOCK_LIMIT)
 	{
 		cupList_.push_back(cup);
 		
@@ -222,6 +229,7 @@ void SnowConeMaking::AddCup(SnowCone_Cup* cup)
 			GetComponent<Text>(shavedCupSize_[cupList_.size()-1]).SetText(size);
 			GetComponent<Image>(shavedCupList_[cupList_.size()-1]).SetAlpha(1);
 	}
+	//カップのストック上限だったら消す
 	else
 	{
 		cup->KillMe();
@@ -231,17 +239,20 @@ void SnowConeMaking::AddCup(SnowCone_Cup* cup)
 
 void SnowConeMaking::ScoreUpdate(int score)
 {
+	//スコアの更新
 	scoreManager_.ScoreUpdate(score);
 }
 
 void SnowConeMaking::Evaluation(float size, int syrup, int topping)
 {
+	//かき氷が注文と合っているか確認
 	((SnowCone_Order*)FindChild("SnowCone_Order"))->Judge(size, syrup, topping);
 }
 
 SnowCone_Cup* SnowConeMaking::GetCup()
 {
 	SnowCone_Cup* cup;
+	//ストックしてるかき氷を持ってくる
 	if (cupList_.empty() == false)
 	{
 		cup = cupList_[0];
@@ -250,6 +261,7 @@ SnowCone_Cup* SnowConeMaking::GetCup()
 		cupList_.erase(cupList_.begin());
 		cupList_.resize(cupList_.size());
 
+		//ストックの表示更新
 		for (int i = 0;i<cupList_.size();i++)
 		{
 			std::string size = ((SnowCone_Order*)FindChild("SnowCone_Order"))->GetSizeString(cupList_[i]->GetConeSize());
