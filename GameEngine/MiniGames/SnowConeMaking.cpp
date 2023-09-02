@@ -215,7 +215,7 @@ void SnowConeMaking::AddCup(SnowCone_Cup* cup)
 	//かき氷をストックする
 	if (cupList_.size() < 3)
 	{
-		cupList_.push(cup);
+		cupList_.push_back(cup);
 		
 			//cup->GetTransform()->position_ = XMLoadFloat3(&cupPos[i]);
 		std::string size = ((SnowCone_Order*)FindChild("SnowCone_Order"))->GetSizeString(cup->GetConeSize());
@@ -244,10 +244,17 @@ SnowCone_Cup* SnowConeMaking::GetCup()
 	SnowCone_Cup* cup;
 	if (cupList_.empty() == false)
 	{
-		cup = cupList_.front();
+		cup = cupList_[0];
 		GetComponent<Image>(shavedCupList_[cupList_.size() - 1]).SetAlpha(0);
 		GetComponent<Text>(shavedCupSize_[cupList_.size() - 1]).SetText("");
-		cupList_.pop();
+		cupList_.erase(cupList_.begin());
+		cupList_.resize(cupList_.size());
+
+		for (int i = 0;i<cupList_.size();i++)
+		{
+			std::string size = ((SnowCone_Order*)FindChild("SnowCone_Order"))->GetSizeString(cupList_[i]->GetConeSize());
+			GetComponent<Text>(shavedCupSize_[i]).SetText(size);
+		}
 		return cup;
 	}
 	else

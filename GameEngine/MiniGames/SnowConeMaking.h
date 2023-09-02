@@ -13,7 +13,7 @@ private:
 		STATE_PLAY,
 		STATE_FINISH,
 	};
-	std::queue<SnowCone_Cup*> cupList_;
+	std::vector<SnowCone_Cup*> cupList_;
 	std::unique_ptr<Time::Watch> time_;
 	std::vector<int> shavedCupList_;
 	std::vector<int> shavedCupSize_;

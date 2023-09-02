@@ -38,7 +38,9 @@ void Result_SnowCone::Initialize()
 	Text scoreText("³‰ğ‚µ‚½” 0", "‚è‚¢‚Ä‚ª‚«•M", { 0,0,500,50 });
 	scoreText.SetPosition({ 500,500 });
 	resultTextNum_ = AddComponent<Text>(scoreText);
-
+	Image backImage;
+	backImage.Load("Assets/Image/Result_SnowConeBackGroundImage.jpg");
+	AddComponent<Image>(backImage);
 	time_ = std::make_unique<Time::Watch>();
 	time_->UnLock();
 	interval_ = Clamp<float>((SHOWTIME / (float)score_), 0.2f, 1.0f);

@@ -145,6 +145,7 @@ void SnowCone_ToppingSelect::UIReset()
 	selectNum_ = 0;
 	GetComponent<Image>(selectFrame_).SetPositionAtPixel(IMAGEPOS[selectNum_]);
 	GetComponent<Image>(selectFrame_).SetAlpha(0.4f);
+	GetComponent<Text>(toppingText_).SetText(TOPPING_NAME[selectNum_]);
 	state_ = SELECT_STATE::INPUT;
 }
 

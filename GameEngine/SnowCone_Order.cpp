@@ -124,7 +124,7 @@ void SnowCone_Order::Judge(int size, int syrup, int topping)
 
 std::string SnowCone_Order::GetSizeString(int num)
 {
-	if (sizeTextList_.size() >= 3)
+	if (sizeTextList_.size() <= num)
 		num = sizeTextList_.size() - 1;
 	return sizeTextList_[num];
 }

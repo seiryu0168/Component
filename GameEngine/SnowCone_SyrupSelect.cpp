@@ -150,6 +150,8 @@ void SnowCone_SyrupSelect::UIReset()
 	selectNum_ = 0;
 	GetComponent<Image>(selectFrame_).SetPositionAtPixel(IMAGEPOS[selectNum_]);
 	GetComponent<Image>(selectFrame_).SetAlpha(0.4f);
+	GetComponent<Text>(syrupText_).SetText(SYRUP_NAME[selectNum_]);
+
 	state_ = SELECT_STATE::INPUT;
 }
 
