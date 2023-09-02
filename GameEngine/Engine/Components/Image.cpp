@@ -8,7 +8,7 @@
 Image::Image(int cameraNum,int layerNum)
 	:alpha_(1.0f),
 	rect_({ 0,0,1,1 }),
-	color_(),
+	color_({1,1,1,1}),
 	imageName_(""),
 	pSprite_(),
 	transform_(),

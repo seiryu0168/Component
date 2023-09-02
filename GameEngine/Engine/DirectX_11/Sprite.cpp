@@ -45,7 +45,6 @@ HRESULT Sprite::Initialize()
 
 void Sprite::Draw(Transform& transform, const RECT& rect, const XMFLOAT4& changeColor,float alpha,XMFLOAT2 scroll)
 {
-	// scroll_.y += 0.2f;
 	Direct3D::SetShader(SHADER_TYPE::SHADER_2D);
 	Direct3D::SetBlendMode(BLEND_MODE::BLEND_DEFAULT);
 	Direct3D::SetDepthBufferWriteEnable(false);
@@ -65,7 +64,7 @@ void Sprite::Draw(Transform& transform, const RECT& rect, const XMFLOAT4& change
 	XMMATRIX matTexScale = XMMatrixScaling((float)rect.right / size_.x, (float)rect.bottom / size_.y, 1.0f);
 
 	cb.matUVTrans = XMMatrixTranspose(matTexScale * matTexTrans);
-	cb.color = XMFLOAT4(1, 1, 1, alpha);
+	cb.color = XMFLOAT4(changeColor.x, changeColor.y, changeColor.z, alpha);
 	cb.ChangeColor = changeColor;
 	cb.scroll = scroll;
 

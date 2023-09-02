@@ -17,9 +17,11 @@
 namespace
 {
 	static const XMFLOAT3 cupPos[3] = { {-10,0,0},{0,0,0},{10,0,0} };
-	static const XMFLOAT3 STOCK_POS[3]{ {1420,850,0},{1620,850,0},{1820,850,0} };
+	static const XMFLOAT3 STOCK_POS[3]{ {1220,850,0},{1470,850,0},{1720,850,0} };
+	static const XMFLOAT2 STOCK_TEXT_POS[3]{ {1515,200},{1640,200 }, {1765,200} };
 	static const XMFLOAT2 COUNT_POS = { 700,50 };
 	static const XMFLOAT3 PROGRESS_DEFAULT = { 2,1,0 };
+	static const std::string STOCK_TEXT[3] = { "小盛","中盛","大盛" };
 	static const float PLAY_COUNT = 60.0f;
 }
 SnowConeMaking::SnowConeMaking(Object* parent)
@@ -37,6 +39,8 @@ void SnowConeMaking::Initialize()
 {
 	CameraManager::AllRmoveCamera();
 	D2D::AllRemoveRenderTarget();
+	//カメラ用意
+	//メニューとか表示する一番でかいカメラ
 	{
 		Camera camera;
 		XMINT2 WH = { Direct3D::GetScreenWidth() ,Direct3D::GetScreenHeight() };
@@ -45,6 +49,7 @@ void SnowConeMaking::Initialize()
 		CameraManager::AddCamera(camera);
 
 	}
+	//プレイヤー1のカメラ
 	{
 		Camera camera;
 		XMINT2 WH = { Direct3D::GetScreenWidth() ,Direct3D::GetScreenHeight() };
@@ -52,7 +57,7 @@ void SnowConeMaking::Initialize()
 		camera.SetViewPort(WH.x / 2.0f, WH.y / 2.0f, 0.0f, 1.0f, 0, WH.y / 4.0f);
 		CameraManager::AddCamera(camera);
 	}
-
+	//プレイヤー2のカメラ
 	{
 		Camera camera;
 		XMINT2 WH = { Direct3D::GetScreenWidth() ,Direct3D::GetScreenHeight() };
@@ -60,15 +65,32 @@ void SnowConeMaking::Initialize()
 		camera.SetViewPort(WH.x / 2.0f, WH.y / 2.0f, 0.0f, 1.0f, WH.x/2.0f, WH.y / 4.0f);
 		CameraManager::AddCamera(camera);
 	}
-
+	//ストック表示用の画像用意
 	for (int i = 0; i < 3; i++)
 	{
+		Image backImage(0, 1);
+		backImage.Load("Assets/Image/SnowCone_ShavedImage.png");
+		backImage.SetPositionAtPixel(STOCK_POS[i]);
+		backImage.SetSize({ 1.4f,1.4f,0 });
+		backImage.SetColor({ 0,0,0 });
+		backImage.SetAlpha(0.7f);
+		AddComponent<Image>(backImage);
+
 		Image image(0, 1);
 		image.Load("Assets/Image/SnowCone_ShavedImage.png");
 		image.SetPositionAtPixel(STOCK_POS[i]);
+		image.SetSize({ 1.3f,1.3f,0 });
 		image.SetAlpha(0);
-		AddComponent<Image>(image);
+		shavedCupList_.push_back(AddComponent<Image>(image));
+
+		Text shavedText("", "りいてがき筆", { 0,0,100,50 });
+		shavedText.SetPosition(STOCK_TEXT_POS[i]);
+		shavedText.SetTextSize(30);
+		shavedText.SetColor({ 0,0,0,1 });
+		shavedText.SetAlignmentType(CENTER_CENTER);
+		shavedCupSize_.push_back(AddComponent<Text>(shavedText));
 	}
+	//プレイヤー1,2の背景用意
 	for(int i=0;i<2;i++)
 	{
 		Image tableImage(i + 1,0);
@@ -79,10 +101,10 @@ void SnowConeMaking::Initialize()
 		image.Load("Assets/Image/MultiWindowFrame.png");
 		AddComponent<Image>(image);
 	}
-
-		Image image(0);
-		image.Load("Assets/Image/SnowCone_CommandImage2.png");
-		AddComponent<Image>(image);
+	//全体の背景用意
+	Image image(0);
+	image.Load("Assets/Image/SnowCone_CommandImage2.png");
+	AddComponent<Image>(image);
 	
 	Image progressImage(0);
 	progressImage.Load("Assets/Image/ProgressBar_Image.png");
@@ -102,7 +124,7 @@ void SnowConeMaking::Initialize()
 	countText.SetColor({ 0, 0, 0, 1 });
 	countText.SetAlignmentType(CENTER_CENTER);
 	countText.SetTextSize(200);
-	AddComponent<Text>(countText);
+	timeText_ = AddComponent<Text>(countText);
 
 	Instantiate<SnowCone_Order>(this)->SetActive(false);
 	Instantiate<SnowCone_Table>(this)->SetActive(false);
@@ -160,7 +182,7 @@ void SnowConeMaking::StaticUpdate()
 
 void SnowConeMaking::Stay()
 {
-	GetComponent<Text>().SetText(std::format("{:.2f}", time_->GetSeconds<float>()));
+	GetComponent<Text>(timeText_).SetText(std::format("{:.2f}", time_->GetSeconds<float>()));
 	if (time_->GetSeconds<float>() < 0)
 	{
 		FindChild("SnowCone_Order")->SetActive(true);
@@ -168,7 +190,7 @@ void SnowConeMaking::Stay()
 		FindChild("SnowConeMaker_Shave")->SetUpdate(true);
 		FindChild("SnowConeMaker_Topping")->SetUpdate(true);
 
-		RemoveComponent<Text>();
+		RemoveComponent<Text>(timeText_);
 		time_->SetSecond<float>(PLAY_COUNT);
 		state_ = PLAY_STATE::STATE_PLAY;
 	}
@@ -194,11 +216,11 @@ void SnowConeMaking::AddCup(SnowCone_Cup* cup)
 	if (cupList_.size() < 3)
 	{
 		cupList_.push(cup);
-		for (int i = 0; i < cupList_.size(); i++)
-		{
-			cup->GetTransform()->position_ = XMLoadFloat3(&cupPos[i]);
-			GetComponent<Image>(i).SetAlpha(1);
-		}
+		
+			//cup->GetTransform()->position_ = XMLoadFloat3(&cupPos[i]);
+		std::string size = ((SnowCone_Order*)FindChild("SnowCone_Order"))->GetSizeString(cup->GetConeSize());
+			GetComponent<Text>(shavedCupSize_[cupList_.size()-1]).SetText(size);
+			GetComponent<Image>(shavedCupList_[cupList_.size()-1]).SetAlpha(1);
 	}
 	else
 	{
@@ -223,7 +245,8 @@ SnowCone_Cup* SnowConeMaking::GetCup()
 	if (cupList_.empty() == false)
 	{
 		cup = cupList_.front();
-		GetComponent<Image>(cupList_.size() - 1).SetAlpha(0);
+		GetComponent<Image>(shavedCupList_[cupList_.size() - 1]).SetAlpha(0);
+		GetComponent<Text>(shavedCupSize_[cupList_.size() - 1]).SetText("");
 		cupList_.pop();
 		return cup;
 	}

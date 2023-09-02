@@ -15,10 +15,13 @@ private:
 	};
 	std::queue<SnowCone_Cup*> cupList_;
 	std::unique_ptr<Time::Watch> time_;
+	std::vector<int> shavedCupList_;
+	std::vector<int> shavedCupSize_;
 	PLAY_STATE state_;
 	SnowCone_ScoreManager scoreManager_;
 	int progressImageNum_;
 	int blackImageNum_;
+	int timeText_;
 	
 
 public:

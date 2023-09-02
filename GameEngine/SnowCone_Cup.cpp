@@ -67,7 +67,7 @@ void SnowCone_Cup::Update()
 }
 int SnowCone_Cup::GetConeSize()
 {
-	return (int)(coneSize_/0.329f);
+	return (int)(coneSize_/0.398f);
 }
 
 float SnowCone_Cup::GetConeHeight()

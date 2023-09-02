@@ -7,8 +7,8 @@
 namespace
 {
 	const int ORDER_LIMIT = 3;
-	const XMFLOAT2 TEXTPOS[3] = { {530,100},{880,100},{1230,100} };
-	const XMFLOAT3 MENUIMAGE_POS[] = { {-600,800,0},{100,800,0},{800,800,0} };
+	const XMFLOAT2 TEXTPOS[3] = { {230,100},{580,100},{930,100} };
+	const XMFLOAT3 MENUIMAGE_POS[] = { {-1200,800,0},{-500,800,0},{200,800,0} };
 }
 SnowCone_Order::SnowCone_Order(Object* parent)
 	:GameObject(parent,"SnowCone_Order"),
@@ -120,6 +120,11 @@ void SnowCone_Order::Judge(int size, int syrup, int topping)
 			return;
 		}
 	}
+}
+
+std::string SnowCone_Order::GetSizeString(int num)
+{
+	return sizeTextList_[num];
 }
 
 void SnowCone_Order::SendResultData()
