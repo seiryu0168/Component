@@ -11,6 +11,7 @@ namespace
 	const std::string TOPPING_NAME[] = {"小豆","ブルーベリー","ラズベリー"};
 	const int SYRUP_LIMIT = 3;
 	const int CAMERANUM = 2;
+	const float INTERVAL_TIME = 0.15f;
 }
 
 SnowCone_ToppingSelect::SnowCone_ToppingSelect(Object* parent)
@@ -98,7 +99,7 @@ void SnowCone_ToppingSelect::Update()
 void SnowCone_ToppingSelect::Move()
 {
 	GetComponent<Image>(selectFrame_).SetPositionAtPixel(IMAGEPOS[selectNum_]);
-	if (time_->GetSeconds<float>() >= 0.3f)
+	if (time_->GetSeconds<float>() >= INTERVAL_TIME)
 	{
 		time_->Lock();
 		time_->Reset();
