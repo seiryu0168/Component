@@ -22,6 +22,8 @@
 #include"Coordinator.h"
 #include "newSceneManager.h"
 
+#include "../Division.h"
+
 //ïœêî
 namespace
 {
@@ -52,7 +54,7 @@ namespace newSceneManager
 
 namespace newSceneManager
 {
-	
+
 	void Initialize()
 	{
 		prevSceneName_ = SCENE_ID::TITLE;
@@ -72,6 +74,7 @@ namespace newSceneManager
 	{
 		if (isSceneChange_ && changeCount_ <= 0)
 		{
+			Division::setLoad(true);
 			currentScene_->AllKillObject();
 
 			Coordinator::AllRemove();
@@ -79,7 +82,6 @@ namespace newSceneManager
 			ImageManager_ECSver::Release();
 			TextureManager::Release();
 			//D2D::
-
 			CameraManager::ResetCamera();
 			currentScene_ = sceneList_[nextSceneName_];
 			currentScene_->SceneInitialize();
@@ -87,6 +89,7 @@ namespace newSceneManager
 			//sceneList_[static_cast<int>(nextScene_)].second->ObjectSet();
 			currentSceneName_ = nextSceneName_;
 			isSceneChange_ = false;
+			Division::setLoad(false);
 		}
 		pColliderSystem_.get()->Update();
 		currentScene_->Update();
@@ -95,10 +98,12 @@ namespace newSceneManager
 		pModelSyatem_->Update();
 		pParticleSystem_->Update();
 		pLineParticleSystem_->Update();
-		
-		if(changeCount_!=0)
-		changeCount_--;
-		changeCount_ = max(0, changeCount_);
+
+		if (changeCount_ != 0)
+		{
+			changeCount_--;
+			changeCount_ = max(0, changeCount_);
+		}
 	}
 
 	void Draw()
@@ -112,7 +117,7 @@ namespace newSceneManager
 			pImageSystem_->Draw(layerCount);
 			pTextSystem_->Draw(layerCount);
 		}
-			currentScene_->Draw();
+		currentScene_->Draw();
 	}
 
 	void AddScene(const std::string& objectFileName)
@@ -158,7 +163,7 @@ namespace newSceneManager
 			return;
 		isSceneChange_ = true;
 		nextSceneName_ = sceneId;
-		changeCount_ = countDown*60.0f;
+		changeCount_ = countDown * 60.0f;
 	}
 
 	void ECSInitialize()
@@ -203,7 +208,7 @@ namespace newSceneManager
 		Coordinator::SetSystemSignature<ColliderSystem>(coll_signature);
 		Coordinator::SetSystemSignature<ParticleSystem>(particle_signature);
 		Coordinator::SetSystemSignature<LineParticleSystem>(lineParticle_signature);
-		
+
 		Coordinator::SetSystemSignature<ModelSystem>(model_signature);
 		Coordinator::SetSystemSignature<TextSystem>(text_signature);
 		Coordinator::SetSystemSignature<ImageSystem>(image_signature);

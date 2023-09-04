@@ -175,6 +175,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Debug_SceneChanger.cpp" />
+    <ClCompile Include="Division.cpp" />
     <ClCompile Include="Easing.cpp" />
     <ClCompile Include="DebugUI.cpp" />
     <ClCompile Include="Engine\Brightness.cpp" />
@@ -283,6 +284,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Debug_SceneChanger.h" />
+    <ClInclude Include="Division.h" />
     <ClInclude Include="Easing.h" />
     <ClInclude Include="DebugUI.h" />
     <ClInclude Include="Engine\Brightness.h" />

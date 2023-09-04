@@ -1,6 +1,7 @@
 #include "Object.h"
 #include"../Systems/PhysicsSystem.h"
 #include"../SAFE_DELETE_RELEASE.h"
+#include "../../Division.h"
 
 int objectcount = 0;
 Object::Object(Object* parent, const std::string& name)
@@ -73,11 +74,15 @@ void Object::UpdateSub()
 	if (startFlag_ == false && activeFlag_)
 	{
 		//Object* p = GetRootObject();
-		this->Initialize();
+		//Division::setLoad(true);
+		//this->Initialize();
 		this->startFlag_ = true;
+		//Division::setLoad(false);
 	}
 	else if (startFlag_ && activeFlag_ && isUpdate_ && killFlag_ == false)
+	{
 		Update();
+	}
 
 	if (isUpdate_)
 	{

@@ -28,6 +28,7 @@ void SceneBase::SceneInitialize()
 void SceneBase::SetRootObject(std::shared_ptr<Object> obj)
 {
 	rootObject_ = obj;
+	rootObject_->Initialize();
 }
 
 void SceneBase::ObjectSet()

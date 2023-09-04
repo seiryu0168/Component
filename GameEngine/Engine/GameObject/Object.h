@@ -154,6 +154,7 @@ public:
 		{
 			parent->PushBackChild(p);
 		}
+		p->Initialize();
 		return p.get();
 	}
 };
