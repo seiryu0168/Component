@@ -119,7 +119,7 @@ void Object::StaticUpdateSub()
 	if (startFlag_ == false && activeFlag_)
 	{
 		//Object* p = GetRootObject();
-		this->Initialize();
+		//this->Initialize();
 		this->startFlag_ = true;
 	}
 	else if (startFlag_ && activeFlag_)

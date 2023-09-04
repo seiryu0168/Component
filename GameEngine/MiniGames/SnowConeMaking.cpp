@@ -28,7 +28,10 @@ namespace
 SnowConeMaking::SnowConeMaking(Object* parent)
 	:Framework(parent,"SnowConeMaking"),
 	state_(PLAY_STATE::STATE_STAY),
-	progressImageNum_(0)
+	progressImageNum_(0),
+	explanationNum_(0),
+	explanationNum2_(0),
+	copuntFlag_(0)
 {
 }
 
@@ -112,11 +115,11 @@ void SnowConeMaking::Initialize()
 	progressImage.SetSize(PROGRESS_DEFAULT);
 	progressImage.SetPositionAtPixel({ -1920,-800,0 });
 	progressImageNum_ = AddComponent<Image>(progressImage);
-	Image black(-1, 2);
-	black.Load("Assets/Image/Filter.png");
-	black.SetSize({ 1920,1080,0 });
-	black.SetAlpha(0);
-	blackImageNum_ = AddComponent<Image>(black);
+	//Image black(-1, 2);
+	//black.Load("Assets/Image/Filter.png");
+	//black.SetSize({ 1920,1080,0 });
+	//black.SetAlpha(0);
+	//blackImageNum_ = AddComponent<Image>(black);
 	
 	//始まる前のカウントダウン用テキスト
 	Text countText("", "りいてがき筆", { 0,0,500,50 },0,2);
@@ -140,10 +143,19 @@ void SnowConeMaking::Initialize()
 	//時間を初期化
 	time_ = std::make_unique<Time::Watch>();
 	time_->SetCountdown(true);
-	time_->SetSecond(3.0f);
-	time_->UnLock();
+	
 	//スコアマネージャーの初期化
 	scoreManager_.Init(1, 0);
+	{
+		Image image(1, 2);
+		image.Load("Assets/Image/Shooting_ExplanationImage.png");
+		explanationNum_=AddComponent<Image>(image);
+	}
+	{
+		Image image(2, 2);
+		image.Load("Assets/Image/SnowConeMaking_ExplanationImage.png");
+		explanationNum2_ = AddComponent<Image>(image);
+	}
 }
 
 void SnowConeMaking::Update()
@@ -152,6 +164,9 @@ void SnowConeMaking::Update()
 	{
 	case PLAY_STATE::STATE_STAY:
 		Stay();
+		break;
+	case PLAY_STATE::STATE_COUNT:
+		Count();
 		break;
 	case PLAY_STATE::STATE_PLAY:
 		Play();
@@ -162,28 +177,31 @@ void SnowConeMaking::Update()
 	}
 }
 
-void SnowConeMaking::StaticUpdate()
+void SnowConeMaking::Stay()
 {
-	//スタートボタンを押したときの挙動(ポーズ)
-	if (Input::IsPadButtonDown(XINPUT_GAMEPAD_START))
+	if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A, 0))
 	{
-		SetUpdate(!isUpdate_);
-		//ポーズ解除
-		if (IsUpdate())
-		{
-			GetComponent<Image>(blackImageNum_).SetAlpha(0);
-			time_->UnLock();
-		}
-		//ポーズ
-		else
-		{
-			GetComponent<Image>(blackImageNum_).SetAlpha(0.3);
-			time_->Lock();
-		}
+		GetComponent<Image>(explanationNum_).SetAlpha(0.5f);
+		copuntFlag_ ^= 0b0001;
+	}
+
+	if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A, 1))
+	{
+		GetComponent<Image>(explanationNum2_).SetAlpha(0.5f);
+		copuntFlag_ ^= 0b0010;
+	}
+
+	if (copuntFlag_ == 0b0011)
+	{
+		GetComponent<Image>(explanationNum_).SetAlpha(0);
+		GetComponent<Image>(explanationNum2_).SetAlpha(0);
+		state_ = PLAY_STATE::STATE_COUNT;
+		time_->SetSecond(3.0f);
+		time_->UnLock();
 	}
 }
 
-void SnowConeMaking::Stay()
+void SnowConeMaking::Count()
 {
 	//ゲーム開始までのカウントダウンを行う
 	GetComponent<Text>(timeText_).SetText(std::format("{:.2f}", time_->GetSeconds<float>()));
@@ -272,7 +290,20 @@ SnowCone_Cup* SnowConeMaking::GetCup()
 	else
 	return nullptr;
 }
+void SnowConeMaking::StaticUpdate()
+{
+	Pause();
+}
 
+void SnowConeMaking::NotifiedUpdateT()
+{
+	time_->UnLock();
+}
+
+void SnowConeMaking::NotifiedUpdateF()
+{
+	time_->Lock();
+}
 
 
 void SnowConeMaking::Release()

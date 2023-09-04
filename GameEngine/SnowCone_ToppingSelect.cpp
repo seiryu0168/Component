@@ -78,6 +78,7 @@ void SnowCone_ToppingSelect::Initialize()
 		image.SetAlpha(0.4f);
 		selectFrame_ = (int)AddComponent<Image>(image);
 	}
+	state_ = SELECT_STATE::STAY;
 }
 
 void SnowCone_ToppingSelect::Update()

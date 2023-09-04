@@ -10,6 +10,7 @@ private:
 	enum class PLAY_STATE
 	{
 		STATE_STAY = 0,
+		STATE_COUNT,
 		STATE_PLAY,
 		STATE_FINISH,
 	};
@@ -20,7 +21,9 @@ private:
 	PLAY_STATE state_;
 	SnowCone_ScoreManager scoreManager_;
 	int progressImageNum_;
-	int blackImageNum_;
+	int explanationNum_;
+	int explanationNum2_;
+	char copuntFlag_;
 	int timeText_;
 	
 
@@ -31,11 +34,14 @@ public:
 	void Update() override;
 	void StaticUpdate() override;
 	void Stay();
+	void Count();
 	void Play();
 	void AddCup(SnowCone_Cup* cup);
 	void ScoreUpdate(int score);
 	void Evaluation(float size,int syrup,int topping);
 	SnowCone_Cup* GetCup();
+	void NotifiedUpdateT();
+	void NotifiedUpdateF();
 	void Release()override;
 };
 
