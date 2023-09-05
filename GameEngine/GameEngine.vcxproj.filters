@@ -58,6 +58,9 @@
     <Filter Include="ソース ファイル\Engine\ResourceManager">
       <UniqueIdentifier>{c08edbe2-834c-4fbd-ab53-e8cd5e03f960}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\MiniGames\ChickenRace">
+      <UniqueIdentifier>{2f843d5d-8cfb-4cb0-8765-e580811f412a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ImGui\imgui.cpp">
@@ -252,12 +255,6 @@
     <ClCompile Include="MiniGames\Framework.cpp">
       <Filter>ソース ファイル\MiniGames</Filter>
     </ClCompile>
-    <ClCompile Include="MiniGames\ChickenRace.cpp">
-      <Filter>ソース ファイル\MiniGames</Filter>
-    </ClCompile>
-    <ClCompile Include="MiniGames\Player_ChickenRace.cpp">
-      <Filter>ソース ファイル\MiniGames</Filter>
-    </ClCompile>
     <ClCompile Include="SelectUI.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -380,6 +377,15 @@
     </ClCompile>
     <ClCompile Include="Division.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGames\Player_ChickenRace.cpp">
+      <Filter>ソース ファイル\MiniGames\ChickenRace</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGames\ChickenRace.cpp">
+      <Filter>ソース ファイル\MiniGames\ChickenRace</Filter>
+    </ClCompile>
+    <ClCompile Include="R_ChickenRace.cpp">
+      <Filter>ソース ファイル\MiniGames\ChickenRace</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -596,12 +602,6 @@
     <ClInclude Include="MiniGames\Framework.h">
       <Filter>ソース ファイル\MiniGames</Filter>
     </ClInclude>
-    <ClInclude Include="MiniGames\ChickenRace.h">
-      <Filter>ソース ファイル\MiniGames</Filter>
-    </ClInclude>
-    <ClInclude Include="MiniGames\Player_ChickenRace.h">
-      <Filter>ソース ファイル\MiniGames</Filter>
-    </ClInclude>
     <ClInclude Include="SelectUI.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
@@ -730,6 +730,15 @@
     </ClInclude>
     <ClInclude Include="Division.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGames\Player_ChickenRace.h">
+      <Filter>ソース ファイル\MiniGames\ChickenRace</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGames\ChickenRace.h">
+      <Filter>ソース ファイル\MiniGames\ChickenRace</Filter>
+    </ClInclude>
+    <ClInclude Include="R_ChickenRace.h">
+      <Filter>ソース ファイル\MiniGames\ChickenRace</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

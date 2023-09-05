@@ -174,7 +174,13 @@ void ChickenRace::Finish()
 	{
 		winner = 1;
 	}
+
+	//リザルトに表示するための情報保存を行う
 	InterSceneData::AddData("ResultData", winner);
+	InterSceneData::AddData<float>("time_0", PlayersTime_[0]);
+	InterSceneData::AddData<float>("time_1", PlayersTime_[1]);
+	InterSceneData::AddData<int>("time_target", TargetTime);
 	newSceneManager::ChangeScene(SCENE_ID::RESULT, 90);
+
 	state_ = STATE::finish;
 }

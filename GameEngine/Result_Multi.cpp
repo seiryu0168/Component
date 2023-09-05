@@ -19,7 +19,7 @@ void Result_Multi::Initialize()
 		text.SetText(std::format("ÉvÉåÉCÉÑÅ[{:d} Win!", Winner_ + 1));
 	else
 		text.SetText("DRAW");
-	text.SetRatio(0.25f, 0.25f);
+	text.SetRatio(0.4f, 0.1f);
 	text.SetTextSize(90);
 	AddComponent<Text>(text);
 
@@ -40,6 +40,8 @@ void Result_Multi::Initialize()
 	AddComponent<Image>(image);
 	image.Load("Assets\\Image\\Buttons\\BTN_B.png", "Result_Multi");
 	AddComponent<Image>(image);
+
+	MoreInfo();
 }
 
 void Result_Multi::Update()

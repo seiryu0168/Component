@@ -244,6 +244,7 @@
     <ClCompile Include="Result_Shooting.cpp" />
     <ClCompile Include="Result_Single.cpp" />
     <ClCompile Include="Result_SnowCone.cpp" />
+    <ClCompile Include="R_ChickenRace.cpp" />
     <ClCompile Include="Scenes\RootObject\RootObject.cpp" />
     <ClCompile Include="Scenes\RootObject\RootObject_Menu.cpp" />
     <ClCompile Include="Scenes\RootObject\RootObject_Play.cpp" />
@@ -359,6 +360,7 @@
     <ClInclude Include="Result_Shooting.h" />
     <ClInclude Include="Result_Single.h" />
     <ClInclude Include="Result_SnowCone.h" />
+    <ClInclude Include="R_ChickenRace.h" />
     <ClInclude Include="Scenes\RootObject\RootObject.h" />
     <ClInclude Include="Scenes\RootObject\RootObject_Menu.h" />
     <ClInclude Include="Scenes\RootObject\RootObject_Play.h" />

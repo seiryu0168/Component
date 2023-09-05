@@ -4,6 +4,7 @@
 #include"../../Result_Shooting.h"
 #include"../../Result_SnowCone.h"
 #include"../../Result_Multi.h"
+#include "../../R_ChickenRace.h"
 RootObject_Result::RootObject_Result()
 {
 	Transform transform;
@@ -24,6 +25,8 @@ void RootObject_Result::Initialize()
 		break;
 
 	case (int)CHICKENRACE:
+		Instantiate<R_ChickenRace>(this);
+		break;
 	case (int)COMMANDMEMORY:
 		Instantiate<Result_Multi>(this);
 		break;
