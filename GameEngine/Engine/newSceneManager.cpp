@@ -214,6 +214,22 @@ namespace newSceneManager
 		Coordinator::SetSystemSignature<ImageSystem>(image_signature);
 	}
 
+	void Release()
+	{
+		Division::setLoad(true);
+		currentScene_->AllKillObject();
+
+		Coordinator::AllRemove();
+		ModelManager_ECSver::Release();
+		ImageManager_ECSver::Release();
+		ImageManager_ECSver::StaticImageRelease();
+		TextureManager::Release();
+		TextureManager::StaticTextureRelease();
+		//D2D::
+		CameraManager::ResetCamera();
+		Division::setLoad(false);
+	}
+
 	std::shared_ptr<ImageSystem> GetImageSystem()
 	{
 		return pImageSystem_;

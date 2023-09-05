@@ -13,11 +13,13 @@ private:
 	int drawTargetNumber_;
 	int layerNum_;
 	Transform transform_;
+	bool isStatic_;
 public:
 	Image(int cameraNum = -1,int layerNum=0);
 	~Image();
 	//画像ロード
 	bool Load(const std::string& name, const std::string& tab = "");
+	bool StaticLoad(const std::string& name);
 	//座標設定
 	void SetPosition(const XMFLOAT3& pos);
 	//座標設定(ピクセル単位)

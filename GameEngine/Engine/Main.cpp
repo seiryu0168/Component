@@ -223,6 +223,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 	Brightness::Release();
 	Audio::Releace();
 	DebugUI::CleanUp();
+	newSceneManager::Release();
 	//ImageManager::AllRelease();
 	//pRootJob->ReleaseSub();
 	//SAFE_DELETE(pRootJob);

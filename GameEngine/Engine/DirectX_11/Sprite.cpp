@@ -100,6 +100,63 @@ void Sprite::Draw(Transform& transform, const RECT& rect, const XMFLOAT4& change
 	Direct3D::SetDepthBufferWriteEnable(true);
 }
 
+void Sprite::StaticDraw(Transform& transform, const RECT& rect, const XMFLOAT4& changeColor, float alpha, XMFLOAT2 scroll)
+{
+	Direct3D::SetShader(SHADER_TYPE::SHADER_2D);
+	Direct3D::SetBlendMode(BLEND_MODE::BLEND_DEFAULT);
+	Direct3D::SetDepthBufferWriteEnable(false);
+	//コンスタントバッファに情報を渡す
+	transform.Calclation();
+
+	//画面のサイズに合わせる行列
+	XMMATRIX matImageSize = XMMatrixScaling((float)(1.0f / Direct3D::GetScreenWidth()), (float)(1.0f / Direct3D::GetScreenHeight()), 1.0f);
+	//切り抜きサイズに合わせる行列
+	XMMATRIX matCut = XMMatrixScaling((float)rect.right, (float)rect.bottom, 1.0f);
+	CONSTANT_BUFFER cb;
+
+	//最終的な行列
+	cb.matWorld = XMMatrixTranspose(matCut * transform.GetWorldScaleMatrix() * matImageSize * transform.GetWorldRotateMatrix() * transform.GetWorldTranslateMatrix());
+
+	XMMATRIX matTexTrans = XMMatrixTranslation((float)rect.left / size_.x, (float)rect.top / size_.y, 1.0f);
+	XMMATRIX matTexScale = XMMatrixScaling((float)rect.right / size_.x, (float)rect.bottom / size_.y, 1.0f);
+
+	cb.matUVTrans = XMMatrixTranspose(matTexScale * matTexTrans);
+	cb.color = XMFLOAT4(changeColor.x, changeColor.y, changeColor.z, alpha);
+	cb.ChangeColor = changeColor;
+	cb.scroll = scroll;
+
+	D3D11_MAPPED_SUBRESOURCE pdata;
+	Direct3D::pContext->Map(pConstantBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &pdata);	// GPUからのデータアクセスを止める
+	memcpy_s(pdata.pData, pdata.RowPitch, (void*)(&cb), sizeof(cb));					// データを値を送る
+
+	ID3D11SamplerState* pSampler = TextureManager::GetStaticTexture(hPict_)->GetSampler();
+	Direct3D::pContext->PSSetSamplers(0, 1, &pSampler);
+	ID3D11ShaderResourceView* pSRV = TextureManager::GetStaticTexture(hPict_)->GetSRV();
+	Direct3D::pContext->PSSetShaderResources(0, 1, &pSRV);
+
+	Direct3D::pContext->Unmap(pConstantBuffer_, 0);//再開
+
+	//頂点、インデックス、コンスタントバッファをセット
+
+	//頂点バッファ
+	UINT stride = sizeof(VERTEX);
+	UINT offset = 0;
+	Direct3D::pContext->IASetVertexBuffers(0, 1, &pVertexBuffer_, &stride, &offset);
+
+	// インデックスバッファーをセット
+	stride = sizeof(int);
+	offset = 0;
+	Direct3D::pContext->IASetIndexBuffer(pIndexBuffer_, DXGI_FORMAT_R32_UINT, 0);
+
+	//コンスタントバッファ
+	Direct3D::pContext->VSSetConstantBuffers(0, 1, &pConstantBuffer_);	//頂点シェーダー用
+	Direct3D::pContext->PSSetConstantBuffers(0, 1, &pConstantBuffer_);	//ピクセルシェーダー用
+
+	Direct3D::pContext->DrawIndexed(indexNum_, 0, 0);
+
+	Direct3D::SetDepthBufferWriteEnable(true);
+}
+
 // 頂点データ用バッファの設定
 HRESULT Sprite::CreateVertexBuffer()
 {
@@ -176,6 +233,37 @@ HRESULT Sprite::Load(const std::string& fileName)
 	}
 	size_ = { (float)TextureManager::GetTexture(hPict_)->GetWidth(),(float)TextureManager::GetTexture(hPict_)->GetHeight(),1.0f };
 	
+	InitVertex();
+	InitIndex();
+	if (FAILED(CreateVertexBuffer()))
+	{
+		return E_FAIL;
+	}
+
+	// インデックスバッファを生成する
+	if (FAILED(CreateIndexBuffer()))
+	{
+		return E_FAIL;
+	}
+
+	//コンスタントバッファ作成
+	if (FAILED(CreateConstantBuffer()))
+	{
+		return E_FAIL;
+	}
+	return S_OK;
+}
+
+HRESULT Sprite::StaticLoad(const std::string& fileName)
+{
+	hPict_ = TextureManager::StaticLoad(fileName.c_str());
+	if (hPict_ < 0)
+	{
+		MessageBox(nullptr, L"画像ロードに失敗しました", L"エラー", MB_OK);
+		return E_FAIL;
+	}
+	size_ = { (float)TextureManager::GetStaticTexture(hPict_)->GetWidth(),(float)TextureManager::GetStaticTexture(hPict_)->GetHeight(),1.0f };
+
 	InitVertex();
 	InitIndex();
 	if (FAILED(CreateVertexBuffer()))

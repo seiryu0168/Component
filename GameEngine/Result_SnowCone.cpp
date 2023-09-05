@@ -35,8 +35,9 @@ void Result_SnowCone::Initialize()
 	text.SetTextSize(100);
 	AddComponent<Text>(text);
 
-	Text scoreText("³‰ğ‚µ‚½” 0", "‚è‚¢‚Ä‚ª‚«•M", { 0,0,500,50 });
+	Text scoreText("’ñ‹Ÿ‚Å‚«‚½” 0", "‚è‚¢‚Ä‚ª‚«•M", { 0,0,500,50 });
 	scoreText.SetPosition({ 500,500 });
+	scoreText.SetColor({ 0,0,0,1 });
 	resultTextNum_ = AddComponent<Text>(scoreText);
 	Image backImage;
 	backImage.Load("Assets/Image/Result_SnowConeBackGroundImage.jpg");
@@ -76,12 +77,12 @@ void Result_SnowCone::Show()
 	{
 		Create(count_);
 		count_++;
-		GetComponent<Text>(resultTextNum_).SetText("³‰ğ‚µ‚½” " + std::to_string(count_));
+		GetComponent<Text>(resultTextNum_).SetText("’ñ‹Ÿ‚Å‚«‚½” " + std::to_string(count_));
 
 	}
 	if (count_ > score_)
 	{
-		GetComponent<Text>(resultTextNum_).SetText("³‰ğ‚µ‚½” " + std::to_string(score_));
+		GetComponent<Text>(resultTextNum_).SetText("’ñ‹Ÿ‚Å‚«‚½” " + std::to_string(score_));
 		time_->Lock();
 		ShowCommand();
 		status_ = CountStatus::FINISH;

@@ -40,7 +40,7 @@ void Result_Shooting::Initialize()
 	resultTextNum_ = AddComponent<Text>(scoreText);
 	{
 		Image image;
-		image.Load("Assets/Image/Shooting_ResultBackGroundImage.jpg");
+		image.Load("Assets/Image/SelectUI_Shooting_BackGroundImage.jpg");
 		AddComponent<Image>(image);
 	}
 

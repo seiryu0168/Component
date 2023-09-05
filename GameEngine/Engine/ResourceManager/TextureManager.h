@@ -6,6 +6,9 @@
 namespace TextureManager
 {
 	int Load(const std::string& fileName);
+	int StaticLoad(const std::string& fileName);
 	Texture* GetTexture(int textureHandle);
+	Texture* GetStaticTexture(int textureHandle);
 	void Release();
+	void StaticTextureRelease();
 }

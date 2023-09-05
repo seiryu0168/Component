@@ -14,7 +14,8 @@ Image::Image(int cameraNum,int layerNum)
 	transform_(),
 	drawTargetNumber_(cameraNum),
 	layerNum_(layerNum),
-	scroll_({0,0})
+	scroll_({0,0}),
+	isStatic_(false)
 {
 }
 
@@ -34,6 +35,18 @@ bool Image::Load(const std::string& name, const std::string& tab)
 	if (tab != "")
 		transform_ = ImageMediationer::Load(name, tab, pSprite_.use_count());
 
+	return true;
+}
+
+bool Image::StaticLoad(const std::string& name)
+{
+	pSprite_ = ImageManager_ECSver::StaticLoad(name);
+	if (pSprite_ == nullptr)
+		return false;
+
+	XMFLOAT3 size = pSprite_->GetSize();
+	rect_ = { 0,0,(long)size.x,(long)size.y };
+	isStatic_ = true;
 	return true;
 }
 
@@ -92,8 +105,18 @@ void Image::Draw(int layerNum)
 	if (layerNum != layerNum_)
 		return;
 
-	if (drawTargetNumber_ == CameraManager::GetCurrentCameraNum() || drawTargetNumber_ == -1)
-		pSprite_->Draw(transform_, rect_, color_, alpha_,scroll_);
+	if (isStatic_)
+	{
+		if (drawTargetNumber_ == CameraManager::GetCurrentCameraNum() || drawTargetNumber_ == -1)
+			pSprite_->StaticDraw(transform_, rect_, color_, alpha_, scroll_);
+	
+	}
+	else
+	{
+		if (drawTargetNumber_ == CameraManager::GetCurrentCameraNum() || drawTargetNumber_ == -1)
+			pSprite_->Draw(transform_, rect_, color_, alpha_, scroll_);
+	}
+
 }
 
 bool Image::IsHitCursor()

@@ -47,9 +47,10 @@ public:
 	virtual void InitVertex();
 	virtual void InitIndex();
 	HRESULT Load(const std::string& fileName);
-	
+	HRESULT StaticLoad(const std::string& fileName);
 	void SetSize(float width, float height) { size_ = { width,height, 1.0f}; }
 	XMFLOAT3 GetSize() const { return size_; }
 	void Draw(Transform& transform, const RECT& rect, const XMFLOAT4& changeColor = {1,1,1,1}, float alpha = 1, XMFLOAT2 scroll = { 0,0 });
+	void StaticDraw(Transform& transform, const RECT& rect, const XMFLOAT4& changeColor = {1,1,1,1}, float alpha = 1, XMFLOAT2 scroll = { 0,0 });
 };
 

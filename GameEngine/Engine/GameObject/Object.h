@@ -29,7 +29,7 @@ private:
 	float time_;
 protected:
 
-	std::list<std::shared_ptr<Object>> childList_;	
+	std::list<std::shared_ptr<Object>> childList_;
 	std::unordered_map<std::string, std::vector<Entity>> entityList_;
 	Object* pParent_;
 	Object* pScene_;

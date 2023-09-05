@@ -5,6 +5,8 @@
 namespace ImageManager_ECSver
 {
 	std::shared_ptr<Sprite> Load(const std::string& fileName);
+	std::shared_ptr<Sprite> StaticLoad(const std::string& fileName);
 	void Release();
+	void StaticImageRelease();
 };
 

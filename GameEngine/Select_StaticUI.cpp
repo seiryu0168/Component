@@ -26,9 +26,9 @@ void Select_StaticUI::Initialize()
 	//selectText.SetPosition({610,0});
 	AddComponent<Text>(selectText);
 
-	Image image;
-	image.Load("Assets/Image/SelectUI_Shooting_BackGroundImage.jpg");
-	AddComponent<Image>(image);
+	//Image image;
+	//image.Load("Assets/Image/SelectUI_Shooting_BackGroundImage.jpg");
+	//AddComponent<Image>(image);
 
 	{
 		Image i;
