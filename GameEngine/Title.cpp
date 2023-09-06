@@ -3,6 +3,7 @@
 #include"Engine/Systems/ImageSystem.h"
 #include"Engine/newSceneManager.h"
 #include"Engine/Systems/TextSystem.h"
+#include "Engine/ResourceManager/Audio.h"
 
 namespace
 {
@@ -11,7 +12,7 @@ namespace
 }
 
 Title::Title(Object* parent)
-	:GameObject(parent, "Title"), State_(STATE::WAIT), time_(nullptr), Frame_(0)
+	:GameObject(parent, "Title"), State_(STATE::WAIT), time_(nullptr), Frame_(0), hAudio_(0)
 {
 }
 
@@ -33,6 +34,9 @@ void Title::Initialize()
 
 	time_ = std::make_unique<Time::Watch>();
 	time_->UnLock();
+
+	hAudio_ = Audio::Load("Assets\\Audio\\bloom.wav");
+	Audio::Play(hAudio_);
 }
 
 void Title::Update()
@@ -48,6 +52,7 @@ void Title::Update()
 	default:
 		break;
 	}
+
 }
 
 void Title::Release()

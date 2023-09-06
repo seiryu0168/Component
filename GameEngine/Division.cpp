@@ -4,6 +4,7 @@
 #include "Engine/DirectX_11/Input.h"
 #include "Engine/newSceneManager.h"
 #include "Engine/GameObject/CameraManager.h"
+#include "Engine/Components/Image.h"
 #include "Engine/Components/Transform.h"
 #include "Engine/DirectX_11/Direct3D.h"
 #include "Engine/DirectX_11/Texture.h"
@@ -51,6 +52,8 @@ namespace
 	static CONSTANT_BUFFER cb;
 
 	std::mutex mtx_;
+
+	Image image_;
 }
 
 namespace Division
@@ -72,59 +75,15 @@ namespace Division
 	void threadMain()
 	{
 		std::lock_guard<std::mutex> lock(mtx_);
-//#ifdef _DEBUG
-//		DebugUI::StartImGui();
-//#endif
 		//ゲームの処理
 		Time::Update();
 		Input::Update();
 
-		//countFps++;
 		newSceneManager::Update();
-		//pRootJob->UpdateSub();
-//		CameraManager::Update();
-//#ifdef _DEBUG
-//		DebugUI::Debug(/*(GameObject*)pRootJob->FindChild("SceneManager")*/);
-//		//DebugUI::Log();
-//		ImGui::Render();
-//#endif 
 		newSceneManager::CheckRemoveObject();
-		//描画処理
-		//Direct3D::BeginDraw();
-
-		//pRootJob->ComponentUpdate();
-		//D2D::BeginDraw();
-		//Coordinator::SystemsUpdate();
-		//pRootJob->DrawSub();
-		//ビューポート１
-		//CameraManager::Update();
-		/*for (int i = 0; i < CameraManager::GetCameraCount(); i++)
-		{
-			CameraManager::UpdateCameraNum(i);
-			Direct3D::SetViewPort(CameraManager::GetCamera(i).GetViewPort());
-
-			newSceneManager::Draw();
-		}*/
-		////ビューポート２
-		//{
-		//	Direct3D::SetViewPort(1);
-		//	//CameraManager::SetPosition(XMVectorSet(10, 10, -10, 0));
-		//	//CameraManager::SetTarget(XMVectorSet(0, 0, 0, 0));
-		//	CameraManager::Update();
-		//	newSceneManager::Draw();
-		//}
-		//pRootJob->DrawSub();
-
-		//D2D::EndDraw();
-		//ImageManager::DrawUI();
-		//pRootJob->ThirdDrawSub();
-//#ifdef _DEBUG	
-//		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
-//#endif
-//		Direct3D::EndDraw();
 	}
 
-	void threadLoad()
+	void threadDraw()
 	{
 #ifdef _DEBUG
 		DebugUI::StartImGui();
@@ -136,13 +95,14 @@ namespace Division
 		
 		//描画処理
 		Direct3D::BeginDraw();
+		std::lock_guard<std::mutex> lock(mtx_);
 		if (isLoad)
 		{
+			image_.Draw();
 			//Draw();
 		}
 		else
 		{
-			std::lock_guard<std::mutex> lock(mtx_);
 			for (int i = 0; i < CameraManager::GetCameraCount(); i++)
 			{
 				CameraManager::UpdateCameraNum(i);
@@ -164,6 +124,8 @@ namespace Division
 
 		pTexture_ = std::make_unique<Texture>();
 		pTexture_->Load("Assets\\Image\\parrot.jpg");
+
+		image_.StaticLoad("Assets\\Image\\parrot.jpg");
 
 		Prepare();
 	}

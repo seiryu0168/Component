@@ -161,7 +161,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 				lastUpdateTime = nowTime;
 
 				std::thread main(Division::threadMain);
-				std::thread load(Division::threadLoad);
+				std::thread load(Division::threadDraw);
 				main.join();
 				load.join();
 //#ifdef _DEBUG
@@ -221,7 +221,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInst, LPSTR lpCmdLine, 
 
 	Time::Release();
 	Brightness::Release();
-	Audio::Releace();
+	Audio::Release();
 	DebugUI::CleanUp();
 	newSceneManager::Release();
 	//ImageManager::AllRelease();

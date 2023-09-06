@@ -22,6 +22,8 @@ private:
 
 	Image* BG_;
 
+	int hAudio_;
+
 	void Prologue();
 	void Countdown();
 	void Play();

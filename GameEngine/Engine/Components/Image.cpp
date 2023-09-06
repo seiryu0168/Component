@@ -96,8 +96,17 @@ void Image::SetRotation(const XMFLOAT3& rotate)
 
 void Image::Draw()
 {
-	if(drawTargetNumber_ == CameraManager::GetCurrentCameraNum() || drawTargetNumber_ == -1)
-	pSprite_->Draw(transform_, rect_, color_, alpha_,scroll_);
+	if (isStatic_)
+	{
+		if (drawTargetNumber_ == CameraManager::GetCurrentCameraNum() || drawTargetNumber_ == -1)
+			pSprite_->StaticDraw(transform_, rect_, color_, alpha_, scroll_);
+
+	}
+	else
+	{
+		if (drawTargetNumber_ == CameraManager::GetCurrentCameraNum() || drawTargetNumber_ == -1)
+			pSprite_->Draw(transform_, rect_, color_, alpha_, scroll_);
+	}
 }
 
 void Image::Draw(int layerNum)

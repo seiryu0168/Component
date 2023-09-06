@@ -5,6 +5,7 @@
 #include "../Engine/Components/Particle.h"
 #include "../Engine/newSceneManager.h"
 #include "../InterSceneData.h"
+#include "../Engine/ResourceManager/Audio.h"
 
 namespace
 {
@@ -19,7 +20,7 @@ namespace
 }
 
 ChickenRace::ChickenRace(Object* parent)
-	: Framework(parent, "ChickenRace") , TargetTime(0), PlayersTime_(), text_(), state_(STATE::prologue), watch_(nullptr), BG_(nullptr)
+	: Framework(parent, "ChickenRace") , TargetTime(0), PlayersTime_(), text_(), state_(STATE::prologue), watch_(nullptr), BG_(nullptr), hAudio_(-1)
 {
 }
 
@@ -64,6 +65,10 @@ void ChickenRace::Initialize()
 		BG_ = &GetComponent<Image>(I);
 	}
 
+	
+	hAudio_ = Audio::Load("Assets\\Audio\\bloom.wav", 2);
+	
+
 	watch_ = std::make_unique<Time::Watch>();
 	watch_->UnLock();
 }
@@ -106,6 +111,7 @@ void ChickenRace::SendTime(Object* target, float time)
 		++element;
 	}
 	
+	Audio::Play(hAudio_);
 
 	if (std::find(PlayersTime_.begin(), PlayersTime_.end(), 0) == end(PlayersTime_))
 	{

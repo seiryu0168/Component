@@ -1,5 +1,6 @@
 #include "Brightness.h"
 #include "Components/Transform.h"
+#include "Components/Image.h"
 #include "DirectX_11/Direct3D.h"
 #include "DirectX_11/Texture.h"
 #include <memory>
@@ -43,6 +44,8 @@ namespace
 	static const int indexNum_ = 6;
 
 	static CONSTANT_BUFFER cb;
+
+	Image image_;
 }
 
 namespace Brightness
@@ -64,6 +67,9 @@ namespace Brightness
 		pTexture_ = std::make_unique<Texture>();
 		pTexture_->Load("Assets\\Image\\Filter.png");
 
+		image_.StaticLoad("Assets\\Image\\Filter.png");
+		image_.SetSize({ (float)Direct3D::GetScreenWidth(), (float)Direct3D::GetScreenHeight(),1 });
+
 		Prepare();
 	}
 
@@ -71,41 +77,43 @@ namespace Brightness
 	{
 		Ratio = ratio;
 		cb.color = XMFLOAT4(0, 0, 0, Ratio);
+		image_.SetAlpha(ratio);
 	}
 
 	void Draw()
 	{
-		Direct3D::SetShader(SHADER_TYPE::SHADER_2D);
-		Direct3D::SetBlendMode(BLEND_MODE::BLEND_DEFAULT);
-		Direct3D::SetDepthBufferWriteEnable(false);
-		
+		//Direct3D::SetShader(SHADER_TYPE::SHADER_2D);
+		//Direct3D::SetBlendMode(BLEND_MODE::BLEND_DEFAULT);
+		//Direct3D::SetDepthBufferWriteEnable(false);
+		//
 
-		D3D11_MAPPED_SUBRESOURCE pdata;
-		Direct3D::pContext->Map(pConstantBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &pdata);	// GPUからのデータアクセスを止める
-		memcpy_s(pdata.pData, pdata.RowPitch, (void*)(&cb), sizeof(cb));					// データを値を送る
+		//D3D11_MAPPED_SUBRESOURCE pdata;
+		//Direct3D::pContext->Map(pConstantBuffer_, 0, D3D11_MAP_WRITE_DISCARD, 0, &pdata);	// GPUからのデータアクセスを止める
+		//memcpy_s(pdata.pData, pdata.RowPitch, (void*)(&cb), sizeof(cb));					// データを値を送る
 
-		ID3D11SamplerState* pSampler = pTexture_->GetSampler();
-		Direct3D::pContext->PSSetSamplers(0, 1, &pSampler);
-		ID3D11ShaderResourceView* pSRV = pTexture_->GetSRV();
-		Direct3D::pContext->PSSetShaderResources(0, 1, &pSRV);
+		//ID3D11SamplerState* pSampler = pTexture_->GetSampler();
+		//Direct3D::pContext->PSSetSamplers(0, 1, &pSampler);
+		//ID3D11ShaderResourceView* pSRV = pTexture_->GetSRV();
+		//Direct3D::pContext->PSSetShaderResources(0, 1, &pSRV);
 
-		Direct3D::pContext->Unmap(pConstantBuffer_, 0);//再開
+		//Direct3D::pContext->Unmap(pConstantBuffer_, 0);//再開
 
-		//頂点バッファ
-		UINT stride = sizeof(VERTEX);
-		UINT offset = 0;
-		Direct3D::pContext->IASetVertexBuffers(0, 1, &pVertexBuffer_, &stride, &offset);
+		////頂点バッファ
+		//UINT stride = sizeof(VERTEX);
+		//UINT offset = 0;
+		//Direct3D::pContext->IASetVertexBuffers(0, 1, &pVertexBuffer_, &stride, &offset);
 
-		// インデックスバッファーをセット
-		Direct3D::pContext->IASetIndexBuffer(pIndexBuffer_, DXGI_FORMAT_R32_UINT, 0);
+		//// インデックスバッファーをセット
+		//Direct3D::pContext->IASetIndexBuffer(pIndexBuffer_, DXGI_FORMAT_R32_UINT, 0);
 
-		//コンスタントバッファ
-		Direct3D::pContext->VSSetConstantBuffers(0, 1, &pConstantBuffer_);	//頂点シェーダー用
-		Direct3D::pContext->PSSetConstantBuffers(0, 1, &pConstantBuffer_);	//ピクセルシェーダー用
+		////コンスタントバッファ
+		//Direct3D::pContext->VSSetConstantBuffers(0, 1, &pConstantBuffer_);	//頂点シェーダー用
+		//Direct3D::pContext->PSSetConstantBuffers(0, 1, &pConstantBuffer_);	//ピクセルシェーダー用
 
-		Direct3D::pContext->DrawIndexed(indexNum_, 0, 0);
+		//Direct3D::pContext->DrawIndexed(indexNum_, 0, 0);
 
-		Direct3D::SetDepthBufferWriteEnable(true);
+		//Direct3D::SetDepthBufferWriteEnable(true);
+		image_.Draw();
 	}
 
 	void Release()

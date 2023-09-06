@@ -11,6 +11,8 @@ private:
 	} State_;
 	int Frame_;
 
+	int hAudio_;
+
 	std::unique_ptr<Time::Watch> time_;
 	void Waiting();
 	void Pushed();

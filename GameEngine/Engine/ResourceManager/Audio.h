@@ -1,27 +1,27 @@
 #pragma once
-#include<string>
+#include <string>
 
-//音
+//-----------------------------------------------------------
+//サウンドを管理する（XAudio使用）
+//-----------------------------------------------------------
 namespace Audio
 {
 	//初期化
 	void Initialize();
-	
-	/// <summary>
-	/// オーディオファイルのロード
-	/// </summary>
-	/// <param name="fileName">ファイル名</param>
-	/// <param name="svNum">最大同時再生数</param>
-	/// <returns>ロードしたデータの番号</returns>
-	int Load(const std::string& fileName,int svNum = 1);
-	
-	/// <summary>
-	/// 再生
-	/// </summary>
-	/// <param name="ID">鳴らしたい音の番号</param>
+
+	//サウンドファイル(.wav）をロード
+	//すでに同じ名前のファイルをロード済みの場合は、既存のデータの番号を返す
+	//引数：fileName	ファイル名
+	//引数：svNum　		同時に鳴らす最大数（省略可）
+	//戻値：そのデータに割り当てられた番号
+	int Load(std::string fileName, int svNum = 1);
+
+	//再生
+	//引数：handle	鳴らしたいサウンドの番号
 	void Play(int ID);
-	void ReleaseAudio();
-	void Releace();
 
+	void SetVolum(int ID, float volum);
+
+	//すべて開放
+	void Release();
 };
-

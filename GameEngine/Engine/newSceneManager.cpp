@@ -22,6 +22,7 @@
 #include"Coordinator.h"
 #include "newSceneManager.h"
 
+#include "ResourceManager/Audio.h"
 #include "../Division.h"
 
 //•Ï”
@@ -77,6 +78,8 @@ namespace newSceneManager
 			Division::setLoad(true);
 			currentScene_->AllKillObject();
 
+			Audio::Release();
+			Audio::Initialize();
 			Coordinator::AllRemove();
 			ModelManager_ECSver::Release();
 			ImageManager_ECSver::Release();

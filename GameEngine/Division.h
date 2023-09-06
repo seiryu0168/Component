@@ -6,6 +6,6 @@ namespace Division
 	void Initialize();
 
 	void threadMain();
-	void threadLoad();
+	void threadDraw();
 };
 

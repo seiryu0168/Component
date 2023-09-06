@@ -37,7 +37,6 @@ protected:
 		for (int i = 0; i < Players_; i++)
 		{
 			auto p = Instantiate<T>(this);
-			p->SetID(i);
 		}
 	}
 
