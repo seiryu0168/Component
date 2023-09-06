@@ -63,6 +63,21 @@ void Transform::RotateEular(const XMFLOAT3& rotation)
 											   XMConvertToRadians(rotation.z));
 }
 
+float Transform::GetPositionX()
+{
+	return position_.m128_f32[0];
+}
+
+float Transform::GetPositionY()
+{
+	return position_.m128_f32[1];
+}
+
+float Transform::GetPositionZ()
+{
+	return position_.m128_f32[2];
+}
+
 //ãtçsóÒÇÃåvéZ
 XMMATRIX Transform::GetNormalMatrix() const
 {

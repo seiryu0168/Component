@@ -30,6 +30,9 @@ public:
 	void RotateAxis(const XMVECTOR& axis, float angle);
 	void RotateEular(const XMFLOAT3& rotation);
 
+	float GetPositionX();
+	float GetPositionY();
+	float GetPositionZ();
 	//‰ñ“]s—ñ‚ÆŠgk‚Ì‹ts—ñ‚ÌŒvZ
 	XMMATRIX GetNormalMatrix() const;
 	
@@ -52,5 +55,7 @@ public:
 	{
 		return StoreFloat3(add1 + add2);
 	}
+
+	
 };
 

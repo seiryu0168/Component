@@ -89,26 +89,33 @@ void Result_Shooting::ShowResult()
 void Result_Shooting::ShowCommand()
 {
 	Text retryText("‚à‚¤ˆê“x", "‚è‚¢‚Ä‚ª‚«•M", { 0,0,500,50 });
-	retryText.SetRatio(0.7f, 0.7f);
+	retryText.SetRatio(0.7f, 0.65f);
 	retryText.SetTextSize(48);
 	AddComponent<Text>(retryText);
 
 	Text toMenuText_("ƒƒjƒ…[‚Ö", "‚è‚¢‚Ä‚ª‚«•M", { 0,0,500,50 });
-	toMenuText_.SetRatio(0.7f, 0.85f);
+	toMenuText_.SetRatio(0.7f, 0.78f);
 	toMenuText_.SetTextSize(48);
 	AddComponent<Text>(toMenuText_);
 
-	Image image;
-	image.Load("Assets\\Image\\Buttons\\BTN_A.png", "Result_Multi");
-	AddComponent<Image>(image);
-	image.Load("Assets\\Image\\Buttons\\BTN_B.png", "Result_Multi");
-	AddComponent<Image>(image);
+	{
+		Image image;
+		image.Load("Assets\\Image\\Buttons\\BTN_A.png", "Result_Multi");
+		AddComponent<Image>(image);
+	}
+	{
+		Image image;
+		image.Load("Assets\\Image\\Buttons\\BTN_B.png", "Result_Multi");
+		AddComponent<Image>(image);
+	}
 }
 
 void Result_Shooting::Finish()
 {
 	if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A))
 		newSceneManager::ChangeScene(SCENE_ID::MENU);
+	else if (Input::IsPadButtonDown(XINPUT_GAMEPAD_B))
+		newSceneManager::ChangeScene(SCENE_ID::PLAY);
 }
 
 void Result_Shooting::Release()
