@@ -148,12 +148,12 @@ void SnowConeMaking::Initialize()
 	scoreManager_.Init(1, 0);
 	{
 		Image image(1, 2);
-		image.Load("Assets/Image/Shooting_ExplanationImage.png");
+		image.Load("Assets/Image/SnowCone_PocessImage01.png");
 		explanationNum_=AddComponent<Image>(image);
 	}
 	{
 		Image image(2, 2);
-		image.Load("Assets/Image/SnowConeMaking_ExplanationImage.png");
+		image.Load("Assets/Image/SnowCone_PocessImage02.png");
 		explanationNum2_ = AddComponent<Image>(image);
 	}
 }
