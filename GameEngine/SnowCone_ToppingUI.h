@@ -3,7 +3,7 @@
 
 class SnowCone_SyrupSelect;
 class SnowCone_ToppingSelect;
-
+class Image;
 enum class SELECT_MODE
 {
 	MODE_SYRUP = 0,
@@ -24,6 +24,8 @@ public:
 	void Update() override;
 	int GetSyrupData();
 	int GetToppingData();
+	Image GetCurrentSyrupImage();
+	Image GetCurrentToppingImage();
 	void ModeChange(SELECT_MODE mode);
 	void ResetUI();
 	void Release() override;

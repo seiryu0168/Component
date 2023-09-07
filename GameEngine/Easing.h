@@ -28,9 +28,9 @@ namespace Easing
 	float EaseOutExpo(float time);
 	float EaseInOutExpo(float time);
 
-	float EaseInCirc(float time);
-	float EaseOutCirc(float time);
-	float EaseInOutCirc(float time);
+	//float EaseInCirc(float time);
+	//float EaseOutCirc(float time);
+	//float EaseInOutCirc(float time);
 
 
 

@@ -23,7 +23,8 @@ public:
 	//座標設定
 	void SetPosition(const XMFLOAT3& pos);
 	//座標設定(ピクセル単位)
-	void SetPositionAtPixel(XMFLOAT3 pos);
+	void SetPositionAtPixel(const XMFLOAT3& pos);
+	void AddPositionAtPixel(const XMFLOAT3& deltaPos);
 	//透明度設定
 	void SetAlpha(float alpha);
 	//色設定
@@ -37,6 +38,11 @@ public:
 	void SetRotation(const XMFLOAT3& rotate);
 	//描画対象設定(複数画面時)
 	void SetDrawTarget(int targetNum) { drawTargetNumber_ = targetNum; }
+	XMFLOAT3 ConvertToRatio(XMFLOAT3 pos);
+	XMFLOAT3 ConvertToPixel(XMFLOAT3 pos);
+	XMFLOAT3 ConvertToPixel(XMVECTOR pos);
+	XMFLOAT3 GetPosition();
+	XMFLOAT3 GetRatio();
 	//描画
 	void Draw();
 	void Draw(int layerNum);

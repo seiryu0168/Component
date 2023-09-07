@@ -5,6 +5,38 @@
 #include "../DirectX_11/Input.h"
 #include "../ResourceManager/ImageMediationer.h"
 
+XMFLOAT3 Image::ConvertToRatio(XMFLOAT3 pos)
+{
+	pos.x = pos.x / (float)Direct3D::GetScreenWidth();
+	pos.y = pos.y / (float)Direct3D::GetScreenHeight();
+	return pos;
+}
+
+XMFLOAT3 Image::ConvertToPixel(XMFLOAT3 pos)
+{
+	pos.x = pos.x * (float)Direct3D::GetScreenWidth();
+	pos.y = pos.y * (float)Direct3D::GetScreenHeight();
+
+	return pos;
+}
+
+XMFLOAT3 Image::ConvertToPixel(XMVECTOR pos)
+{
+	XMFLOAT3 retPos = StoreFloat3(pos);
+	retPos = ConvertToPixel(retPos);
+	return retPos;
+}
+
+XMFLOAT3 Image::GetPosition()
+{
+	return ConvertToPixel(transform_.position_);
+}
+
+XMFLOAT3 Image::GetRatio()
+{
+	return StoreFloat3(transform_.position_);
+}
+
 Image::Image(int cameraNum,int layerNum)
 	:alpha_(1.0f),
 	rect_({ 0,0,1,1 }),
@@ -55,12 +87,17 @@ void Image::SetPosition(const XMFLOAT3& pos)
 	transform_.position_ = XMLoadFloat3(&pos);
 }
 
-void Image::SetPositionAtPixel(XMFLOAT3 pos)
+void Image::SetPositionAtPixel(const XMFLOAT3& pos)
 {
-	pos.x = pos.x / (float)Direct3D::GetScreenWidth() ;
-	pos.y = pos.y / (float)Direct3D::GetScreenHeight();
-	transform_.position_ = XMLoadFloat3(&pos);
-}	
+	XMFLOAT3 p = ConvertToRatio(pos);
+	transform_.position_ = XMLoadFloat3(&p);
+}
+void Image::AddPositionAtPixel(const XMFLOAT3& deltaPos)
+{
+	XMFLOAT3 p = ConvertToRatio(deltaPos);
+	transform_.position_ += XMLoadFloat3(&p);
+}
+
 
 void Image::SetAlpha(float alpha)
 {

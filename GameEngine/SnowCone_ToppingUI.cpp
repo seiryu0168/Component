@@ -159,6 +159,16 @@ int SnowCone_ToppingUI::GetToppingData()
 	return toppingSelect_->GetToppingNum();
 }
 
+Image SnowCone_ToppingUI::GetCurrentSyrupImage()
+{
+	return GetComponent<Image>(GetSyrupData());
+}
+
+Image SnowCone_ToppingUI::GetCurrentToppingImage()
+{
+	return GetComponent<Image>(GetToppingData());
+}
+
 void SnowCone_ToppingUI::ModeChange(SELECT_MODE mode)
 {
 	switch (mode)

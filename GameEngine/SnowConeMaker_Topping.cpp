@@ -1,6 +1,6 @@
 #include "SnowConeMaker_Topping.h"
 #include"Engine/GameObject/CameraManager.h"
-#include"Engine/Systems/ModelSystem.h"
+#include"Engine/Systems/ImageSystem.h"
 #include"Engine/DirectX_11/Input.h"
 #include"MiniGames/SnowConeMaking.h"
 #include"SnowCone_Cup.h"
@@ -65,9 +65,10 @@ void SnowConeMaker_Topping::Update()
 			((SnowConeMaking*)GetParent())->Evaluation(snowCone_->GetConeSize(),
 													   ui->GetSyrupData(),
 													   ui->GetToppingData());
+
 			//•]‰¿‚ªI‚í‚Á‚½‚çÁ‚·
-			snowCone_->KillMe();
-			snowCone_->RemoveIce();
+			snowCone_->Complete(ui->GetSyrupData(), ui->GetToppingData());
+			snowCone_->StartEasing();
 			snowCone_ = nullptr;
 			GetComponent<Text>(coneSizeText_).SetText("");
 		}
@@ -81,12 +82,12 @@ void SnowConeMaker_Topping::Update()
 		{
 			snowCone_->GetTransform()->position_ = TARGET_POS;
 			snowCone_->ToppingSetUp();
-
-			syrupSumple_->GetTransform()->scale_.y = 1+snowCone_->GetConeSize();
+			snowCone_->StartEasing();
 			syrupSumple_->ChangeSumple(0);
 			syrupSumple_->SetSyrupSize(snowCone_->GetConeHeight());
-			toppingSumple_->SetSumple(snowCone_->GetConeHeight(), 0);
+			toppingSumple_->SetSumpleSize(snowCone_->GetConeHeight(), 0);
 			toppingSumple_->ChangeSumple(0);
+			toppingSumple_->Move();
 			GetComponent<Text>(coneSizeText_).SetText(CONESIZE_NAME[snowCone_->GetConeSize()]);
 		}
 		break;
@@ -99,16 +100,6 @@ void SnowConeMaker_Topping::Update()
 void SnowConeMaker_Topping::SetTopping()
 {
 	snowCone_->SetTopping(0);
-}
-
-void SnowConeMaker_Topping::SetToppingSumple()
-{
-	toppingSumple_->GetTransform()->position_ = snowCone_->GetIceBonePos("Bone");
-}
-
-void SnowConeMaker_Topping::SetSyrupSumple()
-{
-	syrupSumple_->GetTransform()->position_ = snowCone_->GetIceBonePos("Bone");
 }
 
 void SnowConeMaker_Topping::ResetSelectUI()

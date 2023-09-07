@@ -19,8 +19,6 @@ public:
 	void Initialize() override;
 	void Update() override;
 	void SetTopping();
-	void SetToppingSumple();
-	void SetSyrupSumple();
 	void SetPlayerNumber(int num) { playerNum_ = num; }
 	void ResetSelectUI();
 	void Release() override;

@@ -3,19 +3,34 @@
 class SnowCone_Cup : public GameObject
 {
 private:
+	enum class SNOWCONE_STATUS
+	{
+		SHAVE=0,
+		STANDBY,
+		TOPPING,
+		FINISH,
+	};
 	float coneSize_;
 	int coneScore_;
 
 	int iceNum_;
 	int cupNum_;
+	
 
 	float easingTime_;
+	//bool isShaved_;
+	//bool isToppinged_;
 	bool isEasing_;
+	SNOWCONE_STATUS state_;
+	XMFLOAT3 baseImagePos_;
 public:
 	SnowCone_Cup(Object* parent);
 	~SnowCone_Cup();
 	void Initialize() override;
 	void Update() override;
+	void MoveToTopping();
+	void MoveToGetCup();
+	void MoveToCustomer();
 	int GetConeSize();
 	float GetConeHeight();
 	void SetColor(const XMFLOAT4& color);
@@ -24,8 +39,7 @@ public:
 	void ChangeDrawTarget(int num);
 	void ToppingSetUp();
 	void StartEasing() { isEasing_ = true; }
-	bool IsEasing() { return isEasing_; }
-	XMVECTOR GetIceBonePos(const std::string& boneName);
+	void Complete(int syrupNum, int toppingNum);
 	void RemoveIce();
 	void Release() override;
 };

@@ -4,10 +4,14 @@
 namespace
 {
 	const XMFLOAT3 SYRUPPOS = { 0,180, 0 };
+	const XMFLOAT3 DEFAULT_POS = { 0,1200,0 };
 }
 
 SnowCone_SyrupSumple::SnowCone_SyrupSumple(Object* parent)
-	:GameObject(parent,"SnowCone_SyrupSumple")
+	:GameObject(parent,"SnowCone_SyrupSumple"),
+	currentNum_(0),
+	sumplePos_({0,0,0}),
+	isMove_(false)
 {
 }
 
@@ -65,7 +69,10 @@ void SnowCone_SyrupSumple::ChangeSumple(int num)
 		Coordinator::GetComponent<Image>(imageNum).SetAlpha(0);
 
 	if (num < GetComponentList<Image>().size())
+	{
 		GetComponent<Image>(num).SetAlpha(1);
+		currentNum_ = num;
+	}
 }
 
 void SnowCone_SyrupSumple::SetSyrupSize(float size)
