@@ -69,6 +69,7 @@ void SnowConeMaker_Topping::Update()
 			//•]‰¿‚ªI‚í‚Á‚½‚çÁ‚·
 			snowCone_->Complete(ui->GetSyrupData(), ui->GetToppingData());
 			snowCone_->StartEasing();
+			snowCone_->ReleaseCup();
 			snowCone_ = nullptr;
 			GetComponent<Text>(coneSizeText_).SetText("");
 		}
@@ -84,6 +85,7 @@ void SnowConeMaker_Topping::Update()
 			snowCone_->ToppingSetUp();
 			snowCone_->StartEasing();
 			syrupSumple_->ChangeSumple(0);
+			syrupSumple_->Move();
 			syrupSumple_->SetSyrupSize(snowCone_->GetConeHeight());
 			toppingSumple_->SetSumpleSize(snowCone_->GetConeHeight(), 0);
 			toppingSumple_->ChangeSumple(0);

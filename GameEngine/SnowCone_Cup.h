@@ -21,6 +21,7 @@ private:
 	//bool isShaved_;
 	//bool isToppinged_;
 	bool isEasing_;
+	bool haveCup_;
 	SNOWCONE_STATUS state_;
 	XMFLOAT3 baseImagePos_;
 public:
@@ -39,6 +40,9 @@ public:
 	void ChangeDrawTarget(int num);
 	void ToppingSetUp();
 	void StartEasing() { isEasing_ = true; }
+	void ReleaseCup() { haveCup_ = false; }
+	void ChatchCup() { haveCup_ = true; }
+	bool HaveCup() { return haveCup_; }
 	void Complete(int syrupNum, int toppingNum);
 	void RemoveIce();
 	void Release() override;

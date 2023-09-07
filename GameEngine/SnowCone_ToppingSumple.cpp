@@ -25,6 +25,7 @@ SnowCone_ToppingSumple::~SnowCone_ToppingSumple()
 
 void SnowCone_ToppingSumple::Initialize()
 {
+	//画像読み込み
 	{
 		Image image(2, 1);
 		image.Load("Assets/Image/SnowCone_Topping_Adzuki.png");
@@ -46,30 +47,11 @@ void SnowCone_ToppingSumple::Initialize()
 		image.SetAlpha(0);
 		AddComponent<Image>(image);
 	}
-
-
-	//{
-	//	Test_Model_ECSver model(this);
-	//	model.Load("Assets/Model/SnowCone_Topping_Adzuki.fbx");
-	//	model.SetDraw(false);
-	//	AddComponent<Test_Model_ECSver>(model);
-	//}
-	//{
-	//	Test_Model_ECSver model(this);
-	//	model.Load("Assets/Model/AAA.fbx");
-	//	model.SetDraw(false);
-	//	AddComponent<Test_Model_ECSver>(model);
-	//}
-	//{
-	//	Test_Model_ECSver model(this);
-	//	model.Load("Assets/Model/AAA.fbx");
-	//	model.SetDraw(false);
-	//	AddComponent<Test_Model_ECSver>(model);
-	//}
 }
 
 void SnowCone_ToppingSumple::Update()
 {
+	//トッピング役が新しくカップを受け取ったら動く
 	if (isMove_)
 	{
 		MoveSumple((DEFAULT_POS.y*Easing::EaseLinear(easingTime_)) + offsetPosY_);
@@ -79,6 +61,7 @@ void SnowCone_ToppingSumple::Update()
 
 void SnowCone_ToppingSumple::ChangeSumple(int num)
 {
+	//一回全部透明にして、引数の番号の画像だけ見えるようにする
 	for (auto& imageNum : GetComponentList<Image>())
 		Coordinator::GetComponent<Image>(imageNum).SetAlpha(0);
 	
@@ -91,7 +74,7 @@ void SnowCone_ToppingSumple::ChangeSumple(int num)
 
 void SnowCone_ToppingSumple::SetSumpleSize(float size, float pos)
 {
-
+	//かき氷のサイズからトッピングの大きさを計算
 	size += 1.0f;
 	float toppingPosition = SYRUPPOS.y + (256.0f * size) -30.0f;
 	for (auto& imageNum : GetComponentList<Image>())
@@ -105,6 +88,7 @@ void SnowCone_ToppingSumple::SetSumpleSize(float size, float pos)
 
 void SnowCone_ToppingSumple::MoveSumple(float deltaPos)
 {
+	//easingTime_が0になるまで動かす
 	sumplePos_.y = deltaPos;
 	for (auto& imageNum : GetComponentList<Image>())
 	{
@@ -119,13 +103,15 @@ void SnowCone_ToppingSumple::MoveSumple(float deltaPos)
 
 void SnowCone_ToppingSumple::Reset()
 {
+	//各パラメータをリセット
 	for (auto& imageNum : GetComponentList<Image>())
 	{
 		Coordinator::GetComponent<Image>(imageNum).SetPositionAtPixel(DEFAULT_POS);
 		Coordinator::GetComponent<Image>(imageNum).SetSize({ 1,1,0 });
 		Coordinator::GetComponent<Image>(imageNum).SetAlpha(0);
 	}
-
+	isMove_ = false;
+	easingTime_ = 1.0f;
 	sumplePos_ = { 0,0,0 };
 }
 

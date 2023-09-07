@@ -20,6 +20,7 @@ SnowCone_Cup::SnowCone_Cup(Object* parent)
 	easingTime_(0.0f),
 	baseImagePos_({ 0,0,0 }),
 	isEasing_(false),
+	haveCup_(true),
 	state_(SNOWCONE_STATUS::SHAVE)
 {
 }
@@ -93,6 +94,12 @@ void SnowCone_Cup::MoveToGetCup()
 		easingTime_ = 0.0f;
 		isEasing_ = false;
 		state_ = SNOWCONE_STATUS::TOPPING;
+		if (haveCup_ == false)
+		{
+			RemoveIce();
+			KillMe();
+		}
+
 		return;
 	}
 	easingTime_ += 0.05f;
@@ -108,6 +115,13 @@ void SnowCone_Cup::MoveToCustomer()
 		easingTime_ = 0.0f;
 		isEasing_ = false;
 		state_ = SNOWCONE_STATUS::FINISH;
+		RemoveIce();
+		if (haveCup_ == false)
+		{
+
+			KillMe();
+		}
+
 		return;
 	}
 	easingTime_ += 0.05f;
@@ -167,8 +181,10 @@ void SnowCone_Cup::Complete(int syrupNum,int toppingNum)
 
 void SnowCone_Cup::RemoveIce()
 {
-	RemoveComponent<Image>(cupNum_);
-	RemoveComponent<Image>(iceNum_);
+	for (auto& imageNum : GetComponentList<Image>())
+	{
+		Coordinator::RemoveComponent<Image>(imageNum);
+	}
 }
 
 void SnowCone_Cup::Release()
