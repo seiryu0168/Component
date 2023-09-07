@@ -102,7 +102,7 @@ int Audio::Load(const std::string& fileName, int svNum)
     ad.buf.pAudioData = (BYTE*)std::move(pBuffer).get();
     ad.buf.Flags = XAUDIO2_END_OF_STREAM;
     ad.buf.AudioBytes = data.size;
-    ad.buf.LoopCount = XAUDIO2_LOOP_INFINITE;
+    //ad.buf.LoopCount = XAUDIO2_LOOP_INFINITE;
     ad.pSourceVoice = std::make_unique<IXAudio2SourceVoice*[]>(svNum);
     for (int i = 0; i < svNum; i++)
     {

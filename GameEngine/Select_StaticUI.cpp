@@ -3,13 +3,15 @@
 #include"Engine/Systems/ImageSystem.h"
 #include"Engine/Systems/TextSystem.h"
 
+#include "Engine/ResourceManager/Audio.h"
+
 namespace
 {
 	static const int Period = 3840;
 }
 
 Select_StaticUI::Select_StaticUI(Object* parent)
-	:GameObject(parent,"Select_StaticUI"), Frame_(0), backGroundImageList_()
+	:GameObject(parent,"Select_StaticUI"), Frame_(0), backGroundImageList_(), hAudio_(-1)
 {
 }
 
@@ -33,12 +35,9 @@ void Select_StaticUI::Initialize()
 		backGroundImageList_.push_back(&GetComponent<Image>(I));
 	}
 
-	/*{
-		Image i;
-		i.Load("Assets/Image/seigaiha.png", "Select_Static");
-		int I = AddComponent(i);
-		backGroundImageList_.push_back(&GetComponent<Image>(I));
-	}*/
+	//‚È‚ç‚È‚¢
+	hAudio_ = Audio::Load("Assets\\Audio\\menu.wav");
+	
 }
 
 void Select_StaticUI::Update()
@@ -49,6 +48,8 @@ void Select_StaticUI::Update()
 	{
 		itr->SetScroll({ Ratio, sin });
 	}
+
+	Audio::Play(hAudio_);
 }
 
 void Select_StaticUI::Release()

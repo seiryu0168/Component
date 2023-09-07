@@ -8,6 +8,7 @@ class Select_StaticUI : public GameObject
 private:
 	int Frame_;
 	std::vector<Image*> backGroundImageList_;
+	int hAudio_;
 public:
 	Select_StaticUI(Object* parent);
 	~Select_StaticUI();
