@@ -35,8 +35,7 @@ void Title::Initialize()
 	time_ = std::make_unique<Time::Watch>();
 	time_->UnLock();
 
-	hAudio_ = Audio::Load("Assets\\Audio\\bloom.wav");
-	Audio::Play(hAudio_);
+	hAudio_ = Audio::Load("Assets\\Audio\\festival.wav");
 }
 
 void Title::Update()
@@ -53,6 +52,7 @@ void Title::Update()
 		break;
 	}
 
+	Audio::Play(hAudio_);
 }
 
 void Title::Release()

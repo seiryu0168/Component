@@ -18,11 +18,11 @@ namespace
 
 	//それぞれのテキストの位置
 	const static std::map<int, XMFLOAT2> Position = {
-		{-2, {0.15f, -0.2f}},
-		{-1, {0.15f, 0.15f}},
-		{ 0, {0.15f, 0.5f}},
-		{ 1, {0.15f, 0.85f}},
-		{ 2, {0.15f, 1.2f}},
+		{-2, {0.125f, -0.2f}},
+		{-1, {0.125f, 0.15f}},
+		{ 0, {0.125f, 0.5f}},
+		{ 1, {0.125f, 0.85f}},
+		{ 2, {0.125f, 1.2f}},
 	};
 
 	const static XMFLOAT3 POSITION_DEFAULT = { -9999,-9999,0 };
@@ -64,6 +64,7 @@ void SelectUI::Initialize()
 	{
 		Text text(reader.GetString(i, 0), "りいてがき筆", {0,0,500,50});
 		//text.SetText(reader.GetString(i, 0));
+		text.SetAlignmentType(ALIGNMENT_TYPE::CENTER_CENTER);
 		moveUIList_.push_back((int)AddComponent<Text>(text));
 		playerCountList_.push_back(reader.GetInt(i, 2));
 

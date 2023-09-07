@@ -3,8 +3,6 @@
 #include <memory>
 #include "Audio.h"
 
-#define SAFE_DELETE_ARRAY(p) if(p){delete[] p; p = nullptr;}
-
 namespace Audio
 {
     //XAudio本体
@@ -20,7 +18,7 @@ namespace Audio
         XAUDIO2_BUFFER buf = {};
 
         //ソースボイス
-        IXAudio2SourceVoice** pSourceVoice = nullptr;
+        std::unique_ptr<IXAudio2SourceVoice*[]> pSourceVoice = nullptr;
 
         //同時再生最大数
         int svNum;
@@ -29,6 +27,8 @@ namespace Audio
         std::string fileName;
     };
     std::vector<AudioData>	audioDatas;
+
+    std::unique_ptr<char[]> pBuffer;
 }
 
 //初期化
@@ -46,7 +46,7 @@ void Audio::Initialize()
     }
 }
 
-int Audio::Load(std::string fileName, int svNum)
+int Audio::Load(const std::string& fileName, int svNum)
 {
     //すでに同じファイルを使ってないかチェック
     for (int i = 0; i < audioDatas.size(); i++)
@@ -91,19 +91,19 @@ int Audio::Load(std::string fileName, int svNum)
         ReadFile(hFile, &data.id, 4, &dwBytes, NULL);
     }
     ReadFile(hFile, &data.size, 4, &dwBytes, NULL);
-    char* pBuffer = new char[data.size];
-    //std::unique_ptr<char[]> pBuffer = std::make_unique<char[]>(data.size);
+    //char* pBuffer = new char[data.size];
+    pBuffer = std::make_unique<char[]>(data.size);
     //std::unique_ptr<char[]> pBuffer(new char[data.size]);
-    //ReadFile(hFile, pBuffer.get(), data.size, &dwBytes, NULL);
-    ReadFile(hFile, pBuffer, data.size, &dwBytes, NULL);
+    ReadFile(hFile, pBuffer.get(), data.size, &dwBytes, NULL);
+    //ReadFile(hFile, pBuffer, data.size, &dwBytes, NULL);
     CloseHandle(hFile);
     AudioData ad;
     ad.fileName = fileName;
-    ad.buf.pAudioData = (BYTE*)pBuffer;
+    ad.buf.pAudioData = (BYTE*)std::move(pBuffer).get();
     ad.buf.Flags = XAUDIO2_END_OF_STREAM;
     ad.buf.AudioBytes = data.size;
     ad.buf.LoopCount = XAUDIO2_LOOP_INFINITE;
-    ad.pSourceVoice = new IXAudio2SourceVoice * [svNum];
+    ad.pSourceVoice = std::make_unique<IXAudio2SourceVoice*[]>(svNum);
     for (int i = 0; i < svNum; i++)
     {
         HRESULT hr;
@@ -115,7 +115,7 @@ int Audio::Load(std::string fileName, int svNum)
         }
     }
     ad.svNum = svNum;
-    audioDatas.push_back(ad);
+    audioDatas.push_back(std::move(ad));
     //SAFE_DELETE_ARRAY(pBuffer);
     return (int)audioDatas.size() - 1;
 }
@@ -137,7 +137,7 @@ void Audio::Play(int ID)
     }
 }
 
-void Audio::SetVolum(int ID, float volum)
+void Audio::SetVolume(int ID, float volum)
 {
     for (int i = 0; i < audioDatas[ID].svNum; i++)
     {
@@ -154,7 +154,7 @@ void Audio::Release()
         {
             audioDatas[i].pSourceVoice[j]->DestroyVoice();
         }
-        SAFE_DELETE_ARRAY(audioDatas[i].buf.pAudioData);
+        audioDatas[i].buf.pAudioData = nullptr;
     }
     audioDatas.clear();
 

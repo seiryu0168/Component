@@ -36,6 +36,8 @@ void Result_Multi::Initialize()
 	AddComponent<Text>(text_);
 
 	Image image;
+	image.Load("Assets\\Image\\Ennichi_Image.png");
+	AddComponent<Image>(image);
 	image.Load("Assets\\Image\\Buttons\\BTN_A.png", "Result_Multi");
 	AddComponent<Image>(image);
 	image.Load("Assets\\Image\\Buttons\\BTN_B.png", "Result_Multi");

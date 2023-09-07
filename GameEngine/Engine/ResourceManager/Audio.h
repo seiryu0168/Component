@@ -14,13 +14,13 @@ namespace Audio
 	//引数：fileName	ファイル名
 	//引数：svNum　		同時に鳴らす最大数（省略可）
 	//戻値：そのデータに割り当てられた番号
-	int Load(std::string fileName, int svNum = 1);
+	int Load(const std::string& fileName, int svNum = 1);
 
 	//再生
 	//引数：handle	鳴らしたいサウンドの番号
 	void Play(int ID);
 
-	void SetVolum(int ID, float volum);
+	void SetVolume(int ID, float volum);
 
 	//すべて開放
 	void Release();

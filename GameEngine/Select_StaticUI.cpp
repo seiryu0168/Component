@@ -22,13 +22,9 @@ void Select_StaticUI::Initialize()
 
 	Text selectText("ゲームセレクト","りいてがき筆",{0,0,900,50});
 	selectText.SetTextSize(100);
-	selectText.SetRatio(0.3f, 0.0f);
+	selectText.SetRatio(0.3f, 0.05f);
 	//selectText.SetPosition({610,0});
 	AddComponent<Text>(selectText);
-
-	//Image image;
-	//image.Load("Assets/Image/SelectUI_Shooting_BackGroundImage.jpg");
-	//AddComponent<Image>(image);
 
 	{
 		Image i;
