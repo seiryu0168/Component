@@ -7,10 +7,10 @@
 #include"MiniGames/Shooting.h"
 namespace
 {
-	const float TRIGGER_SHOT = 0.7f;
-	XMVECTOR CAMERA_POS[2] = { XMVectorSet(0, 0, -20, 0),XMVectorSet(0, 45, -100, 0) };
-	XMVECTOR CAMERA_DEFAULT_POS = XMVectorSet(0, 50, -100, 0);
-	const XMFLOAT2 ROTATE_LIMIT = { 30,30 };
+	const float TRIGGER_SHOT{ 0.7f };
+	XMVECTOR CAMERA_POS[2]{ XMVectorSet(0, 0, -20, 0),XMVectorSet(0, 45, -100, 0) };
+	XMVECTOR CAMERA_DEFAULT_POS{ XMVectorSet(0, 50, -100, 0) };
+	const XMFLOAT2 ROTATE_LIMIT{ 30,30 };
 }
 Shooter::Shooter(Object* parent)
 	:GameObject(parent,"Shooter"),target_(XMVectorSet(0,0,30,0)),playerNum_(0),
@@ -27,12 +27,12 @@ void Shooter::Initialize()
 
 	float radius = VectorDot(XMVectorSet(0, 0, 1, 0), XMVector3Normalize(target_));
 	transform_->position_ = CAMERA_DEFAULT_POS;
-	Image image(playerNum_);
+	Image image;
 	image.Load("Assets/Image/Image_Shooting_Sight.png");
 	AddComponent<Image>(image);
 	Instantiate<Shooting_Gun>(this)->SetPlayerNum_(playerNum_);
 	CAMERA_POS[0] = transform_->position_;
-	CameraManager::GetCamera(playerNum_).SetPosition(CAMERA_POS[aimMode_]);
+	CameraManager::GetCamera(playerNum_).SetPosition(CAMERA_POS[1]);
 }
 
 void Shooter::Update()
@@ -45,8 +45,8 @@ void Shooter::Update()
 
 	//transform_->RotateEular({ -Input::GetLStick_Y(playerNum_) * 30.0f,Input::GetLStick_X(playerNum_)*45.0f , 0 });
 	XMVECTOR dir = XMVector3Rotate(target_, transform_->rotate_);
-	if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A, playerNum_))
-		ModeChange();
+	//if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A, playerNum_))
+	//	ModeChange();
 
 	if (Input::GetRTriggerDown(playerNum_))
 	{
@@ -54,7 +54,7 @@ void Shooter::Update()
 	}
 	if (Input::IsPadButtonDown(XINPUT_GAMEPAD_Y, playerNum_))
 		Reload();
-	CameraManager::GetCamera(playerNum_).SetTarget(CAMERA_POS[aimMode_] +dir);
+	CameraManager::GetCamera(playerNum_).SetTarget(CAMERA_POS[1] +dir);
 }
 
 void Shooter::ModeChange()
@@ -63,7 +63,7 @@ void Shooter::ModeChange()
 	((Shooting_Gun*)FindChild("Shooting_Gun"))->SetDraw(!aimMode_);
 	if (aimMode_)
 	{
-		CameraManager::GetCamera(playerNum_).SetPosition(CAMERA_POS[aimMode_]);
+		CameraManager::GetCamera(playerNum_).SetPosition(CAMERA_POS[1]);
 	}
 	else
 		CameraManager::GetCamera(playerNum_).SetPosition(CAMERA_POS[aimMode_]);

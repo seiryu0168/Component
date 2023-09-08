@@ -47,7 +47,8 @@ Image::Image(int cameraNum,int layerNum)
 	drawTargetNumber_(cameraNum),
 	layerNum_(layerNum),
 	scroll_({0,0}),
-	isStatic_(false)
+	isStatic_(false),
+	isDraw_(true)
 {
 }
 

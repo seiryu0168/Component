@@ -250,8 +250,8 @@ void SnowConeMaking::AddCup(SnowCone_Cup* cup)
 	//カップのストック上限だったら消す
 	else
 	{
-		cup->KillMe();
 		cup->RemoveIce();
+		cup->KillMe();
 	}
 }
 

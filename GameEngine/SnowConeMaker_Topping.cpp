@@ -14,6 +14,7 @@ namespace
 	const XMVECTOR DEFAULT_POS = XMVectorSet(40, 10, -40, 0);
 	const XMVECTOR TARGET_POS = XMVectorSet(40, 0, -30, 0);
 	const XMVECTOR DEFAULT_SUMPLE_POS= XMVectorSet(0, 0, -60, 0);
+	const float INPUT_INTERVAL = 0.3f;
 }
 
 SnowConeMaker_Topping::SnowConeMaker_Topping(Object* parent)
@@ -49,48 +50,53 @@ void SnowConeMaker_Topping::Initialize()
 	text.SetPosition({ 355,380 });
 	text.SetTextSize(40);
 	coneSizeText_ = AddComponent<Text>(text);
-
+	timer_ = std::make_shared<Time::Watch>();
+	timer_->UnLock();
 }
 
 void SnowConeMaker_Topping::Update()
 {
 	switch (Input::GetPadAnyDown(playerNum_))
 	{
+
 	case XINPUT_GAMEPAD_X:
-		//‚©‚«•X‚ðo‚·
-		if (snowCone_)
+		if (timer_->GetSeconds<float>() >= INPUT_INTERVAL)
 		{
-			//‚©‚«•X‚Ì•]‰¿
-			SnowCone_ToppingUI* ui = (SnowCone_ToppingUI*)FindChild("SnowCone_ToppingUI");
-			((SnowConeMaking*)GetParent())->Evaluation(snowCone_->GetConeSize(),
-													   ui->GetSyrupData(),
-													   ui->GetToppingData());
+			//‚©‚«•X‚ðo‚·
+			if (snowCone_)
+			{
+				//‚©‚«•X‚Ì•]‰¿
+				SnowCone_ToppingUI* ui = (SnowCone_ToppingUI*)FindChild("SnowCone_ToppingUI");
+				((SnowConeMaking*)GetParent())->Evaluation(snowCone_->GetConeSize(),
+					ui->GetSyrupData(),
+					ui->GetToppingData());
 
-			//•]‰¿‚ªI‚í‚Á‚½‚çÁ‚·
-			snowCone_->Complete(ui->GetSyrupData(), ui->GetToppingData());
-			snowCone_->StartEasing();
-			snowCone_->ReleaseCup();
-			snowCone_ = nullptr;
-			GetComponent<Text>(coneSizeText_).SetText("");
-		}
+				//•]‰¿‚ªI‚í‚Á‚½‚çÁ‚·
+				snowCone_->Complete(ui->GetSyrupData(), ui->GetToppingData());
+				snowCone_->StartEasing();
+				snowCone_->ReleaseCup();
+				snowCone_ = nullptr;
+				GetComponent<Text>(coneSizeText_).SetText("");
+			}
 
-		//‚©‚«•X‚ª‚ ‚ê‚ÎŽæ“¾‚·‚é
-		snowCone_ = ((SnowConeMaking*)GetParent())->GetCup();
+			//‚©‚«•X‚ª‚ ‚ê‚ÎŽæ“¾‚·‚é
+			snowCone_ = ((SnowConeMaking*)GetParent())->GetCup();
 
-		ResetSelectUI();
-		//‚©‚«•X‚ª‚ ‚ê‚Î
-		if (snowCone_)
-		{
-			snowCone_->GetTransform()->position_ = TARGET_POS;
-			snowCone_->ToppingSetUp();
-			snowCone_->StartEasing();
-			syrupSumple_->ChangeSumple(0);
-			syrupSumple_->Move();
-			syrupSumple_->SetSyrupSize(snowCone_->GetConeHeight());
-			toppingSumple_->SetSumpleSize(snowCone_->GetConeHeight(), 0);
-			toppingSumple_->ChangeSumple(0);
-			toppingSumple_->Move();
-			GetComponent<Text>(coneSizeText_).SetText(CONESIZE_NAME[snowCone_->GetConeSize()]);
+			ResetSelectUI();
+			//‚©‚«•X‚ª‚ ‚ê‚Î
+			if (snowCone_)
+			{
+				snowCone_->GetTransform()->position_ = TARGET_POS;
+				snowCone_->ToppingSetUp();
+				snowCone_->StartEasing();
+				syrupSumple_->ChangeSumple(0);
+				syrupSumple_->Move();
+				syrupSumple_->SetSyrupSize(snowCone_->GetConeHeight());
+				toppingSumple_->SetSumpleSize(snowCone_->GetConeHeight(), 0);
+				toppingSumple_->ChangeSumple(0);
+				toppingSumple_->Move();
+				GetComponent<Text>(coneSizeText_).SetText(CONESIZE_NAME[snowCone_->GetConeSize()]);
+			}
 		}
 		break;
 	default:
@@ -106,10 +112,8 @@ void SnowConeMaker_Topping::SetTopping()
 
 void SnowConeMaker_Topping::ResetSelectUI()
 {
-	toppingSumple_->GetTransform()->position_ = DEFAULT_SUMPLE_POS;
 	toppingSumple_->Reset();
 	
-	syrupSumple_->GetTransform()->position_ = DEFAULT_SUMPLE_POS;
 	syrupSumple_->Reset();
 
 	//syrupSumple_->ChangeSumple(0);

@@ -24,6 +24,7 @@ void Shooting_Gun::Initialize()
 	transform_->position_ = XMVectorSet(0, -5, 20, 0);
 	Test_Model_ECSver model(this);
 	model.Load("Assets/Model/Shooting_Gun.fbx");
+	model.SetDraw(false);
 	AddComponent<Test_Model_ECSver>(model);
 
 	Text text("", "‚è‚¢‚Ä‚ª‚«•M", { 0,0,500,50 },playerNum_);

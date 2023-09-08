@@ -77,6 +77,11 @@ void SnowCone_Cup::MoveToTopping()
 		isEasing_ = false;
 		state_ = SNOWCONE_STATUS::STANDBY;
 		ChangeDrawTarget(2);
+		if (haveCup_ == false)
+		{
+			RemoveIce();
+			KillMe();
+		}
 		return;
 	}
 	easingTime_ += 0.05f;
@@ -115,10 +120,10 @@ void SnowCone_Cup::MoveToCustomer()
 		easingTime_ = 0.0f;
 		isEasing_ = false;
 		state_ = SNOWCONE_STATUS::FINISH;
-		RemoveIce();
 		if (haveCup_ == false)
 		{
 
+			RemoveIce();
 			KillMe();
 		}
 

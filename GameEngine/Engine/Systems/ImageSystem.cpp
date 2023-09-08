@@ -12,7 +12,9 @@ void ImageSystem::Draw(int layerNum)
 {
 	for (Entity entity : entities_)
 	{
-		Coordinator::GetComponent<Image>(entity).Draw(layerNum);
+		Image& img = Coordinator::GetComponent<Image>(entity);
+		if (img.IsDraw())
+			img.Draw(layerNum);
 	}
 }
 

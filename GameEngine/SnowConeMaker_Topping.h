@@ -1,12 +1,13 @@
 #pragma once
 #include"Engine/GameObject/GameObject.h"
-
+#include"Engine/Time.h"
 class SnowCone_Cup;
 class SnowCone_ToppingSumple;
 class SnowCone_SyrupSumple;
 class SnowConeMaker_Topping : public GameObject
 {
 private:
+	std::shared_ptr<Time::Watch> timer_;
 	int playerNum_;
 	int coneSizeText_;
 	SnowCone_Cup* snowCone_;

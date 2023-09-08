@@ -14,6 +14,7 @@ private:
 	int layerNum_;
 	Transform transform_;
 	bool isStatic_;
+	bool isDraw_;
 public:
 	Image(int cameraNum = -1,int layerNum=0);
 	~Image();
@@ -25,6 +26,10 @@ public:
 	//座標設定(ピクセル単位)
 	void SetPositionAtPixel(const XMFLOAT3& pos);
 	void AddPositionAtPixel(const XMFLOAT3& deltaPos);
+	//描画するかどうか
+	void SetDraw(bool isDraw) { isDraw_ = isDraw; }
+	//描画してるかどうか
+	bool IsDraw() { return isDraw_; }
 	//透明度設定
 	void SetAlpha(float alpha);
 	//色設定

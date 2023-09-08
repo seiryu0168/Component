@@ -79,7 +79,7 @@ void Object::UpdateSub()
 		this->startFlag_ = true;
 		//Division::setLoad(false);
 	}
-	else if (startFlag_ && activeFlag_ && isUpdate_ && killFlag_ == false)
+	if (activeFlag_ && isUpdate_ && killFlag_ == false)
 	{
 		Update();
 	}

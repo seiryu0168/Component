@@ -9,6 +9,7 @@ namespace
 	const XMVECTOR DEFAULT_POS = XMVectorSet(-40, 8, -40, 0);
 	const float SNOWCONE_SIZE_DELTA = 0.01f;
 	const float SNOWCONE_SIZE_LIMIT = 4.0f;
+	const float INPUT_INTERVAL = 0.3f;
 }
 
 SnowConeMaker_Shave::SnowConeMaker_Shave(Object* parent)
@@ -46,7 +47,8 @@ void SnowConeMaker_Shave::Initialize()
 		image.SetSize({ 0.5f,1.0f,0 });
 		AddComponent<Image>(image);
 	}
-
+	timer_ = std::make_shared<Time::Watch>();
+	timer_->UnLock();
 }
 
 void SnowConeMaker_Shave::Update()
@@ -67,13 +69,17 @@ void SnowConeMaker_Shave::Update()
 		break;
 	case XINPUT_GAMEPAD_A:
 		//かき氷をストックに移動
-		if (snowCone_)
+		if (timer_->GetSeconds<float>() >= INPUT_INTERVAL)
 		{
-			//snowCone_->SetConeSize(snowConeSize_);
-			snowCone_->StartEasing();
-			//snowCone_->ChangeDrawTarget(2);
-			((SnowConeMaking*)GetParent())->AddCup(snowCone_);
-			snowCone_ = nullptr;
+			if (snowCone_)
+			{
+				//snowCone_->SetConeSize(snowConeSize_);
+				snowCone_->StartEasing();
+				//snowCone_->ChangeDrawTarget(2);
+				((SnowConeMaking*)GetParent())->AddCup(snowCone_);
+				snowCone_ = nullptr;
+			}
+			timer_->SetSecond(0);
 		}
 		break;
 
