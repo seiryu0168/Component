@@ -11,7 +11,7 @@ namespace
 }
 
 Shooting_Gun::Shooting_Gun(Object* parent)
-	:GameObject(parent,"Shooting_Gun"), bulletCount_(MAX_BULLET)
+	:GameObject(parent,"Shooting_Gun"), bulletCount_(MAX_BULLET), frontVec_(), playerNum_(0), textNum_()
 {
 }
 

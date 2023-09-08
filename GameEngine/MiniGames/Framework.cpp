@@ -22,7 +22,7 @@ namespace
 	static const int SELECTSIZE = 96;
 
 	//ëIÇÒÇ≈Ç¢ÇÈî‘çÜ
-	static const enum SELECT
+	const enum SELECT
 	{
 		RETURN = 0,
 		RESTART,

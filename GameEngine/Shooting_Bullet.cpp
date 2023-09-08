@@ -6,7 +6,7 @@
 #include"MiniGames/Shooting.h"
 #include"Shooting_TergetGift.h"
 Shooting_Bullet::Shooting_Bullet(Object* parent)
-	:GameObject(parent,"Shooting_Bullet"),dir_(XMVectorZero())
+	:GameObject(parent,"Shooting_Bullet"),dir_(XMVectorZero()), playerNum_(0)
 {
 }
 

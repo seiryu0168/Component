@@ -32,10 +32,10 @@ public:
 	//シェーダータイプ設定
 	void SetShaderType(SHADER_TYPE type) { type_ = type; }
 
-	const XMVECTOR& GetBone(const std::string& boneName);
-	const XMVECTOR& GetBone(const UINT& partsNum,const UINT& num);
-	const UINT& GetBoneCount();
-	const bool& IsDraw() { return isDraw_; }
+	const XMVECTOR GetBone(const std::string& boneName);
+	const XMVECTOR GetBone(const UINT& partsNum,const UINT& num);
+	const UINT GetBoneCount();
+	const bool IsDraw() { return isDraw_; }
 	void SetDraw(bool isDraw) { isDraw_ = isDraw; }
 	void SetCustomColor(int partsNum,int materialNum,const XMFLOAT4& color);
 	//アタッチされているオブジェクトを返す
