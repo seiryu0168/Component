@@ -269,10 +269,13 @@ void SnowConeMaking::Evaluation(float size, int syrup, int topping)
 
 SnowCone_Cup* SnowConeMaking::GetCup()
 {
-	SnowCone_Cup* cup;
+	SnowCone_Cup* cup=nullptr;
 	//ストックしてるかき氷を持ってくる
 	if (cupList_.empty() == false)
 	{
+		if (cupList_[0]->IsEasing() == true)
+			return cup;
+
 		cup = cupList_[0];
 		GetComponent<Image>(shavedCupList_[cupList_.size() - 1]).SetAlpha(0);
 		GetComponent<Text>(shavedCupSize_[cupList_.size() - 1]).SetText("");

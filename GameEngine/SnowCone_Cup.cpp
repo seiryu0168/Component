@@ -111,6 +111,7 @@ void SnowCone_Cup::MoveToGetCup()
 }
 void SnowCone_Cup::MoveToCustomer()
 {
+	//è„Ç…ìÆÇ≠
 	for (auto& imageNum : GetComponentList<Image>())
 	{
 		Coordinator::GetComponent<Image>(imageNum).AddPositionAtPixel({ 0,1920 * Easing::EaseInCubic(easingTime_),0 });

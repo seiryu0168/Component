@@ -40,6 +40,7 @@ public:
 	void ChangeDrawTarget(int num);
 	void ToppingSetUp();
 	void StartEasing() { isEasing_ = true; }
+	bool IsEasing() { return isEasing_; }
 	void ReleaseCup() { haveCup_ = false; }
 	void ChatchCup() { haveCup_ = true; }
 	bool HaveCup() { return haveCup_; }
