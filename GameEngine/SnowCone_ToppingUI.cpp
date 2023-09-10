@@ -25,26 +25,8 @@ SnowCone_ToppingUI::~SnowCone_ToppingUI()
 
 void SnowCone_ToppingUI::Initialize()
 {
-	//{
-	//	Image image(1);
-	//	image.Load("Assets/Image/SnowCone_Syrup_Red.png");
-	//	image.SetPositionAtPixel(IMAGEPOS[0]);
-	//	AddComponent<Image>(image);
-	//}
-	//{
-	//	Image image(1);
-	//	image.Load("Assets/Image/SnowCone_Syrup_Blue.png");
-	//	image.SetPositionAtPixel(IMAGEPOS[1]);
-	//	AddComponent<Image>(image);
-	//}
-	//{
-	//	Image image(1);
-	//	image.Load("Assets/Image/SnowCone_SelectImage.png");
-	//	image.SetPositionAtPixel(IMAGEPOS[0]);
-	//	AddComponent<Image>(image);
-	//}
 	
-	//プレイヤー1のコマンド
+	//プレイヤー1の手順
 	{
 		std::string str = "手順\n1.かき氷を用意する  2.かき氷を削る\n3.かき氷を渡す";
 		Text text("", "りいてがき筆", { 0,0,1000,200 });
@@ -55,6 +37,7 @@ void SnowCone_ToppingUI::Initialize()
 		text.SetTextSize(60,0,2);
 		AddComponent<Text>(text);
 	}
+	//プレイヤー2の手順
 	{
 		std::string str = "手順\n1.かき氷を受け取る  2.シロップを選ぶ\n3.トッピングを選ぶ  4.かき氷を出す";
 		Text text("", "りいてがき筆", { 0,0,1000,200 });
@@ -65,79 +48,8 @@ void SnowCone_ToppingUI::Initialize()
 		text.SetTextSize(60,0,2);
 		AddComponent<Text>(text);
 	}
-	//	
-	//	Image image(0);
-	//	image.Load("Assets/Image/Buttons/BTN_B.png");
-	//	image.SetPositionAtPixel(COMMANDIMAGE_POS[0]);
-	//	image.SetSize({ 0.7f,0.7f,0 });
-	//	AddComponent<Image>(image);
-	//}
-	//
-	//{
-	//	Text text("かき氷を渡す", "りいてがき筆", { 0,0,500,50 });
-	//	text.SetPosition(COMMANDTEXT_POS[1]);
-	//	text.SetTextSize(40);
-	//	AddComponent<Text>(text);
-	//
-	//	Image image(0);
-	//	image.Load("Assets/Image/Buttons/BTN_A.png");
-	//	image.SetPositionAtPixel(COMMANDIMAGE_POS[1]);
-	//	image.SetSize({ 0.7f,0.7f,0 });
-	//	AddComponent<Image>(image);
-	//}
-	//
-	////プレイヤー2のコマンド
-	//{
-	//	Text text("決定", "りいてがき筆", { 0,0,500,50 });
-	//	text.SetPosition(COMMANDTEXT_POS[2]);
-	//	text.SetTextSize(40);
-	//	AddComponent<Text>(text);
-	//
-	//	Image image(0);
-	//	image.Load("Assets/Image/Buttons/BTN_A.png");
-	//	image.SetPositionAtPixel(COMMANDIMAGE_POS[2]);
-	//	image.SetSize({ 0.7f,0.7f,0 });
-	//	AddComponent<Image>(image);
-	//}
-	//
-	//{
-	//	Text text("選択", "りいてがき筆", { 0,0,500,50 });
-	//	text.SetPosition(COMMANDTEXT_POS[3]);
-	//	text.SetTextSize(40);
-	//	AddComponent<Text>(text);
-	//
-	//	Image image(0);
-	//	image.Load("Assets/Image/Buttons/BTN_A.png");
-	//	image.SetPositionAtPixel(COMMANDIMAGE_POS[1]);
-	//	image.SetSize({ 0.7f,0.7f,0 });
-	//	AddComponent<Image>(image);
-	//}
-	//{
-	//	Text text("かき氷を出す", "りいてがき筆", { 0,0,500,50 });
-	//	text.SetPosition(COMMANDTEXT_POS[4]);
-	//	text.SetTextSize(40);
-	//	AddComponent<Text>(text);
-	//
-	//	Image image(0);
-	//	image.Load("Assets/Image/Buttons/BTN_A.png");
-	//	image.SetPositionAtPixel(COMMANDIMAGE_POS[1]);
-	//	image.SetSize({ 0.7f,0.7f,0 });
-	//	AddComponent<Image>(image);
-	//}
-	//{
-	//	Text text("かき氷を受け取る", "りいてがき筆", { 0,0,500,50 });
-	//	text.SetPosition(COMMANDTEXT_POS[5]);
-	//	text.SetTextSize(40);
-	//	AddComponent<Text>(text);
-	//
-	//	Image image(0);
-	//	image.Load("Assets/Image/Buttons/BTN_A.png");
-	//	image.SetPositionAtPixel(COMMANDIMAGE_POS[1]);
-	//	image.SetSize({ 0.7f,0.7f,0 });
-	//	AddComponent<Image>(image);
-	//}
-
-
+	
+	//シロップとトッピングを選ぶUIの生成
 	toppingSelect_ = Instantiate<SnowCone_ToppingSelect>(this);
 	syrupSelect_ = Instantiate<SnowCone_SyrupSelect>(this);
 	toppingSelect_->SetUpdate(false);

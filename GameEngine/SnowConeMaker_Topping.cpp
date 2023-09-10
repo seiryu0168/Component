@@ -92,7 +92,7 @@ void SnowConeMaker_Topping::Update()
 				syrupSumple_->ChangeSumple(0);
 				syrupSumple_->Move();
 				syrupSumple_->SetSyrupSize(snowCone_->GetConeHeight());
-				toppingSumple_->SetSumpleSize(snowCone_->GetConeHeight(), 0);
+				toppingSumple_->SetSumpleSize(snowCone_->GetConeHeight());
 				toppingSumple_->ChangeSumple(0);
 				toppingSumple_->Move();
 				GetComponent<Text>(coneSizeText_).SetText(CONESIZE_NAME[snowCone_->GetConeSize()]);

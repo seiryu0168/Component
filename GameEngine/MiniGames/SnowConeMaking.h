@@ -33,12 +33,33 @@ public:
 	void Initialize() override;
 	void Update() override;
 	void StaticUpdate() override;
+	/// <summary>
+	/// ゲームが始まる前の手順説明
+	/// </summary>
 	void Stay();
+	/// <summary>
+	/// カウントダウン
+	/// </summary>
 	void Count();
+	/// <summary>
+	/// ゲーム本編
+	/// </summary>
 	void Play();
+	//かき氷のカップをストックに入れる
 	void AddCup(SnowCone_Cup* cup);
+	//スコアの更新
 	void ScoreUpdate(int score);
+	/// <summary>
+	/// かき氷の評価
+	/// </summary>
+	/// <param name="size">かき氷のサイズ</param>
+	/// <param name="syrup">シロップの種類</param>
+	/// <param name="topping">トッピングの種類</param>
 	void Evaluation(float size,int syrup,int topping);
+	/// <summary>
+	/// かき氷をストックから取り出す
+	/// </summary>
+	/// <returns>かき氷のポインタ</returns>
 	SnowCone_Cup* GetCup();
 	void NotifiedUpdateT();
 	void NotifiedUpdateF();

@@ -15,7 +15,14 @@ public:
 	~SnowConeMaker_Shave();
 	void Initialize() override;
 	void Update() override;
+	/// <summary>
+	/// かき氷を削る
+	/// </summary>
 	void Shave();
+	/// <summary>
+	/// プレイヤーの番号を指定
+	/// </summary>
+	/// <param name="num">番号(コントローラーとかの操作に影響する)</param>
 	void SetPlayerNumber(int num) { playerNum_ = num; }
 	void Release() override;
 

@@ -20,7 +20,14 @@ public:
 	void Initialize() override;
 	void Update() override;
 	void SetTopping();
+	/// <summary>
+	/// プレイヤーの番号を指定
+	/// </summary>
+	/// <param name="num">番号(コントローラーとかの操作に影響する)</param>
 	void SetPlayerNumber(int num) { playerNum_ = num; }
+	/// <summary>
+	/// UIのリセット
+	/// </summary>
 	void ResetSelectUI();
 	void Release() override;
 

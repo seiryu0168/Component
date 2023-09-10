@@ -68,11 +68,10 @@ void SnowCone_ToppingSumple::ChangeSumple(int num)
 	if (num < GetComponentList<Image>().size())
 	{
 		GetComponent<Image>(num).SetAlpha(1);
-		currentNum_ = num;
 	}
 }
 
-void SnowCone_ToppingSumple::SetSumpleSize(float size, float pos)
+void SnowCone_ToppingSumple::SetSumpleSize(float size)
 {
 	//かき氷のサイズからトッピングの大きさを計算
 	size += 1.0f;
@@ -86,10 +85,10 @@ void SnowCone_ToppingSumple::SetSumpleSize(float size, float pos)
 	offsetPosY_ = toppingPosition;
 }
 
-void SnowCone_ToppingSumple::MoveSumple(float deltaPos)
+void SnowCone_ToppingSumple::MoveSumple(float pos)
 {
 	//easingTime_が0になるまで動かす
-	sumplePos_.y = deltaPos;
+	sumplePos_.y = pos;
 	for (auto& imageNum : GetComponentList<Image>())
 	{
 		Coordinator::GetComponent<Image>(imageNum).SetPositionAtPixel(sumplePos_);

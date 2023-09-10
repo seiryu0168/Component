@@ -179,6 +179,7 @@ void SnowConeMaking::Update()
 
 void SnowConeMaking::Stay()
 {
+	//1Pと2PがどっちもAボタンを押したらゲームスタート
 	if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A, 0))
 	{
 		GetComponent<Image>(explanationNum_).SetAlpha(0.5f);
@@ -223,6 +224,7 @@ void SnowConeMaking::Count()
 
 void SnowConeMaking::Play()
 {
+	//制限時間のプログレスバーを減らす
 	GetComponent<Image>(progressImageNum_).SetSize({ PROGRESS_DEFAULT.x * (time_->GetSeconds<float>()/ PLAY_COUNT),
 													 PROGRESS_DEFAULT.y,
 													 PROGRESS_DEFAULT.z });

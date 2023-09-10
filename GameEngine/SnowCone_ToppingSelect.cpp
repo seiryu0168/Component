@@ -99,6 +99,7 @@ void SnowCone_ToppingSelect::Update()
 }
 void SnowCone_ToppingSelect::Move()
 {
+	//カーソルを動かす
 	GetComponent<Image>(selectFrame_).SetPositionAtPixel(IMAGEPOS[selectNum_]);
 	if (time_->GetSeconds<float>() >= INTERVAL_TIME)
 	{
@@ -110,6 +111,7 @@ void SnowCone_ToppingSelect::Move()
 
 void SnowCone_ToppingSelect::Input()
 {
+	//トッピングを選択
 	if (Input::IsPadButtonDown(XINPUT_GAMEPAD_DPAD_DOWN, 1))
 	{
 		selectNum_++;
@@ -144,6 +146,7 @@ void SnowCone_ToppingSelect::Input()
 
 void SnowCone_ToppingSelect::UIReset()
 {
+	//各パラメータと画像を最初の状態に初期化
 	selectNum_ = 0;
 	GetComponent<Image>(selectFrame_).SetPositionAtPixel(IMAGEPOS[selectNum_]);
 	GetComponent<Image>(selectFrame_).SetAlpha(0.4f);
