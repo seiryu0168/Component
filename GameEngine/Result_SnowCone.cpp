@@ -8,7 +8,7 @@
 namespace
 {
 	const float SHOWTIME = 3.0f;
-	const XMFLOAT2 DEFAULT_POS = { 1920 * 0.3f,1080 * 0.3f };
+	const XMFLOAT2 DEFAULT_POS = { 1920 * 0.3f,1080 * 0.35f };
 	const std::string ICE_NAME = "Assets/Image/SnowCone_IceImage.png";
 	const std::string CUP_NAME = "Assets/Image/SnowCone_CupImage.png";
 	const std::string SYRUP_NAME[] = { "Assets/Image/SnowCone_Syrup_RedImage.png","Assets/Image/SnowCone_Syrup_BlueImage.png","Assets/Image/SnowCone_Syrup_GreenImage.png" };
@@ -35,9 +35,9 @@ void Result_SnowCone::Initialize()
 	text.SetTextSize(100);
 	AddComponent<Text>(text);
 
-	Text scoreText("’ñ‹Ÿ‚Å‚«‚½” 0", "‚è‚¢‚Ä‚ª‚«•M", { 0,0,500,50 });
+	Text scoreText("’ñ‹Ÿ‚Å‚«‚½” 0", "‚è‚¢‚Ä‚ª‚«•M", { 0,0,700,50 });
 	scoreText.SetPosition({ 500,500 });
-	scoreText.SetColor({ 0,0,0,1 });
+	scoreText.SetColor({ 0,0,0,0 });
 	resultTextNum_ = AddComponent<Text>(scoreText);
 	Image backImage;
 	backImage.Load("Assets/Image/Result_SnowConeBackGroundImage.jpg");
@@ -77,12 +77,13 @@ void Result_SnowCone::Show()
 	{
 		Create(count_);
 		count_++;
-		GetComponent<Text>(resultTextNum_).SetText("’ñ‹Ÿ‚Å‚«‚½” " + std::to_string(count_));
 
 	}
 	if (count_ > score_)
 	{
-		GetComponent<Text>(resultTextNum_).SetText("’ñ‹Ÿ‚Å‚«‚½” " + std::to_string(score_));
+		Text& text = GetComponent<Text>(resultTextNum_);
+		text.SetText("’ñ‹Ÿ‚Å‚«‚½” " + std::to_string(score_));
+		text.SetColor({ 0,0,0,1 });
 		time_->Lock();
 		ShowCommand();
 		status_ = CountStatus::FINISH;
@@ -108,11 +109,13 @@ void Result_SnowCone::ShowCommand()
 {
 	Text retryText("‚à‚¤ˆê“x", "‚è‚¢‚Ä‚ª‚«•M", { 0,0,500,50 });
 	retryText.SetRatio(0.7f, 0.65f);
+	retryText.SetColor({ 0,0,0,1 });
 	retryText.SetTextSize(48);
 	AddComponent<Text>(retryText);
 
 	Text toMenuText_("ƒƒjƒ…[‚Ö", "‚è‚¢‚Ä‚ª‚«•M", { 0,0,500,50 });
 	toMenuText_.SetRatio(0.7f, 0.78f);
+	toMenuText_.SetColor({ 0,0,0,1 });
 	toMenuText_.SetTextSize(48);
 	AddComponent<Text>(toMenuText_);
 
@@ -136,7 +139,7 @@ void Result_SnowCone::Create(int num)
 	int size = InterSceneData::GetData<std::vector<SNOWCONE_DATA>>("SuccessData")[num].size_;
 	int syrupNum = InterSceneData::GetData<std::vector<SNOWCONE_DATA>>("SuccessData")[num].syrup;
 	int toppingNum = InterSceneData::GetData<std::vector<SNOWCONE_DATA>>("SuccessData")[num].topping_;
-	XMFLOAT3 pos = { (DEFAULT_POS.x * num) - 1700,DEFAULT_POS.y * (num / 6) + 100 ,0 };
+	XMFLOAT3 pos = { (DEFAULT_POS.x * (num%6)) - 1700,-DEFAULT_POS.y * (num / 6) + 100 ,0 };
 	Image iceImage(0, 0);
 	iceImage.Load(ICE_NAME);
 	iceImage.SetPositionAtPixel({ pos.x,pos.y + 180,0 });

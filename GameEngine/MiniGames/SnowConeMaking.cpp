@@ -200,7 +200,7 @@ void SnowConeMaking::Stay()
 void SnowConeMaking::Count()
 {
 	//ゲーム開始までのカウントダウンを行う
-	GetComponent<Text>(timeText_).SetText(std::format("{:.2f}", time_->GetSeconds<float>()));
+	GetComponent<Text>(timeText_).SetText(std::to_string(time_->GetSeconds<int>()));
 	
 	//カウントダウンが終わったら各オブジェクトを動かす
 	if (time_->GetSeconds<float>() < 0)
