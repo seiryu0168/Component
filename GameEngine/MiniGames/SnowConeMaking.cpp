@@ -115,11 +115,6 @@ void SnowConeMaking::Initialize()
 	progressImage.SetSize(PROGRESS_DEFAULT);
 	progressImage.SetPositionAtPixel({ -1920,-800,0 });
 	progressImageNum_ = AddComponent<Image>(progressImage);
-	//Image black(-1, 2);
-	//black.Load("Assets/Image/Filter.png");
-	//black.SetSize({ 1920,1080,0 });
-	//black.SetAlpha(0);
-	//blackImageNum_ = AddComponent<Image>(black);
 	
 	//始まる前のカウントダウン用テキスト
 	Text countText("", "りいてがき筆", { 0,0,500,50 },0,2);
