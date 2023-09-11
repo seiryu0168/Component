@@ -58,6 +58,7 @@ Image::~Image()
 
 bool Image::Load(const std::string& name, const std::string& tab)
 {
+	imageName_ = name;
 	pSprite_ = ImageManager_ECSver::Load(name);
 	if(pSprite_==nullptr)
 	return false;
@@ -73,6 +74,7 @@ bool Image::Load(const std::string& name, const std::string& tab)
 
 bool Image::StaticLoad(const std::string& name)
 {
+	imageName_ = name;
 	pSprite_ = ImageManager_ECSver::StaticLoad(name);
 	if (pSprite_ == nullptr)
 		return false;

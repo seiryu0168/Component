@@ -16,7 +16,11 @@ RootObject_Title::~RootObject_Title()
 
 void RootObject_Title::Initialize()
 {
-	//StaticResource::StaticImageLoad("image01", "Assets/Image/Effect01.png", -1, 2);
+	Image image(-1, 2);
+	image.StaticLoad("Assets/Image/Filter.png");
+	image.SetSize({ 1920,1080,0 });
+	image.SetAlpha(0);
+	StaticResource::AddImage("Filter",image);
 	Instantiate<Title>(this);
 }
 

@@ -23,6 +23,7 @@ private:
 	int progressImageNum_;
 	int explanationNum_;
 	int explanationNum2_;
+	int blackImage_;
 	char copuntFlag_;
 	int timeText_;
 	
@@ -45,6 +46,10 @@ public:
 	/// ゲーム本編
 	/// </summary>
 	void Play();
+	/// <summary>
+	/// ゲーム終了後
+	/// </summary>
+	void Finish();
 	//かき氷のカップをストックに入れる
 	void AddCup(SnowCone_Cup* cup);
 	//スコアの更新
@@ -61,6 +66,8 @@ public:
 	/// </summary>
 	/// <returns>かき氷のポインタ</returns>
 	SnowCone_Cup* GetCup();
+
+
 	void NotifiedUpdateT();
 	void NotifiedUpdateF();
 	void Release()override;

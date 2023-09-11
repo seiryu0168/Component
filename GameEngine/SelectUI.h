@@ -1,5 +1,6 @@
 #pragma once
 #include"Engine/GameObject/GameObject.h"
+#include"Engine/Time.h"
 #include <map>
 
 class SelectUI : public GameObject
@@ -11,10 +12,12 @@ private:
 		STATE_MOVE,
 		STATE_SELECTED,
 	};
+	std::shared_ptr<Time::Watch> timer_;
 	short moveDir_;
 	SELECT_STATE state_;
 	int buttonCount_;
 	int buttonNum_;
+	int filterNum_;
 	unsigned short playCount_;
 
 	int countTextNum_;
@@ -25,6 +28,7 @@ private:
 	int ArrowId_[2];
 	void Input();
 	void Move();
+	void Selected();
 	std::vector<int> moveUIList_;
 	std::vector<int> playerCountList_;
 	std::vector<XMFLOAT3> basePosList_;

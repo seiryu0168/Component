@@ -6,6 +6,7 @@
 #include"Engine/newSceneManager.h"
 #include"InterSceneData.h"
 #include"Engine/ResourceManager/CsvReader.h"
+#include"StaticResource.h"
 #include <numbers>
 namespace
 {
@@ -99,6 +100,9 @@ void SelectUI::Initialize()
 	ArrowLoad();
 
 	UIPositioning();
+
+	timer_ = std::make_shared<Time::Watch>();
+	filterNum_ = AddComponent<Image>(StaticResource::GetImage("Filter"));
 }
 void SelectUI::Input()
 {
@@ -164,6 +168,16 @@ void SelectUI::Move()
 	MoveButton(Easing::EaseInCubic((float)moveTime_ / (float)(MAX_MOVE_TIME - 1)));
 }
 
+void SelectUI::Selected()
+{
+	float ratio = timer_->GetSeconds<float>();
+	GetComponent<Image>(filterNum_).SetAlpha(ratio);
+	if ( ratio >= 1.0f)
+	{
+		newSceneManager::ChangeScene(SCENE_ID::PLAY);
+	}
+}
+
 void SelectUI::Update()
 {
 	ArrowMove();
@@ -177,6 +191,7 @@ void SelectUI::Update()
 		Move();
 		break;
 	case SELECT_STATE::STATE_SELECTED:
+		Selected();
 		break;
 	default:
 		break;
@@ -244,7 +259,8 @@ void SelectUI::PushedButton(int buttonNum)
 	InterSceneData::AddData<int>("PlayerCount", playerCountList_[buttonNum_]);
 	InterSceneData::AddData<int>("GameNumber", buttonNum_);
 	state_ = SELECT_STATE::STATE_SELECTED;
-	newSceneManager::ChangeScene(SCENE_ID::PLAY);
+	timer_->UnLock();
+	//newSceneManager::ChangeScene(SCENE_ID::PLAY);
 }
 
 void SelectUI::Release()

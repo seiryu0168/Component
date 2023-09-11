@@ -166,7 +166,8 @@ void SnowConeMaking::Update()
 	case PLAY_STATE::STATE_PLAY:
 		Play();
 		break;
-
+	case PLAY_STATE::STATE_FINISH:
+		Finish();
 	default:
 		break;
 	}
@@ -225,10 +226,19 @@ void SnowConeMaking::Play()
 													 PROGRESS_DEFAULT.z });
 	if (time_->GetSeconds<float>() < 0)
 	{
-		newSceneManager::ChangeScene(SCENE_ID::RESULT, 1.0f);
 		((SnowCone_Order*)FindChild("SnowCone_Order"))->SendResultData();
 		InterSceneData::AddData<int>("ResultData", scoreManager_.GetScore());
+		time_->SetSecond(1.0f);
 		state_ = PLAY_STATE::STATE_FINISH;
+	}
+}
+
+void SnowConeMaking::Finish()
+{
+	float ratio = time_->GetSeconds<float>();
+	if (ratio <= 0.0f)
+	{
+		newSceneManager::ChangeScene(SCENE_ID::RESULT);
 	}
 }
 
