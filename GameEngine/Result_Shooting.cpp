@@ -12,6 +12,7 @@ namespace
 {
 	const float SHOWTIME = 3.0f;
 	const XMFLOAT2 RETURN_TEXT_POS = { 750,700 };
+	const int MAX_SCORE = 30;
 }
 
 Result_Shooting::Result_Shooting(Object* parent)
@@ -36,7 +37,14 @@ void Result_Shooting::Initialize()
 	AddComponent<Text>(text);
 
 	score_ = InterSceneData::GetData<int>("ResultData");
-	Text scoreText("—‚Æ‚µ‚½” 0", "‚è‚¢‚Ä‚ª‚«•M", {0,0,500,50});
+	if (score_ >= MAX_SCORE)
+	{
+		Text text("Perfect!!", "‚è‚¢‚Ä‚ª‚«•M", { 0,0,500,50 });
+		text.SetColor({ 0, 0, 0, 0 });
+		text.SetPosition({ 1200,500 });
+		perfectTextNum_ = AddComponent<Text>(text);
+	}
+	Text scoreText("—‚Æ‚µ‚½” 0 ŒÂ", "‚è‚¢‚Ä‚ª‚«•M", {0,0,600,50});
 	scoreText.SetPosition( {500,500 });
 	resultTextNum_ = AddComponent<Text>(scoreText);
 	{
@@ -76,11 +84,16 @@ void Result_Shooting::ShowResult()
 	if ((interval_ * count_) <= time_->GetSeconds<float>()-1.0f)
 	{
 		count_++;
-		GetComponent<Text>(resultTextNum_).SetText("—‚Æ‚µ‚½” " + std::to_string(count_));
+		GetComponent<Text>(resultTextNum_).SetText("—‚Æ‚µ‚½” " + std::to_string(count_)+" ŒÂ");
 	}
-	if (count_ > score_)
+	if (count_ >= score_)
 	{
-		GetComponent<Text>(resultTextNum_).SetText("—‚Æ‚µ‚½” " + std::to_string(score_));
+		GetComponent<Text>(resultTextNum_).SetText("—‚Æ‚µ‚½” " + std::to_string(score_)+" ŒÂ");
+		if (score_ >= MAX_SCORE)
+		{
+			GetComponent<Text>(perfectTextNum_).SetColor({ 1,0,0,1 });
+
+		}
 		time_->Lock();
 		ShowCommand();
 		status_ = CountStatus::FINISH;

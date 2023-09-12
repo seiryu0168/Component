@@ -18,6 +18,7 @@ namespace
 	const float COUNTSIZE = 72.0f;
 	const XMVECTOR STAYPLAYERPOS = XMVectorSet(0, 50, -100, 0);
 	const XMVECTOR STAYPLAYETARGET = XMVectorSet(0, 50, 0, 0);
+	const int MAX_SCORE = 30;
 }
 
 Shooting::Shooting(Object* parent)
@@ -119,7 +120,7 @@ void Shooting::Play()
 {
 	GetComponent<Text>().SetText(std::format("Žc‚èŽžŠÔ\n{:.2f}•b" ,time_->GetSeconds<float>()));
 
-	if (time_->GetSeconds<float>() <=0)
+	if (time_->GetSeconds<float>() <=0.0f || scoreManager_.GetScore(0)>= MAX_SCORE)
 	{
 		GetComponent<Text>().SetText("Žc‚èŽžŠÔ \n0.00•b");
 		InterSceneData::AddData<int>("ResultData",scoreManager_.GetScore(0));

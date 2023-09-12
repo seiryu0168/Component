@@ -9,7 +9,6 @@ public:
 	Shooting_Table(Object* parent);
 	~Shooting_Table();
 	void Initialize() override;
-	void Load(const std::string& fileName);
 	void Release() override;
 };
 

@@ -11,6 +11,7 @@ class Result_Shooting : public Result_Single<int>
 	};
 	int resultTextNum_;
 	int buttonImageNum_;	
+	int perfectTextNum_;
 	int returnText_;
 	int count_;
 	float interval_;

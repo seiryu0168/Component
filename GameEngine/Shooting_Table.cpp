@@ -61,16 +61,6 @@ void Shooting_Table::Initialize()
 
 }
 
-void Shooting_Table::Load(const std::string& fileName)
-{
-
-	//for (auto& elem : jsonReader["Shooting_TargetModel"])
-	//{
-	//	elem["ModelName"]
-	//}
-
-}
-
 void Shooting_Table::Release()
 {
 }

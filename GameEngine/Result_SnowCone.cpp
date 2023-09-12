@@ -30,13 +30,14 @@ Result_SnowCone::~Result_SnowCone()
 void Result_SnowCone::Initialize()
 {
 	score_ = InterSceneData::GetData<int>("ResultData");
-
+	
 	Text text("Œ‹‰Ê", "‚è‚¢‚Ä‚ª‚«•M", { 0,0,200,50 });
 	text.SetPosition({ 750,0 });
 	text.SetTextSize(100);
+	text.SetColor({ 0,0,0,1 });
 	AddComponent<Text>(text);
 
-	Text scoreText("’ñ‹Ÿ‚Å‚«‚½” 0", "‚è‚¢‚Ä‚ª‚«•M", { 0,0,700,50 });
+	Text scoreText("’ñ‹Ÿ‚Å‚«‚½” 0 ”t", "‚è‚¢‚Ä‚ª‚«•M", { 0,0,800,50 });
 	scoreText.SetPosition({ 500,500 });
 	scoreText.SetColor({ 0,0,0,0 });
 	resultTextNum_ = AddComponent<Text>(scoreText);
@@ -83,10 +84,11 @@ void Result_SnowCone::Show()
 	if (count_ > score_)
 	{
 		Text& text = GetComponent<Text>(resultTextNum_);
-		text.SetText("’ñ‹Ÿ‚Å‚«‚½” " + std::to_string(score_));
+		text.SetText("’ñ‹Ÿ‚Å‚«‚½” " + std::to_string(score_)+" ”t");
 		text.SetColor({ 0,0,0,1 });
 		time_->Lock();
 		ShowCommand();
+		
 		status_ = CountStatus::FINISH;
 	}
 }
