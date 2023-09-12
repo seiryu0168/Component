@@ -2,6 +2,7 @@
 #include "../Engine/DirectX_11/Input.h"
 #include "../Engine/Brightness.h"
 #include "../Engine/newSceneManager.h"
+#include"../StaticResource.h"
 #include <map>
 
 namespace
@@ -46,6 +47,7 @@ namespace
 Framework::Framework(Object* parent, const std::string& name)
 	: Object(parent, name), Players_(1), GameTime_(), MenuTexts_(), Select_(0), CallPause_(false), Privilege_(1), Frame_(0), nowState_(STATE::PLAY)
 {
+	AddComponent<Image>(StaticResource::GetImage("GameFinishImage"));
 	Load();
 }
 
@@ -162,6 +164,22 @@ void Framework::State_SceneChange()
 	{
 		i.SetColor({ 1,1,1,(float)std::lerp(1, 0, ++Frame_ / (float)TO_SCENE_CHANGE) });
 	}
+}
+
+void Framework::Finish()
+{
+	GetComponent<Image>().SetPosition({ 0,2.0f-Clamp<float>(2.0f*((float)++Frame_ / TO_SCENE_CHANGE)*1.4f,0.0f,2.0f),0});
+
+	if (Frame_ >= TO_SCENE_CHANGE)
+	{
+		newSceneManager::ChangeScene(SCENE_ID::RESULT);
+	}
+}
+
+void Framework::GameFinish(bool isFinish)
+{
+	isFinish_ = isFinish;
+	GetComponent<Image>().SetDraw(isFinish_);
 }
 
 void Framework::Pause()

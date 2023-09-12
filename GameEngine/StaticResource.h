@@ -14,6 +14,7 @@ namespace StaticResource
 	void RemoveImage(std::string imageName);
 	void RemoveText(std::string textName);
 
+	void Draw();
 	void Release();
 };
 

@@ -66,7 +66,7 @@ void SceneBase::Draw()
 }
 
 void SceneBase::AllKillObject()
-{
+{	
 	rootObject_->KillAllChildren();
 	setter_.DeleteObject();
 }

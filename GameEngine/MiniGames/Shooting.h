@@ -25,7 +25,7 @@ public:
 	void ScoreUpdate(const unsigned short& playernum, int score);
 	void Stay();
 	void Play();
-	void Finish();
+	//void Finish();
 	void Release() override;
 	void StaticUpdate() override;
 	void NotifiedUpdateT() override;

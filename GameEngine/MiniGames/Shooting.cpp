@@ -123,18 +123,19 @@ void Shooting::Play()
 	{
 		GetComponent<Text>().SetText("Žc‚èŽžŠÔ \n0.00•b");
 		InterSceneData::AddData<int>("ResultData",scoreManager_.GetScore(0));
-		time_->SetSecond(1.0f);
+		GameFinish(true);
+		//time_->SetSecond(1.0f);
 		state_ = PLAY_STATE::STATE_FINISH;
 	}
 }
 
-void Shooting::Finish()
-{
-	if (time_->GetSeconds() <= 0.0f)
-	{
-		newSceneManager::ChangeScene(SCENE_ID::RESULT);
-	}
-}
+//void Shooting::Finish()
+//{
+//	if (time_->GetSeconds<float>() <= 0.0f)
+//	{
+//		newSceneManager::ChangeScene(SCENE_ID::RESULT);
+//	}
+//}
 
 void Shooting::Release()
 {

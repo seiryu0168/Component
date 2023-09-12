@@ -49,7 +49,7 @@ public:
 	/// <summary>
 	/// ゲーム終了後
 	/// </summary>
-	void Finish();
+	//void Finish();
 	//かき氷のカップをストックに入れる
 	void AddCup(SnowCone_Cup* cup);
 	//スコアの更新

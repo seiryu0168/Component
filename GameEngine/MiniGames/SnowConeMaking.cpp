@@ -228,19 +228,21 @@ void SnowConeMaking::Play()
 	{
 		((SnowCone_Order*)FindChild("SnowCone_Order"))->SendResultData();
 		InterSceneData::AddData<int>("ResultData", scoreManager_.GetScore());
-		time_->SetSecond(1.0f);
+		GameFinish(true);
 		state_ = PLAY_STATE::STATE_FINISH;
+		//time_->SetSecond(1.0f);
+
 	}
 }
 
-void SnowConeMaking::Finish()
-{
-	float ratio = time_->GetSeconds<float>();
-	if (ratio <= 0.0f)
-	{
-		newSceneManager::ChangeScene(SCENE_ID::RESULT);
-	}
-}
+//void SnowConeMaking::Finish()
+//{
+//	float ratio = time_->GetSeconds<float>();
+//	if (ratio <= 0.0f)
+//	{
+//		newSceneManager::ChangeScene(SCENE_ID::RESULT);
+//	}
+//}
 
 void SnowConeMaking::AddCup(SnowCone_Cup* cup)
 {

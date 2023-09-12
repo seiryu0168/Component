@@ -50,6 +50,18 @@ namespace StaticResource
 			return;
 		staticTexts_.erase(textName);
 	}
+	void Draw()
+	{
+		for (auto&& img : staticImages_)
+		{
+
+			if (img.second.IsDraw())
+				img.second.Draw();
+		}
+		for (auto&& txt : staticTexts_)
+			txt.second.Draw();
+
+	}
 	void Release()
 	{
 		staticImages_.clear();

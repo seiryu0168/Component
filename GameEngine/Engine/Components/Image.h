@@ -51,6 +51,7 @@ public:
 	//描画
 	void Draw();
 	void Draw(int layerNum);
+	void SimpleDraw();
 
 	//レイヤー番号のセッタ
 	void SetLayer(int layer);

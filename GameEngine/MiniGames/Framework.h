@@ -11,6 +11,7 @@ class Framework : public Object
 	bool CallPause_;				//ポーズが呼ばれているか
 	int Privilege_;					//ポーズ画面の操作権を持つプレイヤー
 	int Frame_;						//モード変更になってから何フレーム経過したか
+	bool isFinish_;
 
 	enum class STATE
 	{
@@ -25,7 +26,7 @@ class Framework : public Object
 	void Conduct();					//ポーズの押されたボタン毎の挙動を管理
 	void Load();
 	void State_Pause();
-	void State_SceneChange();
+	void State_SceneChange();	
 protected:
 	int Players_;	//プレイ人数
 	Time::Watch GameTime_;	//ミニゲームの時間
@@ -39,7 +40,8 @@ protected:
 			auto p = Instantiate<T>(this);
 		}
 	}
-
+	void Finish();
+	void GameFinish(bool isFinish);
 	//StaticUpdateで呼び出すとpause処理が可能になる
 	void Pause();
 

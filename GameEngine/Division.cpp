@@ -103,13 +103,13 @@ namespace Division
 		}
 		else
 		{
-			for (int i = 0; i < CameraManager::GetCameraCount(); i++)
-			{
-				CameraManager::UpdateCameraNum(i);
-				Direct3D::SetViewPort(CameraManager::GetCamera(i).GetViewPort());
-
 				newSceneManager::Draw();
-			}
+			//for (int i = 0; i < CameraManager::GetCameraCount(); i++)
+			//{
+			//	CameraManager::UpdateCameraNum(i);
+			//	Direct3D::SetViewPort(CameraManager::GetCamera(i).GetViewPort());
+			//
+			//}
 		}
 #ifdef _DEBUG	
 		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());

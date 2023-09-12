@@ -18,6 +18,7 @@
 #include"Systems/ImageSystem.h"
 
 #include"GameObject/CameraManager.h"
+#include"../StaticResource.h"
 
 #include"Coordinator.h"
 #include "newSceneManager.h"
@@ -113,13 +114,22 @@ namespace newSceneManager
 	{
 		for (int layerCount = 0; layerCount < MAX_LAYER; layerCount++)
 		{
+			for (int i = 0; i < CameraManager::GetCameraCount(); i++)
+			{
+				CameraManager::UpdateCameraNum(i);
+				Direct3D::SetViewPort(CameraManager::GetCamera(i).GetViewPort());
 
-			pModelSyatem_->Draw(layerCount);
-			pParticleSystem_->Draw(layerCount);
-			pLineParticleSystem_->Draw(layerCount);
-			pImageSystem_->Draw(layerCount);
-			pTextSystem_->Draw(layerCount);
+
+				pModelSyatem_->Draw(layerCount);
+				pParticleSystem_->Draw(layerCount);
+				pLineParticleSystem_->Draw(layerCount);
+				pImageSystem_->Draw(layerCount);
+				pTextSystem_->Draw(layerCount);
+			}
 		}
+		CameraManager::UpdateCameraNum(0);
+		Direct3D::SetViewPort(CameraManager::GetCamera(0).GetViewPort());
+		//StaticResource::Draw();
 		currentScene_->Draw();
 	}
 

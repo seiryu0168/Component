@@ -16,11 +16,23 @@ RootObject_Title::~RootObject_Title()
 
 void RootObject_Title::Initialize()
 {
-	Image image(-1, 2);
-	image.StaticLoad("Assets/Image/Filter.png");
-	image.SetSize({ 1920,1080,0 });
-	image.SetAlpha(0);
-	StaticResource::AddImage("Filter",image);
+	{
+
+		Image image(0, 3);
+		image.StaticLoad("Assets/Image/Filter.png");
+		image.SetSize({ 1920,1080,0 });
+		image.SetAlpha(0);
+		image.SetDraw(false);
+		StaticResource::AddImage("Filter", image);
+	}
+	{
+		Image image(0, 3);
+		image.StaticLoad("Assets/Image/Stripe_Red-White.jpg");
+		image.SetPosition({ 0, 2, 0 });
+		image.SetDraw(false);
+		StaticResource::AddImage("GameFinishImage", image);
+	}
+
 	Instantiate<Title>(this);
 }
 

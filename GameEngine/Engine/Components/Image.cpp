@@ -165,7 +165,14 @@ void Image::Draw(int layerNum)
 		if (drawTargetNumber_ == CameraManager::GetCurrentCameraNum() || drawTargetNumber_ == -1)
 			pSprite_->Draw(transform_, rect_, color_, alpha_, scroll_);
 	}
+}
 
+void Image::SimpleDraw()
+{
+	if (isStatic_)
+			pSprite_->StaticDraw(transform_, rect_, color_, alpha_, scroll_);
+	else
+			pSprite_->Draw(transform_, rect_, color_, alpha_, scroll_);
 }
 
 void Image::SetLayer(int layer)

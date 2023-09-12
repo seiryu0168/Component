@@ -260,7 +260,7 @@ void SelectUI::PushedButton(int buttonNum)
 	InterSceneData::AddData<int>("GameNumber", buttonNum_);
 	state_ = SELECT_STATE::STATE_SELECTED;
 	timer_->UnLock();
-	//newSceneManager::ChangeScene(SCENE_ID::PLAY);
+	GetComponent<Image>(filterNum_).SetDraw(true);
 }
 
 void SelectUI::Release()
