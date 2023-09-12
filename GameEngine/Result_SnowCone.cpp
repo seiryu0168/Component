@@ -1,6 +1,7 @@
 #include "Result_SnowCone.h"
 #include"Engine/Systems/TextSystem.h"
 #include"Engine/Systems/ImageSystem.h"
+#include"Scenes/RootObject/RootObject_Result.h"
 #include"Engine/newSceneManager.h"
 #include"Engine/DirectX_11/Input.h"
 #include"InterSceneData.h"
@@ -95,10 +96,13 @@ void Result_SnowCone::Finish()
 	switch (Input::GetPadAnyDown())
 	{
 	case XINPUT_GAMEPAD_A:
-		newSceneManager::ChangeScene(SCENE_ID::MENU);
+		((RootObject_Result*)GetParent())->SceneChange();
+		newSceneManager::ChangeScene(SCENE_ID::MENU,1.0f);
+
 		break;
 	case XINPUT_GAMEPAD_B:
-		newSceneManager::ChangeScene(SCENE_ID::PLAY);
+		((RootObject_Result*)GetParent())->SceneChange();
+		newSceneManager::ChangeScene(SCENE_ID::PLAY,1.0f);
 		break;
 	default:
 		break;

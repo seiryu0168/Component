@@ -26,7 +26,7 @@ void R_ChickenRace::MoreInfo()
 		float time = InterSceneData::GetData<float>(std::format("time_{:d}", i));
 		int target = InterSceneData::GetData<int>("time_target");
 		float error = time - target;
-		Text text(std::format("ƒvƒŒƒCƒ„[{:d}\n{:g}•b\n(Œë· : {:g}•b)", i + 1, time, error), "", { 0,0,700,50 });
+		Text text(std::format("ƒvƒŒƒCƒ„[{:d}\n{:g}•b\n(Œë· : {:g}•b)", i + 1, time, error), "‚è‚¢‚Ä‚ª‚«•M", { 0,0,700,50 });
 		text.SetRatio(0.15f + (i * 0.45f), 0.35f);
 		AddComponent<Text>(text);
 	}

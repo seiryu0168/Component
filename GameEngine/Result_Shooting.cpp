@@ -3,6 +3,7 @@
 #include"Engine/Systems/TextSystem.h"
 #include"Engine/Systems/ImageSystem.h"
 #include"Engine/ResourceManager/json.hpp"
+#include"Scenes/RootObject/RootObject_Result.h"
 #include<fstream>
 #include"Engine/DirectX_11/Input.h"
 #include"Engine/newSceneManager.h"
@@ -113,9 +114,15 @@ void Result_Shooting::ShowCommand()
 void Result_Shooting::Finish()
 {
 	if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A))
-		newSceneManager::ChangeScene(SCENE_ID::MENU);
+	{
+		((RootObject_Result*)GetParent())->SceneChange();
+		newSceneManager::ChangeScene(SCENE_ID::MENU,1.0f);
+	}
 	else if (Input::IsPadButtonDown(XINPUT_GAMEPAD_B))
-		newSceneManager::ChangeScene(SCENE_ID::PLAY);
+	{
+		((RootObject_Result*)GetParent())->SceneChange();
+		newSceneManager::ChangeScene(SCENE_ID::PLAY,1.0f);
+	}
 }
 
 void Result_Shooting::Release()

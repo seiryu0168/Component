@@ -3,6 +3,7 @@
 #include "Engine/Components/Image.h"
 #include "Engine/DirectX_11/Input.h"
 #include "Engine/newSceneManager.h"
+#include"Scenes/RootObject/RootObject_Result.h"
 #include "InterSceneData.h"
 #include <format>
 
@@ -14,7 +15,7 @@ namespace
 void Result_Multi::Initialize()
 {
 	Winner_ = InterSceneData::GetData<int>("ResultData");
-	Text text;
+	Text text("", "りいてがき筆", { 0,0,500,50 });
 	if (Winner_ != DRAW)
 		text.SetText(std::format("プレイヤー{:d} Win!", Winner_ + 1));
 	else
@@ -23,13 +24,13 @@ void Result_Multi::Initialize()
 	text.SetTextSize(90);
 	AddComponent<Text>(text);
 
-	Text t;
+	Text t("", "りいてがき筆", { 0,0,500,0 });
 	t.SetText("もう一度");
 	t.SetRatio(0.75f, 0.65f);
 	t.SetTextSize(48);
 	AddComponent<Text>(t);
 
-	Text text_;
+	Text text_("", "りいてがき筆", { 0,0,500,0 });
 	text_.SetText("メニューへ");
 	text_.SetRatio(0.75f, 0.78f);
 	text_.SetTextSize(48);
@@ -50,10 +51,12 @@ void Result_Multi::Update()
 	switch (Input::GetPadAnyDown())
 	{
 	case XINPUT_GAMEPAD_A:
-		newSceneManager::ChangeScene(SCENE_ID::MENU);
+		((RootObject_Result*)GetParent())->SceneChange();
+		newSceneManager::ChangeScene(SCENE_ID::MENU,1.0f);
 		break;
 	case XINPUT_GAMEPAD_B:
-		newSceneManager::ChangeScene(SCENE_ID::PLAY);
+		((RootObject_Result*)GetParent())->SceneChange();
+		newSceneManager::ChangeScene(SCENE_ID::PLAY, 1.0f);
 		break;
 	default:
 		break;	
