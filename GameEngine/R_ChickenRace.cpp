@@ -2,6 +2,7 @@
 #include "Engine/Components/Text.h"
 #include "InterSceneData.h"
 #include <format>
+#include "Engine/Components/Image.h"
 
 R_ChickenRace::R_ChickenRace(Object* parent)
 	:Result_Multi(parent, "R_ChickenRace")
@@ -14,6 +15,12 @@ R_ChickenRace::~R_ChickenRace()
 
 void R_ChickenRace::MoreInfo()
 {
+	{
+		Image image;
+		image.Load("Assets\\Image\\Ennichi_Image.png");
+		AddComponent<Image>(image);
+	}
+
 	for (int i = 0; i < 2; i++)
 	{
 		float time = InterSceneData::GetData<float>(std::format("time_{:d}", i));

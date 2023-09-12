@@ -168,6 +168,11 @@ void Image::Draw(int layerNum)
 
 }
 
+void Image::SetLayer(int layer)
+{
+	layerNum_ = layer;
+}
+
 bool Image::IsHitCursor()
 {
     UINT wid = (UINT)(pSprite_->GetSize().x * transform_.scale_.x / 2);

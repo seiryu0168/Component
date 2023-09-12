@@ -169,12 +169,29 @@ void CommandMemory::sendCommand(int Button, int Playerid)
 void CommandMemory::ImageLoad()
 {
 	Image image;
+
+	{
+		image.Load("Assets\\Image\\CM_BG.png", "Command");
+		AddComponent(image);
+	}
+
+	{
+		image.Load("Assets\\Image\\CM_Player_Rev.png", "Command");
+		AddComponent(image);
+	}
+
+	{
+		image.Load("Assets\\Image\\CM_Player.png", "Command");
+		AddComponent(image);
+	}
+
 	for (int i = 0; i != imageNames_.size(); i++)
 	{
 		image.Load(dir + imageNames_[i]);
 		image.SetAlpha(0);
 		image.SetSize({ ImageSize,ImageSize,1 });
-		AddComponent(image);
-		Images_.insert({ buttonNames_[i], &GetComponent<Image>(i)});
+		image.SetPosition({ 0,0,0 });
+		int hPict = AddComponent(image);
+		Images_.insert({ buttonNames_[i], &GetComponent<Image>(hPict)});
 	}
 }

@@ -52,6 +52,9 @@ public:
 	void Draw();
 	void Draw(int layerNum);
 
+	//レイヤー番号のセッタ
+	void SetLayer(int layer);
+
 	XMFLOAT3 GetPosition() const { XMFLOAT3 pos; XMStoreFloat3(&pos, transform_.position_); return pos; }
 
 	bool IsHitCursor();
