@@ -545,6 +545,13 @@ const UINT Fbx::GetBoneCount()
 	return count;
 }
 
+std::string Fbx::GetBonename(const UINT& partsNum, const UINT& num)
+{
+	if (partsNum >= parts_.size())
+		return "";
+	return parts_[partsNum]->GetBoneName(num);
+}
+
 void Fbx::SetColor(int partsNum, int materialNum, const XMFLOAT4& color)
 {
 	if (partsNum >= parts_.size())

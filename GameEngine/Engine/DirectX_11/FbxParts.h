@@ -106,6 +106,7 @@ public:
 	FbxSkin* GetSkinInfo() { return pSkinInfo_; }
 	bool GetBonePosition(std::string boneName, XMFLOAT3* position);
 	bool GetBonePosition(UINT num, XMFLOAT3* position);
+	std::string GetBoneName(UINT num);
 	void SetColor(int materialNum, const XMFLOAT4& color);
 	const UINT& GetBoneCount() { return boneNum_; }
 	void RayCast(RayCastData& rayData, Transform& transform);

@@ -36,6 +36,7 @@ void Shooting_Table::Initialize()
 	int bn = model.GetBoneCount();
 	for (i; i<model.GetBoneCount(); i++)
 	{
+		std::string name = model.GetBoneName(0, i);
 		//台モデルのボーン数に応じて景品を生成
 		XMVECTOR ve = model.GetBone(0, i);
 		int targetNum = rand3(mt);

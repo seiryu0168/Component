@@ -734,6 +734,13 @@ bool FbxParts::GetBonePosition(UINT num, XMFLOAT3* position)
 	return true;
 }
 
+std::string FbxParts::GetBoneName(UINT num)
+{
+	if (num >= boneNum_)
+		return "";
+	return ppCluster_[num]->GetLink()->GetName();
+}
+
 void FbxParts::SetColor(int materialNum, const XMFLOAT4& color)
 {
 	if (materialNum >= materialCount_)

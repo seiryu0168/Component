@@ -34,6 +34,7 @@ public:
 
 	const XMVECTOR GetBone(const std::string& boneName);
 	const XMVECTOR GetBone(const UINT& partsNum,const UINT& num);
+	const std::string GetBoneName(const UINT& partsNum, const UINT& num);
 	const UINT GetBoneCount();
 	const bool IsDraw() { return isDraw_; }
 	void SetDraw(bool isDraw) { isDraw_ = isDraw; }

@@ -81,6 +81,7 @@ public:
 	std::string GetModelName() const;
 	std::shared_ptr<FbxParts>& GetFbxParts(int partsNum = 0);
 	const UINT GetBoneCount();
+	std::string GetBonename(const UINT& partsNum, const UINT& num);
 	void SetColor(int partsNum, int materialNum, const XMFLOAT4& color);
 	void    Draw(Transform& transform, SHADER_TYPE shaderType,int frame);
 	void	DrawOutLine(Transform& transform, int frame, XMFLOAT4 lineColor = {0,0,0,1});

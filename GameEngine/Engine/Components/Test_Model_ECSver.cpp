@@ -38,6 +38,11 @@ const XMVECTOR Test_Model_ECSver::GetBone(const UINT& partsNum, const UINT& num)
 	return pos * attachObject_->GetTransform()->GetWorldMatrix();
 }
 
+const std::string Test_Model_ECSver::GetBoneName(const UINT& partsNum, const UINT& num)
+{
+	return fbx_->GetBonename(partsNum,num);
+}
+
 const UINT Test_Model_ECSver::GetBoneCount()
 {
 	return fbx_->GetBoneCount();
