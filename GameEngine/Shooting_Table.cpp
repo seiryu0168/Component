@@ -26,13 +26,14 @@ void Shooting_Table::Initialize()
 	
 	transform_->position_ = XMVectorSet(0, 0, 30, 0);
 	Test_Model_ECSver model(this);
-	model.Load("Assets/Model/Shooting_Table.fbx");
+	model.Load("Assets/Model/Shooting_Table2.fbx");
 	AddComponent<Test_Model_ECSver>(model);
 
 	nlohmann::json jsonReader;
 	std::ifstream ifs(TARGET_DATA_FILENAME);
 	int i = 0;
 	jsonReader = nlohmann::json::parse(ifs);
+	int bn = model.GetBoneCount();
 	for (i; i<model.GetBoneCount(); i++)
 	{
 		//台モデルのボーン数に応じて景品を生成

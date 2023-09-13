@@ -53,7 +53,7 @@ void Shooting_TergetGift::Fall()
 
 void Shooting_TergetGift::OnCollision(Object* target)
 {
-	//Audio::Play(hAudio_CollisionSound_);
+	Audio::Play(hAudio_CollisionSound_);
 	isHit_ = true;
 }
 

@@ -28,7 +28,7 @@ namespace Audio
     };
     std::vector<AudioData>	audioDatas;
 
-    std::unique_ptr<char[]> pBuffer;
+    //std::unique_ptr<char[]> pBuffer;
 }
 
 //初期化
@@ -104,15 +104,17 @@ int Audio::Load(const std::string& fileName,bool loopFlag,float volume, int svNu
         }
     }
     ReadFile(hFile, &data.size, 4, &dwBytes, NULL);
-    //char* pBuffer = new char[data.size];
-    pBuffer = std::make_unique<char[]>(data.size);
+    char* pBuffer_ = new char[data.size];
+    //std::unique_ptr<char[]> pBuffer;
+    //pBuffer = std::make_unique<char[]>(data.size);
     //std::unique_ptr<char[]> pBuffer(new char[data.size]);
-    ReadFile(hFile, pBuffer.get(), data.size, &dwBytes, NULL);
-    //ReadFile(hFile, pBuffer, data.size, &dwBytes, NULL);
+    //ReadFile(hFile, pBuffer.get(), data.size, &dwBytes, NULL);
+    ReadFile(hFile, pBuffer_, data.size, &dwBytes, NULL);
     CloseHandle(hFile);
     AudioData ad;
     ad.fileName = fileName;
-    ad.buf.pAudioData = (BYTE*)std::move(pBuffer).get();
+    //ad.buf.pAudioData = (BYTE*)std::move(pBuffer).get();
+    ad.buf.pAudioData = (BYTE*)std::move(pBuffer_);
     if (loopFlag)
     {
         ad.buf.LoopCount = XAUDIO2_LOOP_INFINITE;

@@ -42,7 +42,7 @@ const LPCWSTR WIN_TITLE_NAME = L"Festival";
 
 
 const int WINDOW_WIDTH = 1920;   //ウィンドウ幅
-const int WINDOW_HEIGHT = 1080;	 //ウィンドウ高さ
+const int WINDOW_HEIGHT = 1080;	 //ウィンドウ高さ	
 
 //int pxelUnit;
 //プロトタイプ宣言
