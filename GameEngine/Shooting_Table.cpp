@@ -2,6 +2,7 @@
 #include"Engine/Systems/ModelSystem.h"
 #include"Shooting_TergetGift.h"
 #include"Engine/ResourceManager/json.hpp"
+#include"Engine/ResourceManager/Audio.h"
 #include"Engine/Systems/ColliderSystem.h"
 #include<fstream>
 
@@ -26,7 +27,7 @@ void Shooting_Table::Initialize()
 	
 	transform_->position_ = XMVectorSet(0, 0, 30, 0);
 	Test_Model_ECSver model(this);
-	model.Load("Assets/Model/Shooting_Table2.fbx");
+	model.Load("Assets/Model/Shooting_Table.fbx");
 	AddComponent<Test_Model_ECSver>(model);
 
 	nlohmann::json jsonReader;
@@ -34,6 +35,8 @@ void Shooting_Table::Initialize()
 	int i = 0;
 	jsonReader = nlohmann::json::parse(ifs);
 	int bn = model.GetBoneCount();
+	int audioHandle = Audio::Load("Assets/Audio/Shooting_CollisionSound.wav",false,1.0f,7);
+	assert(audioHandle >= 0);
 	for (i; i<model.GetBoneCount(); i++)
 	{
 		std::string name = model.GetBoneName(0, i);
@@ -55,6 +58,7 @@ void Shooting_Table::Initialize()
 		Collider col({0,0,0}, box);
 		col.SetAttachObject(gift);
 		gift->AddComponent<Collider>(col);
+		gift->SetAudioHandle(audioHandle);
 		//オブジェクトの位置設定
 		//gift->GetTransform()->scale_ = colSize;
 		gift->GetTransform()->position_ = model.GetBone(0, i) + XMVectorSet(0, colSize.y, 0, 0);

@@ -31,8 +31,7 @@ void Shooting_TergetGift::Initialize()
 	//Collider collision({ 0,0,0 }, colShape);
 	//collision.SetAttachObject(this);
 	//AddComponent<Collider>(collision);
-	hAudio_CollisionSound_ = Audio::Load("Assets/Audio/Shooting_CollisionSound.wav");
-	assert(hAudio_CollisionSound_ >= 0);
+	
 }
 
 void Shooting_TergetGift::Update()
