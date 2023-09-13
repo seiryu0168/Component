@@ -2,6 +2,7 @@
 #include "P_CommandMemory.h"
 #include "../Engine/Components/Image.h"
 #include "../Engine/newSceneManager.h"
+#include "../Engine/ResourceManager/Audio.h"
 #include "../InterSceneData.h"
 #include <Xinput.h>
 #include <format>
@@ -49,7 +50,7 @@ namespace
 
 CommandMemory::CommandMemory(Object* parent)
 	: Framework(parent, "CommandMemory"), cmList_(), NowPlayer_(0), itr_(), text_(nullptr), Images_(),
-	now_(NULL), prev_(XINPUT_GAMEPAD_A), RemainingText_(nullptr), choiced_(false), moveCount_(0)
+	now_(NULL), prev_(XINPUT_GAMEPAD_A), RemainingText_(nullptr), choiced_(false), moveCount_(0), hAudio_(-1)
 {
 }
 
@@ -81,6 +82,8 @@ void CommandMemory::Initialize()
 	t.SetRatio(0.2f, 0.25f);
 	AddComponent<Text>(t);
 	RemainingText_ = &GetComponent<Text>(1);
+
+	hAudio_ = Audio::Load("Assets\\Audio\\bell.wav", 10);
 }
 
 void CommandMemory::Update()
@@ -140,7 +143,9 @@ void CommandMemory::sendCommand(int Button, int Playerid)
 				NowPlayer_ = (Players_ - 2);
 
 			text_->SetText(std::format("プレイヤー{:d}のターンです", NowPlayer_ + 1));
-			RemainingText_->SetText(std::format("あと{:d}コマンド", cmList_.size()));
+			RemainingText_->SetText(std::format("あと{:d}コマンド", cmList_.size() + 1));
+
+			Audio::Play(hAudio_);
 		}
 		else
 		{
@@ -153,7 +158,9 @@ void CommandMemory::sendCommand(int Button, int Playerid)
 				Images_[prev_]->SetAlpha(0);
 				Images_[prev_]->SetSize({ ImageSize,ImageSize,1 });
 				++itr_;
-				RemainingText_->SetText(std::format("あと{:d}コマンド", std::distance(itr_, cmList_.end())));
+				RemainingText_->SetText(std::format("あと{:d}コマンド", std::distance(itr_, cmList_.end()) + 1));
+
+				Audio::Play(hAudio_);
 			}
 			else
 			{

@@ -6,6 +6,7 @@
 #include"../../StaticResource.h"
 #include"../../Result_Multi.h"
 #include "../../R_ChickenRace.h"
+#include "../../R_CommandMemory.h"
 RootObject_Result::RootObject_Result()
 {
 	isSceneChange_ = false;
@@ -30,7 +31,7 @@ void RootObject_Result::Initialize()
 		Instantiate<R_ChickenRace>(this);
 		break;
 	case (int)COMMANDMEMORY:
-		Instantiate<Result_Multi>(this);
+		Instantiate<R_CommandMemory>(this);
 		break;
 	case (int)SNOWCONE:
 		Instantiate<Result_SnowCone>(this);

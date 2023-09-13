@@ -53,7 +53,7 @@ namespace
 
 	std::mutex mtx_;
 
-	Image image_;
+	//Image image_;
 }
 
 namespace Division
@@ -98,7 +98,7 @@ namespace Division
 		std::lock_guard<std::mutex> lock(mtx_);
 		if (isLoad)
 		{
-			image_.Draw();
+			//image_.Draw();
 			//Draw();
 		}
 		else
@@ -125,7 +125,7 @@ namespace Division
 		pTexture_ = std::make_unique<Texture>();
 		pTexture_->Load("Assets\\Image\\parrot.jpg");
 
-		image_.StaticLoad("Assets\\Image\\parrot.jpg");
+		//image_.StaticLoad("Assets\\Image\\parrot.jpg");
 
 		Prepare();
 	}

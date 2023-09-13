@@ -13,6 +13,8 @@ class CommandMemory : public Framework
 	bool choiced_;
 	int moveCount_;
 
+	int hAudio_;
+
 	WORD now_;
 	WORD prev_;
 
