@@ -5,6 +5,7 @@ class Shooting_Gun : public GameObject
 	unsigned short playerNum_;
 	XMVECTOR frontVec_;
 	int bulletCount_;
+	int hAudio_Shot_;
 	size_t textNum_;
 public:
 	Shooting_Gun(Object* parent);

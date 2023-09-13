@@ -1,5 +1,5 @@
 #include "Shooting_TergetGift.h"
-
+#include"Engine/ResourceManager/Audio.h"
 namespace
 {
 	XMVECTOR KNOCKBACK_VEC = XMVectorSet(0, 0, 1, 0);
@@ -31,7 +31,8 @@ void Shooting_TergetGift::Initialize()
 	//Collider collision({ 0,0,0 }, colShape);
 	//collision.SetAttachObject(this);
 	//AddComponent<Collider>(collision);
-
+	hAudio_CollisionSound_ = Audio::Load("Assets/Audio/Shooting_CollisionSound.wav");
+	assert(hAudio_CollisionSound_ >= 0);
 }
 
 void Shooting_TergetGift::Update()
@@ -52,6 +53,7 @@ void Shooting_TergetGift::Fall()
 
 void Shooting_TergetGift::OnCollision(Object* target)
 {
+	//Audio::Play(hAudio_CollisionSound_);
 	isHit_ = true;
 }
 

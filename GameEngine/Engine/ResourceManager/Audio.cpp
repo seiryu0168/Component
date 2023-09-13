@@ -1,29 +1,29 @@
-#include <xaudio2.h>
+ï»¿#include <xaudio2.h>
 #include <vector>
 #include <memory>
 #include "Audio.h"
 
 namespace Audio
 {
-    //XAudio–{‘Ì
+    //XAudioæœ¬ä½“
     IXAudio2* pXAudio = nullptr;
 
-    //ƒ}ƒXƒ^[ƒ{ƒCƒX
+    //ãƒã‚¹ã‚¿ãƒ¼ãƒœã‚¤ã‚¹
     IXAudio2MasteringVoice* pMasteringVoice = nullptr;
 
-    //ƒtƒ@ƒCƒ‹–ˆ‚É•K—v‚Èî•ñ
+    //ãƒ•ã‚¡ã‚¤ãƒ«æ¯ã«å¿…è¦ãªæƒ…å ±
     struct AudioData
     {
-        //ƒTƒEƒ“ƒhî•ñ
+        //ã‚µã‚¦ãƒ³ãƒ‰æƒ…å ±
         XAUDIO2_BUFFER buf = {};
 
-        //ƒ\[ƒXƒ{ƒCƒX
+        //ã‚½ãƒ¼ã‚¹ãƒœã‚¤ã‚¹
         std::unique_ptr<IXAudio2SourceVoice*[]> pSourceVoice = nullptr;
 
-        //“¯Ä¶Å‘å”
+        //åŒæ™‚å†ç”Ÿæœ€å¤§æ•°
         int svNum;
 
-        //ƒtƒ@ƒCƒ‹–¼
+        //ãƒ•ã‚¡ã‚¤ãƒ«å
         std::string fileName;
     };
     std::vector<AudioData>	audioDatas;
@@ -31,7 +31,7 @@ namespace Audio
     std::unique_ptr<char[]> pBuffer;
 }
 
-//‰Šú‰»
+//åˆæœŸåŒ–
 void Audio::Initialize()
 {
     CoInitializeEx(0, COINIT_MULTITHREADED);
@@ -41,14 +41,14 @@ void Audio::Initialize()
     hr = pXAudio->CreateMasteringVoice(&pMasteringVoice);
     if (FAILED(hr))
     {
-        MessageBox(NULL, L"ƒ}ƒXƒ^ƒŠƒ“ƒOƒ{ƒCƒY‚Ìì¬‚É¸”s‚µ‚Ü‚µ‚½", L"ƒGƒ‰[", MB_OK);
+        MessageBox(NULL, L"ãƒã‚¹ã‚¿ãƒªãƒ³ã‚°ãƒœã‚¤ã‚ºã®ä½œæˆã«å¤±æ•—ã—ã¾ã—ãŸ", L"ã‚¨ãƒ©ãƒ¼", MB_OK);
         //return hr;
     }
 }
 
-int Audio::Load(const std::string& fileName, int svNum)
+int Audio::Load(const std::string& fileName,bool loopFlag,float volume, int svNum)
 {
-    //‚·‚Å‚É“¯‚¶ƒtƒ@ƒCƒ‹‚ğg‚Á‚Ä‚È‚¢‚©ƒ`ƒFƒbƒN
+    //ã™ã§ã«åŒã˜ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä½¿ã£ã¦ãªã„ã‹ãƒã‚§ãƒƒã‚¯
     for (int i = 0; i < audioDatas.size(); i++)
     {
         if (audioDatas[i].fileName == fileName)
@@ -56,13 +56,13 @@ int Audio::Load(const std::string& fileName, int svNum)
             return i;
         }
     }
-    //ƒ`ƒƒƒ“ƒN\‘¢‘Ì
+    //ãƒãƒ£ãƒ³ã‚¯æ§‹é€ ä½“
     struct Chunk
     {
-        char    id[4];      // ID
-        unsigned int    size;   // ƒTƒCƒY
+        char    id[5];      // ID
+        unsigned int    size;   // ã‚µã‚¤ã‚º
     };
-    //ƒtƒ@ƒCƒ‹‚ğŠJ‚­
+    //ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ã
     HANDLE hFile;
     hFile = CreateFileA(fileName.c_str(), GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
     DWORD dwBytes = 0;
@@ -73,22 +73,35 @@ int Audio::Load(const std::string& fileName, int svNum)
     ReadFile(hFile, &wave, 4, &dwBytes, NULL);
     Chunk formatChunk;
     while (formatChunk.id[0] != 'f') {
-        ReadFile(hFile, &formatChunk.id, 4, &dwBytes, NULL);
+        if(ReadFile(hFile, &formatChunk.id, 4, &dwBytes, NULL) == FALSE)
+        return -1;
     }
     ReadFile(hFile, &formatChunk.size, 4, &dwBytes, NULL);
-    //ƒtƒH[ƒ}ƒbƒg‚ğ“Ç‚İæ‚é
+    //ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã‚’èª­ã¿å–ã‚‹
     //https://learn.microsoft.com/ja-jp/windows/win32/api/mmeapi/ns-mmeapi-waveformatex
     WAVEFORMATEX fmt;
-    ReadFile(hFile, &fmt.wFormatTag, 2, &dwBytes, NULL);        //Œ`®
-    ReadFile(hFile, &fmt.nChannels, 2, &dwBytes, NULL);         //ƒ`ƒƒƒ“ƒlƒ‹iƒ‚ƒmƒ‰ƒ‹/ƒXƒeƒŒƒIj
-    ReadFile(hFile, &fmt.nSamplesPerSec, 4, &dwBytes, NULL);    //ƒTƒ“ƒvƒŠƒ“ƒO”
-    ReadFile(hFile, &fmt.nAvgBytesPerSec, 4, &dwBytes, NULL);   //1•b‚ ‚½‚è‚ÌƒoƒCƒg”
-    ReadFile(hFile, &fmt.nBlockAlign, 2, &dwBytes, NULL);       //ƒuƒƒbƒN”z’u
-    ReadFile(hFile, &fmt.wBitsPerSample, 2, &dwBytes, NULL);    //ƒTƒ“ƒvƒ‹“–‚½‚è‚Ìƒrƒbƒg”
+    ReadFile(hFile, &fmt.wFormatTag, 2, &dwBytes, NULL);        //å½¢å¼
+    ReadFile(hFile, &fmt.nChannels, 2, &dwBytes, NULL);         //ãƒãƒ£ãƒ³ãƒãƒ«ï¼ˆãƒ¢ãƒãƒ©ãƒ«/ã‚¹ãƒ†ãƒ¬ã‚ªï¼‰
+    ReadFile(hFile, &fmt.nSamplesPerSec, 4, &dwBytes, NULL);    //ã‚µãƒ³ãƒ—ãƒªãƒ³ã‚°æ•°
+    ReadFile(hFile, &fmt.nAvgBytesPerSec, 4, &dwBytes, NULL);   //1ç§’ã‚ãŸã‚Šã®ãƒã‚¤ãƒˆæ•°
+    ReadFile(hFile, &fmt.nBlockAlign, 2, &dwBytes, NULL);       //ãƒ–ãƒ­ãƒƒã‚¯é…ç½®
+    ReadFile(hFile, &fmt.wBitsPerSample, 2, &dwBytes, NULL);    //ã‚µãƒ³ãƒ—ãƒ«å½“ãŸã‚Šã®ãƒ“ãƒƒãƒˆæ•°
+    
+    //æ³¢å½¢ãƒ‡ãƒ¼ã‚¿ã®èª­ã¿è¾¼ã¿
     Chunk data = { 0 };
     while (data.id[0] != 'd')
-    {
-        ReadFile(hFile, &data.id, 4, &dwBytes, NULL);
+    {   
+        if (ReadFile(hFile, &data.id, 4, &dwBytes, NULL)==FALSE)
+            return -1;
+        if (data.id[0] == 'd' || data.id[1] == 'a')
+            break;
+        else
+        {
+            //ã‚µã‚¤ã‚ºèª¿ã¹ã¦
+            ReadFile(hFile, &data.size, 4, &dwBytes, NULL);
+            std::unique_ptr<char[]> pBuffer = std::make_unique<char[]>(data.size); //ç„¡é§„ã«èª­ã¿è¾¼ã‚€Â 
+            ReadFile(hFile, pBuffer.get(), data.size, &dwBytes, NULL);
+        }
     }
     ReadFile(hFile, &data.size, 4, &dwBytes, NULL);
     //char* pBuffer = new char[data.size];
@@ -100,17 +113,24 @@ int Audio::Load(const std::string& fileName, int svNum)
     AudioData ad;
     ad.fileName = fileName;
     ad.buf.pAudioData = (BYTE*)std::move(pBuffer).get();
+    if (loopFlag)
+    {
+        ad.buf.LoopCount = XAUDIO2_LOOP_INFINITE;
+    }
     ad.buf.Flags = XAUDIO2_END_OF_STREAM;
     ad.buf.AudioBytes = data.size;
     //ad.buf.LoopCount = XAUDIO2_LOOP_INFINITE;
     ad.pSourceVoice = std::make_unique<IXAudio2SourceVoice*[]>(svNum);
+
     for (int i = 0; i < svNum; i++)
     {
         HRESULT hr;
         hr = pXAudio->CreateSourceVoice(&ad.pSourceVoice[i], &fmt);
+
+        if(volume)
         if (FAILED(hr))
         {
-            MessageBox(NULL, L"ƒI[ƒfƒBƒI‚Ì“Ç‚İ‚İ‚É¸”s‚µ‚Ü‚µ‚½", L"ƒGƒ‰[", MB_OK);
+            MessageBox(NULL, L"ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªã®èª­ã¿è¾¼ã¿ã«å¤±æ•—ã—ã¾ã—ãŸ", L"ã‚¨ãƒ©ãƒ¼", MB_OK);
             //return hr;
         }
     }
@@ -120,7 +140,7 @@ int Audio::Load(const std::string& fileName, int svNum)
     return (int)audioDatas.size() - 1;
 }
 
-//Ä¶
+//å†ç”Ÿ
 void Audio::Play(int ID)
 {
     for (int i = 0; i < audioDatas[ID].svNum; i++)
@@ -132,7 +152,7 @@ void Audio::Play(int ID)
         {
             audioDatas[ID].pSourceVoice[i]->SubmitSourceBuffer(&audioDatas[ID].buf);
             audioDatas[ID].pSourceVoice[i]->Start();
-            break;
+            break;  
         }
     }
 }
@@ -145,7 +165,7 @@ void Audio::SetVolume(int ID, float volum)
     }
 }
 
-//‚·‚×‚ÄŠJ•ú
+//ã™ã¹ã¦é–‹æ”¾
 void Audio::Release()
 {
     for (int i = 0; i < audioDatas.size(); i++)

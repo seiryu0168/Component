@@ -2,6 +2,7 @@
 #include"Engine/Systems/ModelSystem.h"
 #include"Engine/Systems/ImageSystem.h"
 #include"Engine/Systems/TextSystem.h"
+#include"Engine/ResourceManager/Audio.h"
 #include"Shooting_Bullet.h"
 
 namespace
@@ -38,6 +39,9 @@ void Shooting_Gun::Initialize()
 	image.SetSize({ 0.3f,0.3f,0 });
 	image.SetPositionAtPixel({ 170,-170,0 });
 	AddComponent<Image>(image);
+
+	hAudio_Shot_ = Audio::Load("Assets/Audio/Shooting_ShotPon.wav",false,1.0f,7);
+	assert(hAudio_Shot_ >= 0);
 }
 
 void Shooting_Gun::Update()
@@ -48,6 +52,7 @@ void Shooting_Gun::Shot(const XMVECTOR& dir)
 {
 	if (bulletCount_ == 0)
 		return;
+	Audio::Play(hAudio_Shot_);
 	Shooting_Bullet* bullet = Instantiate<Shooting_Bullet>(GetParent()->GetParent());
 	bullet->SetPlayerNum(playerNum_);
 	bullet->GetTransform()->position_ = GetShotPos();

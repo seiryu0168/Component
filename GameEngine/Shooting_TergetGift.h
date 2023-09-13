@@ -3,6 +3,7 @@
 class Shooting_TergetGift : public GameObject
 {
 	int score_;
+	int hAudio_CollisionSound_;
 	bool isHit_;
 	float fallSpeed_;
 public:
