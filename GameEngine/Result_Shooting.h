@@ -14,6 +14,7 @@ class Result_Shooting : public Result_Single<int>
 	int perfectTextNum_;
 	int returnText_;
 	int count_;
+	bool isChange_;
 	float interval_;
 	CountStatus status_;
 	std::unique_ptr<Time::Watch> time_;

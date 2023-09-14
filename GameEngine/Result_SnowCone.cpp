@@ -19,7 +19,8 @@ namespace
 Result_SnowCone::Result_SnowCone(Object* parent)
 	:Result_Single(parent,"Result_SnowCone"),
 	status_(CountStatus::STAY),
-	count_(0)
+	count_(0),
+	isChange_(false)
 {
 }
 
@@ -95,19 +96,25 @@ void Result_SnowCone::Show()
 
 void Result_SnowCone::Finish()
 {
-	switch (Input::GetPadAnyDown())
+	if (isChange_ == false)
 	{
-	case XINPUT_GAMEPAD_A:
-		((RootObject_Result*)GetParent())->SceneChange();
-		newSceneManager::ChangeScene(SCENE_ID::MENU,1.0f);
 
-		break;
-	case XINPUT_GAMEPAD_B:
-		((RootObject_Result*)GetParent())->SceneChange();
-		newSceneManager::ChangeScene(SCENE_ID::PLAY,1.0f);
-		break;
-	default:
-		break;
+		switch (Input::GetPadAnyDown())
+		{
+		case XINPUT_GAMEPAD_A:
+			isChange_ = true;
+			((RootObject_Result*)GetParent())->SceneChange();
+			newSceneManager::ChangeScene(SCENE_ID::MENU, 1.0f);
+
+			break;
+		case XINPUT_GAMEPAD_B:
+			((RootObject_Result*)GetParent())->SceneChange();
+			newSceneManager::ChangeScene(SCENE_ID::PLAY, 1.0f);
+			isChange_ = true;
+			break;
+		default:
+			break;
+		}
 	}
 }
 

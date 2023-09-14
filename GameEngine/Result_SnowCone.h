@@ -15,6 +15,7 @@ class Result_SnowCone : public Result_Single<int>
 	int resultTextNum_;
 	int count_;
 	float interval_;
+	bool isChange_;
 public:
 	Result_SnowCone(Object* parent);
 	~Result_SnowCone();

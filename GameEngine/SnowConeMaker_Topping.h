@@ -10,8 +10,6 @@ private:
 	std::shared_ptr<Time::Watch> timer_;
 	int playerNum_;
 	int coneSizeText_;
-	int hAudio_CursorMove_;
-	int hAudio_PushButton_;
 	SnowCone_Cup* snowCone_;
 	SnowCone_ToppingSumple* toppingSumple_;
 	SnowCone_SyrupSumple* syrupSumple_;

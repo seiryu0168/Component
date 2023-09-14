@@ -22,9 +22,7 @@ SnowConeMaker_Topping::SnowConeMaker_Topping(Object* parent)
 	snowCone_(nullptr),
 	playerNum_(0),
 	toppingSumple_(nullptr),
-	coneSizeText_(0),
-	hAudio_CursorMove_(-1),
-	hAudio_PushButton_(-1)
+	coneSizeText_(0)
 {
 }
 

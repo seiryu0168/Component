@@ -13,6 +13,8 @@ protected:
 	std::unique_ptr<Time::Watch> time_;
 	short moveDir_;
 	int selectNum_;
+	int hAudio_CursorMove_;
+	int hAudio_PushButton_;
 	SELECT_STATE state_;
 public:
 	SnowCone_ToppingMenu(Object* parent,const std::string& name);

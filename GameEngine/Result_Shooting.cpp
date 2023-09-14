@@ -19,7 +19,8 @@ Result_Shooting::Result_Shooting(Object* parent)
 	:Result_Single(parent,"Result_Shooting"),
 	status_(CountStatus::STAY),
 	count_(0),resultTextNum_(0),
-	interval_(0)
+	interval_(0),
+	isChange_(false)
 {
 }
 
@@ -126,15 +127,21 @@ void Result_Shooting::ShowCommand()
 
 void Result_Shooting::Finish()
 {
-	if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A))
+	if (isChange_ == false)
 	{
-		((RootObject_Result*)GetParent())->SceneChange();
-		newSceneManager::ChangeScene(SCENE_ID::MENU,1.0f);
-	}
-	else if (Input::IsPadButtonDown(XINPUT_GAMEPAD_B))
-	{
-		((RootObject_Result*)GetParent())->SceneChange();
-		newSceneManager::ChangeScene(SCENE_ID::PLAY,1.0f);
+
+		if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A))
+		{
+			isChange_ = true;
+			((RootObject_Result*)GetParent())->SceneChange();
+			newSceneManager::ChangeScene(SCENE_ID::MENU, 1.0f);
+		}
+		else if (Input::IsPadButtonDown(XINPUT_GAMEPAD_B))
+		{
+			isChange_ = true;
+			((RootObject_Result*)GetParent())->SceneChange();
+			newSceneManager::ChangeScene(SCENE_ID::PLAY, 1.0f);
+		}
 	}
 }
 

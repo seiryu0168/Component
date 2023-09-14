@@ -5,6 +5,7 @@ class SnowCone_SyrupSelect : public SnowCone_ToppingMenu
 private:
 	int selectFrame_;
 	int syrupText_;
+	
 public:
 	SnowCone_SyrupSelect(Object* parent);
 	~SnowCone_SyrupSelect();

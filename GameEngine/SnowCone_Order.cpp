@@ -4,6 +4,7 @@
 #include"Engine/Systems/ImageSystem.h"
 #include"InterSceneData.h"
 #include"MiniGames/SnowConeMaking.h"
+#include"Engine/ResourceManager/Audio.h"
 namespace
 {
 	const int ORDER_LIMIT = 3;
@@ -12,7 +13,9 @@ namespace
 }
 SnowCone_Order::SnowCone_Order(Object* parent)
 	:GameObject(parent,"SnowCone_Order"),
-	orderTextNum_(0)
+	orderTextNum_(0),
+	hAudio_Success_(-1),
+	hAudio_Failed_(-1)
 {
 }
 
@@ -51,6 +54,11 @@ void SnowCone_Order::Initialize()
 		image.SetSize({ 1.3f,1.3,0 });
 		AddComponent<Image>(image);
 	}
+
+	hAudio_Success_ = Audio::Load("Assets/Audio/Success.wav",false,1.0f,5);
+	assert(hAudio_Success_ >= 0);
+	hAudio_Failed_ = Audio::Load("Assets/Audio/Failed.wav", false, 1.0f, 5);
+	assert(hAudio_Failed_>=0);
 }
 
 void SnowCone_Order::CreateOrder()
@@ -107,10 +115,9 @@ void SnowCone_Order::Judge(int size, int syrup, int topping)
 		//合ってる場合、その注文を消して新しいオーダーを生成
 		if (orderList_[i].size_ == size && orderList_[i].syrup_ == syrup && orderList_[i].topping_ == topping)
 		{
-			//RemoveComponent<Text>(i);
-			//orderList_.erase(orderList_.begin() + i);
 			orderTextNum_ = i;
 			((SnowConeMaking*)GetParent())->ScoreUpdate(1);
+			Audio::Play(hAudio_Success_);
 			SNOWCONE_DATA data;
 			data.size_ = size;
 			data.syrup = syrup;
@@ -120,6 +127,7 @@ void SnowCone_Order::Judge(int size, int syrup, int topping)
 			return;
 		}
 	}
+	Audio::Play(hAudio_Failed_);
 }
 
 std::string SnowCone_Order::GetSizeString(int num)

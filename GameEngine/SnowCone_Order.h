@@ -14,7 +14,8 @@ class SnowCone_Order : public GameObject
 
 
 	int orderTextNum_;
-
+	int hAudio_Success_;
+	int hAudio_Failed_;
 	std::vector<Order> orderList_;
 	std::vector<std::string> sizeTextList_;
 	std::vector<std::string> syrupTextList_;
