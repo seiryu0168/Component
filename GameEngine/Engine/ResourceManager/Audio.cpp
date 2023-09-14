@@ -159,6 +159,15 @@ void Audio::Play(int ID)
     }
 }
 
+void Audio::Stop(int ID)
+{
+    for (int i = 0; i < audioDatas[ID].svNum; i++)
+    {
+        audioDatas[ID].pSourceVoice[i]->Stop();
+        audioDatas[ID].pSourceVoice[i]->FlushSourceBuffers();
+    }
+}
+
 void Audio::SetVolume(int ID, float volum)
 {
     for (int i = 0; i < audioDatas[ID].svNum; i++)

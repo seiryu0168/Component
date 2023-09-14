@@ -10,6 +10,7 @@ private:
 	int playerNum_;
 	float snowConeSize_;
 	SnowCone_Cup* snowCone_;
+	int hAudio_Shave_;
 public:
 	SnowConeMaker_Shave(Object* parent);
 	~SnowConeMaker_Shave();

@@ -4,6 +4,7 @@
 #include"SnowCone_Cup.h"
 #include"MiniGames/SnowConeMaking.h"
 #include"Engine/Systems/ImageSystem.h"
+#include"Engine/ResourceManager/Audio.h"
 namespace
 {
 	const XMVECTOR DEFAULT_POS = XMVectorSet(-40, 8, -40, 0);
@@ -16,7 +17,8 @@ SnowConeMaker_Shave::SnowConeMaker_Shave(Object* parent)
 	:GameObject(parent, "SnowConeMaker_Shave"),
 	snowConeSize_(0.0f),
 	playerNum_(0),
-	snowCone_(nullptr)
+	snowCone_(nullptr),
+	hAudio_Shave_(-1)
 {
 }
 
@@ -49,6 +51,8 @@ void SnowConeMaker_Shave::Initialize()
 	}
 	timer_ = std::make_shared<Time::Watch>();
 	timer_->UnLock();
+	hAudio_Shave_ = Audio::Load("Assets/Audio/kakigori_machine.wav");
+	assert(hAudio_Shave_>=0);
 }
 
 void SnowConeMaker_Shave::Update()
@@ -87,7 +91,10 @@ void SnowConeMaker_Shave::Update()
 		if (Input::IsPadButton(XINPUT_GAMEPAD_B) && snowCone_ && snowConeSize_ < SNOWCONE_SIZE_LIMIT)
 		{
 			Shave();
+			Audio::Play(hAudio_Shave_);
 		}
+		else
+			Audio::Stop(hAudio_Shave_);
 		break;
 	}
 }

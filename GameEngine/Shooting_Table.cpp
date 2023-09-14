@@ -27,7 +27,7 @@ void Shooting_Table::Initialize()
 	
 	transform_->position_ = XMVectorSet(0, 0, 30, 0);
 	Test_Model_ECSver model(this);
-	model.Load("Assets/Model/Shooting_Table.fbx");
+	model.Load("Assets/Model/Shooting_Table2.fbx");
 	AddComponent<Test_Model_ECSver>(model);
 
 	nlohmann::json jsonReader;
