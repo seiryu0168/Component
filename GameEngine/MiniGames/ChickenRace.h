@@ -23,18 +23,18 @@ private:
 	Image* BG_;
 
 	int hAudio_;
+	int Delay_;
 
 	void Prologue();
 	void Countdown();
 	void Play();
-	void Finish();
+	void To_Finish();
 public:
 	ChickenRace(Object* parent);
 	~ChickenRace();
 
 	void Initialize() override;
 	void Update() override;
-	void Draw() override;
 	void Release() override;
 
 	void SendTime(Object* target, float time);

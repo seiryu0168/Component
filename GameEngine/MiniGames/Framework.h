@@ -49,6 +49,6 @@ public:
 	Framework(Object* parent, const std::string& name);
 	virtual ~Framework();
 
-	void Draw() override;
+	void Draw() override final;
 };
 

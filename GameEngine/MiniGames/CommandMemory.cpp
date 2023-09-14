@@ -50,7 +50,7 @@ namespace
 
 CommandMemory::CommandMemory(Object* parent)
 	: Framework(parent, "CommandMemory"), cmList_(), NowPlayer_(0), itr_(), text_(nullptr), Images_(),
-	now_(NULL), prev_(XINPUT_GAMEPAD_A), RemainingText_(nullptr), choiced_(false), moveCount_(0), hAudio_(-1)
+	now_(NULL), prev_(XINPUT_GAMEPAD_A), RemainingText_(nullptr), choiced_(false), moveCount_(0), hAudio_(-1), state_(STATE::PLAY)
 {
 }
 
@@ -83,7 +83,7 @@ void CommandMemory::Initialize()
 	AddComponent<Text>(t);
 	RemainingText_ = &GetComponent<Text>(1);
 
-	hAudio_ = Audio::Load("Assets\\Audio\\bell.wav", 10);
+	hAudio_ = Audio::Load("Assets\\Audio\\bell.wav", false, 1, 10);
 }
 
 void CommandMemory::Update()
@@ -101,10 +101,9 @@ void CommandMemory::Update()
 			moveCount_ = 0;
 		}
 	}
-}
 
-void CommandMemory::Draw()
-{
+	if (state_ == STATE::FINISH)
+		Finish();
 }
 
 void CommandMemory::Release()
@@ -118,8 +117,9 @@ void CommandMemory::StaticUpdate()
 
 void CommandMemory::sendCommand(int Button, int Playerid)
 {
+	//プレイ状態であることを確かめ、
 	//操作権を持つプレイヤーか確かめる
-	if (NowPlayer_ == Playerid)
+	if (state_ == STATE::PLAY && NowPlayer_ == Playerid)
 	{
 		if (itr_ == cmList_.end())
 		{
@@ -167,7 +167,9 @@ void CommandMemory::sendCommand(int Button, int Playerid)
 				if (++NowPlayer_ >= Players_)
 					NowPlayer_ = (Players_ - 2);
 				InterSceneData::AddData("ResultData", NowPlayer_);
-				newSceneManager::ChangeScene(SCENE_ID::RESULT);
+				//newSceneManager::ChangeScene(SCENE_ID::RESULT);
+				GameFinish(true);
+				state_ = STATE::FINISH;
 			}
 		}
 	}
@@ -176,7 +178,7 @@ void CommandMemory::sendCommand(int Button, int Playerid)
 void CommandMemory::ImageLoad()
 {
 	Image image;
-
+	image.SetLayer(0);
 	{
 		image.Load("Assets\\Image\\CM_BG.png", "Command");
 		AddComponent(image);

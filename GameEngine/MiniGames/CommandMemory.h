@@ -6,6 +6,12 @@ class Image;
 
 class CommandMemory : public Framework
 {
+	enum class STATE
+	{
+		PLAY = 0,
+		FINISH
+	} state_;
+
 	std::vector<int> cmList_;	//コマンドの配列
 	std::vector<int>::iterator itr_;	//コマンドの配列に対するイテレータ
 	int NowPlayer_;				//現在操作中のプレイヤー
@@ -29,7 +35,6 @@ public:
 
 	void Initialize() override;
 	void Update() override;
-	void Draw() override;
 	void Release() override;
 	void StaticUpdate() override;
 

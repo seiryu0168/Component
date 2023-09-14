@@ -17,10 +17,11 @@ namespace
 
 	static const int TAR_MAX = 15;
 	static const int TAR_MIN = 10;
+	static const int DELAY = 90;
 }
 
 ChickenRace::ChickenRace(Object* parent)
-	: Framework(parent, "ChickenRace") , TargetTime(0), PlayersTime_(), text_(), state_(STATE::prologue), watch_(nullptr), BG_(nullptr), hAudio_(-1)
+	: Framework(parent, "ChickenRace") , TargetTime(0), PlayersTime_(), text_(), state_(STATE::prologue), watch_(nullptr), BG_(nullptr), hAudio_(-1), Delay_(0)
 {
 }
 
@@ -66,7 +67,7 @@ void ChickenRace::Initialize()
 	}
 
 	
-	hAudio_ = Audio::Load("Assets\\Audio\\bloom.wav", 2);
+	hAudio_ = Audio::Load("Assets\\Audio\\bloom.wav", false, 1, 2);
 	
 
 	watch_ = std::make_unique<Time::Watch>();
@@ -80,19 +81,22 @@ void ChickenRace::Update()
 	case STATE::prologue:
 		Prologue();
 		break;
+
 	case STATE::countdown:
 		Countdown();
 		break;
+
 	case STATE::play:
 		Play();
 		break;
+
+	case STATE::finish:
+		if (++Delay_ > DELAY)
+			Finish();
+
 	default:
 		break;
 	}
-}
-
-void ChickenRace::Draw()
-{
 }
 
 void ChickenRace::Release()
@@ -115,7 +119,7 @@ void ChickenRace::SendTime(Object* target, float time)
 
 	if (std::find(PlayersTime_.begin(), PlayersTime_.end(), 0) == end(PlayersTime_))
 	{
-		Finish();
+		To_Finish();
 	}
 }
 
@@ -160,7 +164,7 @@ void ChickenRace::Play()
 	
 }
 
-void ChickenRace::Finish()
+void ChickenRace::To_Finish()
 {
 	int winner;
 
@@ -186,7 +190,8 @@ void ChickenRace::Finish()
 	InterSceneData::AddData<float>("time_0", PlayersTime_[0]);
 	InterSceneData::AddData<float>("time_1", PlayersTime_[1]);
 	InterSceneData::AddData<int>("time_target", TargetTime);
-	newSceneManager::ChangeScene(SCENE_ID::RESULT, 90);
+	//newSceneManager::ChangeScene(SCENE_ID::RESULT, 90);
 
+	GameFinish(true);
 	state_ = STATE::finish;
 }
