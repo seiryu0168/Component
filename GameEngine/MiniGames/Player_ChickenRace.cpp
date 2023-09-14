@@ -44,7 +44,7 @@ void Player_ChickenRace::Update()
 	{
 		float f = watch_.GetSeconds<float>();
 
-		if (Input::GetPadOnlyDown(Playerid_))
+		if (Input::GetPadOnlyDown(Playerid_) && f > 1)
 		{
 			CreateFireworks();
 			Finish();
