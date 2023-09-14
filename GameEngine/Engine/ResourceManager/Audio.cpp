@@ -185,6 +185,7 @@ void Audio::Release()
         {
             audioDatas[i].pSourceVoice[j]->DestroyVoice();
         }
+        delete audioDatas[i].buf.pAudioData;
         audioDatas[i].buf.pAudioData = nullptr;
     }
     audioDatas.clear();
