@@ -32,11 +32,13 @@ void Result_Shooting::Initialize()
 {
 	time_ = std::make_unique<Time::Watch>();
 	time_->UnLock();
+	//テキストの用意
 	Text text("結果", "りいてがき筆", { 0,0,200,50 });
 	text.SetPosition({ 750,0 });
 	text.SetTextSize(100);
 	AddComponent<Text>(text);
 
+	//リザルトを取得
 	score_ = InterSceneData::GetData<int>("ResultData");
 	if (score_ >= MAX_SCORE)
 	{
@@ -59,6 +61,10 @@ void Result_Shooting::Initialize()
 
 void Result_Shooting::Update()
 {
+	//今の状態によって挙動が変わる
+	//STAY	 : 止めておく
+	//SHOW	 : リザルト表示
+	//FINISH : 入力
 	switch (status_)
 	{
 	case CountStatus::STAY:
@@ -81,12 +87,13 @@ void Result_Shooting::Stay()
 
 void Result_Shooting::ShowResult()
 {
-
+	//スコアを数える(count_)
 	if ((interval_ * count_) <= time_->GetSeconds<float>()-1.0f)
 	{
 		count_++;
 		GetComponent<Text>(resultTextNum_).SetText("落とした数 " + std::to_string(count_)+" 個");
 	}
+	//カウントがスコア以上になったらカウントをやめてFINISH状態に移行
 	if (count_ >= score_)
 	{
 		GetComponent<Text>(resultTextNum_).SetText("落とした数 " + std::to_string(score_)+" 個");
@@ -95,6 +102,7 @@ void Result_Shooting::ShowResult()
 			GetComponent<Text>(perfectTextNum_).SetColor({ 1,0,0,1 });
 
 		}
+		//時間を止める
 		time_->Lock();
 		ShowCommand();
 		status_ = CountStatus::FINISH;
@@ -103,6 +111,7 @@ void Result_Shooting::ShowResult()
 
 void Result_Shooting::ShowCommand()
 {
+	//セレクト画面に戻るかもう一回やるかの文字とコマンド表示
 	Text retryText("もう一度", "りいてがき筆", { 0,0,500,50 });
 	retryText.SetRatio(0.7f, 0.65f);
 	retryText.SetTextSize(48);
@@ -127,6 +136,7 @@ void Result_Shooting::ShowCommand()
 
 void Result_Shooting::Finish()
 {
+	//セレクト画面に戻るかもう一回やるか選択
 	if (isChange_ == false)
 	{
 

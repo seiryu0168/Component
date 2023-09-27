@@ -53,7 +53,7 @@ public:
 	void Draw(int layerNum);
 	void SimpleDraw();
 
-	//レイヤー番号のセッタ
+	//レイヤー番号のセッター
 	void SetLayer(int layer);
 
 	XMFLOAT3 GetPosition() const { XMFLOAT3 pos; XMStoreFloat3(&pos, transform_.position_); return pos; }

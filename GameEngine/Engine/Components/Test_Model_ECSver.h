@@ -32,17 +32,47 @@ public:
 	//シェーダータイプ設定
 	void SetShaderType(SHADER_TYPE type) { type_ = type; }
 
+	/// <summary>
+	/// ボーンの位置取得
+	/// </summary>
+	/// <param name="boneName">ボーン名</param>
+	/// <returns>ボーン位置</returns>
 	const XMVECTOR GetBone(const std::string& boneName);
+	/// <summary>
+	/// ボーンの位置取得
+	/// </summary>
+	/// <param name="partsNum">パーツ番号</param>
+	/// <param name="num">ボーンの番号</param>
+	/// <returns>ボーン位置</returns>
 	const XMVECTOR GetBone(const UINT& partsNum,const UINT& num);
+	/// <summary>
+	/// ボーン名取得
+	/// </summary>
+	/// <param name="partsNum">パーツ番号</param>
+	/// <param name="num">ボーンの番号</param>
+	/// <returns>ボーン名</returns>
 	const std::string GetBoneName(const UINT& partsNum, const UINT& num);
+	/// <summary>
+	/// ボーン番号取得
+	/// </summary>
+	/// <returns>ボーン番号</returns>
 	const UINT GetBoneCount();
+	//描画するかどうか
 	const bool IsDraw() { return isDraw_; }
+	//描画フラグの設定
 	void SetDraw(bool isDraw) { isDraw_ = isDraw; }
+	/// <summary>
+	/// モデルの色を変える
+	/// </summary>
+	/// <param name="partsNum">パーツ番号</param>
+	/// <param name="materialNum">マテリアル番号</param>
+	/// <param name="color">色</param>
 	void SetCustomColor(int partsNum,int materialNum,const XMFLOAT4& color);
 	//アタッチされているオブジェクトを返す
 	GameObject* GetAttachedObject() { return attachObject_; }
 	//描画
 	void Draw();
+	//描画レイヤーありの描画
 	void Draw(int layerNum);
 
 };

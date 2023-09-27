@@ -122,6 +122,7 @@ public:
 
     //•`‰æ
     void Draw();
+    //•`‰æƒŒƒCƒ„[‚ ‚è‚Ì•`‰æ
     void Draw(int layerNum);
 
     //ŠJ•ú

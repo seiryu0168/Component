@@ -78,31 +78,42 @@ namespace newSceneManager
 		{
 			Division::setLoad(true);
 			currentScene_->AllKillObject();
-
+			//オーディオネームスペースの解放
 			Audio::Release();
+			//オーディオネームスペースの初期化
 			Audio::Initialize();
+			//コンポーネントの削除
 			Coordinator::AllRemove();
+			//モデルの解放
 			ModelManager_ECSver::Release();
+			//画像の解放
 			ImageManager_ECSver::Release();
+			//テキストの解放
 			TextureManager::Release();
-			//D2D::
+			//カメラリセット
 			CameraManager::ResetCamera();
+			//シーン切り替え
 			currentScene_ = sceneList_[nextSceneName_];
+			//シーンの初期化
 			currentScene_->SceneInitialize();
-			//sceneList_[static_cast<int>(nextScene_)].second->SceneInitialize();
-			//sceneList_[static_cast<int>(nextScene_)].second->ObjectSet();
+			//シーン名切り替え
 			currentSceneName_ = nextSceneName_;
 			isSceneChange_ = false;
 			Division::setLoad(false);
 		}
+		//コライダーの更新
 		pColliderSystem_.get()->Update();
+		//シーンの更新
 		currentScene_->Update();
+		//シーンの更新
 		currentScene_->StaticUpdate();
-
+		//モデルの更新
 		pModelSyatem_->Update();
+		//パーティクルの更新
 		pParticleSystem_->Update();
+		//ラインパーティクルの更新
 		pLineParticleSystem_->Update();
-
+		//シーン切り替えのカウントダウン
 		if (changeCount_ != 0)
 		{
 			changeCount_--;
@@ -155,13 +166,6 @@ namespace newSceneManager
 		currentScene_->CheckKillObject();
 	}
 
-	//void ChangeScene(SCENE_ID next, int countDown)
-	//{
-	//	isSceneChange_ = true;
-	//	//nextSceneName_ = next;
-	//	changeCount_ = countDown;
-	//}
-
 	void ChangeScene(const SCENE_ID& sceneId, int countDown)
 	{
 		if (sceneList_.find(sceneId) == sceneList_.end())
@@ -181,6 +185,7 @@ namespace newSceneManager
 
 	void ECSInitialize()
 	{
+		//ECSの初期化
 		Coordinator::RegisterSystem<PhysicsSystem>();
 		Coordinator::RegisterSystem<TransformSystem>();
 		pTextSystem_ = Coordinator::RegisterSystem<TextSystem>();

@@ -27,15 +27,19 @@ SnowCone_ToppingSelect::~SnowCone_ToppingSelect()
 
 void SnowCone_ToppingSelect::Initialize()
 {
+	//トッピングのテキスト
 	Text selectText("トッピング", "りいてがき筆", { 0,0,200,50 }, CAMERANUM);
 	selectText.SetPosition({ 730,10 });
 	selectText.SetTextSize(40);
 	AddComponent<Text>(selectText);
 	
+	//今選んでるトッピングの名前
 	Text currentToppingText(TOPPING_NAME[selectNum_], "りいてがき筆", {0,0,250,50}, CAMERANUM);
 	currentToppingText.SetPosition({ 355,480 });
 	currentToppingText.SetTextSize(40);
 	toppingText_ = AddComponent<Text>(currentToppingText);
+	
+	//トッピング3種と背景の画像
 	{
 		Image backImage(CAMERANUM);
 		backImage.Load("Assets/Image/SnowCone_Select_BuckGroundImage.png");
@@ -47,7 +51,6 @@ void SnowCone_ToppingSelect::Initialize()
 		image.SetPositionAtPixel(IMAGEPOS[0]);
 		AddComponent<Image>(image);
 	}
-
 	{
 		Image backImage(CAMERANUM);
 		backImage.Load("Assets/Image/SnowCone_Select_BuckGroundImage.png");
@@ -71,6 +74,7 @@ void SnowCone_ToppingSelect::Initialize()
 		AddComponent<Image>(image);
 	}
 
+	//選択用の枠の画像
 	{
 		Image image(CAMERANUM);
 		image.Load("Assets/Image/SnowCone_SelectImage.png");
@@ -83,6 +87,9 @@ void SnowCone_ToppingSelect::Initialize()
 
 void SnowCone_ToppingSelect::Update()
 {
+	//今の状態によって挙動を変える
+	//INPUT : 入力
+	//MOVE  : カーソル移動
 	switch (state_)
 	{
 	case SELECT_STATE::INPUT:
@@ -123,7 +130,6 @@ void SnowCone_ToppingSelect::Input()
 		GetComponent<Text>(toppingText_).SetText(TOPPING_NAME[selectNum_]);
 		((SnowCone_ToppingSumple*)FindObject("SnowCone_ToppingSumple"))->ChangeSumple(selectNum_);
 	}
-
 	else if (Input::IsPadButtonDown(XINPUT_GAMEPAD_DPAD_UP, 1))
 	{
 		selectNum_--;
@@ -138,6 +144,7 @@ void SnowCone_ToppingSelect::Input()
 		GetComponent<Text>(toppingText_).SetText(TOPPING_NAME[selectNum_]);
 		((SnowCone_ToppingSumple*)FindObject("SnowCone_ToppingSumple"))->ChangeSumple(selectNum_);
 	}
+	//ボタンが押されたら
 	else if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A,1))
 	{
 		Audio::Play(hAudio_PushButton_);

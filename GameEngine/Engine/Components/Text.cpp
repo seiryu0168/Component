@@ -248,44 +248,45 @@ void Text::SetRatio(float ratioX, float ratioY)
 
 void Text::SetPosition(const XMFLOAT2& position)
 {
-	XMFLOAT2 WH = { CameraManager::GetCamera(renderTargetNum_).GetViewPort().Width ,
-					CameraManager::GetCamera(renderTargetNum_).GetViewPort().Height };
-	XMFLOAT2 pos = { (position.x / WH.x),
-	(position.y / WH.y) };
 	transform2D.x = position.x+defaultPos_.x;
 	transform2D.y = position.y+defaultPos_.y;
-
-	//transform2D.x = (0.5f * position.x) + defaultPos_.x;
-	//transform2D.y = (-(0.5f * position.y)) + defaultPos_.y;
 }
 
 void Text::SetTextLayout()
 {
-	//pWriteFactory_->CreateTextLayout()
 }
 
 HRESULT Text::SetText(const std::string& text)
 {
+	//テキストの書式設定をコピーして入れ直す
 	std::filesystem::path str = text;
 	std::string locale = setlocale(LC_CTYPE, NULL);
 	setlocale(LC_CTYPE, "ja-jp");
 	
 	HRESULT hr;
 	FontData data;
+	//フォント名
 	hr = pTextFormat_->GetFontFamilyName((WCHAR*)data.fontName_.c_str(), pTextFormat_->GetFontFamilyNameLength() + 1);
 	if (FAILED(hr))
 		return hr;
+	//フォントサイズ
 	data.fontSize_ = pTextFormat_->GetFontSize();
 	hr = pTextFormat_->GetLocaleName((WCHAR*)data.locale_.c_str(), pTextFormat_->GetLocaleNameLength() + 1);
 	if (FAILED(hr))
 		return hr;
+	//フォントコレクション
 	hr = pTextFormat_->GetFontCollection(&data.pCollection_);
 	if (FAILED(hr))
 		return hr;
+	//テキストの位置
 	DWRITE_TEXT_ALIGNMENT textAlignment = pTextFormat_->GetTextAlignment();
 	DWRITE_PARAGRAPH_ALIGNMENT paraAlignment = pTextFormat_->GetParagraphAlignment();
+	
+	//ストレッチ
 	data.fontStretch_ = pTextFormat_->GetFontStretch();
+	//スタイル
 	data.fontStyle_ = pTextFormat_->GetFontStyle();
+	//ウェイト
 	data.fontWaight_ = pTextFormat_->GetFontWeight();
 
 	//書式設定
@@ -342,27 +343,34 @@ HRESULT Text::SetTextSize(float size)
 	if (size <= 0.0f)
 		return E_FAIL;
 	HRESULT hr;
-	//UINT32 localeSize = pTextFormat_->GetLocaleNameLength() * 2;
 
 	//フォントデータ作成
 	FontData data;
 
 	data.fontSize_ = size;
-	
+
+	//今のテキストの書式設定をコピー
+	//フォント名
 	hr = pTextFormat_->GetFontFamilyName((WCHAR*)data.fontName_.c_str(), pTextFormat_->GetFontFamilyNameLength()+1);
 	if (FAILED(hr))
 		return hr;
-
+	//ロケール
 	hr = pTextFormat_->GetLocaleName((WCHAR*)data.locale_.c_str(), pTextFormat_->GetLocaleNameLength()+1);
 	if (FAILED(hr))
 		return hr;
+	//フォントコレクション
 	hr = pTextFormat_->GetFontCollection(&data.pCollection_);
 	if (FAILED(hr))
 		return hr;
+	//テキストの位置
 	DWRITE_TEXT_ALIGNMENT textAlignment = pTextFormat_->GetTextAlignment();
 	DWRITE_PARAGRAPH_ALIGNMENT paraAlignment = pTextFormat_->GetParagraphAlignment();
+	
+	//ストレッチ
 	data.fontStretch_ = pTextFormat_->GetFontStretch();
+	//スタイル
 	data.fontStyle_ = pTextFormat_->GetFontStyle();
+	//ウェイト
 	data.fontWaight_ = pTextFormat_->GetFontWeight();
 	
 	//書式設定

@@ -72,7 +72,7 @@ public:
 	bool IsHit() const { return nowHit_; }
 	//コライダーを消す
 	void KillCollider() { isKill_ = true; }
-	//
+
 	bool IsKill() const { return isKill_; }
 
 	void Release();

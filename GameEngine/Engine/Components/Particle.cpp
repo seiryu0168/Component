@@ -208,11 +208,8 @@ void Particle::KillEmitter(int hEmitter)
 
 int Particle::SetData(const EmitterData& data)
 {
+	//パーティクルのデータをエミッターにセット
 	int handle = 0;
-	/*for (auto&& emitterCount : emitterList_)
-	{
-		handle++;
-	}*/
 
 	std::shared_ptr<Emitter> pEmitter = std::make_shared<Emitter>();
 
@@ -236,7 +233,6 @@ std::shared_ptr<Particle::Emitter> Particle::GetEmitter(int handle)
 //描画
 void Particle::Draw()
 {
-	//Update();
 	Direct3D::SetShader(SHADER_TYPE::SHADER_EFF);
 	Direct3D::SetBlendMode(blendMode_);
 
@@ -258,6 +254,7 @@ void Particle::Draw()
 
 void Particle::Draw(int layerNum)
 {
+	//レイヤー番号に応じて描画
 
 	if (layerNum != layerNum_)
 		return;
@@ -284,10 +281,5 @@ void Particle::Draw(int layerNum)
 //開放
 void Particle::Release()
 {
-	for (auto itr = particleList_.begin(); itr != particleList_.end(); itr++)
-	{
-
-		//SAFE_DELETE(*itr);
-	}
 
 }

@@ -38,11 +38,13 @@ public:
 	
 	//ワールド行列を取得
 	XMMATRIX GetWorldMatrix();
+	//各ローカル行列の取得
 	XMMATRIX GetLocalMatrix() const;
 	XMMATRIX GetLocalTranslateMatrix() const;
 	XMMATRIX GetLocalRotateMatrix() const;
 	XMMATRIX GetLocalScaleMatrix() const;
 
+	//各ワールド行列の取得
 	XMMATRIX GetWorldTranslateMatrix();
 	XMMATRIX GetWorldRotateMatrix();
 	XMMATRIX GetWorldScaleMatrix();

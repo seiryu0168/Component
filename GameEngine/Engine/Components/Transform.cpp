@@ -42,9 +42,6 @@ void Transform::Calclation()
 	
 	//âÒì]çsóÒ
 	matRotate_ = XMMatrixRotationQuaternion(rotate_);
-		/*XMMatrixRotationX(XMConvertToRadians(rotate_.x))
-		* XMMatrixRotationY(XMConvertToRadians(rotate_.y))
-		* XMMatrixRotationZ(XMConvertToRadians(rotate_.z));*/
 	
 	//ägëÂçsóÒ
 	matScale_ = XMMatrixScaling(scale_.x, scale_.y, scale_.z);

@@ -75,6 +75,7 @@ HRESULT LineParticle::CreateMeshPype(const std::list<XMFLOAT3>* pList)
 		//さっき取得した位置から次の位置に向かうベクトル
 		XMVECTOR vLine = XMLoadFloat3(&(*itr)) - vPos;
 
+		//移動量が0.01以上だったら
 		if (XMVectorGetX(XMVector3Length(vLine)) >= 0.01f)
 		{
 			//パーティクルの腕を回すクオータニオン
@@ -108,6 +109,7 @@ HRESULT LineParticle::CreateMeshPype(const std::list<XMFLOAT3>* pList)
 			vertices.push_back(vertex2);
 			vertices.push_back(vertex3);
 		}
+		//長さが0.01以下だったらダミーで埋める
 		else
 		{
 			XMFLOAT3 dumPos;
@@ -120,6 +122,8 @@ HRESULT LineParticle::CreateMeshPype(const std::list<XMFLOAT3>* pList)
 		}
 	}
 
+#ifdef _DEBUG
+
 	for (int i = 0; i < vertices.size() / sizeof(VERTEX); i++)
 	{
 		if (abs(vertices[i].position.x) <= 0.1f && abs(vertices[i].position.y) <= 1.1f && abs(vertices[i].position.z) <= 0.1f)
@@ -127,7 +131,9 @@ HRESULT LineParticle::CreateMeshPype(const std::list<XMFLOAT3>* pList)
 			int a = 0;
 		}
 	}
+#endif // _DEBUG
 
+	//頂点情報をバッファに入れる時の設定
 	D3D11_BUFFER_DESC bd_vertex;
 	bd_vertex.ByteWidth = sizeof(VERTEX) * (UINT)pList->size() * 4;
 	bd_vertex.Usage = D3D11_USAGE_DEFAULT;
@@ -136,9 +142,11 @@ HRESULT LineParticle::CreateMeshPype(const std::list<XMFLOAT3>* pList)
 	bd_vertex.MiscFlags = 0;
 	bd_vertex.StructureByteStride = 0;
 
+	//バッファに入れるデータ
 	D3D11_SUBRESOURCE_DATA data_vertex;
 	data_vertex.pSysMem = vertices.data();
 
+	//バッファに入れる
 	HRESULT hr = Direct3D::pDevice->CreateBuffer(&bd_vertex, &data_vertex, &pVertexBuffer_);
 	if (FAILED(hr))
 	{
