@@ -24,12 +24,13 @@ void Shooting_Table::Initialize()
 	std::random_device rnd;
 	std::mt19937 mt(rnd());
 	std::uniform_int_distribution<int> rand3(0, 2);
-	
+	//射的の台の用意
 	transform_->position_ = XMVectorSet(0, 0, 30, 0);
 	Test_Model_ECSver model(this);
 	model.Load("Assets/Model/Shooting_Table2.fbx");
 	AddComponent<Test_Model_ECSver>(model);
 
+	//jsonファイル読み込み
 	nlohmann::json jsonReader;
 	std::ifstream ifs(TARGET_DATA_FILENAME);
 	int i = 0;
@@ -37,6 +38,7 @@ void Shooting_Table::Initialize()
 	int bn = model.GetBoneCount();
 	int audioHandle = Audio::Load("Assets/Audio/Shooting_CollisionSound.wav",false,1.0f,7);
 	assert(audioHandle >= 0);
+	//モデルとコライダーのサイズを設定
 	for (i; i<model.GetBoneCount(); i++)
 	{
 		std::string name = model.GetBoneName(0, i);
@@ -60,7 +62,6 @@ void Shooting_Table::Initialize()
 		gift->AddComponent<Collider>(col);
 		gift->SetAudioHandle(audioHandle);
 		//オブジェクトの位置設定
-		//gift->GetTransform()->scale_ = colSize;
 		gift->GetTransform()->position_ = model.GetBone(0, i) + XMVectorSet(0, colSize.y, 0, 0);
 		gift->SetScore(i+1);
 	}

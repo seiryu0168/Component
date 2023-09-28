@@ -12,8 +12,10 @@ public:
 	~Shooting_Bullet();
 	void Initialize() override;
 	void Update() override;
+	//”ò‚Ô•ûŒü‚Ìİ’è
 	void SetDir(XMVECTOR dir) { dir_ = dir; }
 	void Release() override;
+	//‚Ç‚ÌƒvƒŒƒCƒ„[‚ª”ò‚Î‚µ‚½‚©‚Ìİ’è
 	void SetPlayerNum(const unsigned short& num) { playerNum_ = num; }
 	void OnCollision(Object* target) override;
 };

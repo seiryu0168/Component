@@ -31,7 +31,7 @@ void ColliderSystem::Update()
 
 void ColliderSystem::Release()
 {
-	//for文内で値を消すのでコピーして回す
+	//拡張for文内で値を消すのでコピーして回す
 	std::set<Entity> subEntity = entities_;
 	for (Entity entity : subEntity)
 	{
@@ -43,6 +43,7 @@ void ColliderSystem::Release()
 
 void ColliderSystem::CheckRemove()
 {
+	//拡張for文内で値を消すのでコピーして回す
 	std::set<Entity> subEntities = entities_;
 	for (Entity entity : subEntities)
 	{
@@ -57,6 +58,7 @@ void ColliderSystem::CheckRemove()
 void ColliderSystem::CheckCollision(Collider* firstTarget, Collider* secondTarget) const
 {
 	bool isCollision = false;
+	//コライダーのタイプで処理変える
 	switch (firstTarget->GetType())
 	{
 	case ColliderType::BOX_COLLIDER:
@@ -88,7 +90,7 @@ void ColliderSystem::CheckCollision(Collider* firstTarget, Collider* secondTarge
 	default:
 		break;
 	}
-
+	//当たってたらオブジェクトの関数を呼び出す
 	if (isCollision)
 		firstTarget->GetAttachedObject()->OnCollision(secondTarget->GetAttachedObject());
 

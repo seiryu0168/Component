@@ -108,9 +108,8 @@ void SelectUI::Input()
 {
 	//ボタンの処理
 	moveDir_ = 0;
-	//上に移動
-	//PlayerCount(Input::GetPadAnyDown());
 
+	//上に移動
 	if (Input::IsPadButton(XINPUT_GAMEPAD_DPAD_UP) || Input::GetLStick_Y() > 0)
 	{
 		moveDir_ = 1;
@@ -170,8 +169,10 @@ void SelectUI::Move()
 
 void SelectUI::Selected()
 {
+	//画面を暗転
 	float ratio = timer_->GetSeconds<float>();
 	GetComponent<Image>(filterNum_).SetAlpha(ratio);
+	//1秒たったらシーン切り替え
 	if ( ratio >= 1.0f)
 	{
 		newSceneManager::ChangeScene(SCENE_ID::PLAY);
@@ -198,31 +199,9 @@ void SelectUI::Update()
 	}
 }
 
-//void SelectUI::PlayerCount(const int& padButton)
-//{
-//	switch (padButton)
-//	{
-//	case XINPUT_GAMEPAD_DPAD_LEFT:
-//		if (playCount_ > 0)
-//		{
-//			playCount_--;
-//			GetComponent<Text>(countTextNum_).SetText("< " + std::to_string(playCount_) + " >");
-//		}
-//		break;
-//	case XINPUT_GAMEPAD_DPAD_RIGHT:
-//		if (playCount_ < Input::GetConnectedControllerCount())
-//		{
-//			playCount_++;
-//			GetComponent<Text>(countTextNum_).SetText("< " + std::to_string(playCount_) + " >");
-//		}
-//		break;
-//	default:
-//		break;
-//	}
-//}
-
 void SelectUI::MoveButton(float ratio)
 {
+	//ボタンとゲームの画像を上下に動かす
 	float delta = MOVE * ratio * moveDir_;
 	for (auto&& itr : Selection_)
 	{
@@ -234,30 +213,16 @@ void SelectUI::MoveButton(float ratio)
 			SetRatio(basePosList_[*itr.second].x,
 				basePosList_[*itr.second].y + delta);
 	}
-	//for (int& num : moveUIList_)
-	//{
-	//	GetComponent<Image>(num).
-	//			     SetPositionAtPixel({ -basePosList_[num].x + IMAGE_OFFSET.x,
-	//									  (basePosList_[num].y+IMAGE_OFFSET.y + delta)*IMAGE_RATIO,
-	//									   basePosList_[num].z });
-	//	GetComponent<Text>(num).
-	//				 SetPosition({ basePosList_[num].x,
-	//							   basePosList_[num].y+delta });
-	//	//i++;
-	//}
-	//i = 0;
-	//for (Entity& entity : GetComponentList<Text>())
-	//{
-	//	i++;
-	//}
 }
 
 void SelectUI::PushedButton(int buttonNum)
 {
+	//選んだゲームの情報とプレイヤー数を保存
 	InterSceneData::DeleteData<int>("PlayerCount");
 	InterSceneData::DeleteData<int>("GameNumber");
 	InterSceneData::AddData<int>("PlayerCount", playerCountList_[buttonNum_]);
 	InterSceneData::AddData<int>("GameNumber", buttonNum_);
+	//ゲーム選んだので状態をSTATE_SELECTEDにする
 	state_ = SELECT_STATE::STATE_SELECTED;
 	timer_->UnLock();
 	GetComponent<Image>(filterNum_).SetDraw(true);

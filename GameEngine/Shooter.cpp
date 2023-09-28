@@ -37,28 +37,30 @@ void Shooter::Initialize()
 
 void Shooter::Update()
 {	
+	//スティックの入力
 	rotate_.x += -Input::GetLStick_Y(playerNum_);
 	rotate_.y += Input::GetLStick_X(playerNum_);
+	//入力値の調整
 	rotate_.x = Clamp<float>(rotate_.x, -ROTATE_LIMIT.x, ROTATE_LIMIT.x);
 	rotate_.y = Clamp<float>(rotate_.y, -ROTATE_LIMIT.y, ROTATE_LIMIT.y);
 	transform_->RotateEular({ rotate_.x,rotate_.y,0 });
-
-	//transform_->RotateEular({ -Input::GetLStick_Y(playerNum_) * 30.0f,Input::GetLStick_X(playerNum_)*45.0f , 0 });
+	//カメラの焦点ベクトル
 	XMVECTOR dir = XMVector3Rotate(target_, transform_->rotate_);
-	//if (Input::IsPadButtonDown(XINPUT_GAMEPAD_A, playerNum_))
-	//	ModeChange();
-
+	//右トリガーが押されたら弾を発射
 	if (Input::GetRTriggerDown(playerNum_))
 	{
 		((Shooting_Gun*)FindChild("Shooting_Gun"))->Shot(dir);
 	}
+	//Yボタンが押されたらリロード
 	if (Input::IsPadButtonDown(XINPUT_GAMEPAD_Y, playerNum_))
 		Reload();
+	//カメラの向きを変える
 	CameraManager::GetCamera(playerNum_).SetTarget(CAMERA_POS[1] +dir);
 }
 
 void Shooter::ModeChange()
 {
+	//エイムモードかそうでないか
 	aimMode_ = !aimMode_;
 	((Shooting_Gun*)FindChild("Shooting_Gun"))->SetDraw(!aimMode_);
 	if (aimMode_)
@@ -72,10 +74,10 @@ void Shooter::ModeChange()
 
 void Shooter::Reload()
 {
+	//銃クラスを呼び出してリロード
 	Shooting_Gun* gun = (Shooting_Gun*)FindChild("Shooting_Gun");
 	int score = gun->GetShotCount();
 	gun->Reload();
-	//((Shooting*)FindObject("Shooting"))->ScoreUpdate(playerNum_, -score);
 }
 
 void Shooter::Release()

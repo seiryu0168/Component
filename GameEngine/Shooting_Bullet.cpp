@@ -16,21 +16,15 @@ Shooting_Bullet::~Shooting_Bullet()
 
 void Shooting_Bullet::Initialize()
 {
+	//時間の設定
 	time_ = std::make_shared<Time::Watch>();
 	time_->UnLock();
-	//startTime_ = time_->GetSeconds<float>();
-	//LineParticle lineParticle(this);
-	//LineData data;
-	//data.length = 30;
-	//data.textureName = "Assets/Image/bluefire.png";
-	//data.width = 0.5f;
-	//data.endWidth = 0;
-	//lineParticle.SetLineParameter(data);
-	//AddComponent<LineParticle>(lineParticle);
+	//モデル用意
 	Test_Model_ECSver model(this);
 	model.Load("Assets/Model/Shooting_Bullet.fbx");
 	AddComponent<Test_Model_ECSver>(model);
 
+	//コライダーの設定
 	HitSphere colShape = { 1.0f };
 	Collider collision({ 0,0,0 }, colShape);
 	collision.SetAttachObject(this);
@@ -40,8 +34,9 @@ void Shooting_Bullet::Initialize()
 
 void Shooting_Bullet::Update()
 {
+	//位置の更新
 	transform_->position_ += dir_ * 0.1f;
-
+	//5秒飛んだら死ぬ
 	if ( time_->GetSeconds<float>() >= 5.0f)
 	{
 		KillMe();
@@ -54,6 +49,7 @@ void Shooting_Bullet::Release()
 
 void Shooting_Bullet::OnCollision(Object* target)
 {
+	//景品と当たったら死ぬ
 	if (target->GetTag() == "TargetGift")
 	{
 		KillMe();

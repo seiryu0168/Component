@@ -16,6 +16,7 @@ Shooting_ScoreUI::~Shooting_ScoreUI()
 
 void Shooting_ScoreUI::Init(const unsigned short& playerCount, std::string initText)
 {
+	//各プレイヤーのスコアの初期化
 	for (int i = 0; i < playerCount; i++)
 	{
 		Entity entity=Coordinator::CreateEntity();
@@ -29,6 +30,7 @@ void Shooting_ScoreUI::Init(const unsigned short& playerCount, std::string initT
 
 void Shooting_ScoreUI::TextUpdate(const unsigned short& playerNum, std::string text)
 {
+	//引数のプレイヤーの表示更新
 	if (playerNum < uiEntities_.size())
 	{
 		std::string&& str = "得点 " + text;

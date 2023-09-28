@@ -16,6 +16,7 @@ Shooting_ScoreManager::~Shooting_ScoreManager()
 
 void Shooting_ScoreManager::Init(const unsigned short& playerCount, int initScore)
 {
+	//引数で初期化
 	for (int i = 0; i < playerCount; i++)
 	{
 		playerScores_.push_back(initScore);
@@ -24,6 +25,7 @@ void Shooting_ScoreManager::Init(const unsigned short& playerCount, int initScor
 
 void Shooting_ScoreManager::ScoreUpdate(const unsigned short& playerNum, int score)
 {
+	//引数のプレイヤーのスコアの更新
 	if (playerNum < playerScores_.size())
 	{
 		playerScores_[playerNum] += score;

@@ -21,7 +21,7 @@ Select_StaticUI::~Select_StaticUI()
 
 void Select_StaticUI::Initialize()
 {
-
+	//プレイヤーが動かす必要のない文字や画像を生成
 	Text selectText("ゲームセレクト","りいてがき筆",{0,0,900,50});
 	selectText.SetTextSize(100);
 	selectText.SetRatio(0.3f, 0.05f);
@@ -42,6 +42,7 @@ void Select_StaticUI::Initialize()
 
 void Select_StaticUI::Update()
 {
+	//スクロール
 	float Ratio = ++Frame_ / (float)Period;
 	float sin = Math::Sincurve(Ratio);
 	for (auto&& itr : backGroundImageList_)

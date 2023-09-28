@@ -61,8 +61,10 @@ void Title::Release()
 
 void Title::Waiting()
 {
+	//何かボタンを押されたら
 	if (Input::IsPadAnyButtonDown())
 	{
+		//PUSHED状態にしてシーン遷移
 		State_ = STATE::PUSHED;
 		newSceneManager::ChangeScene(SCENE_ID::MENU, TO_SCENE_CHANGE);
 	}

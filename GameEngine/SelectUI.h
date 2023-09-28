@@ -26,8 +26,11 @@ private:
 
 	int ArrowFrame_;	//矢印を動かすためのフレーム数
 	int ArrowId_[2];
+	//入力
 	void Input();
+	//ボタンが動く処理
 	void Move();
+	//ゲームを選んだ後の処理
 	void Selected();
 	std::vector<int> moveUIList_;
 	std::vector<int> playerCountList_;

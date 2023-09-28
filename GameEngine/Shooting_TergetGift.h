@@ -14,8 +14,11 @@ public:
 	void Update() override;
 	void Fall();
 	void OnCollision(Object* target) override;
+	//スコアの設定
 	void SetScore(const int& score) { score_ = score; }
+	//音のハンドル設定
 	void SetAudioHandle(int handle) { hAudio_CollisionSound_ = handle; }
+	//スコア取得
 	int& GetScore() { return score_; }
 	void Release();
 };

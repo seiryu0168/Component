@@ -80,6 +80,10 @@ void Shooting::Initialize()
 
 void Shooting::Update()
 {
+	//状態によって挙動が変わる
+	//STATE_STAY   : ゲーム本編までのカウントダウン
+	//STATE_PLAY   : ゲーム本編
+	//STATE_FINISH : 終わりの処理
 	switch (state_)
 	{
 	case PLAY_STATE::STATE_STAY:
@@ -98,26 +102,33 @@ void Shooting::Update()
 
 void Shooting::ScoreUpdate(const unsigned short& playerNum, int score)
 {
+	//スコアの更新
 	scoreManager_.ScoreUpdate(playerNum, 1);
 	ui.TextUpdate(playerNum, std::to_string(scoreManager_.GetScore(playerNum)));
 }
 
 void Shooting::Stay()
 {
+	//ゲーム開始までカウントダウン
 	float count = time_->GetSeconds<float>();
 	GetComponent<Text>().SetText(std::to_string((int)count));
 	if (count <= 0.0f)
 	{
+		//ゲームの制限時間設定
 		time_->SetSecond(COUNT);
+		//カウントダウンのテキストを調整
 		GetComponent<Text>().SetPosition(COUNTPOS);
 		GetComponent<Text>().SetTextSize(COUNTSIZE);
+		//PLAY状態に変更
 		state_ = PLAY_STATE::STATE_PLAY;
+		//プレイヤーを生成
 		Instantiate<Shooter>(this)->SetPlayerNumber(0);
 	}
 }
 
 void Shooting::Play()
 {
+	//カウントダウン
 	GetComponent<Text>().SetText(std::format("残り時間\n{:.2f}秒" ,time_->GetSeconds<float>()));
 
 	if (time_->GetSeconds<float>() <=0.0f || scoreManager_.GetScore(0)>= MAX_SCORE)
@@ -129,14 +140,6 @@ void Shooting::Play()
 		state_ = PLAY_STATE::STATE_FINISH;
 	}
 }
-
-//void Shooting::Finish()
-//{
-//	if (time_->GetSeconds<float>() <= 0.0f)
-//	{
-//		newSceneManager::ChangeScene(SCENE_ID::RESULT);
-//	}
-//}
 
 void Shooting::Release()
 {

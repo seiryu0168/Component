@@ -22,10 +22,12 @@ public:
 
 	void Initialize() override;
 	void Update() override;
+	//スコアの更新
 	void ScoreUpdate(const unsigned short& playernum, int score);
+	//STATE_STAYの時の処理
 	void Stay();
+	//STATE_PLAYの時の処理
 	void Play();
-	//void Finish();
 	void Release() override;
 	void StaticUpdate() override;
 	void NotifiedUpdateT() override;

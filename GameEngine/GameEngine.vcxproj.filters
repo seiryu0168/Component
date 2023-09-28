@@ -677,9 +677,6 @@
     <ClInclude Include="MiniGames\SnowConeMaking.h">
       <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
     </ClInclude>
-    <ClInclude Include="Result_Multi.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="Select_StaticUI.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
@@ -719,9 +716,6 @@
     <ClInclude Include="SnowCone_Order.h">
       <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Brightness.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="SnowCone_SyrupSumple.h">
       <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
     </ClInclude>
@@ -730,9 +724,6 @@
     </ClInclude>
     <ClInclude Include="Result_SnowCone.h">
       <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
-    </ClInclude>
-    <ClInclude Include="Division.h">
-      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="MiniGames\Player_ChickenRace.h">
       <Filter>ソース ファイル\MiniGames\ChickenRace</Filter>
@@ -743,9 +734,6 @@
     <ClInclude Include="R_ChickenRace.h">
       <Filter>ソース ファイル\MiniGames\ChickenRace</Filter>
     </ClInclude>
-    <ClInclude Include="StaticResource.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="MiniGames\CommandMemory.h">
       <Filter>ソース ファイル\MiniGames\CommandMemory</Filter>
     </ClInclude>
@@ -754,6 +742,18 @@
     </ClInclude>
     <ClInclude Include="R_CommandMemory.h">
       <Filter>ソース ファイル\MiniGames\CommandMemory</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticResource.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Brightness.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Division.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Result_Multi.h">
+      <Filter>ソース ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

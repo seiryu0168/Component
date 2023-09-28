@@ -3,11 +3,6 @@ ModelSystem::ModelSystem() : System()
 {
 }
 
-//void ModelSystem::Update()
-//{
-//	
-//}
-
 void ModelSystem::Draw(int layerNum)
 {
 	for (Entity entity : entities_)
@@ -15,7 +10,7 @@ void ModelSystem::Draw(int layerNum)
 		Coordinator::GetComponent<Test_Model_ECSver>(entity).Draw(layerNum);
 	}
 }
-
+	
 void ModelSystem::Release()
 {
 	//for文内で値を消すのでコピーして回す
