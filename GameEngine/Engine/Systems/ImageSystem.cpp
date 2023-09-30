@@ -4,10 +4,6 @@ ImageSystem::ImageSystem() : System()
 {
 }
 
-//void ImageSystem::Update()
-//{
-//}
-
 void ImageSystem::Draw(int layerNum)
 {
 	for (Entity entity : entities_)

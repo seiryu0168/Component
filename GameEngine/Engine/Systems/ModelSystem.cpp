@@ -25,9 +25,11 @@ void ModelSystem::Release()
 
 void ModelSystem::CheckRemove()
 {
+	//for文内で値を消すのでコピーして回す
 	std::set<Entity> subEntities = entities_;
 	for (Entity entity : subEntities)
 	{
+		//アタッチされてるオブジェクトが死んでたら
 		if (Coordinator::GetComponent<Test_Model_ECSver>(entity).GetAttachedObject()->IsDead())
 			Coordinator::RemoveComponent<Test_Model_ECSver>(entity);
 	}

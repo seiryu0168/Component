@@ -4,11 +4,6 @@ TextSystem::TextSystem() : System()
 {
 }
 
-//void TextSystem::Update()
-//{
-//	
-//}
-
 void TextSystem::Draw(int layerNum)
 {
 	for (Entity entity : entities_)

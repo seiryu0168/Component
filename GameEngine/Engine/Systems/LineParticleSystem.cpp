@@ -34,9 +34,11 @@ void LineParticleSystem::Release()
 
 void LineParticleSystem::CheckRemove()
 {
+	//for文内で値を消すのでコピーして回す
 	std::set<Entity> subEntities = entities_;
 	for (Entity entity : subEntities)
 	{
+		//アタッチされてるオブジェクトが死んでたら
 		if (Coordinator::GetComponent<LineParticle>(entity).GetAttachedObject()->IsDead())
 			Coordinator::RemoveComponent<LineParticle>(entity);
 	}

@@ -19,7 +19,13 @@ public:
 	void AllSystemUpdate();
 	void Clear();
 
-
+	/// <summary>
+	/// システムクラスの登録
+	/// システムクラスはエンジンの初期化時にすべて登録され、
+	/// ゲームが終わる時にすべて消去される
+	/// </summary>
+	/// <typeparam name="T">システムのクラス</typeparam>
+	/// <returns>システムクラスのスマートポインタ</returns>
 	template <typename T>
 	std::shared_ptr<T> RegisterSistem()
 	{
@@ -31,7 +37,11 @@ public:
 		systems_.insert({ typeName,system });
 		return system;
 	}
-
+	/// <summary>
+	/// シグネチャをセット
+	/// </summary>
+	/// <typeparam name="T">紐づけるシステムクラス</typeparam>
+	/// <param name="signature">シグネチャ</param>
 	template <typename T>
 	void SetSignature(const Signature& signature)
 	{
@@ -40,11 +50,14 @@ public:
 		//システムにシグネチャをセット
 		signatures_.insert({ typeName,signature });
 	}
-
+	/// <summary>
+	/// システムクラスの取得
+	/// </summary>
+	/// <typeparam name="T">欲しいシステムクラス</typeparam>
+	/// <returns>システムクラス</returns>
 	template <typename T>
 	System* GetSystem() const
 	{
-
 		const char* typeName = typeid(T).name();
 		if (signatures_.find(typeName) == signatures_.end())
 			return nullptr;

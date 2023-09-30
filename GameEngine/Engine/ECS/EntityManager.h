@@ -22,10 +22,23 @@ public:
 	EntityManager();
 	~EntityManager();
 
+	//エンティティの有効化
 	Entity CreateEntity();
+	//エンティティを無効化
 	void DestroyEntity(const Entity& entity);
+	/// <summary>
+	/// シグネチャをセット
+	/// </summary>
+	/// <param name="entity">シグネチャをセットする配列のインデックス</param>
+	/// <param name="signature">セットするシグネチャ</param>
 	void SetSignature(const Entity& entity, const Signature& signature);
+	/// <summary>
+	/// シグネチャの取得
+	/// </summary>
+	/// <param name="entity">欲しいシグネチャのインデックス</param>
+	/// <returns>シグネチャ</returns>
 	Signature GetSignature (const Entity& entity) const;
+	//初期化
 	void Initialize();
 
 };
