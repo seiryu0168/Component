@@ -1,7 +1,7 @@
 #pragma once
 #include"Framework.h"
 #include"../Engine/Time.h"
-#include"../SnowCone_ScoreManager.h"
+#include"SnowCone_ScoreManager.h"
 
 class SnowCone_Cup;
 class SnowConeMaking : public Framework

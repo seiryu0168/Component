@@ -276,30 +276,6 @@
     <ClCompile Include="Engine\ResourceManager\JsonOperator.cpp">
       <Filter>ソース ファイル\Engine\ResourceManager</Filter>
     </ClCompile>
-    <ClCompile Include="Shooter.cpp">
-      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
-    </ClCompile>
-    <ClCompile Include="MiniGames\Shooting.cpp">
-      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
-    </ClCompile>
-    <ClCompile Include="Shooting_Bullet.cpp">
-      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
-    </ClCompile>
-    <ClCompile Include="Shooting_Gun.cpp">
-      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
-    </ClCompile>
-    <ClCompile Include="Shooting_ScoreManager.cpp">
-      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
-    </ClCompile>
-    <ClCompile Include="Shooting_ScoreUI.cpp">
-      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
-    </ClCompile>
-    <ClCompile Include="Shooting_Table.cpp">
-      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
-    </ClCompile>
-    <ClCompile Include="Shooting_TergetGift.cpp">
-      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\ResourceManager\ImageMediationer.cpp">
       <Filter>ソース ファイル\Engine\ResourceManager</Filter>
     </ClCompile>
@@ -312,65 +288,14 @@
     <ClCompile Include="Result_Single.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Result_Shooting.cpp">
-      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
-    </ClCompile>
-    <ClCompile Include="MiniGames\SnowConeMaking.cpp">
-      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
-    </ClCompile>
     <ClCompile Include="Result_Multi.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Select_StaticUI.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="SnowConeMaker_Topping.cpp">
-      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
-    </ClCompile>
-    <ClCompile Include="SnowConeMaker_Shave.cpp">
-      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
-    </ClCompile>
-    <ClCompile Include="SnowCone_Table.cpp">
-      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
-    </ClCompile>
-    <ClCompile Include="SnowCone_Ice.cpp">
-      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
-    </ClCompile>
-    <ClCompile Include="SnowCone_Cup.cpp">
-      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
-    </ClCompile>
-    <ClCompile Include="SnowCone_ToppingUI.cpp">
-      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
-    </ClCompile>
-    <ClCompile Include="SnowCone_SyrupSelect.cpp">
-      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
-    </ClCompile>
-    <ClCompile Include="SnowCone_Topping.cpp">
-      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
-    </ClCompile>
-    <ClCompile Include="SnowCone_ToppingMenu.cpp">
-      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
-    </ClCompile>
-    <ClCompile Include="SnowCone_ToppingSelect.cpp">
-      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
-    </ClCompile>
-    <ClCompile Include="SnowCone_ToppingSumple.cpp">
-      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
-    </ClCompile>
-    <ClCompile Include="SnowCone_Order.cpp">
-      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Brightness.cpp">
       <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="SnowCone_SyrupSumple.cpp">
-      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
-    </ClCompile>
-    <ClCompile Include="SnowCone_ScoreManager.cpp">
-      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
-    </ClCompile>
-    <ClCompile Include="Result_SnowCone.cpp">
-      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
     </ClCompile>
     <ClCompile Include="Division.cpp">
       <Filter>ソース ファイル</Filter>
@@ -379,9 +304,6 @@
       <Filter>ソース ファイル\MiniGames\ChickenRace</Filter>
     </ClCompile>
     <ClCompile Include="MiniGames\ChickenRace.cpp">
-      <Filter>ソース ファイル\MiniGames\ChickenRace</Filter>
-    </ClCompile>
-    <ClCompile Include="R_ChickenRace.cpp">
       <Filter>ソース ファイル\MiniGames\ChickenRace</Filter>
     </ClCompile>
     <ClCompile Include="StaticResource.cpp">
@@ -393,8 +315,86 @@
     <ClCompile Include="MiniGames\P_CommandMemory.cpp">
       <Filter>ソース ファイル\MiniGames\CommandMemory</Filter>
     </ClCompile>
-    <ClCompile Include="R_CommandMemory.cpp">
+    <ClCompile Include="MiniGames\R_ChickenRace.cpp">
+      <Filter>ソース ファイル\MiniGames\ChickenRace</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGames\R_CommandMemory.cpp">
       <Filter>ソース ファイル\MiniGames\CommandMemory</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGames\Shooter.cpp">
+      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGames\Shooting.cpp">
+      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGames\Shooting_Bullet.cpp">
+      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGames\Shooting_Gun.cpp">
+      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGames\Shooting_ScoreManager.cpp">
+      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGames\Shooting_ScoreUI.cpp">
+      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGames\Shooting_Table.cpp">
+      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGames\Shooting_TergetGift.cpp">
+      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGames\SnowCone_Cup.cpp">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGames\SnowCone_Ice.cpp">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGames\SnowCone_Order.cpp">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGames\SnowCone_ScoreManager.cpp">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGames\SnowCone_SyrupSelect.cpp">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGames\SnowCone_SyrupSumple.cpp">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGames\SnowCone_Table.cpp">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGames\SnowCone_Topping.cpp">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGames\SnowCone_ToppingMenu.cpp">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGames\SnowCone_ToppingSelect.cpp">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGames\SnowCone_ToppingSumple.cpp">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGames\SnowCone_ToppingUI.cpp">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGames\SnowConeMaker_Shave.cpp">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGames\SnowConeMaker_Topping.cpp">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGames\SnowConeMaking.cpp">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGames\Result_Shooting.cpp">
+      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniGames\Result_SnowCone.cpp">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -632,32 +632,8 @@
     <ClInclude Include="Title.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="MiniGames\Shooting.h">
-      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
-    </ClInclude>
-    <ClInclude Include="Shooter.h">
-      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
-    </ClInclude>
     <ClInclude Include="ScoreManager.h">
       <Filter>ソース ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="Shooting_TergetGift.h">
-      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
-    </ClInclude>
-    <ClInclude Include="Shooting_Bullet.h">
-      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
-    </ClInclude>
-    <ClInclude Include="Shooting_Gun.h">
-      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
-    </ClInclude>
-    <ClInclude Include="Shooting_ScoreManager.h">
-      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
-    </ClInclude>
-    <ClInclude Include="Shooting_ScoreUI.h">
-      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
-    </ClInclude>
-    <ClInclude Include="Shooting_Table.h">
-      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
     </ClInclude>
     <ClInclude Include="Engine\ResourceManager\ImageMediationer.h">
       <Filter>ソース ファイル\Engine\ResourceManager</Filter>
@@ -671,59 +647,8 @@
     <ClInclude Include="Result_Single.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Result_Shooting.h">
-      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
-    </ClInclude>
-    <ClInclude Include="MiniGames\SnowConeMaking.h">
-      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
-    </ClInclude>
     <ClInclude Include="Select_StaticUI.h">
       <Filter>ソース ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="SnowCone_Table.h">
-      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
-    </ClInclude>
-    <ClInclude Include="SnowCone_Ice.h">
-      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
-    </ClInclude>
-    <ClInclude Include="SnowCone_Cup.h">
-      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
-    </ClInclude>
-    <ClInclude Include="SnowConeMaker_Shave.h">
-      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
-    </ClInclude>
-    <ClInclude Include="SnowConeMaker_Topping.h">
-      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
-    </ClInclude>
-    <ClInclude Include="SnowCone_ToppingUI.h">
-      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
-    </ClInclude>
-    <ClInclude Include="SnowCone_SyrupSelect.h">
-      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
-    </ClInclude>
-    <ClInclude Include="SnowCone_Topping.h">
-      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
-    </ClInclude>
-    <ClInclude Include="SnowCone_ToppingMenu.h">
-      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
-    </ClInclude>
-    <ClInclude Include="SnowCone_ToppingSelect.h">
-      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
-    </ClInclude>
-    <ClInclude Include="SnowCone_ToppingSumple.h">
-      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
-    </ClInclude>
-    <ClInclude Include="SnowCone_Order.h">
-      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
-    </ClInclude>
-    <ClInclude Include="SnowCone_SyrupSumple.h">
-      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
-    </ClInclude>
-    <ClInclude Include="SnowCone_ScoreManager.h">
-      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
-    </ClInclude>
-    <ClInclude Include="Result_SnowCone.h">
-      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
     </ClInclude>
     <ClInclude Include="MiniGames\Player_ChickenRace.h">
       <Filter>ソース ファイル\MiniGames\ChickenRace</Filter>
@@ -731,16 +656,10 @@
     <ClInclude Include="MiniGames\ChickenRace.h">
       <Filter>ソース ファイル\MiniGames\ChickenRace</Filter>
     </ClInclude>
-    <ClInclude Include="R_ChickenRace.h">
-      <Filter>ソース ファイル\MiniGames\ChickenRace</Filter>
-    </ClInclude>
     <ClInclude Include="MiniGames\CommandMemory.h">
       <Filter>ソース ファイル\MiniGames\CommandMemory</Filter>
     </ClInclude>
     <ClInclude Include="MiniGames\P_CommandMemory.h">
-      <Filter>ソース ファイル\MiniGames\CommandMemory</Filter>
-    </ClInclude>
-    <ClInclude Include="R_CommandMemory.h">
       <Filter>ソース ファイル\MiniGames\CommandMemory</Filter>
     </ClInclude>
     <ClInclude Include="StaticResource.h">
@@ -754,6 +673,87 @@
     </ClInclude>
     <ClInclude Include="Result_Multi.h">
       <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGames\R_ChickenRace.h">
+      <Filter>ソース ファイル\MiniGames\ChickenRace</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGames\R_CommandMemory.h">
+      <Filter>ソース ファイル\MiniGames\CommandMemory</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGames\Shooter.h">
+      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGames\Shooting.h">
+      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGames\Shooting_Bullet.h">
+      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGames\Shooting_Gun.h">
+      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGames\Shooting_ScoreManager.h">
+      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGames\Shooting_ScoreUI.h">
+      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGames\Shooting_Table.h">
+      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGames\Shooting_TergetGift.h">
+      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGames\SnowCone_Cup.h">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGames\SnowCone_Ice.h">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGames\SnowCone_Order.h">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGames\SnowCone_ScoreManager.h">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGames\SnowCone_SyrupSelect.h">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGames\SnowCone_SyrupSumple.h">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGames\SnowCone_Table.h">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGames\SnowCone_Topping.h">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGames\SnowCone_ToppingMenu.h">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGames\SnowCone_ToppingSelect.h">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGames\SnowCone_ToppingSumple.h">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGames\SnowCone_ToppingUI.h">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGames\SnowConeMaker_Shave.h">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGames\SnowConeMaker_Topping.h">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGames\SnowConeMaking.h">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGames\Result_Shooting.h">
+      <Filter>ソース ファイル\MiniGames\Shooting</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniGames\Result_SnowCone.h">
+      <Filter>ソース ファイル\MiniGames\SnowConeMaking</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -6,11 +6,11 @@
 #include"../Engine/newSceneManager.h"
 #include"../InterSceneData.h"
 
-#include"../SnowConeMaker_Shave.h"
-#include"../SnowConeMaker_Topping.h"
-#include"../SnowCone_Table.h"
-#include"../SnowCone_Cup.h"
-#include"../SnowCone_Order.h"
+#include"SnowConeMaker_Shave.h"
+#include"SnowConeMaker_Topping.h"
+#include"SnowCone_Table.h"
+#include"SnowCone_Cup.h"
+#include"SnowCone_Order.h"
 
 #include<format>
 

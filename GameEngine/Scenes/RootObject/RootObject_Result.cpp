@@ -1,12 +1,13 @@
 #include "RootObject_Result.h"
-#include"../../Engine/Components/Transform.h"
-#include"../../InterSceneData.h"
-#include"../../Result_Shooting.h"
-#include"../../Result_SnowCone.h"
-#include"../../StaticResource.h"
 #include"../../Result_Multi.h"
-#include "../../R_ChickenRace.h"
-#include "../../R_CommandMemory.h"
+#include"../../InterSceneData.h"
+#include"../../StaticResource.h"
+#include"../../MiniGames/Result_Shooting.h"
+#include"../../MiniGames/Result_SnowCone.h"
+#include"../../MiniGames/R_ChickenRace.h"
+#include"../../MiniGames/R_CommandMemory.h"
+#include"../../Engine/Components/Transform.h"
+
 RootObject_Result::RootObject_Result()
 {
 	isSceneChange_ = false;

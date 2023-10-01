@@ -1,8 +1,8 @@
 #pragma once
 #include"Framework.h"
 #include"../Engine/Time.h"
-#include"../Shooting_ScoreManager.h"
-#include"../Shooting_ScoreUI.h"
+#include"Shooting_ScoreManager.h"
+#include"Shooting_ScoreUI.h"
 class Shooting : public Framework
 {
 	enum class PLAY_STATE
